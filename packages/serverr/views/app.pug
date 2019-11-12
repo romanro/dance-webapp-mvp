@@ -1,0 +1,80 @@
+extends layout
+
+block content
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.6/plyr.min.js")
+  link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.6/plyr.css")
+  script.
+      var startPositions = [0, 0];
+      var player1, player2;
+
+      var start = () => {
+        var config = {
+          controls: ['current-time', 'mute', 'volume', 'progress', 'volume', 'mute', 'duration']
+        }
+        player1 = new Plyr(document.getElementById('player1'), config);
+        player2 = new Plyr(document.getElementById('player2'), config);
+      }
+
+      var speedRates = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+
+      var syncAll = () => {
+        [player1, player2].map((p,i) => p.currentTime = startPositions[i]);
+      }
+
+      var playAll = () => {
+        [player1, player2].map(p => p.play());
+
+      }
+      var pauseAll = () => {
+          [player1, player2].map(p => p.pause());
+      }
+
+      var speedUp = () => [player1, player2].map(p => {
+        var currentRateIndex = speedRates.findIndex(rate => rate === p.speed);
+        if (currentRateIndex === speedRates.length - 1) {
+          return;
+        }
+        p.speed = speedRates[currentRateIndex + 1]
+      });
+
+      var slowDown = () => [player1, player2].map(p => {
+        var currentRateIndex = speedRates.findIndex(rate => rate === p.speed);
+        if (currentRateIndex === 0) {
+          return;
+        }
+        p.speed = speedRates[currentRateIndex - 1]
+      });
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        start();
+        document.getElementById('start1').addEventListener('input', (e) => startPositions[0] = parseInt(e.target.value, 10));
+        document.getElementById('start2').addEventListener('input', (e) => startPositions[1] = parseInt(e.target.value, 10));
+      })
+
+ 
+  h1 Video lab POC 🎥
+  .container
+    .row
+      .col-6
+        video(id="player1")
+          source(src="https://s3.amazonaws.com/agoldis.dev/video/bbb_sunflower_1080p_60fps_normal.mp4" type="video/mp4")
+      .col-6
+        video(id="player2")
+          source(src="https://s3.amazonaws.com/agoldis.dev/video/bbb_sunflower_1080p_60fps_normal.mp4" type="video/mp4")
+
+    .row.m-5
+      .col-4.text-center
+        label(for="start1") Start position (seconds) 
+        input(value=0 name="start1" id="start1") 
+      .col-4.text-center
+        button(onclick="syncAll()") Restart 🔄      
+      .col-4.text-center
+        label(for="start2") Start position (seconds) 
+        input(value=0 name="start2" id="start2")
+    .row.m-5
+      .col.text-center
+        button(onclick="playAll()") Play ▶️
+        button(onclick="pauseAll()") Pause ⏸
+        button(onclick="speedUp()") Speed +
+        button(onclick="slowDown()") Speed -
+
