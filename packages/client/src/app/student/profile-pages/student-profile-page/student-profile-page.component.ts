@@ -28,33 +28,35 @@ export class StudentProfilePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subs.push(
-      this.user$.subscribe(res => {
-        if (res.user) {
-          this.user = { ...res.user };
-        } else {
-          // rewrite to effects;
-          const authData = JSON.parse(localStorage.getItem('authData'));
-          if (authData && authData.userId) {
-            this.userService.getUser(authData.userId).subscribe(
-              res => {
-                this.user = res[0];
-                this.store.dispatch(
-                  UserActions.CreateUserAction({ user: this.user })
-                );
-              },
-              error => {
-                this.alertService.success('ERRORS.SessionIsExpired');
-                this.router.navigate(['/login']);
-              }
-            );
-          } else {
-            this.alertService.success('ERRORS.SessionIsExpired');
-            this.router.navigate(['/login']);
-          }
-        }
-      })
-    );
+    window.location.href = '/account';
+
+    // this.subs.push(
+    //   this.user$.subscribe(res => {
+    //     if (res.user) {
+    //       this.user = { ...res.user };
+    //     } else {
+    //       // rewrite to effects;
+    //       const authData = JSON.parse(localStorage.getItem('authData'));
+    //       if (authData && authData.userId) {
+    //         this.userService.getUser(authData.userId).subscribe(
+    //           res => {
+    //             this.user = res[0];
+    //             this.store.dispatch(
+    //               UserActions.CreateUserAction({ user: this.user })
+    //             );
+    //           },
+    //           error => {
+    //             this.alertService.success('ERRORS.SessionIsExpired');
+    //             this.router.navigate(['/login']);
+    //           }
+    //         );
+    //       } else {
+    //         this.alertService.success('ERRORS.SessionIsExpired');
+    //         this.router.navigate(['/login']);
+    //       }
+    //     }
+    //   })
+    // );
   }
 
   ngOnDestroy(): void {

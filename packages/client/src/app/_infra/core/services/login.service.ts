@@ -12,13 +12,10 @@ import { AuthData, LoginMethod, UserLoginData } from '../models';
 import { AlertService } from './alert.service';
 import { ConfigurationService } from './configuration.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-
   REST_URL = '';
 
   constructor(
@@ -28,9 +25,7 @@ export class LoginService {
     private http: HttpClient,
     private configService: ConfigurationService,
     private store: Store<UserState>
-  ) { }
-
-
+  ) {}
 
   login({ email, password }) {
     const config: Configuration = this.configService.getConfiguration();
@@ -43,10 +38,10 @@ export class LoginService {
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*');
 
-
-    this.http.post<any>(this.REST_URL, data, { headers })
+    this.http
+      .post<any>(this.REST_URL, data, { headers })
       .subscribe(
-        (res) => {
+        res => {
           if (res.success === false) {
             this.alertService.error('LOGIN.WrongEmailPassword');
           } else {
@@ -54,42 +49,50 @@ export class LoginService {
             this.afterLoginRoute();
           }
         },
-        (error) => {
+        error => {
           this.alertService.error('LOGIN.LoginFailedMsg');
-        });
+        }
+      );
   }
 
   loginFacebook() {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(
-        (res) => {
-          // this.storeLoginData(LoginMethod.FACEBOOK);
-          console.log('FACEBOOK LOGIN: ', res);
-          // this.afterLoginRoute();
-        },
-        (error) => {
-          this.alertService.error('LOGIN.LoginFailedMsg');
-        });
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+      res => {
+        // this.storeLoginData(LoginMethod.FACEBOOK);
+        console.log('FACEBOOK LOGIN: ', res);
+        // this.afterLoginRoute();
+      },
+      error => {
+        this.alertService.error('LOGIN.LoginFailedMsg');
+      }
+    );
   }
 
   logout() {
-    const lm: LoginMethod = JSON.parse(localStorage.getItem('authData')).lm;
+    window.location.href = '/logout';
+    // const lm: LoginMethod = JSON.parse(localStorage.getItem('authData')).lm;
 
-    switch (lm) {
-      case LoginMethod.FACEBOOK:
-        this.authService.signOut();
-        break;
-    }
+    // switch (lm) {
+    //   case LoginMethod.FACEBOOK:
+    //     this.authService.signOut();
+    //     break;
+    // }
 
-    this.clearLoginData();
-    this.alertService.info('LOGIN.LogOutMsg');
-    this.router.navigate(['/login']);
+    // this.clearLoginData();
+    // this.alertService.info('LOGIN.LogOutMsg');
+    // this.router.navigate(['/login']);
   }
 
   storeLoginData(lm: LoginMethod, loginResponse: UserLoginData) {
-    const authData: AuthData = { token: loginResponse.token, loginMethod: lm, userId: loginResponse.user.email };
+    const authData: AuthData = {
+      token: loginResponse.token,
+      loginMethod: lm,
+      userId: loginResponse.user.email
+    };
     localStorage.setItem('authData', JSON.stringify(authData));
-    this.store.dispatch(UserActions.CreateUserAction({ user: loginResponse.user }));
+    this.store.dispatch(
+      UserActions.CreateUserAction({ user: loginResponse.user })
+    );
   }
 
   clearLoginData() {
@@ -101,5 +104,4 @@ export class LoginService {
     this.alertService.success('LOGIN.LoginSuccessMsg');
     this.router.navigate(['/student']);
   }
-
 }

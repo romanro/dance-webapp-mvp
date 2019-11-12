@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuData, MenuItemFunction, NavButton } from '@core/models/';
 
-
 @Component({
   selector: 'dsapp-student-layout',
   templateUrl: './student-layout.component.html',
   styles: []
 })
 export class StudentLayoutComponent implements OnInit {
-
   studentMenuData: MenuData = {
     notificationBtn: { routerLink: '/student/notifications' },
     menuItemsGroups: [
@@ -36,12 +34,10 @@ export class StudentLayoutComponent implements OnInit {
   studentNavButtons: NavButton[] = [
     { label: 'STUDENT.NAV.Star', routerLink: '/student/star' },
     { label: 'STUDENT.NAV.MyLab', routerLink: '/student/lab' },
-    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' },
+    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

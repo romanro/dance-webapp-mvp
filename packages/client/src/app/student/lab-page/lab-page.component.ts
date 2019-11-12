@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class LabPageComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    window.location.href = '/video';
   }
-
 }
