@@ -17,7 +17,7 @@
             a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
               span.m-4
                 if user.profile.picture
-                  img.rounded-circle(src=user.profile.picture)
+                  img.rounded-circle(width=30 src=user.profile.picture)
                 else
                   img.rounded-circle(src=user.gravatar(30))
               span= user.profile.name || user.email || user.id
