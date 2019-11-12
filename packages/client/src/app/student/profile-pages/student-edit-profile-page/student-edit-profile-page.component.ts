@@ -14,8 +14,6 @@ import { Observable, Subscription } from 'rxjs';
   styles: []
 })
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
-
-
   user$: Observable<UserState>;
   subs: Subscription[] = [];
   user: User = null;
@@ -27,7 +25,9 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   languages = Language;
   genders = Gender;
 
-  get formControls() { return this.changeProfileForm.controls; }
+  get formControls() {
+    return this.changeProfileForm.controls;
+  }
 
   constructor(
     private router: Router,
@@ -36,41 +36,44 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService
   ) {
+    // @ts-ignore
     this.user$ = store.pipe(select('user'));
   }
 
   ngOnInit() {
     this.initForm();
     this.subs.push(
-      this.user$
-        .subscribe(
-          res => {
-            if (res.user) {
-              this.user = { ...res.user };
-              this.setFormControls();
-            } else {
-              // rewrite to effects;
-              const authData = JSON.parse(localStorage.getItem('authData'));
-              if (authData && authData.userId) {
-                this.userService.getUser(authData.userId).subscribe(
-                  result => {
-                    this.user = result[0];
-                    this.store.dispatch(UserActions.CreateUserAction({ user: this.user }));
-                    this.changeProfileForm.get('birthDate').clearValidators();
-                    this.changeProfileForm.get('birthDate').updateValueAndValidity();
-                  },
-                  error => {
-                    this.alertService.success('ERRORS.SessionIsExpired');
-                    this.router.navigate(['/login']);
-                  }
+      // @ts-ignore
+      this.user$.subscribe(res => {
+        if (res.user) {
+          this.user = { ...res.user };
+          this.setFormControls();
+        } else {
+          // rewrite to effects;
+          const authData = JSON.parse(localStorage.getItem('authData'));
+          if (authData && authData.userId) {
+            this.userService.getUser(authData.userId).subscribe(
+              result => {
+                this.user = result[0];
+                this.store.dispatch(
+                  UserActions.CreateUserAction({ user: this.user })
                 );
-              } else {
+                this.changeProfileForm.get('birthDate').clearValidators();
+                this.changeProfileForm
+                  .get('birthDate')
+                  .updateValueAndValidity();
+              },
+              error => {
                 this.alertService.success('ERRORS.SessionIsExpired');
                 this.router.navigate(['/login']);
               }
-
-            }
-          })
+            );
+          } else {
+            this.alertService.success('ERRORS.SessionIsExpired');
+            this.router.navigate(['/login']);
+          }
+        }
+      })
     );
   }
 
@@ -84,11 +87,9 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       gender: [''],
       about: ['']
     });
-
   }
 
   saveProfile() {
-
     this.isSubmitted = true;
 
     if (this.changeProfileForm.invalid) {
@@ -96,7 +97,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.userService.patchUser(this.user.email, this.changeProfileForm.value)
+    this.userService
+      .patchUser(this.user.email, this.changeProfileForm.value)
       .subscribe(
         res => {
           if (res) {
@@ -106,14 +108,15 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
           } else {
             this.alertService.error('STUDENT.PROFILE.ProfileSaveError');
           }
-
         },
         error => {
           this.alertService.error('STUDENT.PROFILE.ProfileSaveError');
-        });
+        }
+      );
 
-
-    setTimeout(() => { this.isSubmitted = false; }, 3000);
+    setTimeout(() => {
+      this.isSubmitted = false;
+    }, 3000);
   }
 
   cancel() {
@@ -121,22 +124,34 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   setFormControls() {
-    this.changeProfileForm.controls['email'].setValue(!this.user.email ? '' : this.user.email);
-    this.changeProfileForm.controls['firstName'].setValue(!this.user.firstName ? '' : this.user.firstName);
-    this.changeProfileForm.controls['lastName'].setValue(!this.user.lastName ? '' : this.user.lastName);
-    this.changeProfileForm.controls['birthDate'].setValue(!this.user.birthDate ? '' : this.user.birthDate);
-    this.changeProfileForm.controls['language'].setValue(!this.user.language ? Language.english : this.user.language);
-    this.changeProfileForm.controls['gender'].setValue(!this.user.gender ? '' : this.user.gender);
-    this.changeProfileForm.controls['about'].setValue(!this.user.about ? '' : this.user.about);
+    this.changeProfileForm.controls['email'].setValue(
+      !this.user.email ? '' : this.user.email
+    );
+    this.changeProfileForm.controls['firstName'].setValue(
+      !this.user.firstName ? '' : this.user.firstName
+    );
+    this.changeProfileForm.controls['lastName'].setValue(
+      !this.user.lastName ? '' : this.user.lastName
+    );
+    this.changeProfileForm.controls['birthDate'].setValue(
+      !this.user.birthDate ? '' : this.user.birthDate
+    );
+    this.changeProfileForm.controls['language'].setValue(
+      !this.user.language ? Language.english : this.user.language
+    );
+    this.changeProfileForm.controls['gender'].setValue(
+      !this.user.gender ? '' : this.user.gender
+    );
+    this.changeProfileForm.controls['about'].setValue(
+      !this.user.about ? '' : this.user.about
+    );
     setTimeout(() => {
       this.changeProfileForm.get('birthDate').clearValidators();
       this.changeProfileForm.get('birthDate').updateValueAndValidity();
     }, 500);
-
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
   }
-
 }

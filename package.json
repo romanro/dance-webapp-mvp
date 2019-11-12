@@ -1,8 +1,17 @@
 {
+  "private": true,
   "name": "dance-web",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "lerna run dev --stream",
+    "test": "lerna run test",
+    "setup": "lerna bootstrap",
+    "build": "lerna run build"
+  },
   "devDependencies": {
     "lerna": "^3.18.3"
   }
