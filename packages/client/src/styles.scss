@@ -1,0 +1,29 @@
+/* Bootstrap imports */
+@import "styles/bootstrap-variables";
+@import "~bootstrap/scss/bootstrap.scss";
+
+
+/*Custom variables*/
+@import "styles/variables";
+
+/*Custom mixins*/
+@import "styles/mixins";
+
+
+/*global stylings */
+@import "styles/global_styles";
+
+/* custom pages stylings */
+@import "styles/pages/login";
+@import "styles/pages/404";
+
+/* custom elements stylings */
+
+@import "styles/elements/alert";
+@import "styles/elements/btn-round";
+@import "styles/elements/header";
+@import "styles/elements/navigation";
+@import "styles/elements/preloader";
+
+/* student pages */
+@import "styles/student/upic-holder"

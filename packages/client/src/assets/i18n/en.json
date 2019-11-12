@@ -1,0 +1,82 @@
+{
+  "COMMON": {
+    "Welcome": "Welcome",
+    "About": "About DanSkill",
+    "Profile": "Profile",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "NotSelected": "Not Selected"
+  },
+  "ERRORS": {
+    "Error": "Error",
+    "PageNotFound": "Page not found",
+    "BackToHome": "Back to Home Page",
+    "SessionIsExpired": "Session is Expired. Please, log in again."
+  },
+  "LOGIN": {
+    "registerMsg": "Don't have an Account?",
+    "Register": "Register",
+    "loginMsg": "Already have an Account?",
+    "Login": "Login",
+    "LoginWithFacebook": "Login with Facebook",
+    "registerWithFacebook": "Register with Facebook",
+    "EmailAddress": "Email address",
+    "Password": "Password",
+    "confirmPassword": "Confirm Password",
+    "LoginSuccessMsg": "You was logged in successfully!",
+    "RegisterSuccessMsg": "Your registration was successful!",
+    "LoginFailedMsg": "Login Error!",
+    "WrongEmailPassword": "Wrong Email or Password",
+    "RegistrationFailedMsg": "Registration Error!",
+    "Logout": "Logout",
+    "LogOutMsg": "You are logged out",
+    "FORM": {
+      "emailIsRequired": "Email is required",
+      "emailIsNOtValid": "Email not valid",
+      "passwordIsRequired": "Password is required",
+      "passwordNumber": "Password must contain at least 1 number",
+      "hasCapitalCase": "Password must contain at least 1 in Capital Case",
+      "hasSmallCase": "Password must contain at least 1 Letter in Small Case",
+      "hasSpecialCharacters": "Password must contain at least 1 Special Character",
+      "passwordMinimum": "Should be minimum 6 characters long",
+      "NoPassswordMatch": "Password do not match",
+      "fnameIsRequired": "First Name is required",
+      "lnameIsRequired": "Last Name is required"
+    }
+  },
+  "USER": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "Language": "Language",
+    "Gender": "Gender",
+    "AboutMe": "About Me",
+    "DateOfBirth": "Date of Birth"
+  },
+  "STUDENT": {
+    "Student": "Student",
+    "NAV": {
+      "Stars": "Stars",
+      "Star": "Star",
+      "MyLab": "MyLab",
+      "Practices": "Practices"
+    },
+    "PROFILE": {
+      "title": "My Profile",
+      "EditProfile": "Edit Profile",
+      "ProfileSaveSuccess": "Profile Saved Successfully",
+      "ProfileSaveError": "Error in Profile Saving",
+      "FORM": {}
+    }
+  },
+  "STAR": {
+    "STAR_INFO_PAGE": {
+      "WatchPromo": "Watch Promo",
+      "MySkills": "My Skills",
+      "Classes": "Classes"
+    }
+  },
+  "ABOUT": {
+    "title": "About DanSkill Application",
+    "AppVersion": "Application version:"
+  }
+}

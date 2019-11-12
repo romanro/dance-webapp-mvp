@@ -1,0 +1,176 @@
+<div class="row">
+  <div class="col">
+    <h2 class="inner-page-title">{{'STUDENT.PROFILE.EditProfile' | translate}}
+    </h2>
+  </div>
+</div>
+
+<form [formGroup]="changeProfileForm"
+      (ngSubmit)="saveProfile()">
+  <div class="row">
+    <div class="col-auto">
+      <dsapp-student-upic [picUrl]="null"></dsapp-student-upic>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+
+
+      <!-- email -->
+      <div class="form-group">
+
+        <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}:</label>
+
+        <input type="email"
+               formControlName="email"
+               id="inputEmail"
+               class="form-control"
+               placeholder="{{'LOGIN.EmailAddress' | translate}}">
+
+      </div>
+
+      <!-- first name -->
+      <div class="form-group">
+
+        <label for="inputFirstName">{{'USER.firstName' | translate}}:</label>
+
+        <input type="text"
+               formControlName="firstName"
+               id="inputFirstName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': formControls['firstName'].touched && formControls['firstName'].errors }"
+               placeholder="{{'USER.firstName' | translate}}">
+
+        <div *ngIf="formControls['firstName'].touched && formControls['firstName'].errors"
+             class="invalid-feedback">
+          <p *ngIf="formControls['firstName'].errors.required">
+            {{'LOGIN.FORM.fnameIsRequired' | translate}}
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- last name -->
+      <div class="form-group">
+
+        <label for="inputLastName">{{'USER.lastName' | translate}}:</label>
+
+        <input type="text"
+               formControlName="lastName"
+               id="inputLastName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': formControls['lastName'].touched && formControls['lastName'].errors }"
+               placeholder="{{'USER.lastName' | translate}}">
+
+        <div *ngIf="formControls['lastName'].touched && formControls['lastName'].errors"
+             class="invalid-feedback">
+          <p *ngIf="formControls['lastName'].errors.required">
+            {{'LOGIN.FORM.lnameIsRequired' | translate}}
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- Birth date -->
+      <div class="form-group">
+
+        <label for="inputDate">{{'USER.DateOfBirth' | translate}}:</label>
+
+        <div class="input-group">
+          <input class="form-control"
+                 placeholder="yyyy-mm-dd"
+                 ngbDatepicker
+                 #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-secondary"
+                    (click)="d.toggle()"
+                    type="button"></button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- language -->
+      <div class="form-group">
+
+        <label for="inputLang">{{'USER.Language' | translate}}:</label>
+
+        <select formControlName="language"
+                id="inputLang"
+                class="form-control custom-select">
+          <option *ngFor="let language of keys(languages)"
+                  [ngValue]="languages[language]">
+            {{language | titlecase}}
+          </option>
+        </select>
+
+      </div>
+
+
+      <!-- gender -->
+      <div class="form-group">
+
+        <label for="genderRbg">{{'USER.Gender' | translate}}:</label>
+
+        <div class="btn-group btn-group-toggle"
+             ngbRadioGroup
+             name="genderRbg"
+             formControlName="gender">
+          <label ngbButtonLabel
+                 class="btn-primary">
+            <input ngbButton
+                   type="radio"
+                   [value]="''">{{'COMMON.NotSelected' | translate}}
+          </label>
+          <label ngbButtonLabel
+                 *ngFor="let gender of keys(genders)"
+                 class="btn-primary">
+            <input ngbButton
+                   type="radio"
+                   [value]="genders[gender]"> {{gender | titlecase}}
+          </label>
+        </div>
+
+      </div>
+
+
+      <!-- About -->
+      <div class="form-group">
+
+        <label for="inputAbout">{{'USER.AboutMe' | translate}}:</label>
+
+        <textarea type="text"
+                  formControlName="about"
+                  id="inputAbout"
+                  class="form-control"
+                  rows="3"
+                  placeholder="{{'USER.AboutMe' | translate}}"></textarea>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+
+      <a class="btn btn-link"
+         tabindex="0"
+         (click)="cancel()">{{'COMMON.Cancel' | translate}}</a>
+      <!-- [disabled]="!changeProfileForm.valid || isSubmitted" -->
+      <button class="btn btn-info"
+              tabindex="0"
+              type="submit"
+              [disabled]="!changeProfileForm.valid || isSubmitted">{{'COMMON.Save' | translate}}
+        <span *ngIf="isSubmitted">(sending)</span>
+      </button>
+
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,14 @@
+<div class="navigation">
+  <ul class="navigation-btn-container">
+
+    <li *ngFor="let btn of navButtons; index as i;"
+        class="nav-btn"
+        [routerLink]="btn.routerLink"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{exact: true}">
+      <div class="marker"></div>
+      <p class='label'>{{btn.label | translate}}</p>
+    </li>
+
+  </ul>
+</div>

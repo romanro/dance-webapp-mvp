@@ -1,0 +1,33 @@
+body,
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 0.9rem;
+
+  @include respond-above(sm) {
+    font-size: 1rem;
+  }
+}
+
+//  remove blue background on chrome autocomplete
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.inner-page-container {
+  padding-top: 4.5rem;
+  padding-bottom: 5rem;
+}

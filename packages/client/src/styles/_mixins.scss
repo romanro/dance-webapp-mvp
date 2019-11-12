@@ -1,0 +1,32 @@
+@import "./mixins/responsive";
+@import "./mixins/round-buttons";
+
+@mixin position_fixed($top: auto, $bottom: auto, $left:auto, $right :auto, $width: 100%) {
+  position: fixed;
+  top: $top;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+  width: $width;
+}
+
+@mixin border ($width: 1px, $style: solid, $color: $black) {
+  border: $width $style $color;
+}
+
+
+@mixin trans_form ($trans) {
+  -webkit-transform: $trans;
+  -moz-transform: $trans;
+  -o-transform: $trans;
+  transform: $trans;
+  -ms-transform: $trans;
+}
+
+@mixin trans_ition ($trans) {
+  -webkit-transition: $trans;
+  -moz-transition: $trans;
+  -o-transition: $trans;
+  transition: $trans;
+  -ms-transition: $trans;
+}

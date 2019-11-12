@@ -1,0 +1,70 @@
+<div class="login-card">
+
+  <h3 class="text-center">{{'LOGIN.Login' | translate}}</h3>
+
+  <form [formGroup]="loginForm"
+        (ngSubmit)="login()">
+
+    <div class="form-group">
+      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}:</label>
+      <input type="email"
+             formControlName="email"
+             id="inputEmail"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }"
+             placeholder="{{'LOGIN.EmailAddress' | translate}}">
+      <div *ngIf="formControls['email'].touched && formControls['email'].errors"
+           class="invalid-feedback">
+        <span *ngIf="formControls['email'].errors.required">
+          {{'LOGIN.FORM.emailIsRequired' | translate}}
+        </span>
+        <span *ngIf="formControls['email'].errors.email">
+          {{'LOGIN.FORM.emailIsNOtValid' | translate}}
+        </span>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword">{{'LOGIN.Password' | translate}}:</label>
+      <input type="password"
+             formControlName="password"
+             id="inputPassword"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }"
+             placeholder="{{'LOGIN.Password' | translate}}">
+      <div *ngIf="formControls['password'].touched && formControls['password'].errors"
+           class="invalid-feedback">
+        <span *ngIf="formControls['password'].errors.required">
+          {{'LOGIN.FORM.passwordIsRequired' | translate}}
+        </span>
+        <span *ngIf="formControls['password'].errors.minlength">
+          {{'LOGIN.FORM.passwordMinimum' | translate}}
+        </span>
+      </div>
+
+    </div>
+
+    <div class="form-group text-center">
+      <button class="btn btn-primary"
+              tabindex='0'
+              type="submit"
+              [disabled]="!loginForm.valid || isSubmitted">{{'LOGIN.Login' | translate}}
+        <span *ngIf="isSubmitted">(sending)</span></button>
+    </div>
+
+
+  </form>
+
+  <div class="form-group text-center">
+    <button class="btn btn-primary"
+            [disabled]="true"
+            tabindex='0'
+            (click)="loginFacebook()">{{'LOGIN.LoginWithFacebook' | translate}}</button>
+  </div>
+  <div class="text-center">
+    <p>{{'LOGIN.registerMsg' | translate}}</p>
+    <a class="btn btn-link"
+       [routerLink]="'/register'">{{'LOGIN.Register' | translate}}</a>
+  </div>
+</div>

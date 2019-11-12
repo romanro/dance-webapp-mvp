@@ -1,0 +1,130 @@
+.header {
+  @include position_fixed (0, auto, 0, 0);
+  background: $white;
+
+  .navbar-brand {
+    display: block;
+    height: 22px;
+    width: auto;
+    padding: 0;
+
+    svg {
+      display: block;
+      height: 22px;
+      width: auto;
+
+      .st0 {
+        clip-path: url(#SVGID_2_);
+        fill: $indigo;
+      }
+
+      .st1 {
+        clip-path: url(#SVGID_4_);
+        fill: url(#SVGID_5_);
+      }
+
+      .st2 {
+        fill: $indigo;
+      }
+
+      .st3 {
+        fill: none;
+      }
+    }
+  }
+
+  .notifications-btn {
+    display: block;
+    position: relative;
+    cursor: pointer;
+
+    .badge {
+      position: absolute;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .navbar-nav {
+    .menu-title {}
+
+    .menu-separator {
+      width: 100%;
+      border-bottom: $navigation-border;
+    }
+  }
+
+  .navbar-toggler {
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+
+    .animated-icon {
+      width: 24px;
+      height: 18px;
+      position: relative;
+      margin: 0px;
+
+      @include trans_form (rotate(0deg));
+      @include trans_ition (.5s ease-in-out);
+
+      &:focus {
+        outline: 0;
+      }
+
+      span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+        background: $gray-500;
+
+        @include trans_form (rotate(0deg));
+        @include trans_ition (.25s ease-in-out);
+
+        &:nth-child(1) {
+          top: 0px;
+        }
+
+        &:nth-child(2) {
+          top: 8px;
+        }
+
+        &:nth-child(3) {
+          top: 16px;
+        }
+      }
+
+      &.open {
+        span {
+          &:nth-child(1) {
+            top: 8px;
+            @include trans_form (rotate(135deg));
+          }
+
+          &:nth-child(2) {
+            opacity: 0;
+          }
+
+          &:nth-child(3) {
+            top: 8px;
+            @include trans_form (rotate(-135deg));
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col">
+    <h2 class="inner-page-title">{{'STUDENT.PROFILE.title' | translate}}</h2>
+  </div>
+</div>
+
+<ng-template [ngIf]="user">
+
+
+
+  <div class="row mb-4">
+    <div class="col-auto">
+      <dsapp-student-upic [picUrl]="user.userPic ? user.userPic : null">
+      </dsapp-student-upic>
+    </div>
+    <div class="col">
+      <h4>{{user.firstName}} {{user.lastName}}</h4>
+      <p class="text-muted"
+         *ngIf="user.location && user.location.city !==''">
+        {{user.location.city}}, {{user.location.country}}
+      </p>
+      <p *ngIf="user.birthDate">{{user.birthDate}}</p>
+    </div>
+  </div>
+  <div *ngIf="user.about"
+       class="row mb-4">
+    <div class="col">
+      <p>{{user.about}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <a class="btn btn-outline-info"
+         tabindex="0"
+         [routerLink]="'/student/profile/edit'">{{'STUDENT.PROFILE.EditProfile' | translate}}</a>
+    </div>
+  </div>
+
+</ng-template>
