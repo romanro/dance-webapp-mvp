@@ -11,7 +11,7 @@
     "test": "lerna run test",
     "setup": "lerna bootstrap",
     "build": "lerna run build",
-    "start": "lerna run start --stream"
+    "start": "yarn workspace webapp-server start"
   },
   "devDependencies": {
     "lerna": "^3.18.3"

@@ -12,11 +12,14 @@ exports.index = (req, res) => {
   });
 };
 
-const angularDev = proxy({
-  target: 'http://localhost:4200',
-  changeOrigin: true,
-  ws: true
-});
+const angularDev =
+  process.env.NODE_ENV === 'production'
+    ? null
+    : proxy({
+        target: 'http://localhost:4200',
+        changeOrigin: true,
+        ws: true
+      });
 
 const angularAssets = express.static(
   path.join(__dirname, '..', '..', 'client', 'dist', 'webapp'),
