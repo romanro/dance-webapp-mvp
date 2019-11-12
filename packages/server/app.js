@@ -20,7 +20,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
-const sass = require('node-sass-middleware');
 
 const { oauth } = require('./routes/oauth');
 const { auth } = require('./routes/auth');
@@ -64,12 +63,6 @@ app.set('view engine', 'pug');
 
 app.use(expressStatusMonitor());
 app.use(compression());
-app.use(
-  sass({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public')
-  })
-);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
