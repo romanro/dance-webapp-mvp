@@ -11,7 +11,7 @@
     "test": "lerna run test",
     "setup": "lerna bootstrap",
     "build": "lerna run build",
-    "start": "lerna run start"
+    "start": "lerna run start --stream"
   },
   "devDependencies": {
     "lerna": "^3.18.3"
