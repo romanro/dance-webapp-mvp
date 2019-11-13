@@ -107,17 +107,26 @@ exports.getSignup = (req, res) => {
 exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address.' });
+    validationErrors.push({
+      msg: 'Please enter a valid email address.',
+      code: 'EMAIL_INVALID'
+    });
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push({
+      code: 'PASSWORD_SHORT',
       msg: 'Password must be at least 8 characters long'
     });
   if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({ msg: 'Passwords do not match' });
+    validationErrors.push({
+      code: 'PASSWORD_MISMATCH',
+      msg: 'Passwords do not match'
+    });
 
   if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/signup');
+    return res.json({
+      success: false,
+      errors: validationErrors
+    });
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false
@@ -133,10 +142,15 @@ exports.postSignup = (req, res, next) => {
       return next(err);
     }
     if (existingUser) {
-      req.flash('errors', {
-        msg: 'Account with that email address already exists.'
+      return res.json({
+        success: false,
+        errors: [
+          {
+            code: 'USER_EXISTS',
+            msg: 'This user already exists'
+          }
+        ]
       });
-      return res.redirect('/signup');
     }
     user.save(err => {
       if (err) {
@@ -146,7 +160,10 @@ exports.postSignup = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        return res.json({
+          success: true,
+          token: getToken(user)
+        });
       });
     });
   });
