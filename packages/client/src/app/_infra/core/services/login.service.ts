@@ -30,16 +30,15 @@ export class LoginService {
   login({ email, password }) {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}authentication`;
+      this.REST_URL = `${config.restURL}/login`;
     }
-    const data = { email, password };
 
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*');
 
     this.http
-      .post<any>(this.REST_URL, data, { headers })
+      .post<any>(this.REST_URL, { email, password }, { headers })
       .subscribe(
         res => {
           if (res.success === false) {
@@ -69,18 +68,18 @@ export class LoginService {
   }
 
   logout() {
-    window.location.href = '/logout';
-    // const lm: LoginMethod = JSON.parse(localStorage.getItem('authData')).lm;
+    // window.location.href = '/logout';
+    const lm: LoginMethod = JSON.parse(localStorage.getItem('authData')).lm;
 
-    // switch (lm) {
-    //   case LoginMethod.FACEBOOK:
-    //     this.authService.signOut();
-    //     break;
-    // }
+    switch (lm) {
+      case LoginMethod.FACEBOOK:
+        this.authService.signOut();
+        break;
+    }
 
-    // this.clearLoginData();
-    // this.alertService.info('LOGIN.LogOutMsg');
-    // this.router.navigate(['/login']);
+    this.clearLoginData();
+    this.alertService.info('LOGIN.LogOutMsg');
+    this.router.navigate(['/login']);
   }
 
   storeLoginData(lm: LoginMethod, loginResponse: UserLoginData) {

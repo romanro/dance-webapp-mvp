@@ -2,8 +2,11 @@ const passport = require('passport');
 const refresh = require('passport-oauth2-refresh');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: FacebookStrategy } = require('passport-facebook');
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 const moment = require('moment');
 
+const { jwtConfig, JWT_SECRET } = require('./jwt');
 const User = require('../models/User');
 
 // /**
@@ -208,3 +211,16 @@ passport.use(
     }
   )
 );
+
+const jwtStrategyInstance = new JWTStrategy(
+  {
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: JWT_SECRET,
+    ...jwtConfig
+  },
+  function handleJWTAuth(payload, done) {
+    debugger;
+  }
+);
+
+passport.use('jwt', jwtStrategyInstance);

@@ -2,5 +2,5 @@
   "majorVersion": 1,
   "minorVersion": 0,
   "buildVersion": 0,
-  "restURL": "https://danskill.com/v1.0/"
+  "restURL": "http://localhost:8080"
 }
