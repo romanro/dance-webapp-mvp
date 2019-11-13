@@ -9,30 +9,30 @@ import { ConfigurationService } from './configuration.service';
   providedIn: 'root'
 })
 export class UserService {
-
   REST_URL = '';
 
-  constructor(private http: HttpClient, private configService: ConfigurationService) { }
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigurationService
+  ) {}
 
   getUser(id: string): Observable<any> {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}users`;
+      this.REST_URL = `${config.restURL}/account/me`;
     }
 
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*');
 
-    const params = new HttpParams().set('_id', id);
-
-    return this.http.get(this.REST_URL, { headers, params });
+    return this.http.get(this.REST_URL, { headers });
   }
 
   patchUser(email: string, user: User): Observable<any> {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}users/${email}`;
+      this.REST_URL = `${config.restURL}/account/profile`;
     }
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -40,5 +40,4 @@ export class UserService {
 
     return this.http.post(this.REST_URL, user, { headers });
   }
-
 }

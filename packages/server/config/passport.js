@@ -209,7 +209,16 @@ const jwtStrategyInstance = new JWTStrategy(
     ...jwtConfig
   },
   function handleJWTAuth(payload, done) {
-    debugger;
+    User.findOne({ email: payload.email }, function(err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user.profile.toJSON());
+      } else {
+        return done(null, false);
+      }
+    });
   }
 );
 
