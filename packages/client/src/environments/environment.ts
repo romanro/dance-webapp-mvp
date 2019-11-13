@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  facebookAppID: '760325204385284',
+  facebookAppID: '415416542727246',
   configFile: 'assets/config/app.config.json'
 };
 
