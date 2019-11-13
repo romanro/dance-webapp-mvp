@@ -41,40 +41,40 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.initForm();
-    // this.subs.push(
-    //   // @ts-ignore
-    //   this.user$.subscribe(res => {
-    //     if (res.user) {
-    //       this.user = { ...res.user };
-    //       this.setFormControls();
-    //     } else {
-    //       // rewrite to effects;
-    //       const authData = JSON.parse(localStorage.getItem('authData'));
-    //       if (authData && authData.userId) {
-    //         this.userService.getUser(authData.userId).subscribe(
-    //           result => {
-    //             this.user = result[0];
-    //             this.store.dispatch(
-    //               UserActions.CreateUserAction({ user: this.user })
-    //             );
-    //             this.changeProfileForm.get('birthDate').clearValidators();
-    //             this.changeProfileForm
-    //               .get('birthDate')
-    //               .updateValueAndValidity();
-    //           },
-    //           error => {
-    //             this.alertService.success('ERRORS.SessionIsExpired');
-    //             this.router.navigate(['/login']);
-    //           }
-    //         );
-    //       } else {
-    //         this.alertService.success('ERRORS.SessionIsExpired');
-    //         this.router.navigate(['/login']);
-    //       }
-    //     }
-    //   })
-    // );
+    this.initForm();
+    this.subs.push(
+      // @ts-ignore
+      this.user$.subscribe(res => {
+        if (res.user) {
+          this.user = { ...res.user };
+          this.setFormControls();
+        } else {
+          // rewrite to effects;
+          const authData = JSON.parse(localStorage.getItem('authData'));
+          if (authData && authData.userId) {
+            this.userService.getUser(authData.userId).subscribe(
+              result => {
+                this.user = result[0];
+                this.store.dispatch(
+                  UserActions.CreateUserAction({ user: this.user })
+                );
+                this.changeProfileForm.get('birthDate').clearValidators();
+                this.changeProfileForm
+                  .get('birthDate')
+                  .updateValueAndValidity();
+              },
+              error => {
+                this.alertService.success('ERRORS.SessionIsExpired');
+                this.router.navigate(['/login']);
+              }
+            );
+          } else {
+            this.alertService.success('ERRORS.SessionIsExpired');
+            this.router.navigate(['/login']);
+          }
+        }
+      })
+    );
   }
 
   initForm() {

@@ -5,6 +5,7 @@ dotenv.config({ path: '.env.example' });
 /**
  * Module dependencies.
  */
+require('./config/passport');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
@@ -17,11 +18,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 
+const contactController = require('./controllers/contact');
 const { oauth } = require('./routes/oauth');
-const { auth } = require('./routes/auth');
 const { api } = require('./routes/api');
 
-// const { redirectOnLogin } = require('./middlewares/redirectOnLogin');
 /**
  * Controllers (route handlers).
  */
@@ -82,18 +82,17 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(redirectOnLogin);
-
 app.use(
   '/',
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
 );
 
 /* App routes */
-app.use(auth);
 app.use('/oauth', oauth);
-app.use('/api', api);
+app.use('/api/v1', api);
 
+app.get('/contact', contactController.getContact);
+app.post('/contact', contactController.postContact);
 app.get('/video', homeController.video);
 /**
  * Cath-all route to angular app

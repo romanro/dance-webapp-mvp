@@ -9,16 +9,6 @@ const moment = require('moment');
 const { jwtConfig, JWT_SECRET } = require('./jwt');
 const User = require('../models/User');
 
-// /**
-//  * Login Required middleware.
-//  */
-exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
