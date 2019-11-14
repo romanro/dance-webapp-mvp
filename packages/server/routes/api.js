@@ -26,6 +26,7 @@ const app = new Router();
 //   apiController.postFileUpload
 // );
 
+// login account
 app.post('/login', userController.postLogin);
 
 app.post('/signup', userController.postSignup);
