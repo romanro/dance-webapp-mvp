@@ -11,22 +11,28 @@ import { RegisterValidators } from '@core/validators';
   styles: []
 })
 export class RegisterPageComponent implements OnInit {
-
   registerForm: FormGroup;
   isSubmitted = false;
 
-  get formControls() { return this.registerForm.controls; }
+  get formControls() {
+    return this.registerForm.controls;
+  }
 
-  constructor(private registerService: RegisterService, private formBuilder: FormBuilder) { }
+  constructor(
+    private registerService: RegisterService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
       {
-        email: ['', Validators.compose([Validators.required, Validators.email])],
+        email: [
+          '',
+          Validators.compose([Validators.required, Validators.email])
+        ],
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        password: ['',
-          Validators.compose(PASSWORD_VALIDATORS)],
+        password: ['', Validators.compose(PASSWORD_VALIDATORS)],
         confirmPassword: [null, Validators.compose([Validators.required])]
       },
       {
@@ -43,15 +49,15 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    delete this.registerForm.value['confirmPassword'];
-    const user: User = { ... this.registerForm.value };
+    const user: User = { ...this.registerForm.value };
 
     this.registerService.register(user);
-    setTimeout(() => { this.isSubmitted = false; }, 3000);
+    setTimeout(() => {
+      this.isSubmitted = false;
+    }, 3000);
   }
 
   registerFacebook() {
     this.registerService.registerFacebook();
   }
-
 }

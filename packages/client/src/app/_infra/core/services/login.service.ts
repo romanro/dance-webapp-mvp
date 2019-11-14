@@ -85,8 +85,7 @@ export class LoginService {
   storeLoginData(lm: LoginMethod, loginResponse: UserLoginData) {
     const authData: AuthData = {
       token: loginResponse.token,
-      loginMethod: lm,
-      userId: loginResponse.user.email
+      loginMethod: lm
     };
     localStorage.setItem('authData', JSON.stringify(authData));
     this.store.dispatch(

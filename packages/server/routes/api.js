@@ -27,13 +27,15 @@ const app = new Router();
 // );
 
 app.post('/login', userController.postLogin);
+
+app.post('/signup', userController.postSignup);
+
 app.get('/logout', userController.logout);
 
-app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
+
+app.post('/forgot', userController.postForgot);
 
 app.use('/account', passport.authenticate('jwt', { session: false }), account);
 exports.api = app;
