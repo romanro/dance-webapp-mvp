@@ -5,27 +5,23 @@ dotenv.config({ path: '.env.example' });
 /**
  * Module dependencies.
  */
+require('./config/passport');
 const express = require('express');
 const compression = require('compression');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 const lusca = require('lusca');
-
-const MongoStore = require('connect-mongo')(session);
-const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 
+const contactController = require('./controllers/contact');
 const { oauth } = require('./routes/oauth');
-const { auth } = require('./routes/auth');
 const { api } = require('./routes/api');
 
-const { redirectOnLogin } = require('./middlewares/redirectOnLogin');
 /**
  * Controllers (route handlers).
  */
@@ -66,21 +62,7 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
-    store: new MongoStore({
-      url: process.env.MONGODB_URI,
-      autoReconnect: true
-    })
-  })
-);
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
 app.use((req, res, next) => {
   return next();
   if (req.path === '/api/upload') {
@@ -100,26 +82,25 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(redirectOnLogin);
-
 app.use(
   '/',
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
 );
 
 /* App routes */
-app.use(auth);
 app.use('/oauth', oauth);
-app.use('/api', api);
+app.use('/api/v1', api);
 
+app.get('/contact', contactController.getContact);
+app.post('/contact', contactController.postContact);
 app.get('/video', homeController.video);
 /**
  * Cath-all route to angular app
  */
 app.get('*', (req, res, next) => {
-  if (!req.user) {
-    return homeController.index(req, res, next);
-  }
+  // if (!req.user) {
+  //   return homeController.index(req, res, next);
+  // }
   return homeController.app(req, res, next);
 });
 

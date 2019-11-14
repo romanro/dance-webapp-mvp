@@ -6,8 +6,7 @@ import { PageNotFoundComponent } from '@infra/ui/';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./student/student.module').then(m => m.StudentModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'student',

@@ -2,19 +2,12 @@ const passport = require('passport');
 const refresh = require('passport-oauth2-refresh');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: FacebookStrategy } = require('passport-facebook');
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 const moment = require('moment');
 
+const { jwtConfig, JWT_SECRET } = require('./jwt');
 const User = require('../models/User');
-
-// /**
-//  * Login Required middleware.
-//  */
-exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -208,3 +201,25 @@ passport.use(
     }
   )
 );
+
+const jwtStrategyInstance = new JWTStrategy(
+  {
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: JWT_SECRET,
+    ...jwtConfig
+  },
+  function handleJWTAuth(payload, done) {
+    User.findOne({ email: payload.email }, function(err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user.profile.toJSON());
+      } else {
+        return done(null, false);
+      }
+    });
+  }
+);
+
+passport.use('jwt', jwtStrategyInstance);
