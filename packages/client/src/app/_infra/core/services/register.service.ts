@@ -7,12 +7,10 @@ import { AlertService } from './alert.service';
 import { ConfigurationService } from './configuration.service';
 import { LoginService } from './login.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-
   REST_URL = '';
 
   constructor(
@@ -21,37 +19,37 @@ export class RegisterService {
     private http: HttpClient,
     private configService: ConfigurationService,
     private loginService: LoginService
-  ) { }
+  ) {}
 
   register(user: User) {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}users`;
+      this.REST_URL = `${config.restURL}/signup`;
     }
 
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*');
 
-    this.http.post<any>(this.REST_URL, user, { headers })
+    this.http
+      .post<any>(this.REST_URL, user, { headers })
       .subscribe(
-        (res) => {
+        res => {
           if (res.success) {
-            const loginData = { email: user.email, password: user.password }
+            const loginData = { email: user.email, password: user.password };
             this.loginService.login(loginData);
           } else {
             this.alertService.error('LOGIN.RegistrationFailedMsg');
           }
         },
-        (error) => {
+        error => {
           this.alertService.error('LOGIN.RegistrationFailedMsg');
-        });
-
+        }
+      );
   }
 
   registerFacebook() {
     this.alertService.success('LOGIN.RegisterSuccessMsg');
     this.router.navigate(['/student']);
   }
-
 }

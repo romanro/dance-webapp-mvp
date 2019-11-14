@@ -10,19 +10,6 @@ const { getToken } = require('../config/jwt');
 const randomBytesAsync = promisify(crypto.randomBytes);
 
 /**
- * GET /login
- * Login page.
- */
-exports.getLogin = (req, res) => {
-  if (req.user) {
-    return res.redirect('/');
-  }
-  res.render('account/login', {
-    title: 'Login'
-  });
-};
-
-/**
  * POST /login
  * Sign in using email and password.
  */
@@ -66,8 +53,7 @@ exports.postLogin = (req, res, next) => {
       }
       return res.json({
         success: true,
-        token: getToken(JSON.parse(JSON.stringify(user))),
-        user
+        token: getToken(JSON.parse(JSON.stringify(user)))
       });
     });
   })(req, res, next);
