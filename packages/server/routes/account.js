@@ -4,12 +4,7 @@ const userController = require('../controllers/user');
 const app = new Router();
 
 app.get('/verify', userController.getVerifyEmail);
-app.get(
-  '/verify/:token',
-
-  userController.getVerifyEmailToken
-);
-app.get('/me', userController.getAccount);
+app.get('/verify/:token', userController.getVerifyEmailToken);
 app.post('/profile', userController.postUpdateProfile);
 app.post('/password', userController.postUpdatePassword);
 app.post('/delete', userController.postDeleteAccount);
