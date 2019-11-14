@@ -6,18 +6,44 @@ const _ = require('lodash');
 const validator = require('validator');
 const mailChecker = require('mailchecker');
 const User = require('../models/User');
-const { sendVerifyEmail } = require('../services/email');
+const {
+  sendVerifyEmail,
+  sendForgotPasswordEmail,
+  sendResetPasswordEmail
+} = require('../services/email');
 const { getToken } = require('../config/jwt');
 const randomBytesAsync = promisify(crypto.randomBytes);
 
+const NON_EXISTING_USER = {
+  code: 'NON_EXISTING_USER',
+  msg: 'User does not exist'
+};
+
+const INVALID_TOKEN = {
+  code: 'INVALID_TOKEN',
+  msg: 'Invalid token, please retry'
+};
+
+const INVALID_EMAIL = {
+  code: 'INVALID_EMAIL',
+  msg: 'Invalid email'
+};
+
+const PASSWORD_SHORT = {
+  code: 'PASSWORD_SHORT',
+  msg: 'Password must be at least 8 characters long'
+};
+const PASSWORD_MISMATCH = {
+  code: 'PASSWORD_MISMATCH',
+  msg: 'Passwords do not match'
+};
 /**
  * POST /login
  * Sign in using email and password.
  */
 exports.postLogin = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ code: 'INVALID_EMAIL' });
+  if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
   if (validator.isEmpty(req.body.password))
     validationErrors.push({ code: 'BLANK_PASSWORD' });
 
@@ -66,21 +92,11 @@ exports.postLogin = (req, res, next) => {
  */
 exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({
-      msg: 'Please enter a valid email address.',
-      code: 'EMAIL_INVALID'
-    });
+  if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
   if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push({
-      code: 'PASSWORD_SHORT',
-      msg: 'Password must be at least 8 characters long'
-    });
+    validationErrors.push(PASSWORD_SHORT);
   if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({
-      code: 'PASSWORD_MISMATCH',
-      msg: 'Passwords do not match'
-    });
+    validationErrors.push(PASSWORD_MISMATCH);
 
   if (validationErrors.length) {
     return res.json({
@@ -271,35 +287,32 @@ exports.getOauthUnlink = (req, res, next) => {
  * GET /reset/:token
  * Reset Password page.
  */
-exports.getReset = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
-  }
-  const validationErrors = [];
-  if (!validator.isHexadecimal(req.params.token))
-    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/forgot');
+exports.getReset = async (req, res, next) => {
+  if (!validator.isHexadecimal(req.params.token)) {
+    return res.json({
+      success: false,
+      errors: [INVALID_TOKEN]
+    });
   }
 
-  User.findOne({ passwordResetToken: req.params.token })
-    .where('passwordResetExpires')
-    .gt(Date.now())
-    .exec((err, user) => {
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        req.flash('errors', {
-          msg: 'Password reset token is invalid or has expired.'
-        });
-        return res.redirect('/forgot');
-      }
-      res.render('account/reset', {
-        title: 'Password Reset'
+  try {
+    const user = await User.findOne({ passwordResetToken: req.params.token })
+      .where('passwordResetExpires')
+      .gt(Date.now())
+      .exec();
+
+    if (!user) {
+      return res.json({
+        success: false,
+        errors: [NON_EXISTING_USER]
       });
+    }
+    return res.json({
+      success: true
     });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 /**
@@ -322,23 +335,13 @@ exports.getVerifyEmailToken = async (req, res, next) => {
   if (req.params.token && !validator.isHexadecimal(req.params.token))
     return res.json({
       success: false,
-      errors: [
-        {
-          code: 'INVALID_TOKEN',
-          msg: 'Invalid token, please retry'
-        }
-      ]
+      errors: [INVALID_TOKEN]
     });
 
   if (req.params.token !== req.user.emailVerificationToken) {
     return res.json({
       success: false,
-      errors: [
-        {
-          code: 'INVALID_TOKEN',
-          msg: 'Invalid token, please retry'
-        }
-      ]
+      errors: [INVALID_TOKEN]
     });
   }
 
@@ -347,12 +350,7 @@ exports.getVerifyEmailToken = async (req, res, next) => {
     if (!user) {
       return res.json({
         success: false,
-        errors: [
-          {
-            code: 'NON_EXISTING_USER',
-            msg: 'User does not exist'
-          }
-        ]
+        errors: [NON_EXISTING_USER]
       });
     }
 
@@ -392,13 +390,7 @@ exports.getVerifyEmail = async (req, res, next) => {
       case 'INVALID_EMAIL':
         return res.json({
           success: false,
-          errors: [
-            {
-              code: 'INVALID_EMAIL',
-              msg:
-                'The email address is invalid or disposable and can not be verified.  Please update your email address and try again.'
-            }
-          ]
+          errors: [INVALID_EMAIL]
         });
       default:
         return next(error);
@@ -430,226 +422,85 @@ const verifyUserEmail = async user => {
  * POST /reset/:token
  * Process the reset password request.
  */
-exports.postReset = (req, res, next) => {
+exports.postReset = async (req, res, next) => {
   const validationErrors = [];
   if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push({
-      msg: 'Password must be at least 8 characters long'
-    });
+    validationErrors.push(PASSWORD_SHORT);
   if (req.body.password !== req.body.confirm)
-    validationErrors.push({ msg: 'Passwords do not match' });
+    validationErrors.push(PASSWORD_MISMATCH);
   if (!validator.isHexadecimal(req.params.token))
-    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
+    validationErrors.push(INVALID_TOKEN);
 
   if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('back');
+    return res.json({
+      success: false,
+      errors: validationErrors
+    });
   }
-
-  const resetPassword = () =>
-    User.findOne({ passwordResetToken: req.params.token })
+  try {
+    const user = await User.findOne({ passwordResetToken: req.params.token })
       .where('passwordResetExpires')
       .gt(Date.now())
-      .then(user => {
-        if (!user) {
-          req.flash('errors', {
-            msg: 'Password reset token is invalid or has expired.'
-          });
-          return res.redirect('back');
-        }
-        user.password = req.body.password;
-        user.passwordResetToken = undefined;
-        user.passwordResetExpires = undefined;
-        return user.save().then(
-          () =>
-            new Promise((resolve, reject) => {
-              req.logIn(user, err => {
-                if (err) {
-                  return reject(err);
-                }
-                resolve(user);
-              });
-            })
-        );
-      });
+      .exec();
 
-  const sendResetPasswordEmail = user => {
     if (!user) {
-      return;
+      return res.json(INVALID_TOKEN);
     }
-    let transporter = nodemailer.createTransport({
-      service: 'SendGrid',
-      auth: {
-        user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD
-      }
+    user.password = req.body.password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    const dbUser = await user.save();
+    await sendResetPasswordEmail(user.email);
+
+    return res.json({
+      success: true,
+      token: getToken(dbUser.toJSON())
     });
-    const mailOptions = {
-      to: user.email,
-      from: 'hackathon@starter.com',
-      subject: 'Your Hackathon Starter password has been changed',
-      text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`
-    };
-    return transporter
-      .sendMail(mailOptions)
-      .then(() => {
-        req.flash('success', {
-          msg: 'Success! Your password has been changed.'
-        });
-      })
-      .catch(err => {
-        if (err.message === 'self signed certificate in certificate chain') {
-          console.log(
-            'WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.'
-          );
-          transporter = nodemailer.createTransport({
-            service: 'SendGrid',
-            auth: {
-              user: process.env.SENDGRID_USER,
-              pass: process.env.SENDGRID_PASSWORD
-            },
-            tls: {
-              rejectUnauthorized: false
-            }
-          });
-          return transporter.sendMail(mailOptions).then(() => {
-            req.flash('success', {
-              msg: 'Success! Your password has been changed.'
-            });
-          });
-        }
-        console.log(
-          'ERROR: Could not send password reset confirmation email after security downgrade.\n',
-          err
-        );
-        req.flash('warning', {
-          msg:
-            'Your password has been changed, however we were unable to send you a confirmation email. We will be looking into it shortly.'
-        });
-        return err;
-      });
-  };
-
-  resetPassword()
-    .then(sendResetPasswordEmail)
-    .then(() => {
-      if (!res.finished) res.redirect('/');
-    })
-    .catch(err => next(err));
-};
-
-/**
- * GET /forgot
- * Forgot Password page.
- */
-exports.getForgot = (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
+  } catch (error) {
+    return next(error);
   }
-  res.render('account/forgot', {
-    title: 'Forgot Password'
-  });
 };
 
 /**
  * POST /forgot
  * Create a random token, then the send user an email with a reset link.
  */
-exports.postForgot = (req, res, next) => {
-  const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address.' });
-
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/forgot');
+exports.postForgot = async (req, res, next) => {
+  if (!validator.isEmail(req.body.email)) {
+    return res.json({
+      success: false,
+      errors: [INVALID_EMAIL]
+    });
   }
+
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false
   });
 
-  const createRandomToken = randomBytesAsync(16).then(buf =>
-    buf.toString('hex')
-  );
+  try {
+    const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
 
-  const setRandomToken = token =>
-    User.findOne({ email: req.body.email }).then(user => {
-      if (!user) {
-        req.flash('errors', {
-          msg: 'Account with that email address does not exist.'
-        });
-      } else {
-        user.passwordResetToken = token;
-        user.passwordResetExpires = Date.now() + 3600000; // 1 hour
-        user = user.save();
-      }
-      return user;
-    });
-
-  const sendForgotPasswordEmail = user => {
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return;
-    }
-    const token = user.passwordResetToken;
-    let transporter = nodemailer.createTransport({
-      service: 'SendGrid',
-      auth: {
-        user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD
-      }
-    });
-    const mailOptions = {
-      to: user.email,
-      from: 'hackathon@starter.com',
-      subject: 'Reset your password on Hackathon Starter',
-      text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`
-    };
-    return transporter
-      .sendMail(mailOptions)
-      .then(() => {
-        req.flash('info', {
-          msg: `An e-mail has been sent to ${user.email} with further instructions.`
-        });
-      })
-      .catch(err => {
-        if (err.message === 'self signed certificate in certificate chain') {
-          console.log(
-            'WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.'
-          );
-          transporter = nodemailer.createTransport({
-            service: 'SendGrid',
-            auth: {
-              user: process.env.SENDGRID_USER,
-              pass: process.env.SENDGRID_PASSWORD
-            },
-            tls: {
-              rejectUnauthorized: false
-            }
-          });
-          return transporter.sendMail(mailOptions).then(() => {
-            req.flash('info', {
-              msg: `An e-mail has been sent to ${user.email} with further instructions.`
-            });
-          });
-        }
-        console.log(
-          'ERROR: Could not send forgot password email after security downgrade.\n',
-          err
-        );
-        req.flash('errors', {
-          msg:
-            'Error sending the password reset message. Please try again shortly.'
-        });
-        return err;
+      return res.json({
+        success: false,
+        errors: [
+          {
+            code: 'NON_EXISTING_USER',
+            msg: 'User does not exist'
+          }
+        ]
       });
-  };
+    }
 
-  createRandomToken
-    .then(setRandomToken)
-    .then(sendForgotPasswordEmail)
-    .then(() => res.redirect('/forgot'))
-    .catch(next);
+    user.passwordResetToken = token;
+    user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+    await sendForgotPasswordEmail(user, token);
+    return res.json({
+      success: true
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
