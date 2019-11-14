@@ -31,8 +31,6 @@ app.post('/login', userController.postLogin);
 
 app.post('/signup', userController.postSignup);
 
-app.get('/logout', userController.logout);
-
 app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 

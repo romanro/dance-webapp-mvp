@@ -6,6 +6,7 @@ const _ = require('lodash');
 const validator = require('validator');
 const mailChecker = require('mailchecker');
 const User = require('../models/User');
+const { sendVerifyEmail } = require('../services/email');
 const { getToken } = require('../config/jwt');
 const randomBytesAsync = promisify(crypto.randomBytes);
 
@@ -60,31 +61,10 @@ exports.postLogin = (req, res, next) => {
 };
 
 /**
- * GET /logout
- * Log out.
- */
-exports.logout = (req, res) => {
-  req.logout();
-};
-
-/**
- * GET /signup
- * Signup page.
- */
-exports.getSignup = (req, res) => {
-  if (req.user) {
-    return res.redirect('/');
-  }
-  res.render('account/signup', {
-    title: 'Create Account'
-  });
-};
-
-/**
  * POST /signup
  * Create a new local account.
  */
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({
@@ -117,10 +97,9 @@ exports.postSignup = (req, res, next) => {
     password: req.body.password
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) {
-      return next(err);
-    }
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
+
     if (existingUser) {
       return res.json({
         success: false,
@@ -132,31 +111,25 @@ exports.postSignup = (req, res, next) => {
         ]
       });
     }
-    user.save(err => {
-      if (err) {
-        return next(err);
-      }
-      req.logIn(user, err => {
+    await user.save();
+
+    await new Promise((resolve, reject) => {
+      req.logIn(user, async err => {
         if (err) {
-          return next(err);
+          return reject(err);
         }
-        return res.json({
-          success: true,
-          token: getToken(user)
-        });
+        return resolve(user);
       });
     });
-  });
-};
 
-/**
- * GET /account
- * Profile page.
- */
-exports.getAccount = (req, res) => {
-  res.render('account/profile', {
-    title: 'Account Management'
-  });
+    await verifyUserEmail(user);
+    return res.json({
+      success: true,
+      token: getToken(user.toJSON())
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 /**
@@ -331,50 +304,66 @@ exports.getReset = (req, res, next) => {
 
 /**
  * GET /account/verify/:token
- * Verify email address
+ * Verify email address with an existing token
  */
-exports.getVerifyEmailToken = (req, res, next) => {
+exports.getVerifyEmailToken = async (req, res, next) => {
   if (req.user.emailVerified) {
-    req.flash('info', { msg: 'The email address has been verified.' });
-    return res.redirect('/account');
-  }
-
-  const validationErrors = [];
-  if (req.params.token && !validator.isHexadecimal(req.params.token))
-    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/account');
-  }
-
-  if (req.params.token === req.user.emailVerificationToken) {
-    User.findOne({ email: req.user.email })
-      .then(user => {
-        if (!user) {
-          req.flash('errors', {
-            msg: 'There was an error in loading your profile.'
-          });
-          return res.redirect('back');
+    return res.json({
+      success: false,
+      errors: [
+        {
+          code: 'ALREADY_VERIFIED',
+          msg: 'The email address was already verified'
         }
-        user.emailVerificationToken = '';
-        user.emailVerified = true;
-        user = user.save();
-        req.flash('info', {
-          msg: 'Thank you for verifying your email address.'
-        });
-        return res.redirect('/account');
-      })
-      .catch(error => {
-        console.log(
-          'Error saving the user profile to the database after email verification',
-          error
-        );
-        req.flash('error', {
-          msg:
-            'There was an error when updating your profile.  Please try again later.'
-        });
-        return res.redirect('/account');
+      ]
+    });
+  }
+
+  if (req.params.token && !validator.isHexadecimal(req.params.token))
+    return res.json({
+      success: false,
+      errors: [
+        {
+          code: 'INVALID_TOKEN',
+          msg: 'Invalid token, please retry'
+        }
+      ]
+    });
+
+  if (req.params.token !== req.user.emailVerificationToken) {
+    return res.json({
+      success: false,
+      errors: [
+        {
+          code: 'INVALID_TOKEN',
+          msg: 'Invalid token, please retry'
+        }
+      ]
+    });
+  }
+
+  try {
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return res.json({
+        success: false,
+        errors: [
+          {
+            code: 'NON_EXISTING_USER',
+            msg: 'User does not exist'
+          }
+        ]
       });
+    }
+
+    user.emailVerificationToken = '';
+    user.emailVerified = true;
+    await user.save();
+    return res.json({
+      success: true
+    });
+  } catch (error) {
+    return next(error);
   }
 };
 
@@ -382,95 +371,59 @@ exports.getVerifyEmailToken = (req, res, next) => {
  * GET /account/verify
  * Verify email address
  */
-exports.getVerifyEmail = (req, res, next) => {
-  if (req.user.emailVerified) {
-    req.flash('info', { msg: 'The email address has been verified.' });
-    return res.redirect('/account');
-  }
-
-  if (!mailChecker.isValid(req.user.email)) {
-    req.flash('errors', {
-      msg:
-        'The email address is invalid or disposable and can not be verified.  Please update your email address and try again.'
+exports.getVerifyEmail = async (req, res, next) => {
+  try {
+    await verifyUserEmail(req.user);
+    return res.json({
+      success: true
     });
-    return res.redirect('/account');
-  }
-
-  const createRandomToken = randomBytesAsync(16).then(buf =>
-    buf.toString('hex')
-  );
-
-  const setRandomToken = token => {
-    User.findOne({ email: req.user.email }).then(user => {
-      user.emailVerificationToken = token;
-      user = user.save();
-    });
-    return token;
-  };
-
-  const sendVerifyEmail = token => {
-    let transporter = nodemailer.createTransport({
-      service: 'SendGrid',
-      auth: {
-        user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD
-      }
-    });
-    const mailOptions = {
-      to: req.user.email,
-      from: 'hackathon@starter.com',
-      subject: 'Please verify your email address on Hackathon Starter',
-      text: `Thank you for registering with hackathon-starter.\n\n
-        This verify your email address please click on the following link, or paste this into your browser:\n\n
-        http://${req.headers.host}/account/verify/${token}\n\n
-        \n\n
-        Thank you!`
-    };
-    return transporter
-      .sendMail(mailOptions)
-      .then(() => {
-        req.flash('info', {
-          msg: `An e-mail has been sent to ${req.user.email} with further instructions.`
-        });
-      })
-      .catch(err => {
-        if (err.message === 'self signed certificate in certificate chain') {
-          console.log(
-            'WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.'
-          );
-          transporter = nodemailer.createTransport({
-            service: 'SendGrid',
-            auth: {
-              user: process.env.SENDGRID_USER,
-              pass: process.env.SENDGRID_PASSWORD
-            },
-            tls: {
-              rejectUnauthorized: false
+  } catch (error) {
+    switch (error) {
+      case 'ALREADY_VERIFIED_EMAIL':
+        return res.json({
+          success: false,
+          errors: [
+            {
+              code: 'ALREADY_VERIFIED_EMAIL',
+              msg: 'Account email already verified'
             }
-          });
-          return transporter.sendMail(mailOptions).then(() => {
-            req.flash('info', {
-              msg: `An e-mail has been sent to ${req.user.email} with further instructions.`
-            });
-          });
-        }
-        console.log(
-          'ERROR: Could not send verifyEmail email after security downgrade.\n',
-          err
-        );
-        req.flash('errors', {
-          msg:
-            'Error sending the email verification message. Please try again shortly.'
+          ]
         });
-        return err;
-      });
-  };
+      case 'INVALID_EMAIL':
+        return res.json({
+          success: false,
+          errors: [
+            {
+              code: 'INVALID_EMAIL',
+              msg:
+                'The email address is invalid or disposable and can not be verified.  Please update your email address and try again.'
+            }
+          ]
+        });
+      default:
+        return next(error);
+    }
+  }
+};
 
-  createRandomToken
-    .then(setRandomToken)
-    .then(sendVerifyEmail)
-    .then(() => res.redirect('/account'))
-    .catch(next);
+const verifyUserEmail = async user => {
+  if (user.emailVerified) {
+    throw new Error('ALREADY_VERIFIED_EMAIL');
+  }
+
+  if (!mailChecker.isValid(user.email)) {
+    throw new Error('INVALID_EMAIL');
+  }
+
+  const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
+
+  const dbUser = await User.findOne({ email: user.email });
+  if (!dbUser) {
+    throw new Error('UKNOWN_USER');
+  }
+  dbUser.emailVerificationToken = token;
+  await dbUser.save();
+  await sendVerifyEmail(user.email, token);
 };
 
 /**

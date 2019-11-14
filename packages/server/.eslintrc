@@ -5,6 +5,7 @@
     "mocha": true,
     "es6": true
   },
+  "parser": "babel-eslint",
   "plugins": ["chai-friendly"],
   "rules": {
     "comma-dangle": 0,
