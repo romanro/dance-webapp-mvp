@@ -1,6 +1,14 @@
 import { Language } from './language.model';
 import { Tag } from './tag.model';
 
+export class UserRegistrationData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export class UserLoginData {
   token: string;
   user: User;

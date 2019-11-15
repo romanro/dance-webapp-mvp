@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Configuration, User } from '@core/models';
+import { Configuration, RegistrationResponse, UserRegistrationData } from '@core/models';
 
 import { AlertService } from './alert.service';
 import { ConfigurationService } from './configuration.service';
-import { LoginService } from './login.service';
+import { TokenService } from './token.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,10 @@ export class RegisterService {
     private alertService: AlertService,
     private http: HttpClient,
     private configService: ConfigurationService,
-    private loginService: LoginService
-  ) {}
+    private tokenService: TokenService
+  ) { }
 
-  register(user: User) {
+  register(user: UserRegistrationData) {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
       this.REST_URL = `${config.restURL}/signup`;
@@ -32,12 +33,17 @@ export class RegisterService {
       .set('Accept', '*/*');
 
     this.http
-      .post<any>(this.REST_URL, user, { headers })
+      .post<RegistrationResponse>(this.REST_URL, user, { headers })
       .subscribe(
         res => {
           if (res.success) {
-            const loginData = { email: user.email, password: user.password };
-            this.loginService.login(loginData);
+            this.tokenService.storeToken(res.token);
+            this.afterLoginRoute();
+          } else if (res.errors) {
+            res.errors.forEach(err => {
+              const errorStr = `LOGIN.FORM.${err.code}`;
+              this.alertService.error(errorStr);
+            });
           } else {
             this.alertService.error('LOGIN.RegistrationFailedMsg');
           }
@@ -49,6 +55,11 @@ export class RegisterService {
   }
 
   registerFacebook() {
+    this.alertService.success('LOGIN.RegisterSuccessMsg');
+    this.router.navigate(['/student']);
+  }
+
+  afterLoginRoute() {
     this.alertService.success('LOGIN.RegisterSuccessMsg');
     this.router.navigate(['/student']);
   }

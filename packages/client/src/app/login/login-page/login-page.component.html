@@ -19,7 +19,7 @@
           {{'LOGIN.FORM.emailIsRequired' | translate}}
         </span>
         <span *ngIf="formControls['email'].errors.email">
-          {{'LOGIN.FORM.emailIsNOtValid' | translate}}
+          {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
         </span>
       </div>
 
@@ -36,10 +36,10 @@
       <div *ngIf="formControls['password'].touched && formControls['password'].errors"
            class="invalid-feedback">
         <span *ngIf="formControls['password'].errors.required">
-          {{'LOGIN.FORM.passwordIsRequired' | translate}}
+          {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
         </span>
         <span *ngIf="formControls['password'].errors.minlength">
-          {{'LOGIN.FORM.passwordMinimum' | translate}}
+          {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
         </span>
       </div>
 

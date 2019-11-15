@@ -5,6 +5,8 @@ import { User } from '@core/models';
 import { RegisterService } from '@core/services/register.service';
 import { RegisterValidators } from '@core/validators';
 
+import { UserRegistrationData } from './../../_infra/core/models/user.model';
+
 @Component({
   selector: 'dsapp-register-page',
   templateUrl: './register-page.component.html',
@@ -21,7 +23,7 @@ export class RegisterPageComponent implements OnInit {
   constructor(
     private registerService: RegisterService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
@@ -49,7 +51,7 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    const user: User = { ...this.registerForm.value };
+    const user: UserRegistrationData = { ...this.registerForm.value };
 
     this.registerService.register(user);
     setTimeout(() => {
