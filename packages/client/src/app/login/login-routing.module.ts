@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 
-import { LoginLayoutComponent, LoginPageComponent, RegisterPageComponent } from '.';
+import { ForgotPasswordPageComponent, LoginLayoutComponent, LoginPageComponent, RegisterPageComponent } from '.';
 
 
 const routes: Routes = [
@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '', component: LoginLayoutComponent, children: [
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterPageComponent },
+      { path: 'forgot-password', component: ForgotPasswordPageComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   }

@@ -6,8 +6,7 @@ import { LoginService, TokenService } from '@core/services';
 
 @Component({
   selector: 'dsapp-login-page',
-  templateUrl: './login-page.component.html',
-  styles: []
+  templateUrl: './login-page.component.html'
 })
 export class LoginPageComponent implements OnInit {
 

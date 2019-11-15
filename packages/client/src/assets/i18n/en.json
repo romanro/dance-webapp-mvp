@@ -29,6 +29,13 @@
     "RegistrationFailedMsg": "Registration Error!",
     "Logout": "Logout",
     "LogOutMsg": "You are logged out",
+    "iForgotMyPassword": "I forgot my password",
+    "resetYourPassword": "Reset Your Password",
+    "resetPassword_Instructions": "Follow these instructions if you forgot your password and need to create a new one:",
+    "resetPassword_Step_1": "Enter the email address associated with your DanSkill account.",
+    "resetPassword_Step_2": "Click Reset Password.",
+    "resetPassword_Step_3": "We’ll send a password reset email to your address. Use this email to reset your password.",
+    "resetPassword": "Reset Password",
     "FORM": {
       "emailIsRequired": "Email is required",
       "INVALID_EMAIL": "Invalid email",

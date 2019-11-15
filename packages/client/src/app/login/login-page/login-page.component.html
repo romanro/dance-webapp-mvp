@@ -63,6 +63,10 @@
             (click)="loginFacebook()">{{'LOGIN.LoginWithFacebook' | translate}}</button>
   </div>
   <div class="text-center">
+    <a class="btn btn-link"
+       [routerLink]="'/forgot-password'">{{'LOGIN.iForgotMyPassword' | translate}}</a>
+  </div>
+  <div class="text-center">
     <p>{{'LOGIN.registerMsg' | translate}}</p>
     <a class="btn btn-link"
        [routerLink]="'/register'">{{'LOGIN.Register' | translate}}</a>
