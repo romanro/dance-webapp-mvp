@@ -26,22 +26,23 @@
     "LoginSuccessMsg": "You was logged in successfully!",
     "RegisterSuccessMsg": "Your registration was successful!",
     "LoginFailedMsg": "Login Error!",
-    "WrongEmailPassword": "Wrong Email or Password",
     "RegistrationFailedMsg": "Registration Error!",
     "Logout": "Logout",
     "LogOutMsg": "You are logged out",
     "FORM": {
       "emailIsRequired": "Email is required",
-      "emailIsNOtValid": "Email not valid",
-      "passwordIsRequired": "Password is required",
+      "INVALID_EMAIL": "Invalid email",
+      "BLANK_PASSWORD": "Password is required",
       "passwordNumber": "Password must contain at least 1 number",
       "hasCapitalCase": "Password must contain at least 1 in Capital Case",
       "hasSmallCase": "Password must contain at least 1 Letter in Small Case",
       "hasSpecialCharacters": "Password must contain at least 1 Special Character",
-      "passwordMinimum": "Should be minimum 6 characters long",
-      "NoPassswordMatch": "Password do not match",
+      "PASSWORD_SHORT": "Password must be at least 8 characters long",
+      "PASSWORD_MISMATCH": "Password do not match",
       "fnameIsRequired": "First Name is required",
-      "lnameIsRequired": "Last Name is required"
+      "lnameIsRequired": "Last Name is required",
+      "USER_EXISTS": "This user already exists",
+      "SIGN_PROVIDER_NO_CREDENTIALS": "Wrong Email or Password"
     }
   },
   "USER": {

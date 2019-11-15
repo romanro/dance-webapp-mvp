@@ -21,7 +21,7 @@
           {{'LOGIN.FORM.emailIsRequired' | translate}}
         </p>
         <p *ngIf="formControls['email'].errors.email">
-          {{'LOGIN.FORM.emailIsNOtValid' | translate}}
+          {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
         </p>
       </div>
 
@@ -86,7 +86,7 @@
       <div *ngIf="formControls['password'].touched && formControls['password'].errors"
            class="invalid-feedback">
         <p *ngIf="formControls['password'].errors.required">
-          {{'LOGIN.FORM.passwordIsRequired' | translate}}
+          {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
         </p>
         <p *ngIf="formControls['password'].hasError('hasNumber')">
           {{'LOGIN.FORM.passwordNumber' | translate}}
@@ -101,7 +101,7 @@
           {{'LOGIN.FORM.hasSpecialCharacters' | translate}}
         </p>
         <p *ngIf="formControls['password'].errors.minlength">
-          {{'LOGIN.FORM.passwordMinimum' | translate}}
+          {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
         </p>
       </div>
 
@@ -126,10 +126,11 @@
       <div *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].errors"
            class="invalid-feedback">
         <p *ngIf="formControls['confirmPassword'].errors.required">
-          {{'LOGIN.FORM.passwordIsRequired' | translate}}
+          {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
         </p>
-        <p *ngIf="formControls['confirmPassword'].hasError('NoPassswordMatch')">
-          {{'LOGIN.FORM.NoPassswordMatch' | translate}}
+        <p
+           *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
+          {{'LOGIN.FORM.PASSWORD_MISMATCH' | translate}}
         </p>
       </div>
 
