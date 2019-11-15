@@ -17,7 +17,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         // auto logout if 401 response returned from api
         this.alertService.success('ERRORS.SessionIsExpired');
         this.loginService.logout();
-        this.router.navigate(['/login']);
       }
 
       const error = err.error.message || err.statusText;

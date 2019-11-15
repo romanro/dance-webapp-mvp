@@ -63,9 +63,7 @@ export class LoginService {
   loginFacebook() {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       res => {
-        // this.storeLoginData(LoginMethod.FACEBOOK);
         console.log('FACEBOOK LOGIN: ', res);
-        // this.afterLoginRoute();
       },
       error => {
         this.alertService.error('LOGIN.LoginFailedMsg');
@@ -74,35 +72,11 @@ export class LoginService {
   }
 
   logout() {
-    // window.location.href = '/logout';
-    // const lm: LoginMethod = JSON.parse(localStorage.getItem('authData')).lm;
 
-    /*     switch (lm) {
-          case LoginMethod.FACEBOOK:
-            this.authService.signOut();
-            break;
-        } */
-
-    this.tokenService.deleteToken();
+    this.tokenService.deleteStoredToken();
     this.alertService.info('LOGIN.LogOutMsg');
     this.router.navigate(['/login']);
   }
-
-  /*   storeLoginData(lm: LoginMethod, loginResponse: UserLoginData) {
-      const authData: AuthData = {
-        token: loginResponse.token,
-        loginMethod: lm
-      };
-      localStorage.setItem('authData', JSON.stringify(authData));
-      this.store.dispatch(
-        UserActions.CreateUserAction({ user: loginResponse.user })
-      );
-    } 
-
-  clearLoginData() {
-    this.store.dispatch(UserActions.ClearUser(null));
-    localStorage.removeItem('authData');
-  }*/
 
   afterLoginRoute() {
     this.alertService.success('LOGIN.LoginSuccessMsg');

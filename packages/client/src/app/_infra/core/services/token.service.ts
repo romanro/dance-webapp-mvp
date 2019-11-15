@@ -15,12 +15,12 @@ export class TokenService {
     return localStorage.getItem('token');
   }
 
-  checkToken(): boolean {
+  checkStoredToken(): boolean {
     const exists = localStorage.getItem('token') !== null;
     return exists;
   }
 
-  deleteToken() {
+  deleteStoredToken() {
     localStorage.removeItem('token');
   }
 

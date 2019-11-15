@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '@core/services/login.service';
+import { Router } from '@angular/router';
+import { LoginService, TokenService } from '@core/services';
 
 
 @Component({
@@ -17,30 +18,21 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tokenService: TokenService,
+    private router: Router
   ) { }
 
 
   ngOnInit() {
-    /*
-    // get facebook logged in user if needed
-    this.subs.push(this.authService.authState.subscribe(
-      (user) => {
-        if (user) {
-          // console.log(user);
-          // this.alertService.success('LOGIN.LoginSuccessMsg');
-          // this.router.navigate(['/student']);
-        }
-      },
-      (error) => {
-        this.alertService.error('LOGIN.LoginFailedMsg');
-      }
-    ));
-    */
+
+    /// if token exist in local store - redirect user
+    if (this.tokenService.checkStoredToken()) { this.router.navigate(['/student']); }
+
 
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     });
   }
 
