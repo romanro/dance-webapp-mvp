@@ -27,6 +27,7 @@
     "RegisterSuccessMsg": "Your registration was successful!",
     "LoginFailedMsg": "Login Error!",
     "RegistrationFailedMsg": "Registration Error!",
+    "ResetPasswordFailedMsg": "Reset Password Error!",
     "Logout": "Logout",
     "LogOutMsg": "You are logged out",
     "iForgotMyPassword": "I forgot my password",
@@ -36,6 +37,8 @@
     "resetPassword_Step_2": "Click Reset Password.",
     "resetPassword_Step_3": "We’ll send a password reset email to your address. Use this email to reset your password.",
     "resetPassword": "Reset Password",
+    "resetPasswordSend": "Password reset email was send to your address. Please check your inbox/spam folder and follow instructions to reset your password.",
+    "didntGetResetEmail": "I didn't got reset password email",
     "FORM": {
       "emailIsRequired": "Email is required",
       "INVALID_EMAIL": "Invalid email",
@@ -49,6 +52,7 @@
       "fnameIsRequired": "First Name is required",
       "lnameIsRequired": "Last Name is required",
       "USER_EXISTS": "This user already exists",
+      "NON_EXISTING_USER": "This email is not registered",
       "SIGN_PROVIDER_NO_CREDENTIALS": "Wrong Email or Password"
     }
   },

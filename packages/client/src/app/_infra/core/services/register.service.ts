@@ -28,9 +28,7 @@ export class RegisterService {
       this.REST_URL = `${config.restURL}/signup`;
     }
 
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept', '*/*');
+    const headers = this.configService.getGlobalHttpHeaders();
 
     this.http
       .post<RegistrationResponse>(this.REST_URL, user, { headers })
