@@ -22,9 +22,7 @@ export class BaseRestService {
   constructor(
     private http: HttpClient,
     private configService: ConfigurationService
-  ) {
-
-  }
+  ) { }
 
 
   post<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders): Observable<T> {
