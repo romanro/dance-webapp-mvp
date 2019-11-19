@@ -55,7 +55,7 @@ export class ResetPasswordPageComponent implements OnInit {
       return;
     }
 
-    this.registerService.changePassword(this.newPasswordForm.value);
+    this.registerService.changePassword(this.newPasswordForm.value, this.token);
     setTimeout(() => {
       this.isSubmitted = false;
     }, 3000);

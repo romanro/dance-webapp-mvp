@@ -54,7 +54,28 @@ export class RegisterService {
     this.router.navigate(['/student']);
   }
 
-  changePassword({ password, confirmPassword }) {
-    console.log(password, confirmPassword);
+  changePassword({ password, confirmPassword }, token: string) {
+
+    const payload = { password, confirm: confirmPassword };
+
+    this.baseRestService.post<RestResponse>(`reset/${token}`, payload)
+      .subscribe(
+        res => {
+          if (res.success) {
+            this.tokenService.storeToken(res.token);
+            this.afterLoginRoute();
+          } else if (res.errors) {
+            res.errors.forEach(err => {
+              const errorStr = `LOGIN.FORM.${err.code}`;
+              this.alertService.error(errorStr);
+            });
+          } else {
+            this.alertService.error('ERRORS.GeneralBackendError');
+          }
+        },
+        error => {
+          this.alertService.error('ERRORS.GeneralBackendError');
+        }
+      );
   }
 }

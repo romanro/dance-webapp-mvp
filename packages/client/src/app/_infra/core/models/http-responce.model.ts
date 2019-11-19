@@ -13,3 +13,4 @@ export interface RestError {
     msg?: string;
     code: ForgotPasswordErrorCode | RegistrationErrorCode | LoginErrorCode;
 }
+
