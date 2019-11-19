@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Configuration } from '../models';
@@ -20,6 +20,13 @@ export class ConfigurationService {
     });
   }
   getConfiguration(): Configuration { return this.config; }
+
+  getGlobalHttpHeaders(): HttpHeaders {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', '*/*');
+    return headers;
+  }
 
 }
 
