@@ -3,7 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ForgotPasswordPageComponent, LoginLayoutComponent, LoginPageComponent, RegisterPageComponent } from '.';
+import {
+  ForgotPasswordPageComponent,
+  LoginLayoutComponent,
+  LoginPageComponent,
+  RegisterPageComponent,
+  ResetPasswordPageComponent,
+} from '.';
 import { LoginRoutingModule } from './login-routing.module';
 
 
@@ -15,6 +21,6 @@ import { LoginRoutingModule } from './login-routing.module';
     TranslateModule,
     LoginRoutingModule
   ],
-  declarations: [LoginPageComponent, RegisterPageComponent, LoginLayoutComponent, ForgotPasswordPageComponent]
+  declarations: [LoginPageComponent, RegisterPageComponent, LoginLayoutComponent, ForgotPasswordPageComponent, ResetPasswordPageComponent]
 })
 export class LoginModule { }

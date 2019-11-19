@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ForgotPasswordResponse, LoginResponse } from '@app/_infra/core/models';
+import { RestResponse } from '@app/_infra/core/models';
 import { UserState } from '@app/_infra/store/state';
 import * as UserActions from '@infra/store/actions';
 import { Store } from '@ngrx/store';
@@ -30,7 +30,7 @@ export class LoginService {
   login({ email, password }) {
 
     this.baseRestService
-      .post<LoginResponse>('login', { email, password })
+      .post<RestResponse>('login', { email, password })
       .subscribe(
         res => {
           if (res.success) {
@@ -74,7 +74,11 @@ export class LoginService {
     this.router.navigate(['/student']);
   }
 
-  forgotPassword({ email }): Observable<ForgotPasswordResponse> {
-    return this.baseRestService.post<ForgotPasswordResponse>('forgot', { email });
+  forgotPassword({ email }): Observable<RestResponse> {
+    return this.baseRestService.post<RestResponse>('forgot', { email });
+  }
+
+  validateResetToken(token: string): Observable<RestResponse> {
+    return this.baseRestService.get<RestResponse>(`reset/${token}`);
   }
 }

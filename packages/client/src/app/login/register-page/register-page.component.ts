@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PASSWORD_VALIDATORS } from '@app/_infra/core/global_variables';
 import { User } from '@core/models';
+import { UserRegistrationData } from '@core/models/user.model';
 import { RegisterService } from '@core/services/register.service';
 import { RegisterValidators } from '@core/validators';
-
-import { UserRegistrationData } from './../../_infra/core/models/user.model';
 
 @Component({
   selector: 'dsapp-register-page',

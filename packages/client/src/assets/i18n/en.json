@@ -11,7 +11,8 @@
     "Error": "Error",
     "PageNotFound": "Page not found",
     "BackToHome": "Back to Home Page",
-    "SessionIsExpired": "Session is Expired. Please, log in again."
+    "SessionIsExpired": "Session is Expired. Please, log in again.",
+    "GeneralBackendError": "Response error, please try again later"
   },
   "LOGIN": {
     "registerMsg": "Don't have an Account?",
@@ -22,6 +23,7 @@
     "registerWithFacebook": "Register with Facebook",
     "EmailAddress": "Email address",
     "Password": "Password",
+    "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "LoginSuccessMsg": "You was logged in successfully!",
     "RegisterSuccessMsg": "Your registration was successful!",
@@ -32,6 +34,7 @@
     "LogOutMsg": "You are logged out",
     "iForgotMyPassword": "I forgot my password",
     "resetYourPassword": "Reset Your Password",
+    "changeYourPassword": "Change Your Password",
     "resetPassword_Instructions": "Follow these instructions if you forgot your password and need to create a new one:",
     "resetPassword_Step_1": "Enter the email address associated with your DanSkill account.",
     "resetPassword_Step_2": "Click Reset Password.",
@@ -53,7 +56,8 @@
       "lnameIsRequired": "Last Name is required",
       "USER_EXISTS": "This user already exists",
       "NON_EXISTING_USER": "This email is not registered",
-      "SIGN_PROVIDER_NO_CREDENTIALS": "Wrong Email or Password"
+      "SIGN_PROVIDER_NO_CREDENTIALS": "Wrong Email or Password",
+      "INVALID_TOKEN": "Invalid token, please retry"
     }
   },
   "USER": {

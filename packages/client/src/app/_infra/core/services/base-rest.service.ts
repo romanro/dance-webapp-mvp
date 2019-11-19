@@ -24,15 +24,26 @@ export class BaseRestService {
     private configService: ConfigurationService
   ) { }
 
+  get<T>(endpoint: string, httpHeadersObj?: HttpHeaders): Observable<T> {
+    this.getRestUrl();
+    const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;
+    const options = { headers: headersObj, method: 'GET' };
+    return this.http.get<T>(`${this.REST_URL}/${endpoint}`, options);
+  }
+
 
   post<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders): Observable<T> {
+    this.getRestUrl();
+    const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;
+    const options = { headers: headersObj, method: 'POST' };
+    return this.http.post<T>(`${this.REST_URL}/${endpoint}`, body, options);
+  }
+
+  getRestUrl() {
     const config: Configuration = this.configService.getConfiguration();
     if (config) {
       this.REST_URL = config.restURL;
     }
-    const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;
-    const options = { headers: headersObj, method: 'POST' };
-    return this.http.post<T>(`${this.REST_URL}/${endpoint}`, body, options);
   }
 
 }

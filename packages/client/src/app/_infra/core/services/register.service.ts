@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RegistrationResponse, UserRegistrationData } from '@core/models';
+import { RestResponse, UserRegistrationData } from '@core/models';
 
 import { AlertService } from './alert.service';
 import { BaseRestService } from './base-rest.service';
@@ -23,7 +23,7 @@ export class RegisterService {
 
   register(user: UserRegistrationData) {
     this.baseRestService
-      .post<RegistrationResponse>('signup', user)
+      .post<RestResponse>('signup', user)
       .subscribe(
         res => {
           if (res.success) {
@@ -52,5 +52,9 @@ export class RegisterService {
   afterLoginRoute() {
     this.alertService.success('LOGIN.RegisterSuccessMsg');
     this.router.navigate(['/student']);
+  }
+
+  changePassword({ password, confirmPassword }) {
+    console.log(password, confirmPassword);
   }
 }
