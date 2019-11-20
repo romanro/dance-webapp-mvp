@@ -444,7 +444,10 @@ exports.postReset = async (req, res, next) => {
       .exec();
 
     if (!user) {
-      return res.json(INVALID_TOKEN);
+      return res.json({
+        success: false,
+        errors: [INVALID_TOKEN]
+      });
     }
     user.password = req.body.password;
     user.passwordResetToken = undefined;
