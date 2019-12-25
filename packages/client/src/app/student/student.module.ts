@@ -4,13 +4,7 @@ import { InfraModule } from '@infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  LabPageComponent,
-  PracticesPageComponent,
-  StarInfoPageComponent,
-  StarsPageComponent,
-  StudentLayoutComponent,
-} from '.';
+import { PracticesPageComponent, StarInfoPageComponent, StarsPageComponent, StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
 
@@ -21,7 +15,6 @@ import { StudentRoutingModule } from './student-routing.module';
   declarations: [
     StudentLayoutComponent,
     StarsPageComponent,
-    LabPageComponent,
     PracticesPageComponent,
     StarInfoPageComponent
   ],
