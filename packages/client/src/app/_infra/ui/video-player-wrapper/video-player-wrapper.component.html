@@ -1,0 +1,35 @@
+<div class="embed-responsive embed-responsive-16by9">
+  <vg-player class="embed-responsive-item"
+             (onPlayerReady)="onPlayerReady($event)">
+    <vg-controls>
+      <vg-time-display vgProperty="left"
+                       vgFormat="mm:ss"></vg-time-display>
+    </vg-controls>
+    <video [vgMedia]="video"
+           [playbackRate]="playbackRate"
+           #video
+           id="mainVideo"
+           preload="auto">
+      <source src="https://s3.amazonaws.com/agoldis.dev/video/bbb_sunflower_1080p_60fps_normal.mp4"
+              type="video/mp4">
+    </video>
+  </vg-player>
+</div>
+
+<div *ngIf="playerIsReady"
+     class="player-controls">
+  <button class="btn btn-info"
+          (click)="togglePlay()">
+    <span *ngIf="!playerIsPlaying">PLAY</span>
+    <span *ngIf="playerIsPlaying">PAUSE</span>
+  </button>
+  <button class="btn btn-info"
+          (click)="changePLayBackRate('plus')">
+    +
+  </button>
+  <button class="btn btn-info"
+          (click)="changePLayBackRate('minus')">
+    -
+  </button>
+  <span class="form-control">{{playbackRate}}</span>
+</div>

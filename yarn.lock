@@ -11448,6 +11448,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+videogular2@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-7.0.1.tgz#f13306a21396e32f775b9910e7b85dc943f3d4d6"
+  integrity sha512-nWsOGmyZEodK61ahF7EzWWoKn9DqsBdNRmvsZ5uz7jDgbEavABxWwgf4fWrHDgbizBNc9/VuyG5OwPZqkaW56w==
+
 vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
