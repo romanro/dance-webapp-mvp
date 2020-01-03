@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
 import { VgAPI } from 'videogular2/compiled/core';
@@ -10,9 +10,16 @@ import { VgAPI } from 'videogular2/compiled/core';
 })
 export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
+  @Input() src: string;
+  @Input() synchronized = false;
+
+  @Output() playerEvent = new EventEmitter();
+  @Output() playerStateChange = new EventEmitter();
+
   playerIsReady = false;
   playerIsPlaying = false;
   playerAPI: VgAPI;
+
   playbackRate = 1;
 
   subs: Subscription[] = [];
@@ -30,54 +37,77 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   onPlayerReady(api) {
 
     this.playerAPI = api;
+    this.playerAPI.volume = 0;
+
+    this.play();
+
+    setTimeout(() => { this.stop(); }, 200);
+
+
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
-        () => {
+        event => {
           this.playerIsReady = true;
+          this.playerEvent.emit(event);
         }
       )
     );
 
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(
-        (error) => {
+        event => {
           this.playerIsReady = false;
           this.playerIsPlaying = false;
+          this.playerEvent.emit(event);
+          this.playerStateChange.emit(this.playerIsPlaying);
         }
       )
     );
 
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.error.subscribe(
-        () => {
+        event => {
           this.playerIsReady = false;
+          this.playerIsPlaying = false;
+          this.playerEvent.emit(event);
+          this.playerStateChange.emit(this.playerIsPlaying);
         }
       )
     );
 
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.playing.subscribe(
-        () => {
+        event => {
           this.playerIsPlaying = true;
+          this.playerEvent.emit(event);
+          this.playerStateChange.emit(this.playerIsPlaying);
         }
       )
     );
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.pause.subscribe(
-        () => {
+        event => {
           this.playerIsPlaying = false;
+          this.playerEvent.emit(event);
+          this.playerStateChange.emit(this.playerIsPlaying);
         }
       )
     );
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.ended.subscribe(
-        () => {
+        event => {
           this.playerIsPlaying = false;
+          this.playerEvent.emit(event);
+          this.playerStateChange.emit(this.playerIsPlaying);
         }
       )
     );
 
 
+  }
+
+  setPlaybackRate(rate: number) {
+    this.playbackRate = rate;
   }
 
   togglePlay() {
@@ -107,12 +137,16 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   stop() {
-    this.playerAPI.pause();
-    this.playerAPI.seekTime(0);
+    this.pause();
+    this.seekTo(0);
   }
 
   seekTo(time: number) {
     this.playerAPI.seekTime(time);
+  }
+
+  getCurrentTime(): number {
+    return this.playerAPI.getDefaultMedia().currentTime;
   }
 
   changePLayBackRate(operator) {

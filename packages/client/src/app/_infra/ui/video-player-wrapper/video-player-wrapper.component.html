@@ -14,15 +14,16 @@
            #video
            id="mainVideo"
            preload="auto">
-      <source src="http://static.videogular.com/assets/videos/videogular.mp4"
+      <source [src]="src"
               type="video/mp4">
     </video>
   </vg-player>
-  <div class="touch-controls"
+  <div *ngIf="!synchronized"
+       class="touch-controls"
        (click)="togglePlay()"></div>
 </div>
 
-<div *ngIf="playerIsReady"
+<div *ngIf="playerIsReady && !synchronized"
      class="player-controls">
   <div class="controls-row">
     <button class="btn btn-info"
