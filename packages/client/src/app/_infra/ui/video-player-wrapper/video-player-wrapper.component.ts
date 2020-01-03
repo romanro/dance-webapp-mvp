@@ -43,7 +43,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         (error) => {
           this.playerIsReady = false;
           this.playerIsPlaying = false;
-          console.log(error);
         }
       )
     );
@@ -83,20 +82,52 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
   togglePlay() {
     if (this.playerIsPlaying) {
-      this.playerAPI.pause();
+      this.pause();
     } else {
-      this.playerAPI.play();
+      this.play();
     }
+  }
+
+  jump(direction) {
+    switch (direction) {
+      case 'fwd':
+        this.playerAPI.getDefaultMedia().currentTime += 1;
+        break;
+      case 'bwd':
+        this.playerAPI.getDefaultMedia().currentTime -= 1;
+        break;
+    }
+  }
+
+  play() {
+    this.playerAPI.play();
+  }
+  pause() {
+    this.playerAPI.pause();
+  }
+
+  stop() {
+    this.playerAPI.pause();
+    this.playerAPI.seekTime(0);
+  }
+
+  seekTo(time: number) {
+    this.playerAPI.seekTime(time);
   }
 
   changePLayBackRate(operator) {
     switch (operator) {
       case 'plus':
-        this.playbackRate += 0.1;
+        const plus = parseFloat((this.playbackRate + 0.1).toFixed(1));
+        this.playbackRate = plus < 10 ? plus : 10;
         break;
       case 'minus':
-        this.playbackRate -= 0.1;
+        const minus = parseFloat((this.playbackRate - 0.1).toFixed(1));
+        this.playbackRate = minus > 0.1 ? minus : 0.1;
         break;
+
+      default:
+        this.playbackRate = 1;
     }
   }
 

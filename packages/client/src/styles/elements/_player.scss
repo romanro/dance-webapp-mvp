@@ -1,0 +1,27 @@
+.video-wrapper {
+    .touch-controls {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.player-controls {
+    .controls-row {
+        margin: 0.2rem 0;
+
+        .btn {
+            margin: 0 0.2rem;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

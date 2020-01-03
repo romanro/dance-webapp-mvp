@@ -1,35 +1,62 @@
-<div class="embed-responsive embed-responsive-16by9">
+<div class="embed-responsive embed-responsive-16by9 video-wrapper">
   <vg-player class="embed-responsive-item"
              (onPlayerReady)="onPlayerReady($event)">
     <vg-controls>
-      <vg-time-display vgProperty="left"
+      <vg-time-display vgProperty="current"
                        vgFormat="mm:ss"></vg-time-display>
+      <vg-scrub-bar>
+        <vg-scrub-bar-buffering-time vgFor="mainVideo">
+        </vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
     </vg-controls>
     <video [vgMedia]="video"
            [playbackRate]="playbackRate"
            #video
            id="mainVideo"
            preload="auto">
-      <source src="https://s3.amazonaws.com/agoldis.dev/video/bbb_sunflower_1080p_60fps_normal.mp4"
+      <source src="http://static.videogular.com/assets/videos/videogular.mp4"
               type="video/mp4">
     </video>
   </vg-player>
+  <div class="touch-controls"
+       (click)="togglePlay()"></div>
 </div>
 
 <div *ngIf="playerIsReady"
      class="player-controls">
-  <button class="btn btn-info"
-          (click)="togglePlay()">
-    <span *ngIf="!playerIsPlaying">PLAY</span>
-    <span *ngIf="playerIsPlaying">PAUSE</span>
-  </button>
-  <button class="btn btn-info"
-          (click)="changePLayBackRate('plus')">
-    +
-  </button>
-  <button class="btn btn-info"
-          (click)="changePLayBackRate('minus')">
-    -
-  </button>
-  <span class="form-control">{{playbackRate}}</span>
+  <div class="controls-row">
+    <button class="btn btn-info"
+            (click)="togglePlay()">
+      <span *ngIf="!playerIsPlaying">PLAY</span>
+      <span *ngIf="playerIsPlaying">PAUSE</span>
+    </button>
+    <button class="btn btn-info"
+            (click)="jump('bwd')">
+      << BWD</button>
+         <button
+         class="btn btn-info"
+         (click)="jump('fwd')">FWD >>
+    </button>
+
+    <button class="btn btn-danger"
+            (click)="stop()">STOP</button>
+  </div>
+
+  <div class="controls-row">
+    <button class="btn btn-info"
+            (click)="changePLayBackRate('plus')">
+      +
+    </button>
+    <button class="btn btn-info"
+            (click)="changePLayBackRate('minus')">
+      -
+    </button>
+    <span>{{playbackRate}}</span>
+    <button class="btn btn-info"
+            (click)="changePLayBackRate('def')">
+      Default
+    </button>
+  </div>
+
+
 </div>
