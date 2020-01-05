@@ -1,0 +1,63 @@
+<div class="embed-responsive embed-responsive-16by9 video-wrapper">
+  <vg-player class="embed-responsive-item"
+             (onPlayerReady)="onPlayerReady($event)">
+    <vg-controls>
+      <vg-time-display vgProperty="current"
+                       vgFormat="mm:ss"></vg-time-display>
+      <vg-scrub-bar>
+        <vg-scrub-bar-buffering-time vgFor="mainVideo">
+        </vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
+    </vg-controls>
+    <video [vgMedia]="video"
+           [playbackRate]="playbackRate"
+           #video
+           id="mainVideo"
+           preload="auto">
+      <source [src]="src"
+              type="video/mp4">
+    </video>
+  </vg-player>
+  <div *ngIf="!synchronized"
+       class="touch-controls"
+       (click)="togglePlay()"></div>
+</div>
+
+<div *ngIf="playerIsReady && !synchronized"
+     class="player-controls">
+  <div class="controls-row">
+    <button class="btn btn-info btn-sm"
+            (click)="togglePlay()">
+      <span *ngIf="!playerIsPlaying">PLAY</span>
+      <span *ngIf="playerIsPlaying">PAUSE</span>
+    </button>
+    <button class="btn btn-info btn-sm"
+            (click)="jump('bwd')">
+      << BWD</button>
+         <button
+         class="btn btn-info btn-sm"
+         (click)="jump('fwd')">FWD >>
+    </button>
+
+    <button class="btn btn-danger btn-sm"
+            (click)="stop()">STOP</button>
+  </div>
+
+  <div class="controls-row">
+    <button class="btn btn-info btn-sm"
+            (click)="changePLayBackRate('plus')">
+      +
+    </button>
+    <button class="btn btn-info btn-sm"
+            (click)="changePLayBackRate('minus')">
+      -
+    </button>
+    <span>{{playbackRate}}</span>
+    <button class="btn btn-info btn-sm"
+            (click)="changePLayBackRate('def')">
+      Default
+    </button>
+  </div>
+
+
+</div>

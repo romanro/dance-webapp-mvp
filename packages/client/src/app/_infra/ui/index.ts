@@ -6,3 +6,4 @@ export * from './notifications-page/notifications-page.component';
 export * from './about-danskill-modal/about-danskill-modal.component';
 export * from './logo/logo.component';
 export * from './preloader-icon/preloader-icon.component';
+export * from './video-player-wrapper/video-player-wrapper.component';

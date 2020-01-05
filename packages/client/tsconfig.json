@@ -18,7 +18,8 @@
       "@infra/*": ["src/app/_infra/*"],
       "@core/*": ["src/app/_infra/core/*"],
       "@ui/*": ["src/app/_infra/ui/*"],
-      "@store/*": ["src/app/_infra/_store/*"],
+      "@store/*": ["src/app/_infra/store/*"],
+      "@lab/*": ["src/app/lab/*"],
       "@environments/*": ["src/environments/*"]
     }
   },

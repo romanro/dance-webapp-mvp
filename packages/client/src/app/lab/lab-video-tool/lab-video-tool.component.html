@@ -1,0 +1,78 @@
+<div class="row position-relative video-wrapper">
+
+  <div class="col-12 col-md-6">
+    <ui-video-player-wrapper #masterPLayer
+                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [synchronized]="synchronized"
+                             (playerEvent)="masterPLayerEvent($event)"
+                             (playerStateChange)="masterPLayerStateChange($event)">
+    </ui-video-player-wrapper>
+  </div>
+  <div class="col-12 col-md-6">
+    <ui-video-player-wrapper #studentPLayer
+                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [synchronized]="synchronized"
+                             (playerEvent)="studentPLayerEvent($event)"
+                             (playerStateChange)="studentPLayerStateChange($event)">
+    </ui-video-player-wrapper>
+  </div>
+
+  <div *ngIf="synchronized"
+       class="touch-controls"
+       (click)="toggleVideos()"></div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="player-controls">
+      <div *ngIf="!synchronized"
+           class="controls-row text-center">
+        <button class="btn btn-danger"
+                (click)="synchronize()">SYNCHRONIZE</button>
+      </div>
+
+      <div *ngIf="synchronized"
+           class="controls-row">
+        <button class="btn btn-outline-dark"
+                (click)="toggleVideos()">
+          <span *ngIf="!playing">PLAY</span>
+          <span *ngIf="playing">PAUSE</span>
+        </button>
+
+        <button class="btn btn-info"
+                (click)="jump('bwd')">
+          << BWD</button>
+             <button
+             class="btn btn-info"
+             (click)="jump('fwd')">FWD >>
+        </button>
+
+        <button class="btn btn-danger"
+                (click)="stop()">STOP</button>
+      </div>
+
+      <div *ngIf="synchronized"
+           class="controls-row">
+        <button class="btn btn-info"
+                (click)="changePLayBackRate('plus')">
+          +
+        </button>
+        <button class="btn btn-info"
+                (click)="changePLayBackRate('minus')">
+          -
+        </button>
+        <span>{{playbackRate}}</span>
+        <button class="btn btn-info btn-sm"
+                (click)="changePLayBackRate('def')">
+          Default
+        </button>
+      </div>
+
+      <div *ngIf="synchronized"
+           class="controls-row text-center">
+        <button class="btn btn-outline-danger"
+                (click)="unsynchronize()">UNSYNCHRONIZE</button>
+      </div>
+    </div>
+  </div>
+</div>

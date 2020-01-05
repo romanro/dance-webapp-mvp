@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { VgBufferingModule } from 'videogular2/compiled/buffering';
+import { VgControlsModule } from 'videogular2/compiled/controls';
+import { VgCoreModule } from 'videogular2/compiled/core';
+import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
 
 import {
   AboutDanskillModalComponent,
@@ -12,22 +16,27 @@ import {
   NotificationsPageComponent,
   PageNotFoundComponent,
   PreloaderIconComponent,
+  VideoPlayerWrapperComponent,
 } from './ui';
+
 
 @NgModule({
   imports: [
-
-    CommonModule, TranslateModule, RouterModule
+    CommonModule, TranslateModule, RouterModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent,
-    LogoComponent, PreloaderIconComponent
+    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent,
-    LogoComponent, PreloaderIconComponent
+    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent
   ]
 })
 export class InfraModule { }
