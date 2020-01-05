@@ -102,12 +102,14 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+    this.subs.push(
+      this.playerAPI.getDefaultMedia().subscriptions.seeked.subscribe(
+        event => {
+          this.playerEvent.emit(event);
+        }
+      )
+    );
 
-
-  }
-
-  setPlaybackRate(rate: number) {
-    this.playbackRate = rate;
   }
 
   togglePlay() {

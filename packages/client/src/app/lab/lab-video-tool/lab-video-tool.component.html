@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row position-relative video-wrapper">
 
   <div class="col-12 col-md-6">
     <ui-video-player-wrapper #masterPLayer
@@ -16,6 +16,10 @@
                              (playerStateChange)="studentPLayerStateChange($event)">
     </ui-video-player-wrapper>
   </div>
+
+  <div *ngIf="synchronized"
+       class="touch-controls"
+       (click)="toggleVideos()"></div>
 </div>
 
 <div class="row">
@@ -33,6 +37,34 @@
                 (click)="toggleVideos()">
           <span *ngIf="!playing">PLAY</span>
           <span *ngIf="playing">PAUSE</span>
+        </button>
+
+        <button class="btn btn-info"
+                (click)="jump('bwd')">
+          << BWD</button>
+             <button
+             class="btn btn-info"
+             (click)="jump('fwd')">FWD >>
+        </button>
+
+        <button class="btn btn-danger"
+                (click)="stop()">STOP</button>
+      </div>
+
+      <div *ngIf="synchronized"
+           class="controls-row">
+        <button class="btn btn-info"
+                (click)="changePLayBackRate('plus')">
+          +
+        </button>
+        <button class="btn btn-info"
+                (click)="changePLayBackRate('minus')">
+          -
+        </button>
+        <span>{{playbackRate}}</span>
+        <button class="btn btn-info btn-sm"
+                (click)="changePLayBackRate('def')">
+          Default
         </button>
       </div>
 
