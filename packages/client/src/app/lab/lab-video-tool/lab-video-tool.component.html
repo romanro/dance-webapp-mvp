@@ -19,12 +19,15 @@
 
   <div *ngIf="synchronized"
        class="touch-controls"
-       (click)="toggleVideos()"></div>
+       (tap)="onTap($event)"
+       (panstart)="onPanStart($event)"
+       (pan)="onPan($event)"></div>
 </div>
 
 <div class="row">
   <div class="col">
     <div class="player-controls">
+
       <div *ngIf="!synchronized"
            class="controls-row text-center">
         <button class="btn btn-danger"

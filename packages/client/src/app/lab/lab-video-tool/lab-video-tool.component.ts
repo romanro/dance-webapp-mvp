@@ -125,4 +125,22 @@ export class LabVideoToolComponent implements OnInit {
     setTimeout(() => { this.playbackRate = this.masterPLayer.playbackRate; }, 200);
   }
 
+  onPanStart(evt) {
+    [this.masterPLayer, this.studentPLayer].map(p => p.pause());
+  }
+
+  onPan(evt) {
+    const devVelocity = evt.velocityX / 3;
+    const seekRatio = Number(devVelocity.toFixed(2));
+    const time = Number(this.masterPLayer.playerAPI.getDefaultMedia().currentTime.toFixed(2));
+    const seekTo = seekRatio + time;
+    this.masterPLayer.seekTo(seekTo);
+    this.syncStudentPlayer();
+
+  }
+
+  onTap(evt) {
+    this.toggleVideos();
+  }
+
 }
