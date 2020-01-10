@@ -12,6 +12,10 @@
             border-color: $success;
         }
     }
+
+    vg-controls {
+        pointer-events: none !important;
+    }
 }
 
 .player-controls {

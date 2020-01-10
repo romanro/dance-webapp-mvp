@@ -2,11 +2,12 @@
   <vg-player class="embed-responsive-item"
              (onPlayerReady)="onPlayerReady($event)">
     <vg-controls>
-      <vg-time-display vgProperty="current"
-                       vgFormat="mm:ss"></vg-time-display>
-      <vg-scrub-bar>
+      <vg-scrub-bar [vgSlider]="false">
         <vg-scrub-bar-buffering-time vgFor="mainVideo">
         </vg-scrub-bar-buffering-time>
+        <vg-scrub-bar-current-time vgFor="mainVideo"
+                                   [vgSlider]="false">
+        </vg-scrub-bar-current-time>
       </vg-scrub-bar>
     </vg-controls>
     <video [vgMedia]="video"
@@ -20,12 +21,20 @@
   </vg-player>
   <div *ngIf="!synchronized"
        class="touch-controls"
-       (click)="togglePlay()"></div>
+       (tap)="onTap($event)"
+       (panstart)="onPanStart($event)"
+       (pan)="onPan($event)"></div>
 </div>
 
-<div *ngIf="playerIsReady && !synchronized"
+
+<div *ngIf="playerIsReady"
      class="player-controls">
+
   <div class="controls-row">
+    <p>{{time}}</p>
+  </div>
+  <div *ngIf="!synchronized"
+       class="controls-row">
     <button class="btn btn-info btn-sm"
             (click)="togglePlay()">
       <span *ngIf="!playerIsPlaying">PLAY</span>
@@ -43,7 +52,8 @@
             (click)="stop()">STOP</button>
   </div>
 
-  <div class="controls-row">
+  <div *ngIf="!synchronized"
+       class="controls-row">
     <button class="btn btn-info btn-sm"
             (click)="changePLayBackRate('plus')">
       +
