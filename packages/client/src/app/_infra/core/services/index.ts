@@ -5,3 +5,4 @@ export * from './register.service';
 export * from './configuration.service';
 export * from './user.service';
 export * from './token.service';
+export * from './stars.service';

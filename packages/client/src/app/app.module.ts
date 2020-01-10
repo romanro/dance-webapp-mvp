@@ -5,14 +5,16 @@ import { LoginModule } from '@app/login/login.module';
 import { StarModule } from '@app/star/star.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
-import { UserReducer } from '@infra/store/reducers';
+import { StarsReducer, UserReducer } from '@infra/store/reducers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AboutDanskillModalComponent } from '@ui/about-danskill-modal/about-danskill-modal.component';
 import { SocialLoginModule } from 'angularx-social-login';
 
+import { StarsEffects } from './_infra/store/effects';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot({ user: UserReducer }),
+    StoreModule.forRoot({ user: UserReducer, stars: StarsReducer }),
+    EffectsModule.forRoot([StarsEffects]),
     SocialLoginModule,
     NgbModule,
     AppRoutingModule,

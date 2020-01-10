@@ -1,1 +1,9 @@
-<dsapp-star-info-page></dsapp-star-info-page>
+<div *ngIf="loading"
+     class="preloader">
+    <dsapp-preloader-icon></dsapp-preloader-icon>
+</div>
+
+
+<ng-container *ngIf="!loading">
+    <dsapp-star-info-page></dsapp-star-info-page>
+</ng-container>
