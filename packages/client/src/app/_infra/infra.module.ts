@@ -17,6 +17,7 @@ import {
   NotificationsPageComponent,
   PageNotFoundComponent,
   PreloaderIconComponent,
+  VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
 } from './ui';
 
@@ -31,12 +32,12 @@ import {
   ],
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
-    NavigationComponent, HeaderComponent, AboutDanskillModalComponent,
+    NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
-    NavigationComponent, HeaderComponent, AboutDanskillModalComponent,
+    NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective
   ]
 })

@@ -11,10 +11,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AboutDanskillModalComponent } from '@ui/about-danskill-modal/about-danskill-modal.component';
 import { SocialLoginModule } from 'angularx-social-login';
 
 import { StarsEffects } from './_infra/store/effects';
+import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra/ui';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StarModule
   ],
   entryComponents: [
-    AboutDanskillModalComponent
+    AboutDanskillModalComponent,
+    VideoPlayerModalComponent
   ],
   providers: [...APP_PROVIDERS],
   bootstrap: [AppComponent]

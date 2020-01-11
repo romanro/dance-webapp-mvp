@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as selectors from '@app/_infra/store/selectors';
 import { Star } from '@core/models/star.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { VideoPlayerModalComponent } from '@ui/video-player-modal/video-player-modal.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,14 +19,13 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<any>, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.subs.push(
       this.store.select(selectors.selectStarById(this.starId)).subscribe(
         star => {
           this.star = { ...star };
-          console.log(this.star);
         }
       )
     );
@@ -32,6 +33,13 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
+  }
+
+  openPromoModal() {
+    const modalRef = this.modalService.open(VideoPlayerModalComponent, { size: 'xl', centered: true });
+    modalRef.componentInstance.videoURL = this.star.promoVideoURL;
+    modalRef.componentInstance.title = this.star.name;
+    modalRef.componentInstance.autoplay = true;
   }
 
 }

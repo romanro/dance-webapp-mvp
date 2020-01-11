@@ -4,9 +4,17 @@ import { InfraModule } from '@infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PracticesPageComponent, StarInfoPageComponent, StarsPageComponent, StudentLayoutComponent } from '.';
+import {
+  PracticesPageComponent,
+  StarClassesComponent,
+  StarInfoPageComponent,
+  StarSkillsComponent,
+  StarsPageComponent,
+  StudentLayoutComponent,
+} from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
+
 
 @NgModule({
   imports: [
@@ -16,7 +24,9 @@ import { StudentRoutingModule } from './student-routing.module';
     StudentLayoutComponent,
     StarsPageComponent,
     PracticesPageComponent,
-    StarInfoPageComponent
+    StarInfoPageComponent,
+    StarClassesComponent,
+    StarSkillsComponent
   ],
 })
 export class StudentModule { }
