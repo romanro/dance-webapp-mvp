@@ -5,7 +5,7 @@ import { LoginModule } from '@app/login/login.module';
 import { StarModule } from '@app/star/star.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
-import { StarsReducer, UserReducer } from '@infra/store/reducers';
+import { SkillsReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SocialLoginModule } from 'angularx-social-login';
 
-import { StarsEffects } from './_infra/store/effects';
+import { SkillsEffects, StarsEffects } from './_infra/store/effects';
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra/ui';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent
   ],
   imports: [
+
     BrowserModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -38,8 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot({ user: UserReducer, stars: StarsReducer }),
-    EffectsModule.forRoot([StarsEffects]),
+    StoreModule.forRoot({ user: UserReducer, stars: StarsReducer, skills: SkillsReducer }),
+    EffectsModule.forRoot([StarsEffects, SkillsEffects]),
     SocialLoginModule,
     NgbModule,
     AppRoutingModule,

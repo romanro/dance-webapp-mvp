@@ -4,3 +4,22 @@
     background-size: cover;
   }
 }
+
+.star-skills-holder {
+  padding: 1rem;
+
+  .star-skill {
+    margin-bottom: 1rem;
+
+    .star-skill-preview-cover {
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .skill-info {
+      padding: 1rem;
+    }
+  }
+
+
+}

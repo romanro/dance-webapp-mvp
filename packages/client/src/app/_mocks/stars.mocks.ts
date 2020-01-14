@@ -13,7 +13,7 @@ export const MOCK_STARS: Array<Star> = [
             country: 'Israel'
         },
         birthDate: '20-1-1981',
-        tags: [{ id: '1', text: 'salsa' }],
+        tags: [{ id: '1', text: 'salsa' }, { id: '2', text: 'classic' }],
         userPics: {
             smallPicURL: 'https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png',
             largePicURL: 'https://media.vogue.co.uk/photos/5d54be0919b6dd000853ad13/master/pass/original'

@@ -11,6 +11,12 @@
     <h3 dsappStarName
         [name]="star.name"></h3>
     <p class="text-secondary">{{star.about}}</p>
+
+    <div class='tags-holder'>
+      <a *ngFor="let tag of star.tags"
+         class="tag badge badge-info">{{tag.text}}</a>
+    </div>
+
     <a class="btn btn-outline-dark"
        (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
   </div>
@@ -25,7 +31,7 @@
           {{'STAR.STAR_INFO_PAGE.MySkills' | translate}}
         </ng-template>
         <ng-template ngbTabContent>
-          <dsapp-star-skills></dsapp-star-skills>
+          <dsapp-star-skills [starId]="starId"></dsapp-star-skills>
         </ng-template>
       </ngb-tab>
 

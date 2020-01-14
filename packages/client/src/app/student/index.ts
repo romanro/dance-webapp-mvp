@@ -4,3 +4,4 @@ export * from './practices-page/practices-page.component';
 export * from './stars-page/star-info-page/star-info-page.component';
 export * from './stars-page/star-classes/star-classes.component';
 export * from './stars-page/star-skills/star-skills.component';
+export * from './stars-page/star-skills/star-skill-view/star-skill-view.component';

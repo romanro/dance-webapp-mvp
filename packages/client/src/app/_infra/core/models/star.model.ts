@@ -23,3 +23,9 @@ export interface StarUserPics {
     smallPicURL: string;
     largePicURL: string;
 }
+
+export interface StarBasicInfo {
+    id: string;
+    name: Name;
+    userPics: StarUserPics;
+}

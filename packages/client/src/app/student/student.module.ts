@@ -9,6 +9,7 @@ import {
   StarClassesComponent,
   StarInfoPageComponent,
   StarSkillsComponent,
+  StarSkillViewComponent,
   StarsPageComponent,
   StudentLayoutComponent,
 } from '.';
@@ -26,7 +27,8 @@ import { StudentRoutingModule } from './student-routing.module';
     PracticesPageComponent,
     StarInfoPageComponent,
     StarClassesComponent,
-    StarSkillsComponent
+    StarSkillsComponent,
+    StarSkillViewComponent
   ],
 })
 export class StudentModule { }
