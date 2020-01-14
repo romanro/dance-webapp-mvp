@@ -3,13 +3,13 @@ import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { NotificationsPageComponent } from '@app/_infra/ui';
 
-import { PracticesPageComponent, StarsPageComponent, StudentLayoutComponent } from '.';
+import { PracticesPageComponent, StudentLayoutComponent } from '.';
 
 
 const routes: Routes = [
   {
     path: '', component: StudentLayoutComponent, children: [
-      { path: 'star', component: StarsPageComponent },
+      { path: 'star', loadChildren: () => import('./stars-page/student-stars.module').then(m => m.StudentStarsModule) },
       { path: 'lab', loadChildren: () => import('../lab/lab.module').then(m => m.LabModule) },
       { path: 'practices', component: PracticesPageComponent },
       { path: 'notifications', component: NotificationsPageComponent },

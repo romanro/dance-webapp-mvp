@@ -1,49 +1,54 @@
-<div class="row pb-4 star-info">
-  <div class="col-12 col-lg-6">
-    <div class="embed-responsive embed-responsive-16by9">
-      <div class="embed-responsive-item star-big-image"
-           [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+<ng-container *ngIf="starExists">
+
+  <div class="row pb-4 star-info">
+    <div class="col-12 col-lg-6">
+      <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive-item star-big-image"
+             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-12 col-lg-6 text-center text-lg-left pt-5 pt-lg-1">
-    <h3 dsappStarName
-        [name]="star.name"></h3>
-    <p class="text-secondary">{{star.about}}</p>
+    <div class="col-12 col-lg-6 text-center text-lg-left pt-5 pt-lg-1">
+      <h3 dsappStarName
+          [name]="star.name"></h3>
+      <p class="text-secondary">{{star.about}}</p>
 
-    <div class='tags-holder'>
-      <a *ngFor="let tag of star.tags"
-         class="tag badge badge-info">{{tag.text}}</a>
+      <div class='tags-holder'>
+        <a *ngFor="let tag of star.tags"
+           class="tag badge badge-info">{{tag.text}}</a>
+      </div>
+
+      <a class="btn btn-outline-dark"
+         (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
     </div>
-
-    <a class="btn btn-outline-dark"
-       (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <ngb-tabset [justify]="'justified'">
+  <div class="row">
+    <div class="col">
+      <ngb-tabset [justify]="'justified'">
 
-      <ngb-tab>
-        <ng-template ngbTabTitle>
-          {{'STAR.STAR_INFO_PAGE.MySkills' | translate}}
-        </ng-template>
-        <ng-template ngbTabContent>
-          <dsapp-star-skills [starId]="starId"></dsapp-star-skills>
-        </ng-template>
-      </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>
+            {{'STAR.STAR_INFO_PAGE.MySkills' | translate}}
+          </ng-template>
+          <ng-template ngbTabContent>
 
-      <ngb-tab>
-        <ng-template ngbTabTitle>
-          {{'STAR.STAR_INFO_PAGE.Classes' | translate}}
-        </ng-template>
-        <ng-template ngbTabContent>
-          <dsapp-star-classes></dsapp-star-classes>
-        </ng-template>
-      </ngb-tab>
+          </ng-template>
+        </ngb-tab>
 
-    </ngb-tabset>
+        <ngb-tab>
+          <ng-template ngbTabTitle>
+            {{'STAR.STAR_INFO_PAGE.Classes' | translate}}
+          </ng-template>
+          <ng-template ngbTabContent>
+
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
+    </div>
   </div>
-</div>
+
+
+</ng-container>

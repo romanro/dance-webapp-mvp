@@ -1,4 +1,4 @@
-export interface SkillVideo {
+export interface FigureVideo {
     id: string;
     views: View[];
     soundTrackUrl: string;

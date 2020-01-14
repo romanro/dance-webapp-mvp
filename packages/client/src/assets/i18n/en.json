@@ -10,6 +10,7 @@
   "ERRORS": {
     "Error": "Error",
     "PageNotFound": "Page not found",
+    "InformationNotFound": "Information not found",
     "BackToHome": "Back to Home Page",
     "SessionIsExpired": "Session is Expired. Please, log in again.",
     "GeneralBackendError": "Response error, please try again later"
@@ -85,6 +86,7 @@
     }
   },
   "STAR": {
+    "learn": "Learn",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",

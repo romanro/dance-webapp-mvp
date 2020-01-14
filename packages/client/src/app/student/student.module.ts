@@ -4,15 +4,7 @@ import { InfraModule } from '@infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  PracticesPageComponent,
-  StarClassesComponent,
-  StarInfoPageComponent,
-  StarSkillsComponent,
-  StarSkillViewComponent,
-  StarsPageComponent,
-  StudentLayoutComponent,
-} from '.';
+import { PracticesPageComponent, StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
 
@@ -23,12 +15,7 @@ import { StudentRoutingModule } from './student-routing.module';
   ],
   declarations: [
     StudentLayoutComponent,
-    StarsPageComponent,
-    PracticesPageComponent,
-    StarInfoPageComponent,
-    StarClassesComponent,
-    StarSkillsComponent,
-    StarSkillViewComponent
+    PracticesPageComponent
   ],
 })
 export class StudentModule { }

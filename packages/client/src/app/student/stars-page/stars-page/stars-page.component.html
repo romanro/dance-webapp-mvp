@@ -1,0 +1,36 @@
+<div *ngIf="loading"
+     class="preloader">
+    <dsapp-preloader-icon></dsapp-preloader-icon>
+</div>
+
+
+<ng-container *ngIf="!loading">
+    <div class="row d-flex justify-content-center">
+        <div *ngFor="let star of stars"
+             class="col-6 col-md-3 col-lg-4 text-center">
+            <div class="star-info">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive-item star-big-image"
+                         [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                    </div>
+                </div>
+                <h3 dsappStarName
+                    [name]="star.name"></h3>
+
+                <div class='tags-holder'>
+                    <a *ngFor="let tag of star.tags"
+                       class="tag badge badge-info">{{tag.text}}</a>
+                </div>
+
+                <a class="btn btn-outline-dark"
+                   (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
+
+                <a class="btn btn-info"
+                   [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</ng-container>

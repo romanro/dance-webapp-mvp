@@ -20,5 +20,25 @@ export const MOCK_STARS: Array<Star> = [
         },
         promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
         about: 'A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.'
+    },
+    {
+        id: '2',
+        name: {
+            firstName: 'Anthony',
+            lastName: 'Cool',
+            midName: 'Dancer'
+        },
+        location: {
+            city: 'Moscow',
+            country: 'Russia'
+        },
+        birthDate: '20-1-1982',
+        tags: [{ id: '1', text: 'salsa' }, { id: '3', text: 'ballroom' }],
+        userPics: {
+            smallPicURL: 'https://laicos.com/wp-content/uploads/2018/10/ryan-avatar-square-300x300.jpeg',
+            largePicURL: 'https://n4m6x6k6.stackpathcdn.com/wp-content/uploads/2012/05/man-dancing.jpg'
+        },
+        promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
+        about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.'
     }
 ];

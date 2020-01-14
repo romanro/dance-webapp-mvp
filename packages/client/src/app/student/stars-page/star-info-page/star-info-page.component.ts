@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '@app/_infra/core/services';
 import * as selectors from '@app/_infra/store/selectors';
 import { Star } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,25 +16,48 @@ import { Subscription } from 'rxjs';
 export class StarInfoPageComponent implements OnInit, OnDestroy {
 
 
-  starId = '1';
+  starId: string;
   star: Star;
+
+  starExists = false;
 
   subs: Subscription[] = [];
 
-  constructor(private store: Store<any>, private modalService: NgbModal) { }
+  constructor(
+    private store: Store<any>,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.subs.push(
-      this.store.select(selectors.selectStarById(this.starId)).subscribe(
-        star => {
-          this.star = { ...star };
-        }
-      )
+      this.route.paramMap.subscribe(params => {
+        this.starId = params.get('id');
+        this.subs.push(
+          this.store.select(selectors.selectStarById(this.starId)).subscribe(
+            star => {
+              if (star) {
+                this.star = { ...star };
+                this.starExists = true;
+              } else {
+                this.alertService.error('ERRORS.InformationNotFound');
+                this.goBackToStars();
+              }
+            }
+          )
+        );
+      })
     );
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
+  }
+
+  goBackToStars() {
+    this.router.navigate(['/']);
   }
 
   openPromoModal() {
