@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '@app/_infra/core/services';
+import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import * as selectors from '@app/_infra/store/selectors';
 import { Star } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -42,8 +43,8 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
                 this.star = { ...star };
                 this.starExists = true;
               } else {
-                this.alertService.error('ERRORS.InformationNotFound');
-                this.goBackToStars();
+                this.store.dispatch(StarsActions.BeginGetStarsAction());
+                // this.goBackToStars();
               }
             }
           )

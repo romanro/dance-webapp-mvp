@@ -90,7 +90,9 @@
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
-      "Classes": "Classes"
+      "Classes": "Classes",
+      "dances": "Dances",
+      "backToStarsList": "Back to Stars List"
     }
   },
   "ABOUT": {

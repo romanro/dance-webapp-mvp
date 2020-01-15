@@ -1,4 +1,4 @@
-import { Star } from '@core/models';
+import { Star, StarBasicInfo } from '@core/models';
 
 export const MOCK_STARS: Array<Star> = [
     {
@@ -42,3 +42,17 @@ export const MOCK_STARS: Array<Star> = [
         about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.'
     }
 ];
+
+
+export const MOCK_STAR_1_BI: StarBasicInfo = {
+    id: MOCK_STARS[0].id,
+    name: MOCK_STARS[0].name,
+    userPics: MOCK_STARS[0].userPics
+};
+
+
+export const MOCK_STAR_2_BI: StarBasicInfo = {
+    id: MOCK_STARS[1].id,
+    name: MOCK_STARS[1].name,
+    userPics: MOCK_STARS[1].userPics
+};

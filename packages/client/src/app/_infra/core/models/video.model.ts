@@ -1,7 +1,7 @@
 export interface FigureVideo {
     id: string;
     views: View[];
-    soundTrackUrl: string;
+    soundTrackUrl?: string;
 }
 
 export interface View {

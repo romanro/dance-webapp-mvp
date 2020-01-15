@@ -10,4 +10,5 @@ export * from './language.model';
 export * from './http-responce.model';
 export * from './skill.model';
 export * from './dance.model';
+export * from './figure.model';
 export * from './video.model';

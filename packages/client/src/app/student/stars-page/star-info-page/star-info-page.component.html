@@ -1,3 +1,10 @@
+<div class="row pb-2">
+  <div class="col">
+    <a class="btn btn-outline-info"
+       [routerLink]="['/student','star']">{{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}</a>
+  </div>
+</div>
+
 <ng-container *ngIf="starExists">
 
   <div class="row pb-4 star-info">
@@ -26,27 +33,7 @@
 
   <div class="row">
     <div class="col">
-      <ngb-tabset [justify]="'justified'">
-
-        <ngb-tab>
-          <ng-template ngbTabTitle>
-            {{'STAR.STAR_INFO_PAGE.MySkills' | translate}}
-          </ng-template>
-          <ng-template ngbTabContent>
-
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab>
-          <ng-template ngbTabTitle>
-            {{'STAR.STAR_INFO_PAGE.Classes' | translate}}
-          </ng-template>
-          <ng-template ngbTabContent>
-
-          </ng-template>
-        </ngb-tab>
-
-      </ngb-tabset>
+      <h3>{{'STAR.STAR_INFO_PAGE.dances' | translate}}:</h3>
     </div>
   </div>
 
