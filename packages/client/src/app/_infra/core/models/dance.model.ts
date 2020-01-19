@@ -4,7 +4,7 @@ export interface Dance {
     id: string;
     name: string;
     coverImageUrl: string;
-    starsId: string[];
+    starId: string;
     tags: Tag[];
     partnerFigures: string[];
     soloFigures: string[];

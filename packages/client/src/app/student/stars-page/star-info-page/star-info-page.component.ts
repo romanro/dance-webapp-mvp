@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import * as selectors from '@app/_infra/store/selectors';
 import { Star } from '@core/models/star.model';
@@ -28,14 +27,13 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute,
-    private alertService: AlertService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.subs.push(
       this.route.paramMap.subscribe(params => {
-        this.starId = params.get('id');
+        this.starId = params.get('starId');
         this.subs.push(
           this.store.select(selectors.selectStarById(this.starId)).subscribe(
             star => {
@@ -49,6 +47,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
             }
           )
         );
+
       })
     );
   }

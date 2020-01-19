@@ -1,0 +1,66 @@
+<div class="row pb-2 back-btn-row">
+  <div class="col">
+    <a class="btn btn-outline-info"
+       [routerLink]="['/','student','star']">{{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-5 col-lg-4">
+    <div class="star-info-holder d-flex">
+      <div class="star-small-image cover-bg"
+           [style.backgroundImage]="'url('+ star.userPics.smallPicURL +')'">
+      </div>
+      <div class="star-text">
+        <h5 dsappStarName
+            [name]="star.name"></h5>
+        <div class='tags-holder'>
+          <a *ngFor="let tag of star.tags"
+             class="tag badge badge-info">{{tag.text}}</a>
+        </div>
+        <a class="btn btn-sm btn-link"
+           [routerLink]="['/','student','star', star.id]"
+           translate
+           [translateParams]="{starName: star.name.firstName}">STAR.STAR_DANCE_FIGURES_PAGE.backToStarsPage</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-12 col-md-7 col-lg-8">
+    <div class="embed-responsive embed-responsive-16by9">
+      <div class="embed-responsive-item cover-bg"
+           [style.backgroundImage]="'url('+ dance.coverImageUrl +')'">
+      </div>
+    </div>
+    <h4>{{dance.name}}</h4>
+    <p>{{dance.description}}</p>
+  </div>
+</div>
+
+<div class="row pt-2">
+  <div class="col">
+    <ngb-tabset [justify]="'fill'">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          {{'STAR.STAR_DANCE_FIGURES_PAGE.soloFigures' | translate}}
+        </ng-template>
+        <ng-template ngbTabContent>
+          <dsapp-star-figures-list [figures]="soloFigures">
+          </dsapp-star-figures-list>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          {{'STAR.STAR_DANCE_FIGURES_PAGE.partnerFigures' | translate}}
+        </ng-template>
+        <ng-template ngbTabContent>
+          <dsapp-star-figures-list [figures]="partnerFigures">
+          </dsapp-star-figures-list>
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset>
+  </div>
+</div>

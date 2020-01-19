@@ -5,6 +5,7 @@
     "Profile": "Profile",
     "Save": "Save",
     "Cancel": "Cancel",
+    "preview": "Preview",
     "NotSelected": "Not Selected"
   },
   "ERRORS": {
@@ -93,6 +94,11 @@
       "Classes": "Classes",
       "dances": "Dances",
       "backToStarsList": "Back to Stars List"
+    },
+    "STAR_DANCE_FIGURES_PAGE": {
+      "backToStarsPage": "Back To {{starName}}'s Page",
+      "soloFigures": "Solo Figures",
+      "partnerFigures": "Partner Figures"
     }
   },
   "ABOUT": {

@@ -2,8 +2,10 @@ import { FigureVideo } from './video.model';
 
 export interface Figure {
     id: string;
+    starId: string;
     name: string;
     coverImageUrl: string;
+    classVideoUrl: string;
     isAdvanced: boolean;
     levels: FigureLevel[];
     description?: string;
@@ -14,9 +16,7 @@ export interface Figure {
 
 export interface FigureLevel {
     id: string;
-    starsId: string[];
     level: Level;
-    classVideoUrl: string;
     coverImageUrl: string;
     videos: FigureVideo[];
 }

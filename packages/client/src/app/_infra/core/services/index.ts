@@ -7,3 +7,5 @@ export * from './user.service';
 export * from './token.service';
 export * from './stars.service';
 export * from './skills.service';
+export * from './dances.service';
+export * from './figures.service';
