@@ -10,6 +10,7 @@ import {
   StarFigurePageComponent,
   StarFiguresListComponent,
   StarInfoPageComponent,
+  StarPagesNavigationBarComponent,
   StarsPageComponent,
 } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
@@ -25,7 +26,8 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     StarDancesListComponent,
     StarDanceFiguresPageComponent,
     StarFiguresListComponent,
-    StarFigurePageComponent
+    StarFigurePageComponent,
+    StarPagesNavigationBarComponent
   ]
 })
 export class StudentStarsModule { }
