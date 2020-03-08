@@ -65,6 +65,8 @@
   "USER": {
     "firstName": "First Name",
     "lastName": "Last Name",
+    "midName": "Middle Name",
+    "nickname": "Nickname",
     "Language": "Language",
     "Gender": "Gender",
     "AboutMe": "About Me",

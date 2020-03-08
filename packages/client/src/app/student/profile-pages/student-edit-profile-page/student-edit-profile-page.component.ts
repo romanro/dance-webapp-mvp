@@ -3,18 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Gender, Language, User } from '@app/_infra/core/models';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
-import { UserState } from '@app/_infra/store/state';
+import * as selectors from '@app/_infra/store/selectors/user.selectors';
 import { AlertService, UserService } from '@infra/core/services';
-import { select, Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import t from 'typy';
 
 @Component({
   selector: 'dsapp-student-edit-profile-page',
-  templateUrl: './student-edit-profile-page.component.html',
-  styles: []
+  templateUrl: './student-edit-profile-page.component.html'
 })
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
-  user$: Observable<UserState>;
   subs: Subscription[] = [];
   user: User = null;
 
@@ -29,64 +28,51 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     return this.changeProfileForm.controls;
   }
 
+
   constructor(
     private router: Router,
     private alertService: AlertService,
-    private store: Store<UserState>,
+    private store: Store<any>,
     private formBuilder: FormBuilder,
     private userService: UserService
-  ) {
-    // @ts-ignore
-    this.user$ = store.pipe(select('user'));
-  }
+  ) { }
 
   ngOnInit() {
-    this.initForm();
+    // this.initForm();
     this.subs.push(
-      // @ts-ignore
-      this.user$.subscribe(res => {
-        if (res.user) {
-          this.user = { ...res.user };
-          this.setFormControls();
-        } else {
-          // rewrite to effects;
-          const authData = JSON.parse(localStorage.getItem('authData'));
-          if (authData && authData.userId) {
-            this.userService.getUser(authData.userId).subscribe(
-              result => {
-                this.user = result[0];
-                this.store.dispatch(
-                  UserActions.CreateUserAction({ user: this.user })
-                );
-                this.changeProfileForm.get('birthDate').clearValidators();
-                this.changeProfileForm
-                  .get('birthDate')
-                  .updateValueAndValidity();
-              },
-              error => {
-                this.alertService.success('ERRORS.SessionIsExpired');
-                this.router.navigate(['/login']);
-              }
-            );
+      this.store.select(
+        selectors.selectCurrentUser()).subscribe(res => {
+          if (res) {
+            this.user = { ...res };
+            this.initForm();
+            console.log()
           } else {
-            this.alertService.success('ERRORS.SessionIsExpired');
-            this.router.navigate(['/login']);
+            this.store.dispatch(UserActions.BeginGetUserAction());
           }
-        }
-      })
+        })
     );
   }
 
   initForm() {
     this.changeProfileForm = this.formBuilder.group({
-      email: { value: '', disabled: true },
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      birthDate: [null],
+      email: { value: this.user.email, disabled: true },
+      name: this.formBuilder.group({
+        firstName: [this.user.name.firstName, [Validators.required]],
+        lastName: [this.user.name.lastName, [Validators.required]],
+        midName: [t(this.user.name.lastName).isDefined ? t(this.user, 'name.lastName').safeObject : ''],
+        nickname: [t(this.user.name.nickname).isDefined ? t(this.user, 'name.nickname').safeObject : '']
+      }),
+      birthDate: [t(this.user.birthDate.date).isDefined ? t(this.user, 'birthDate.date').safeObject : null],
       language: [Language.english],
-      gender: [''],
-      about: ['']
+      gender: [t(this.user.gender).isDefined ? this.user.gender : ''],
+      about: [t(this.user.about).isDefined ? this.user.about : ''],
+      userPic: [t(this.user.userPic).isDefined ? this.user.userPic : '']
     });
+
+    setTimeout(() => {
+      this.changeProfileForm.get('birthDate').clearValidators();
+      this.changeProfileForm.get('birthDate').updateValueAndValidity();
+    }, 500);
   }
 
   saveProfile() {
@@ -102,7 +88,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           if (res) {
-            this.store.dispatch(UserActions.UpdateUserAction({ user: res }));
+            /// this.store.dispatch(UserActions.UpdateUserAction({ user: res }));
             this.alertService.success('STUDENT.PROFILE.ProfileSaveSuccess');
             this.router.navigate(['/student/profile']);
           } else {
@@ -124,7 +110,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   setFormControls() {
-    this.changeProfileForm.controls['email'].setValue(
+    /* this.changeProfileForm.controls['email'].setValue(
       !this.user.email ? '' : this.user.email
     );
     this.changeProfileForm.controls['firstName'].setValue(
@@ -148,7 +134,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.changeProfileForm.get('birthDate').clearValidators();
       this.changeProfileForm.get('birthDate').updateValueAndValidity();
-    }, 500);
+    }, 500); */
   }
 
   ngOnDestroy(): void {

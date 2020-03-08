@@ -6,6 +6,8 @@ import { environment } from '@environments/environment';
 import { AuthServiceConfig } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
 
+import { UserService } from './_infra/core/services';
+
 
 
 const config = new AuthServiceConfig([

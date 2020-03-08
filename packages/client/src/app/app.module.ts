@@ -13,7 +13,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SocialLoginModule } from 'angularx-social-login';
 
-import { DancesEffects, FiguresEffects, StarsEffects } from './_infra/store/effects';
+import { DancesEffects, FiguresEffects, StarsEffects, UserEffects } from './_infra/store/effects';
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra/ui';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent
   ],
+  providers: [...APP_PROVIDERS],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     StoreModule.forRoot({ user: UserReducer, stars: StarsReducer, dances: DancesReducer, figures: FiguresReducer }),
-    EffectsModule.forRoot([StarsEffects, DancesEffects, FiguresEffects]),
+    EffectsModule.forRoot([UserEffects, StarsEffects, DancesEffects, FiguresEffects]),
     SocialLoginModule,
     NgbModule,
     AppRoutingModule,
@@ -52,7 +53,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AboutDanskillModalComponent,
     VideoPlayerModalComponent
   ],
-  providers: [...APP_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
