@@ -5,11 +5,13 @@
     "Profile": "Profile",
     "Save": "Save",
     "Cancel": "Cancel",
+    "preview": "Preview",
     "NotSelected": "Not Selected"
   },
   "ERRORS": {
     "Error": "Error",
     "PageNotFound": "Page not found",
+    "InformationNotFound": "Information not found",
     "BackToHome": "Back to Home Page",
     "SessionIsExpired": "Session is Expired. Please, log in again.",
     "GeneralBackendError": "Response error, please try again later"
@@ -63,6 +65,8 @@
   "USER": {
     "firstName": "First Name",
     "lastName": "Last Name",
+    "midName": "Middle Name",
+    "nickname": "Nickname",
     "Language": "Language",
     "Gender": "Gender",
     "AboutMe": "About Me",
@@ -85,10 +89,18 @@
     }
   },
   "STAR": {
+    "learn": "Learn",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
-      "Classes": "Classes"
+      "Classes": "Classes",
+      "dances": "Dances",
+      "backToStarsList": "Back to Stars List"
+    },
+    "STAR_DANCE_FIGURES_PAGE": {
+      "backToStarsPage": "Back To {{starName}}'s Page",
+      "soloFigures": "Solo Figures",
+      "partnerFigures": "Partner Figures"
     }
   },
   "ABOUT": {

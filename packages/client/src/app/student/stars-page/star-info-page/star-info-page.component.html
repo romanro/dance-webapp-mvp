@@ -1,31 +1,43 @@
-<div class="row pb-4">
-  <div class="col-12 col-lg-6">
-    <div class="embed-responsive embed-responsive-16by9">
-      <div class="embed-responsive-item bg-dark"></div>
+<div class="row pb-2 back-btn-row">
+  <div class="col">
+    <a class="btn btn-outline-info"
+       [routerLink]="['/student','star']">{{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}</a>
+  </div>
+</div>
+
+<ng-container *ngIf="starExists">
+
+  <div class="row pb-4 star-info">
+    <div class="col-12 col-lg-6">
+      <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive-item star-big-image cover-bg"
+             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6 text-center text-lg-left pt-5 pt-lg-1">
+      <h3 dsappStarName
+          [name]="star.name"></h3>
+      <p class="text-secondary">{{star.about}}</p>
+
+      <div class='tags-holder'>
+        <a *ngFor="let tag of star.tags"
+           class="tag badge badge-info">{{tag.text}}</a>
+      </div>
+
+      <a class="btn btn-outline-dark"
+         (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
     </div>
   </div>
-  <div class="col-12 col-lg-6 text-center text-lg-left pt-5 pt-lg-1">
-    <h3>Nina Trump</h3>
-    <p class="text-secondary">A dance teacher, has a good knowledge</p>
-    <a
-       class="btn btn-outline-dark">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
+
+  <div class="row">
+    <div class="col">
+      <h3>{{'STAR.STAR_INFO_PAGE.dances' | translate}}:</h3>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <ngb-tabset [justify]="'justified'">
+  <dsapp-star-dances-list [starId]="star.id"></dsapp-star-dances-list>
 
-      <ngb-tab>
-        <ng-template ngbTabTitle>{{'STAR.STAR_INFO_PAGE.MySkills' | translate}}
-        </ng-template>
-      </ngb-tab>
 
-      <ngb-tab>
-        <ng-template ngbTabTitle>{{'STAR.STAR_INFO_PAGE.Classes' | translate}}
-        </ng-template>
-      </ngb-tab>
-
-    </ngb-tabset>
-  </div>
-</div>
+</ng-container>

@@ -1,0 +1,11 @@
+.tags-holder {
+    margin-bottom: $paragraph-margin-bottom;
+
+    .tag {
+        margin: 0.2rem;
+
+        &.badge-info {
+            color: $white;
+        }
+    }
+}

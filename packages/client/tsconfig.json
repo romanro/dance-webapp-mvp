@@ -16,6 +16,7 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@infra/*": ["src/app/_infra/*"],
+      "@models/*": ["src/app/_infra/core/models/*"],
       "@core/*": ["src/app/_infra/core/*"],
       "@ui/*": ["src/app/_infra/ui/*"],
       "@store/*": ["src/app/_infra/store/*"],

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dsapp-preloader-icon',
   templateUrl: './preloader-icon.component.html',
-  styles: []
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreloaderIconComponent implements OnInit {
 
