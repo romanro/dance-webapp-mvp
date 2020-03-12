@@ -9,3 +9,4 @@ export * from './stars.service';
 export * from './skills.service';
 export * from './dances.service';
 export * from './figures.service';
+export * from './alert-error.service';

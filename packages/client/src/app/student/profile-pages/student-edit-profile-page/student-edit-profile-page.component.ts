@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Gender, Language, User } from '@app/_infra/core/models';
+import { Gender, Language, User, UserError } from '@app/_infra/core/models';
+import { AlertErrorService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import * as selectors from '@app/_infra/store/selectors/user.selectors';
-import { AlertService, UserService } from '@infra/core/services';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import t from 'typy';
@@ -16,6 +16,7 @@ import t from 'typy';
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   user: User = null;
+  errorMsg: UserError | string = null;
 
   changeProfileForm: FormGroup;
   isSubmitted = false;
@@ -31,23 +32,28 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private alertService: AlertService,
     private store: Store<any>,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private errorService: AlertErrorService
   ) { }
 
   ngOnInit() {
-    // this.initForm();
     this.subs.push(
-      this.store.select(
-        selectors.selectCurrentUser()).subscribe(res => {
+      this.store.select(selectors.selectCurrentUser())
+        .subscribe(res => {
           if (res) {
             this.user = { ...res };
             this.initForm();
-            console.log()
           } else {
             this.store.dispatch(UserActions.BeginGetUserAction());
+          }
+        })
+    );
+    this.subs.push(
+      this.store.select(selectors.selectCurrentUserError())
+        .subscribe(res => {
+          if (res && res.type) {
+            this.errorMsg = this.errorService.alertUserError(res.type);
           }
         })
     );
@@ -76,14 +82,20 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   saveProfile() {
-    this.isSubmitted = true;
 
     if (this.changeProfileForm.invalid) {
-      this.isSubmitted = false;
       return;
     }
 
-    this.userService
+    this.isSubmitted = true;
+
+    console.log(this.changeProfileForm.getRawValue());
+
+    const payload = this.changeProfileForm.getRawValue();
+
+    this.store.dispatch(UserActions.BeginUpdateUserAction({ payload }));
+
+    /* this.userService
       .patchUser(this.user.email, this.changeProfileForm.value)
       .subscribe(
         res => {
@@ -98,7 +110,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
         error => {
           this.alertService.error('STUDENT.PROFILE.ProfileSaveError');
         }
-      );
+      ); */
 
     setTimeout(() => {
       this.isSubmitted = false;
@@ -109,8 +121,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/student/profile']);
   }
 
-  setFormControls() {
-    /* this.changeProfileForm.controls['email'].setValue(
+  /*setFormControls() {
+     this.changeProfileForm.controls['email'].setValue(
       !this.user.email ? '' : this.user.email
     );
     this.changeProfileForm.controls['firstName'].setValue(
@@ -134,8 +146,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.changeProfileForm.get('birthDate').clearValidators();
       this.changeProfileForm.get('birthDate').updateValueAndValidity();
-    }, 500); */
-  }
+    }, 500); 
+  }*/
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

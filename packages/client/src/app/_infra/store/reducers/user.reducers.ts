@@ -6,25 +6,35 @@ import { UserState } from '../state';
 
 
 
-export const intialState = { user: null };
+export const intialState = { user: null, error: null };
 
 const reducer = createReducer(
   intialState,
   on(UserActions.GetUserAction, state => state),
-  /*   on(UserActions.ClearUser, state => state),
-    on(UserActions.UpdateUserAction, (state: UserState, { user }) => ({
-      ...state, user: { ...user }
-    })),
-    on(UserActions.CreateUserAction, (state: UserState, { user }) => ({
-      ...state, user: { ...user }
-    })), */
+
   on(UserActions.SuccessGetUserAction, (state: UserState, { payload }) => {
-    return { ...state, user: payload };
+    return { ...state, user: payload, error: null };
+  }),
+
+  on(UserActions.ErrorGetUserAction, (state: UserState, error: Error) => {
+    console.error(error);
+    return { ...state, error };
+  }),
+
+  on(UserActions.UpdateUserAction, state => state),
+
+  on(UserActions.SuccessUpdateUserAction, (state: UserState, { payload }) => {
+    return { ...state, user: payload, error: null };
+  }),
+
+  on(UserActions.ErrorUpdateUserAction, (state: UserState, error: Error) => {
+    console.error(error);
+    return { ...state, error };
   }),
 
   on(UserActions.ErrorUserAction, (state: UserState, error: Error) => {
-    console.log(error);
-    return { ...state, starsError: error };
+    console.error(error);
+    return { ...state, error };
   })
 );
 

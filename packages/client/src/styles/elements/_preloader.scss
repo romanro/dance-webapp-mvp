@@ -30,4 +30,27 @@
       }
     }
   }
+
+  &.inapp-preloader {
+    .preloader-icon {
+      height: 30px;
+      width: 30px;
+
+      margin-top: -15px;
+      margin-left: -15px;
+
+      svg {
+        height: 30px;
+        width: 30px;
+
+        .st0 {
+          fill: $secondary;
+        }
+
+        .st1 {
+          fill: $white;
+        }
+      }
+    }
+  }
 }

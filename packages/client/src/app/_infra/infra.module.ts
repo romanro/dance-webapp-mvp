@@ -17,6 +17,7 @@ import {
   NotificationsPageComponent,
   PageNotFoundComponent,
   PreloaderIconComponent,
+  PreloaderInappComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
 } from './ui';
@@ -33,12 +34,12 @@ import {
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
   ]
 })
 export class InfraModule { }

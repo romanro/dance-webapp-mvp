@@ -62,4 +62,10 @@ export enum LoginMethod {
   GOOGLE = 'google',
 }
 
+export enum UserError {
+  GET = 'USER.ERRORS.getUserError',
+  UPDATE = 'USER.ERRORS.updateUserError',
+  GENERAL = 'ERRORS.GeneralBackendError'
+}
+
 

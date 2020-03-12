@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 import { Configuration, User } from '../models';
 import { MOCK_USER } from './../../../_mocks';
@@ -23,6 +23,7 @@ export class UserService {
   getUser(): Observable<User> {
 
     return of(this.user);
+    // return throwError(['zevel']);
   }
 
   /* const config: Configuration = this.configService.getConfiguration();
@@ -47,4 +48,11 @@ export class UserService {
 
     return this.http.post(this.REST_URL, user, { headers });
   }
+
+  updateUser(user: User): Observable<User> {
+    console.log('user service update', user);
+    this.user = { ...user };
+    return of(user);
+  }
+
 }

@@ -4,10 +4,7 @@
   </div>
 </div>
 
-<ng-template [ngIf]="user">
-
-
-
+<ng-template [ngIf]="user && !errorMsg">
   <div class="row mb-4">
     <div class="col-auto">
       <dsapp-student-upic [picUrl]="user.userPic ? user.userPic : null">
@@ -40,4 +37,25 @@
     </div>
   </div>
 
+</ng-template>
+
+<ng-template [ngIf]="!user && errorMsg">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="alert alert-danger"
+           role="alert">
+        <h4 class="alert-heading">{{'ERRORS.InformationNotFound' | translate}}
+        </h4>
+        <p>{{errorMsg | translate}}</p>
+      </div>
+      <a class="btn btn-outline-primary"
+         (click)="tryAgain();">{{'COMMON.tryAgain'|translate}}</a>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<ng-template [ngIf]="!user && !errorMsg">
+  <dsapp-preloader-inapp></dsapp-preloader-inapp>
 </ng-template>
