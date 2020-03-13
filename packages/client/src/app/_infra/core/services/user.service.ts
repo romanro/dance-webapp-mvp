@@ -50,7 +50,6 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    console.log('user service update', user);
     this.user = { ...user };
     return of(user);
   }

@@ -9,3 +9,4 @@ export * from './preloader-icon/preloader-icon.component';
 export * from './preloader-inapp/preloader-inapp.component';
 export * from './video-player-wrapper/video-player-wrapper.component';
 export * from './video-player-modal/video-player-modal.component';
+export * from './inpage-error/inpage-error.component';

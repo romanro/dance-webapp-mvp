@@ -1,0 +1,11 @@
+<div *ngIf="msg"
+     [ngClass]="cssClass()"
+     role="alert">
+  <h4 *ngIf="heading"
+      class="alert-heading">{{heading | translate}}
+  </h4>
+  <p>{{msg | translate}}</p>
+</div>
+<a *ngIf="showAction"
+   class="btn btn-outline-primary"
+   (click)="onAction();">{{btnLabel |translate}}</a>

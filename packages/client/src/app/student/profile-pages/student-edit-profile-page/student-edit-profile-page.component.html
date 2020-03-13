@@ -109,7 +109,8 @@
         </div>
 
         <!-- Birth date -->
-        <div class="form-group">
+        <div class="form-group"
+             formGroupName="birthDate">
 
           <label for="inputDate">{{'USER.DateOfBirth' | translate}}:</label>
 
@@ -118,7 +119,7 @@
                    placeholder="yyyy-mm-dd"
                    ngbDatepicker
                    #d="ngbDatepicker"
-                   formControlName="birthDate">
+                   formControlName="date">
             <div class="input-group-append">
               <button class="btn btn-secondary"
                       (click)="d.toggle()"
@@ -213,6 +214,18 @@
 </ng-template>
 
 
-<ng-template [ngIf]="!user">
+<ng-template [ngIf]="!user && errorMsg">
+  <div class="row mb-4">
+    <div class="col">
+      <dsapp-inpage-error [heading]="'ERRORS.InformationNotFound'"
+                          [msg]="errorMsg"
+                          (action)="tryAgain()"></dsapp-inpage-error>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<ng-template [ngIf]="!user && !errorMsg">
   <dsapp-preloader-inapp></dsapp-preloader-inapp>
 </ng-template>

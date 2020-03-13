@@ -12,6 +12,7 @@ import {
   AboutDanskillModalComponent,
   AlertsComponent,
   HeaderComponent,
+  InpageErrorComponent,
   LogoComponent,
   NavigationComponent,
   NotificationsPageComponent,
@@ -34,12 +35,14 @@ import {
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, PreloaderInappComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
+    VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, PreloaderInappComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
+    VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent
   ]
 })
 export class InfraModule { }
