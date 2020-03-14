@@ -1,5 +1,68 @@
 <div class="student-upic-holder rounded-circle bg-secondary">
-  <button class="btn btn-round btn-round-dark">
-    <i *ngIf="picUrl===null">+</i>
+
+  <img *ngIf="picBase64"
+       class="student-user-pic rounded-circle"
+       [src]="sanitizePic()" />
+
+  <button *ngIf="showAction"
+          class="btn btn-round btn-round-dark"
+          (click)="onPicChangeClick($event)">
+    <i>+</i>
   </button>
 </div>
+
+
+
+
+<ng-template #editorModal
+             let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title"
+        id="edit-modal-title">{{'STUDENT.PROFILE.ChangeUserPic' | translate}}
+    </h5>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="form-group">
+      <input class="form-control"
+             type="file"
+             accept="image/*"
+             capture="camera"
+             (change)="fileChangeEvent($event)" />
+    </div>
+
+    <div class="form-group">
+      <image-cropper [imageBase64]="picBase64"
+                     [imageChangedEvent]="imageChangedEvent"
+                     [maintainAspectRatio]="true"
+                     [aspectRatio]="1 / 1"
+                     format="png"
+                     [resizeToWidth]="90"
+                     [resizeToHeight]="90"
+                     [roundCropper]="true"
+                     (imageCropped)="imageCropped($event)"
+                     (imageLoaded)="imageLoaded()"
+                     (cropperReady)="cropperReady()"
+                     (loadImageFailed)="loadImageFailed()"></image-cropper>
+    </div>
+    <div class="student-upic-holder rounded-circle bg-secondary">
+      <img class="student-user-pic rounded-circle"
+           [src]="croppedImage" />
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-link"
+            (click)="cancel()">{{'COMMON.Cancel' | translate}}</button>
+    <button type="button"
+            class="btn btn-info"
+            (click)="saveNewPicture()">{{'COMMON.Save' | translate}}</button>
+  </div>
+</ng-template>

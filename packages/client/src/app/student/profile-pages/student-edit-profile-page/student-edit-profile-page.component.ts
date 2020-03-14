@@ -51,7 +51,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subs.push(
       this.store.select(selectors.selectCurrentUser())
         .subscribe(res => {
@@ -70,12 +70,15 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
           if (res && res.type) {
             this.errorMsg = this.errorService.alertUserError(res.type);
           }
+          setTimeout(() => {
+            this.isSubmitted = false;
+          }, 3000);
         })
     );
 
   }
 
-  initForm() {
+  initForm(): void {
     this.changeProfileForm = this.formBuilder.group({
       email: { value: this.user.email, disabled: true },
       name: this.formBuilder.group({
@@ -100,7 +103,11 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  saveProfile() {
+  userPicChanged(base64img: string): void {
+    this.changeProfileForm.get('userPic').patchValue(base64img);
+  }
+
+  saveProfile(): void {
 
     if (this.changeProfileForm.invalid) {
       return;
@@ -114,17 +121,14 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(UserActions.BeginUpdateUserAction({ payload }));
 
-    setTimeout(() => {
-      this.isSubmitted = false;
-    }, 3000);
   }
 
-  cancel() {
+  cancel(): void {
     this.router.navigate(['/student/profile']);
   }
 
 
-  tryAgain() {
+  tryAgain(): void {
     this.user = null;
     this.errorMsg = null;
     setTimeout(() => {

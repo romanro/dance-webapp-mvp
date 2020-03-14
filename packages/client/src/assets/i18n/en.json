@@ -74,7 +74,8 @@
     "DateOfBirth": "Date of Birth",
     "ERRORS": {
       "getUserError": "There was an error fetching user information. Try again later.",
-      "updateUserError": "There was an error updating user information. Try again later."
+      "updateUserError": "There was an error updating user information. Try again later.",
+      "loadImageError": "There was an error loading image. Try again later."
     }
   },
   "STUDENT": {
@@ -90,6 +91,7 @@
       "EditProfile": "Edit Profile",
       "ProfileSaveSuccess": "Profile Saved Successfully",
       "ProfileSaveError": "Error in Profile Saving",
+      "ChangeUserPic": "Change User Picture",
       "FORM": {}
     }
   },

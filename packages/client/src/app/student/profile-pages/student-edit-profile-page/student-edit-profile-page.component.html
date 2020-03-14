@@ -11,7 +11,9 @@
         (ngSubmit)="saveProfile()">
     <div class="row">
       <div class="col-auto">
-        <dsapp-student-upic [picUrl]="null"></dsapp-student-upic>
+        <dsapp-student-upic [picBase64]="user.userPic"
+                            (picChange)="userPicChanged($event)">
+        </dsapp-student-upic>
       </div>
     </div>
 

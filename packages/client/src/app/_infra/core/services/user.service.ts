@@ -52,6 +52,7 @@ export class UserService {
   updateUser(user: User): Observable<User> {
     this.user = { ...user };
     return of(user);
+    // return throwError(['zevel']);
   }
 
 }
