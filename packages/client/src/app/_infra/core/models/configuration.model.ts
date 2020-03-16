@@ -3,4 +3,5 @@ export class Configuration {
   minorVersion: number;
   buildVersion: number;
   restURL: string;
+  aboutVideoURL: string;
 }

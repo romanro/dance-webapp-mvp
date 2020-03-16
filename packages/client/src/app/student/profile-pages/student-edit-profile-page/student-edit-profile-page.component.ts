@@ -84,7 +84,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       name: this.formBuilder.group({
         firstName: [this.user.name.firstName, [Validators.required]],
         lastName: [this.user.name.lastName, [Validators.required]],
-        midName: [t(this.user.name.lastName).isDefined ? t(this.user, 'name.lastName').safeObject : ''],
+        midName: [t(this.user.name.midName).isDefined ? t(this.user, 'name.midName').safeObject : ''],
         nickname: [t(this.user.name.nickname).isDefined ? t(this.user, 'name.nickname').safeObject : '']
       }),
       birthDate: this.formBuilder.group({

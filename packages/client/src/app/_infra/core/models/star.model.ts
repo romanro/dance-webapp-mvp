@@ -10,6 +10,7 @@ export interface Star {
     userPics: StarUserPics;
     promoVideoURL: string;
     about: string;
+    currentChallenge?: string | null;
 }
 
 export interface Name {

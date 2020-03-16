@@ -9,8 +9,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsapp-student-profile-page',
-  templateUrl: './student-profile-page.component.html',
-  styles: []
+  templateUrl: './student-profile-page.component.html'
 })
 export class StudentProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];

@@ -19,7 +19,8 @@ export const MOCK_STARS: Array<Star> = [
             largePicURL: 'https://media.vogue.co.uk/photos/5d54be0919b6dd000853ad13/master/pass/original'
         },
         promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
-        about: 'A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.'
+        about: 'A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.',
+        currentChallenge: '12'
     },
     {
         id: '2',
@@ -36,10 +37,11 @@ export const MOCK_STARS: Array<Star> = [
         tags: [{ id: '1', text: 'salsa' }, { id: '3', text: 'ballroom' }],
         userPics: {
             smallPicURL: 'https://laicos.com/wp-content/uploads/2018/10/ryan-avatar-square-300x300.jpeg',
-            largePicURL: 'https://n4m6x6k6.stackpathcdn.com/wp-content/uploads/2012/05/man-dancing.jpg'
+            largePicURL: 'https://resize.hswstatic.com/w_907/gif/now-a1206e17-134e-4a52-80e0-036e9c6d01b8-1210-680.jpg'
         },
         promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
-        about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.'
+        about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.',
+        currentChallenge: null
     }
 ];
 

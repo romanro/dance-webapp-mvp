@@ -36,3 +36,15 @@ select:-webkit-autofill:focus {
   background-position: center;
   background-size: cover;
 }
+
+.page-title-row {
+  .btn {
+    display: inline-block;
+    min-width: 8rem;
+  }
+
+  .inner-page-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}

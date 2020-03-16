@@ -1,6 +1,11 @@
-//.star-info {}
+//
+.star-info {
+  padding: 0.5rem 0;
+}
 
-//.star-big-image {}
+.star-big-image {
+  background-color: $gray-200;
+}
 
 .star-small-image {
   width: 100px;
