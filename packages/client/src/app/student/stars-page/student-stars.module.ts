@@ -12,6 +12,7 @@ import {
   StarInfoPageComponent,
   StarPagesNavigationBarComponent,
   StarSkillsComponent,
+  StarSkillViewComponent,
   StarsPageComponent,
 } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
@@ -29,7 +30,8 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     StarFiguresListComponent,
     StarFigurePageComponent,
     StarPagesNavigationBarComponent,
-    StarSkillsComponent
+    StarSkillsComponent,
+    StarSkillViewComponent
   ]
 })
 export class StudentStarsModule { }
