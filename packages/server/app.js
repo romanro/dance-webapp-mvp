@@ -97,11 +97,16 @@ app.get('/video', homeController.video); */
 /**
  * Cath-all route to angular app
  */
-app.get('*', (req, res, next) => {
+/* app.get('*', (req, res, next) => {
   // if (!req.user) {
   //   return homeController.index(req, res, next);
   // }
   return homeController.app(req, res, next);
+}); */
+
+app.all('/*', function(req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+  res.sendFile('index.html', { root: __dirname });
 });
 
 /**
