@@ -30,3 +30,9 @@ export interface StarBasicInfo {
     name: Name;
     userPics: StarUserPics;
 }
+
+
+export enum StarError {
+    GET = 'STAR.ERRORS.getStarsError',
+    GENERAL = 'ERRORS.GeneralBackendError'
+}

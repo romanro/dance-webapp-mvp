@@ -13,23 +13,42 @@
         <div *ngFor="let star of stars"
              class="col-12 col-sm-6 col-md-3 col-lg-4">
             <div class="star-info">
-                <div class="embed-responsive embed-responsive-16by9">
+                <div
+                     class="embed-responsive embed-responsive-16by9 star-info-image">
                     <div class="embed-responsive-item star-big-image cover-bg"
                          [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
                     </div>
                 </div>
-                <button class="btn btn-sm btn-success">{{'STAR'}}</button>
 
-                <h5 dsappStarName
-                    [name]="star.name"></h5>
+                <div class="star-info-text">
+                    <div class="chlng-btn-holder">
 
-                <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
+                        <ng-container
+                                      *ngIf="star.currentChallenge; then chlngBtn; else noClngBtn">
+                        </ng-container>
+                        <ng-template #chlngBtn>
+                            <button
+                                    class="btn btn-sm btn-challenge btn-success">{{'STAR.currentChallenge' | translate}}</button>
+                        </ng-template>
+                        <ng-template #noClngBtn>
+                            <button disabled
+                                    class="btn btn-sm btn-challenge btn-secondary">{{'STAR.challengeFinished' | translate}}</button>
+                        </ng-template>
 
-                <a class="btn btn-outline-dark"
-                   (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
+                    </div>
 
-                <a class="btn btn-info"
-                   [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+                    <h5 dsappStarName
+                        [name]="star.name"></h5>
+
+                    <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
+
+                    <a class="btn btn-outline-dark"
+                       (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
+
+                    <a class="btn btn-info"
+                       [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+                </div>
+
             </div>
 
         </div>

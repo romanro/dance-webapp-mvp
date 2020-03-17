@@ -1,36 +1,38 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import { StarsState } from '@app/_infra/store/state';
 import { VideoPlayerModalComponent } from '@app/_infra/ui';
-import { Configuration, Name, Star } from '@core/models';
+import { Configuration, Name, Star, StarError } from '@core/models';
+import { ConfigurationService } from '@core/services/configuration.service';
+import * as selectors from '@infra/store/selectors/stars.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription } from 'rxjs';
-
-import { ConfigurationService } from './../../../_infra/core/services/configuration.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsapp-stars-page',
   templateUrl: './stars-page.component.html',
-  styles: []
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StarsPageComponent implements OnInit, OnDestroy {
 
-  stars$: Observable<StarsState>;
-  stars: Star[] = [];
+  // stars$: Observable<StarsState>;
+  stars: Star[] = null;
   subs: Subscription[] = [];
   aboutBtnTxt = '';
   aboutVideoURL: string = null;
   loading = true;
+  errorMsg: StarError | string = null;
 
   constructor(
     private store: Store<any>,
     private modalService: NgbModal,
     private configService: ConfigurationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private errorService: AlertErrorService
   ) {
-    this.stars$ = store.pipe(select('stars'));
+    // this.stars$ = store.pipe(select('stars'));
     translate.get('COMMON.About').subscribe((res: string) => {
       this.aboutBtnTxt = res;
     });
@@ -43,21 +45,45 @@ export class StarsPageComponent implements OnInit, OnDestroy {
       this.aboutVideoURL = config.aboutVideoURL;
     }
 
-
-
     this.subs.push(
-      this.stars$.subscribe(
+      this.store.select(selectors.selectAllStarsSorted()).subscribe(
         res => {
-          if (res && res.stars && res.stars.length > 0) {
-            this.stars = [...res.stars];
-            this.loading = res.stars.length === 0;
+          if (res) {
+            this.stars = [...res];
+            this.loading = false;
           } else {
             this.store.dispatch(StarsActions.BeginGetStarsAction());
           }
         }
       )
     );
-    // this.store.dispatch(StarsActions.BeginGetStarsAction());
+
+    this.subs.push(
+      this.store.select(
+        selectors.selectStarsError()).subscribe(res => {
+          if (res && res.type) {
+            this.errorMsg = this.errorService.alertUserError(res.type);
+          }
+        })
+    );
+
+
+
+    /*     this.subs.push(
+          this.stars$.subscribe(
+            res => {
+              if (res && res.stars && res.stars.length > 0) {
+                this.stars = [
+                  ...res.stars.sort((star1, star2) => star1.currentChallenge ? -1 : 1)
+                ];
+                this.loading = false;
+              } else {
+                this.store.dispatch(StarsActions.BeginGetStarsAction());
+              }
+            }
+          )
+        ); */
+
   }
 
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }

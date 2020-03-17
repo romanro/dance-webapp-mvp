@@ -42,6 +42,27 @@ export const MOCK_STARS: Array<Star> = [
         promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
         about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.',
         currentChallenge: null
+    },
+    {
+        id: '3',
+        name: {
+            firstName: 'Vasil',
+            lastName: 'Super',
+            midName: 'Mario'
+        },
+        location: {
+            city: 'New York',
+            country: 'USA'
+        },
+        birthDate: '20-1-1981',
+        tags: [{ id: '1', text: 'salsa' }, { id: '4', text: 'ballet' }],
+        userPics: {
+            smallPicURL: 'https://laicos.com/wp-content/uploads/2018/10/ryan-avatar-square-300x300.jpeg',
+            largePicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcToSkGWQ9xVdSYD6I0qmAdg8NuaQzNvKjwR3eXh1bVfRyyPja9B'
+        },
+        promoVideoURL: 'http://static.videogular.com/assets/videos/videogular.mp4',
+        about: 'A dance teacher, has a good knowledge and about 25 years of experience. Born in Moscow, Russia. Very good one.',
+        currentChallenge: '10'
     }
 ];
 

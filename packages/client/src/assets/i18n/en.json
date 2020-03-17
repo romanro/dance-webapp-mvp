@@ -98,6 +98,8 @@
   "STAR": {
     "learn": "Learn",
     "title": "Choose your teacher",
+    "currentChallenge": "current challenge",
+    "challengeFinished": "challenge finished",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
@@ -109,6 +111,9 @@
       "backToStarsPage": "Back To {{starName}}'s Page",
       "soloFigures": "Solo Figures",
       "partnerFigures": "Partner Figures"
+    },
+    "ERRORS": {
+      "getStarsError": "There was an error fetching stars information. Try again later."
     }
   },
   "ABOUT": {

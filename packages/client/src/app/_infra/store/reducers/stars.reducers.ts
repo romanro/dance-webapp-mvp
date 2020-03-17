@@ -11,12 +11,12 @@ const reducer = createReducer(
     on(StarsActions.GetStarsAction, state => state),
 
     on(StarsActions.SuccessGetStarsAction, (state: StarsState, { payload }) => {
-        return { ...state, stars: payload };
+        return { ...state, stars: payload, error: null };
     }),
 
     on(StarsActions.ErrorStarsAction, (state: StarsState, error: Error) => {
-        console.log(error);
-        return { ...state, starsError: error };
+        console.error(error);
+        return { ...state, error };
     })
 );
 
