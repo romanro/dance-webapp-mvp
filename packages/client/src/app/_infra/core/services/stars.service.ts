@@ -14,8 +14,8 @@ export class StarsService {
   constructor() { }
 
   getStars(): Observable<Star[]> {
-    // return of(this.stars);
-    return throwError(['zevel']);
+    return of(this.stars);
+    // return throwError(['zevel']);
   }
 
 }

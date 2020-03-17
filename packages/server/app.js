@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 
-const contactController = require('./controllers/contact');
+// const contactController = require('./controllers/contact');
 const { oauth } = require('./routes/oauth');
 const { api } = require('./routes/api');
 
@@ -91,9 +91,9 @@ app.use(
 app.use('/oauth', oauth);
 app.use('/api/v1', api);
 
-app.get('/contact', contactController.getContact);
+/* app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-app.get('/video', homeController.video);
+app.get('/video', homeController.video); */
 /**
  * Cath-all route to angular app
  */

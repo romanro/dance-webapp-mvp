@@ -22,16 +22,16 @@ const angularDev =
       });
 
 const angularAssets = express.static(
-  path.join(__dirname, '..', '..', 'client', 'dist', 'webapp'),
+  path.join(__dirname, '..', '..', 'client', 'dist', 'webapp', 'index.html'),
   {
     maxAge: 31557600000
   }
 );
 
-exports.video = (_, res) =>
+/* exports.video = (_, res) =>
   res.render('app', {
     title: 'Video lab POC'
-  });
+  }); */
 
 exports.app = (req, res, next) => {
   if (process.env.NODE_ENV !== 'production') {
