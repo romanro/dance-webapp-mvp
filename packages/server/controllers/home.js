@@ -38,8 +38,5 @@ exports.app = (req, res, next) => {
     return angularDev(req, res, next);
   }
 
-  // return angularAssets(req, res, next);
-  return res.sendFile(
-    path.join(__dirname + '../../client/dist/webapp/index.html')
-  );
+  return angularAssets(req, res, next);
 };
