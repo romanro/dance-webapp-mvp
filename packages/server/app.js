@@ -105,7 +105,7 @@ app.get('/video', homeController.video); */
 });
  */
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/../../dist/webapp/index.html'));
+  res.sendFile(path.join(__dirname + '/../../client/dist/webapp/index.html'));
 });
 
 /**
