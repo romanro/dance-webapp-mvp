@@ -22,7 +22,7 @@ const angularDev =
       });
 
 const angularAssets = express.static(
-  path.join(__dirname, '..', '..', 'client', 'dist', 'webapp', 'index.html'),
+  path.join(__dirname, '..', '..', 'client', 'dist', 'webapp'),
   {
     maxAge: 31557600000
   }
