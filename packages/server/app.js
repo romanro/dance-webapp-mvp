@@ -25,7 +25,7 @@ const { api } = require('./routes/api');
 /**
  * Controllers (route handlers).
  */
-// const homeController = require('./controllers/home');
+const homeController = require('./controllers/home');
 
 /**
  * Create Express server.
@@ -87,6 +87,16 @@ app.use((req, res, next) => {
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
 ); */
 
+// Serve only the static files form the dist directory
+app.use(
+  express.static(
+    path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
+    {
+      maxAge: 31557600000
+    }
+  )
+);
+
 /* App routes */
 app.use('/oauth', oauth);
 app.use('/api/v1', api);
@@ -97,38 +107,11 @@ app.get('/video', homeController.video); */
 /**
  * Cath-all route to angular app
  */
-/* app.get('/*', (req, res, next) => {
+app.get('/*', (req, res, next) => {
   // if (!req.user) {
   //   return homeController.index(req, res, next);
   // }
   return homeController.app(req, res, next);
-});
- */
-
-// Serve only the static files form the dist directory
-app.use(
-  express.static(
-    path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
-    {
-      maxAge: 31557600000
-    }
-  )
-);
-app.get('/*', function(req, res) {
-  res.sendFile(
-    path.join(
-      __dirname,
-      '..',
-      '..',
-      'packages',
-      'client',
-      'dist',
-      'webapp/index.html'
-    ),
-    {
-      maxAge: 31557600000
-    }
-  );
 });
 
 /**

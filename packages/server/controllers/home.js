@@ -21,12 +21,22 @@ const angularDev =
         ws: true
       });
 
-const angularAssets = express.static(
-  path.join(__dirname, '..', '..', 'client', 'dist', 'webapp'),
-  {
-    maxAge: 31557600000
-  }
-);
+const angularAssets = (req, res, next) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      '..',
+      '..',
+      'packages',
+      'client',
+      'dist',
+      'webapp/index.html'
+    ),
+    {
+      maxAge: 31557600000
+    }
+  );
+};
 
 /* exports.video = (_, res) =>
   res.render('app', {
