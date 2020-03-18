@@ -25,7 +25,7 @@ const { api } = require('./routes/api');
 /**
  * Controllers (route handlers).
  */
-const homeController = require('./controllers/home');
+// const homeController = require('./controllers/home');
 
 /**
  * Create Express server.
@@ -106,7 +106,15 @@ app.get('/video', homeController.video); */
  */
 app.get('*', function(req, res) {
   res.sendFile(
-    path.join(__dirname, '..', '..', 'client', 'dist', 'webapp/index.html'),
+    path.join(
+      __dirname,
+      '..',
+      '..',
+      'packages',
+      'client',
+      'dist',
+      'webapp/index.html'
+    ),
     {
       maxAge: 31557600000
     }
