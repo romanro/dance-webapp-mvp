@@ -107,15 +107,7 @@ app.get('/video', homeController.video); */
 
 app.use(
   express.static(
-    path.join(
-      __dirname,
-      '..',
-      '..',
-      'packages',
-      'client',
-      'dist',
-      'webapp/index.html'
-    ),
+    path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
     {
       maxAge: 31557600000
     }
