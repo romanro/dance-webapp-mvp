@@ -82,11 +82,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
+/* app.use(
   '/',
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
 );
-
+ */
 /* App routes */
 app.use('/oauth', oauth);
 app.use('/api/v1', api);
@@ -104,8 +104,9 @@ app.get('/video', homeController.video); */
   return homeController.app(req, res, next);
 });
  */
-app.get('*', function(req, res) {
-  res.sendFile(
+
+app.use(
+  express.static(
     path.join(
       __dirname,
       '..',
@@ -118,8 +119,8 @@ app.get('*', function(req, res) {
     {
       maxAge: 31557600000
     }
-  );
-});
+  )
+);
 
 /**
  * Error Handler.
