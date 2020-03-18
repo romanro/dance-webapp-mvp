@@ -85,8 +85,8 @@ app.use((req, res, next) => {
 /* app.use(
   '/',
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
-);
- */
+); */
+
 /* App routes */
 app.use('/oauth', oauth);
 app.use('/api/v1', api);
@@ -105,6 +105,7 @@ app.get('/video', homeController.video); */
 });
  */
 
+// Serve only the static files form the dist directory
 app.use(
   express.static(
     path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
@@ -113,6 +114,22 @@ app.use(
     }
   )
 );
+app.get('/*', function(req, res) {
+  res.sendFile(
+    path.join(
+      __dirname,
+      '..',
+      '..',
+      'packages',
+      'client',
+      'dist',
+      'webapp/index.html'
+    ),
+    {
+      maxAge: 31557600000
+    }
+  );
+});
 
 /**
  * Error Handler.
