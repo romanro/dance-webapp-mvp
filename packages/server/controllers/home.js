@@ -23,15 +23,7 @@ const angularDev =
 
 const angularAssets = (req, res, next) => {
   res.sendFile(
-    path.join(
-      __dirname,
-      '..',
-      '..',
-      'packages',
-      'client',
-      'dist',
-      'webapp/index.html'
-    ),
+    path.join(__dirname, '..', '..', 'client', 'dist', 'webapp/index.html'),
     {
       maxAge: 31557600000
     }
