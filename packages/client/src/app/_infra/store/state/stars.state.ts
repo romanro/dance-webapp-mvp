@@ -1,9 +1,10 @@
 import { Star } from '@core/models/';
 
 export class StarsState {
-    stars: Array<Star>;
+    stars: Array<Star> | null;
+    error: Error | string | null; // track errors
 }
 
 export const initializeStarsState = () => {
-    return { stars: Array<Star>() };
+    return { stars: null, error: null };
 };

@@ -16,4 +16,4 @@ export enum AlertType {
   Warning
 }
 
-export const ALERT_TIMEOUT = 6000;
+export const ALERT_TIMEOUT = 7000;

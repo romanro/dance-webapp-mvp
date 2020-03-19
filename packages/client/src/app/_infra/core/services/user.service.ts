@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 import { Configuration, User } from '../models';
 import { MOCK_USER } from './../../../_mocks';
@@ -23,11 +23,12 @@ export class UserService {
   getUser(): Observable<User> {
 
     return of(this.user);
+    // return throwError(['zevel']);
   }
 
   /* const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}/account/me`;
+      this.REST_URL = `${config.restURL}account/me`;
     } */
 
   // const headers = new HttpHeaders()
@@ -37,9 +38,9 @@ export class UserService {
   // return this.http.get(this.REST_URL, { headers });
 
   patchUser(email: string, user: User): Observable<any> {
-    const config: Configuration = this.configService.getConfiguration();
-    if (config) {
-      this.REST_URL = `${config.restURL}/account/profile`;
+    const url: string = this.configService.getRestApiURL();
+    if (url) {
+      this.REST_URL = `${url}account/profile`;
     }
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -47,4 +48,11 @@ export class UserService {
 
     return this.http.post(this.REST_URL, user, { headers });
   }
+
+  updateUser(user: User): Observable<User> {
+    this.user = { ...user };
+    return of(user);
+    // return throwError(['zevel']);
+  }
+
 }

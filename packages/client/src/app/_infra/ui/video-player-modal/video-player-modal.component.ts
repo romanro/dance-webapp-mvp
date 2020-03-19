@@ -13,7 +13,7 @@ export class VideoPlayerModalComponent implements OnInit {
 
   @Input() videoURL: string;
   @Input() autoplay = false;
-  @Input() title: Name | string;
+  @Input() title: any;
 
   isString = true;
   playerAPI: VgAPI;

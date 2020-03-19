@@ -1,6 +1,87 @@
-//.star-info {}
+//
+.star-info {
+  padding: 0.7rem 0;
+  position: relative;
 
-//.star-big-image {}
+  @include media-breakpoint-down(xs) {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .star-info-image {
+    background-color: $gray-200;
+    width: 100%;
+
+    @include media-breakpoint-down(xs) {
+      margin-right: $paragraph-margin-bottom /2;
+      width: 40%;
+    }
+  }
+
+  .star-info-text {
+    width: 100%;
+
+    @include media-breakpoint-down(xs) {
+      width: 60%;
+    }
+
+    .chlng-btn-holder {
+      text-align: right;
+
+      .btn-challenge {
+        border-radius: 3rem;
+
+        @include media-breakpoint-down(xs) {
+          padding: 0.15rem 0.4rem;
+          font-size: 0.55rem;
+        }
+      }
+    }
+
+    .star-info-name {
+      margin-top: $paragraph-margin-bottom /2;
+      margin-bottom: $paragraph-margin-bottom /2;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 1.1rem;
+      }
+    }
+
+    .star-info-desc {
+      display: block;
+      margin-bottom: $paragraph-margin-bottom /2;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 0.79rem;
+        max-height: 2.2rem;
+        display: -webkit-box;
+
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .star-info-btns {
+      text-align: right;
+
+      .btn {
+
+        margin-left: 0.3rem;
+
+        @include media-breakpoint-down(xs) {
+          font-size: 0.79rem;
+          padding: 0.25rem 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+.star-big-image {
+  background-color: $gray-200;
+}
 
 .star-small-image {
   width: 100px;

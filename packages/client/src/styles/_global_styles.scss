@@ -5,9 +5,13 @@ html {
 
 body {
   min-height: 100vh;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 
-  @include respond-above(sm) {
+  @include media-breakpoint-up(sm) {
+    font-size: 0.9rem;
+  }
+
+  @include media-breakpoint-up(md) {
     font-size: 1rem;
   }
 }
@@ -35,4 +39,16 @@ select:-webkit-autofill:focus {
 .cover-bg {
   background-position: center;
   background-size: cover;
+}
+
+.page-title-row {
+  .btn {
+    display: inline-block;
+    min-width: 8rem;
+  }
+
+  .inner-page-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
 }

@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 
-const contactController = require('./controllers/contact');
+// const contactController = require('./controllers/contact');
 const { oauth } = require('./routes/oauth');
 const { api } = require('./routes/api');
 
@@ -82,25 +82,29 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
+/* app.use(
   '/',
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
+); */
+
+// Serve only the static files form the dist directory
+app.use(
+  express.static(
+    path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
+    {
+      maxAge: 31557600000
+    }
+  )
 );
 
 /* App routes */
 app.use('/oauth', oauth);
 app.use('/api/v1', api);
 
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-app.get('/video', homeController.video);
 /**
  * Cath-all route to angular app
  */
-app.get('*', (req, res, next) => {
-  // if (!req.user) {
-  //   return homeController.index(req, res, next);
-  // }
+app.get('/*', (req, res, next) => {
   return homeController.app(req, res, next);
 });
 

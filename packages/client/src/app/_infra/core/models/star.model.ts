@@ -10,6 +10,7 @@ export interface Star {
     userPics: StarUserPics;
     promoVideoURL: string;
     about: string;
+    currentChallenge?: string | null;
 }
 
 export interface Name {
@@ -28,4 +29,10 @@ export interface StarBasicInfo {
     id: string;
     name: Name;
     userPics: StarUserPics;
+}
+
+
+export enum StarError {
+    GET = 'STAR.ERRORS.getStarsError',
+    GENERAL = 'ERRORS.GeneralBackendError'
 }

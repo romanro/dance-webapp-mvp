@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Configuration } from '@app/_infra/core/models';
+import { BuildType, Configuration } from '@app/_infra/core/models';
 import { ConfigurationService } from '@core/services/configuration.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,21 +9,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styles: []
 })
 export class AboutDanskillModalComponent implements OnInit {
-  majorVersion: number;
-  minorVersion: number;
-  buildVersion: number;
+
 
   version = '';
 
   constructor(public activeModal: NgbActiveModal, protected configService: ConfigurationService) {
-    const config: Configuration = configService.getConfiguration();
-    if (config) {
-      this.majorVersion = config.majorVersion;
-      this.minorVersion = config.minorVersion;
-      this.buildVersion = config.buildVersion;
-      this.version = `${this.majorVersion}.${this.minorVersion}.${this.buildVersion}`;
-    }
-
+    const version: string = configService.getVersionString();
+    this.version = version ? version : '';
   }
 
   ngOnInit() {

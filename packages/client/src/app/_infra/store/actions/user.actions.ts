@@ -1,48 +1,61 @@
 import { User } from '@core/models';
 import { createAction, props } from '@ngrx/store';
 
+export enum UserActionType {
+  GetUserAction = '[user] - Get user',
+  BeginGetUserAction = '[user] - Begin Get user',
+  SuccessGetUserAction = '[user] - Success Get user',
+  ErrorGetUserAction = '[user] - Error Get user',
+  UpdateUserAction = '[user] - Update user',
+  BeginUpdateUserAction = '[user] - Begin Update user',
+  SuccessUpdateUserAction = '[user] - Success Update user',
+  ErrorUpdateUserAction = '[user] - Error Update user',
+  ErrorUserAction = '[user] - Error',
+  ClearUserAction = '[user] - Clear user'
+}
 
 
-// export const BeginGetUserAction = createAction('[User] - Begin Get User');
 
-/* export const ClearUser = createAction(
-  '[user] - Clear user',
-  props<{ null }>()
-);
+/// get
 
-export const CreateUserAction = createAction(
-  '[user] - Create user',
-  props<{ user: User }>()
-);
+export const GetUserAction = createAction(UserActionType.GetUserAction);
 
-export const UpdateUserAction = createAction(
-  '[user] - Update user',
-  props<{ user: User }>()
-); */
-
-export const GetUserAction = createAction('[user] - Get user');
-
-export const BeginGetUserAction = createAction('[user] - Begin Get user');
+export const BeginGetUserAction = createAction(UserActionType.BeginGetUserAction);
 
 export const SuccessGetUserAction = createAction(
-  '[user] - Success Get user',
+  UserActionType.SuccessGetUserAction,
   props<{ payload: User }>()
 );
 
-export const ErrorUserAction = createAction('[user] - Error', props<Error>());
-
-/*
-export const GetStarsAction = createAction('[stars] - Get stars');
-
-export const BeginGetStarsAction = createAction('[stars] - Begin Get stars');
-
-export const SuccessGetStarsAction = createAction(
-    '[stars] - Success Get stars',
-    props<{ payload: Star[] }>()
+export const ErrorGetUserAction = createAction(
+  UserActionType.ErrorGetUserAction,
+  props<Error>()
 );
 
-export const ErrorStarsAction = createAction('[stars] - Error', props<Error>()); */
 
+// update
+export const UpdateUserAction = createAction(UserActionType.UpdateUserAction);
 
+export const BeginUpdateUserAction = createAction(
+  UserActionType.BeginUpdateUserAction,
+  props<{ payload: User }>()
+);
 
+export const SuccessUpdateUserAction = createAction(
+  UserActionType.SuccessUpdateUserAction,
+  props<{ payload: User }>()
+);
 
+export const ErrorUpdateUserAction = createAction(
+  UserActionType.ErrorUpdateUserAction,
+  props<Error>()
+);
+
+// Global error
+export const ErrorUserAction = createAction(UserActionType.ErrorUserAction, props<Error>());
+
+// Clear user data
+export const ClearUserAction = createAction(
+  UserActionType.ClearUserAction,
+  props<{ null }>()
+);

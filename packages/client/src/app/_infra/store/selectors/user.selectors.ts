@@ -14,3 +14,14 @@ export const selectCurrentUser = () => createSelector(
         }
     }
 );
+
+export const selectCurrentUserError = () => createSelector(
+    selectUser, (result) => {
+        if (result) {
+            return result['error'];
+        } else {
+            return null;
+        }
+    }
+);
+

@@ -1,4 +1,3 @@
-@import "./mixins/responsive";
 @import "./mixins/round-buttons";
 
 @mixin position_fixed($top: auto, $bottom: auto, $left:auto, $right :auto, $width: 100%) {

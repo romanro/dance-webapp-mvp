@@ -4,13 +4,10 @@
   </div>
 </div>
 
-<ng-template [ngIf]="user">
-
-
-
+<ng-template [ngIf]="user && !errorMsg">
   <div class="row mb-4">
     <div class="col-auto">
-      <dsapp-student-upic [picUrl]="user.userPic ? user.userPic : null">
+      <dsapp-student-upic [picBase64]="user.userPic ? user.userPic : null">
       </dsapp-student-upic>
     </div>
     <div class="col">
@@ -40,4 +37,20 @@
     </div>
   </div>
 
+</ng-template>
+
+<ng-template [ngIf]="!user && errorMsg">
+  <div class="row mb-4">
+    <div class="col">
+      <dsapp-inpage-error [heading]="'ERRORS.InformationNotFound'"
+                          [msg]="errorMsg"
+                          (action)="tryAgain()"></dsapp-inpage-error>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<ng-template [ngIf]="!user && !errorMsg">
+  <dsapp-preloader-inapp></dsapp-preloader-inapp>
 </ng-template>

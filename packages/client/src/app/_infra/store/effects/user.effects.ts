@@ -7,6 +7,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import * as UserActions from '../actions/user.actions';
+import { ErrorGetUserAction, ErrorUpdateUserAction } from './../actions/user.actions';
+
 
 @Injectable()
 export class UserEffects {
@@ -22,9 +24,26 @@ export class UserEffects {
                         return UserActions.SuccessGetUserAction({ payload: data });
                     }),
                     catchError((error: Error) => {
-                        return of(UserActions.ErrorUserAction(error));
+                        return of(UserActions.ErrorGetUserAction(error));
                     })
                 )
+            )
+        )
+    );
+
+    updateUser$: Observable<Action> = createEffect(() =>
+        this.action$.pipe(
+            ofType(UserActions.BeginUpdateUserAction),
+            mergeMap(action =>
+                this.userService.updateUser(action.payload).pipe(
+                    map((data: User) => {
+                        return UserActions.SuccessUpdateUserAction({ payload: data });
+                    }),
+                    catchError((error: Error) => {
+                        return of(UserActions.ErrorUpdateUserAction(error));
+                    })
+                )
+
             )
         )
     );

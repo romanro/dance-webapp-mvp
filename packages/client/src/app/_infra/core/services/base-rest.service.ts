@@ -2,9 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Configuration } from '../models';
 import { ConfigurationService } from './configuration.service';
-
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +38,9 @@ export class BaseRestService {
   }
 
   getRestUrl() {
-    const config: Configuration = this.configService.getConfiguration();
-    if (config) {
-      this.REST_URL = config.restURL;
+    const url: string = this.configService.getRestApiURL();
+    if (url) {
+      this.REST_URL = url;
     }
   }
 

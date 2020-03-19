@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Gender, Language, User } from '@app/_infra/core/models';
+import { Gender, Language, User, UserError } from '@app/_infra/core/models';
+import { AlertErrorService, AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import * as selectors from '@app/_infra/store/selectors/user.selectors';
-import { AlertService, UserService } from '@infra/core/services';
+import { UserActionType } from '@infra/store/actions';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import t from 'typy';
+
 
 @Component({
   selector: 'dsapp-student-edit-profile-page',
@@ -16,6 +19,7 @@ import t from 'typy';
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   user: User = null;
+  errorMsg: UserError | string = null;
 
   changeProfileForm: FormGroup;
   isSubmitted = false;
@@ -31,38 +35,62 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private alertService: AlertService,
     private store: Store<any>,
     private formBuilder: FormBuilder,
-    private userService: UserService
-  ) { }
-
-  ngOnInit() {
-    // this.initForm();
+    private errorService: AlertErrorService,
+    private alertService: AlertService,
+    actions$: Actions
+  ) {
     this.subs.push(
-      this.store.select(
-        selectors.selectCurrentUser()).subscribe(res => {
+      actions$.pipe(
+        ofType(UserActionType.SuccessUpdateUserAction),
+      ).subscribe(action => {
+        this.alertService.success('STUDENT.PROFILE.ProfileSaveSuccess');
+        this.router.navigate(['/student/profile']);
+      })
+    );
+  }
+
+  ngOnInit(): void {
+    this.subs.push(
+      this.store.select(selectors.selectCurrentUser())
+        .subscribe(res => {
           if (res) {
             this.user = { ...res };
             this.initForm();
-            console.log()
+            this.errorMsg = null;
           } else {
             this.store.dispatch(UserActions.BeginGetUserAction());
           }
         })
     );
+    this.subs.push(
+      this.store.select(selectors.selectCurrentUserError())
+        .subscribe(res => {
+          if (res && res.type) {
+            this.errorMsg = this.errorService.alertUserError(res.type);
+          }
+          setTimeout(() => {
+            this.isSubmitted = false;
+          }, 3000);
+        })
+    );
+
   }
 
-  initForm() {
+  initForm(): void {
     this.changeProfileForm = this.formBuilder.group({
       email: { value: this.user.email, disabled: true },
       name: this.formBuilder.group({
         firstName: [this.user.name.firstName, [Validators.required]],
         lastName: [this.user.name.lastName, [Validators.required]],
-        midName: [t(this.user.name.lastName).isDefined ? t(this.user, 'name.lastName').safeObject : ''],
+        midName: [t(this.user.name.midName).isDefined ? t(this.user, 'name.midName').safeObject : ''],
         nickname: [t(this.user.name.nickname).isDefined ? t(this.user, 'name.nickname').safeObject : '']
       }),
-      birthDate: [t(this.user.birthDate.date).isDefined ? t(this.user, 'birthDate.date').safeObject : null],
+      birthDate: this.formBuilder.group({
+        date: [t(this.user.birthDate.date).isDefined ? t(this.user, 'birthDate.date').safeObject : null],
+        group: [t(this.user.birthDate.group).isDefined ? t(this.user, 'birthDate.group').safeObject : null]
+      }),
       language: [Language.english],
       gender: [t(this.user.gender).isDefined ? this.user.gender : ''],
       about: [t(this.user.about).isDefined ? this.user.about : ''],
@@ -70,71 +98,43 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     });
 
     setTimeout(() => {
-      this.changeProfileForm.get('birthDate').clearValidators();
-      this.changeProfileForm.get('birthDate').updateValueAndValidity();
+      this.changeProfileForm.get('birthDate').get('date').clearValidators();
+      this.changeProfileForm.get('birthDate').get('date').updateValueAndValidity();
     }, 500);
   }
 
-  saveProfile() {
-    this.isSubmitted = true;
+  userPicChanged(base64img: string): void {
+    this.changeProfileForm.get('userPic').patchValue(base64img);
+  }
+
+  saveProfile(): void {
 
     if (this.changeProfileForm.invalid) {
-      this.isSubmitted = false;
       return;
     }
 
-    this.userService
-      .patchUser(this.user.email, this.changeProfileForm.value)
-      .subscribe(
-        res => {
-          if (res) {
-            /// this.store.dispatch(UserActions.UpdateUserAction({ user: res }));
-            this.alertService.success('STUDENT.PROFILE.ProfileSaveSuccess');
-            this.router.navigate(['/student/profile']);
-          } else {
-            this.alertService.error('STUDENT.PROFILE.ProfileSaveError');
-          }
-        },
-        error => {
-          this.alertService.error('STUDENT.PROFILE.ProfileSaveError');
-        }
-      );
+    this.isSubmitted = true;
 
-    setTimeout(() => {
-      this.isSubmitted = false;
-    }, 3000);
+    // console.log(this.changeProfileForm.getRawValue());
+
+    const payload = this.changeProfileForm.getRawValue();
+
+    this.store.dispatch(UserActions.BeginUpdateUserAction({ payload }));
+
   }
 
-  cancel() {
+  cancel(): void {
     this.router.navigate(['/student/profile']);
   }
 
-  setFormControls() {
-    /* this.changeProfileForm.controls['email'].setValue(
-      !this.user.email ? '' : this.user.email
-    );
-    this.changeProfileForm.controls['firstName'].setValue(
-      !this.user.firstName ? '' : this.user.firstName
-    );
-    this.changeProfileForm.controls['lastName'].setValue(
-      !this.user.lastName ? '' : this.user.lastName
-    );
-    this.changeProfileForm.controls['birthDate'].setValue(
-      !this.user.birthDate ? '' : this.user.birthDate
-    );
-    this.changeProfileForm.controls['language'].setValue(
-      !this.user.language ? Language.english : this.user.language
-    );
-    this.changeProfileForm.controls['gender'].setValue(
-      !this.user.gender ? '' : this.user.gender
-    );
-    this.changeProfileForm.controls['about'].setValue(
-      !this.user.about ? '' : this.user.about
-    );
+
+  tryAgain(): void {
+    this.user = null;
+    this.errorMsg = null;
     setTimeout(() => {
-      this.changeProfileForm.get('birthDate').clearValidators();
-      this.changeProfileForm.get('birthDate').updateValueAndValidity();
-    }, 500); */
+      this.store.dispatch(UserActions.BeginGetUserAction());
+    }, 2000);
+
   }
 
   ngOnDestroy(): void {

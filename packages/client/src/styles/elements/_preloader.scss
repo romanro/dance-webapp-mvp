@@ -7,19 +7,20 @@
 
   .preloader-icon {
     display: block;
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
 
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
+    margin-top: -25px;
+    margin-left: -25px;
 
-    svg {
+    svg,
+    img {
       display: block;
-      height: 100px;
-      width: 100px;
+      height: 50px;
+      width: 50px;
 
       .st0 {
         fill: $indigo;
@@ -27,6 +28,29 @@
 
       .st1 {
         fill: $white;
+      }
+    }
+  }
+
+  &.inapp-preloader {
+    .preloader-icon {
+      height: 30px;
+      width: 30px;
+
+      margin-top: -15px;
+      margin-left: -15px;
+
+      svg {
+        height: 30px;
+        width: 30px;
+
+        .st0 {
+          fill: $secondary;
+        }
+
+        .st1 {
+          fill: $white;
+        }
       }
     }
   }

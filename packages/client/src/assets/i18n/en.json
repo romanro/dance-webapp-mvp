@@ -6,7 +6,8 @@
     "Save": "Save",
     "Cancel": "Cancel",
     "preview": "Preview",
-    "NotSelected": "Not Selected"
+    "NotSelected": "Not Selected",
+    "tryAgain": "Try again"
   },
   "ERRORS": {
     "Error": "Error",
@@ -70,7 +71,12 @@
     "Language": "Language",
     "Gender": "Gender",
     "AboutMe": "About Me",
-    "DateOfBirth": "Date of Birth"
+    "DateOfBirth": "Date of Birth",
+    "ERRORS": {
+      "getUserError": "There was an error fetching user information. Try again later.",
+      "updateUserError": "There was an error updating user information. Try again later.",
+      "loadImageError": "There was an error loading image. Try again later."
+    }
   },
   "STUDENT": {
     "Student": "Student",
@@ -85,11 +91,15 @@
       "EditProfile": "Edit Profile",
       "ProfileSaveSuccess": "Profile Saved Successfully",
       "ProfileSaveError": "Error in Profile Saving",
+      "ChangeUserPic": "Change User Picture",
       "FORM": {}
     }
   },
   "STAR": {
     "learn": "Learn",
+    "title": "Choose your teacher",
+    "currentChallenge": "current challenge",
+    "challengeFinished": "challenge finished",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
@@ -101,6 +111,9 @@
       "backToStarsPage": "Back To {{starName}}'s Page",
       "soloFigures": "Solo Figures",
       "partnerFigures": "Partner Figures"
+    },
+    "ERRORS": {
+      "getStarsError": "There was an error fetching stars information. Try again later."
     }
   },
   "ABOUT": {

@@ -12,11 +12,14 @@ import {
   AboutDanskillModalComponent,
   AlertsComponent,
   HeaderComponent,
+  InpageErrorComponent,
   LogoComponent,
   NavigationComponent,
   NotificationsPageComponent,
   PageNotFoundComponent,
   PreloaderIconComponent,
+  PreloaderInappComponent,
+  TagsHolderComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
 } from './ui';
@@ -33,12 +36,16 @@ import {
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
+    VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
+    TagsHolderComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
-    LogoComponent, PreloaderIconComponent, VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective
+    LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
+    VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
+    TagsHolderComponent
   ]
 })
 export class InfraModule { }

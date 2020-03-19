@@ -1,4 +1,14 @@
 .student-upic-holder {
   width: 90px;
   height: 90px;
+  position: relative;
+
+  .student-user-pic {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    top: 0;
+    left: 0;
+    border: 2px solid $secondary;
+  }
 }
