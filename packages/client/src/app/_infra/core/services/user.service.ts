@@ -28,7 +28,7 @@ export class UserService {
 
   /* const config: Configuration = this.configService.getConfiguration();
     if (config) {
-      this.REST_URL = `${config.restURL}/account/me`;
+      this.REST_URL = `${config.restURL}account/me`;
     } */
 
   // const headers = new HttpHeaders()
@@ -38,9 +38,9 @@ export class UserService {
   // return this.http.get(this.REST_URL, { headers });
 
   patchUser(email: string, user: User): Observable<any> {
-    const config: Configuration = this.configService.getConfiguration();
-    if (config) {
-      this.REST_URL = `${config.restURL}/account/profile`;
+    const url: string = this.configService.getRestApiURL();
+    if (url) {
+      this.REST_URL = `${url}account/profile`;
     }
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')

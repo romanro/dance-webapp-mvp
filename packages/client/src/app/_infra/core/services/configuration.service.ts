@@ -19,7 +19,17 @@ export class ConfigurationService {
       });
     });
   }
+
   getConfiguration(): Configuration { return this.config; }
+
+  getRestApiURL(): string { return this.config.restURL; }
+
+  getAboutVideoURL(): string { return this.config.aboutVideoURL; }
+
+  getVersionString(): string {
+    const version = `${this.config.buildType}:${this.config.majorVersion}.${this.config.minorVersion}.${this.config.buildVersion}`
+    return version;
+  }
 
   getGlobalHttpHeaders(): HttpHeaders {
     const headers = new HttpHeaders()

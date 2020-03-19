@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import { VideoPlayerModalComponent } from '@app/_infra/ui';
-import { Configuration, Name, Star, StarError } from '@core/models';
+import { Name, Star, StarError } from '@core/models';
 import { ConfigurationService } from '@core/services/configuration.service';
 import * as selectors from '@infra/store/selectors/stars.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
 })
 export class StarsPageComponent implements OnInit, OnDestroy {
 
-  // stars$: Observable<StarsState>;
   stars: Star[] = null;
   subs: Subscription[] = [];
   aboutBtnTxt = '';
@@ -32,7 +31,6 @@ export class StarsPageComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private errorService: AlertErrorService
   ) {
-    // this.stars$ = store.pipe(select('stars'));
     translate.get('COMMON.About').subscribe((res: string) => {
       this.aboutBtnTxt = res;
     });
@@ -40,10 +38,9 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    const config: Configuration = this.configService.getConfiguration();
-    if (config) {
-      this.aboutVideoURL = config.aboutVideoURL;
-    }
+    const vURL: string = this.configService.getAboutVideoURL();
+    this.aboutVideoURL = vURL ? vURL : '';
+
 
     this.subs.push(
       this.store.select(selectors.selectAllStarsSorted()).subscribe(
@@ -66,23 +63,6 @@ export class StarsPageComponent implements OnInit, OnDestroy {
           }
         })
     );
-
-
-
-    /*     this.subs.push(
-          this.stars$.subscribe(
-            res => {
-              if (res && res.stars && res.stars.length > 0) {
-                this.stars = [
-                  ...res.stars.sort((star1, star2) => star1.currentChallenge ? -1 : 1)
-                ];
-                this.loading = false;
-              } else {
-                this.store.dispatch(StarsActions.BeginGetStarsAction());
-              }
-            }
-          )
-        ); */
 
   }
 
