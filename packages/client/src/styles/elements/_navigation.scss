@@ -39,7 +39,7 @@
         margin: 0;
         font-size: 0.8rem;
 
-        @include respond-above(sm) {
+        @include media-breakpoint-up(sm) {
           font-size: 1rem;
         }
       }

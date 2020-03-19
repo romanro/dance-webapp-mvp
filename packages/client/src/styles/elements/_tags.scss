@@ -1,11 +1,11 @@
 .tags-holder {
-    margin-bottom: $paragraph-margin-bottom;
+    margin-bottom: $paragraph-margin-bottom /2;
 
     .tag {
-        margin: 0.2rem;
+        margin: 0.1rem 0.2rem;
 
-        &.badge-info {
-            color: $white;
+        @include media-breakpoint-down(xs) {
+            font-size: 0.75rem;
         }
     }
 }

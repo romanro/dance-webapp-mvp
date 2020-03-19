@@ -5,9 +5,13 @@ html {
 
 body {
   min-height: 100vh;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 
-  @include respond-above(sm) {
+  @include media-breakpoint-up(sm) {
+    font-size: 0.9rem;
+  }
+
+  @include media-breakpoint-up(md) {
     font-size: 1rem;
   }
 }

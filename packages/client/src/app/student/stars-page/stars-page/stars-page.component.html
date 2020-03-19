@@ -37,16 +37,22 @@
 
                     </div>
 
-                    <h5 dsappStarName
+                    <h5 class="star-info-name"
+                        dsappStarName
                         [name]="star.name"></h5>
+
+                    <p class="star-info-desc text-muted">{{star.about}}</p>
 
                     <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
 
-                    <a class="btn btn-outline-dark"
-                       (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
+                    <div class="star-info-btns">
+                        <a class="btn btn-outline-dark"
+                           (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
 
-                    <a class="btn btn-info"
-                       [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+                        <a class="btn btn-info"
+                           [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+                    </div>
+
                 </div>
 
             </div>
