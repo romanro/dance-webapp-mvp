@@ -1,5 +1,4 @@
 const proxy = require('http-proxy-middleware');
-const express = require('express');
 const path = require('path');
 
 /**
@@ -29,11 +28,6 @@ const angularAssets = (req, res, next) => {
     }
   );
 };
-
-/* exports.video = (_, res) =>
-  res.render('app', {
-    title: 'Video lab POC'
-  }); */
 
 exports.app = (req, res, next) => {
   if (process.env.NODE_ENV !== 'production') {
