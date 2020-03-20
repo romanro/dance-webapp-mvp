@@ -32,12 +32,13 @@ export class StudentLayoutComponent implements OnInit {
   };
 
   studentNavButtons: NavButton[] = [
-    { label: 'STUDENT.NAV.Star', routerLink: '/student/star' },
+    { label: 'STUDENT.NAV.Stars', routerLink: '/student/star' },
     { label: 'STUDENT.NAV.MyLab', routerLink: '/student/lab' },
-    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' }
+    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' },
+    { label: 'STUDENT.NAV.Challenges', routerLink: '/student/challenges' }
   ];
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

@@ -12,8 +12,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsapp-stars-page',
-  templateUrl: './stars-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './stars-page.component.html'
 })
 export class StarsPageComponent implements OnInit, OnDestroy {
 
@@ -59,7 +58,9 @@ export class StarsPageComponent implements OnInit, OnDestroy {
       this.store.select(
         selectors.selectStarsError()).subscribe(res => {
           if (res && res.type) {
-            this.errorMsg = this.errorService.alertUserError(res.type);
+            this.stars = null;
+            this.loading = false;
+            this.errorMsg = this.errorService.alertStarsError(res.type);
           }
         })
     );
@@ -67,6 +68,17 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
+
+
+  tryAgain() {
+    this.stars = null;
+    this.errorMsg = null;
+    this.loading = true;
+    setTimeout(() => {
+      this.store.dispatch(StarsActions.BeginGetStarsAction());
+    }, 2000);
+
+  }
 
   openPromoModal(starName: Name | string, promoUrl: string) {
     const modalRef = this.modalService.open(VideoPlayerModalComponent, { size: 'xl', centered: true });
