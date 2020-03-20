@@ -10,8 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'student',
-    loadChildren: () =>
-      import('./student/student.module').then(m => m.StudentModule),
+    loadChildren: () => import('./student/student.module').then(m => m.StudentModule),
     canActivate: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent }
@@ -21,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

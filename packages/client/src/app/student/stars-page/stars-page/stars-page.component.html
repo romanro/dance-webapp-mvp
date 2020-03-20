@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<ng-template [ngIf]="!loading">
+<ng-template [ngIf]="stars && !errorMsg && !loading">
     <div class="row d-flex justify-content-center">
         <div *ngFor="let star of stars"
              class="col-12 col-sm-6 col-md-3 col-lg-4">
@@ -59,6 +59,18 @@
 
         </div>
 
+    </div>
+
+</ng-template>
+
+
+<ng-template [ngIf]="!stars && errorMsg && !loading">
+    <div class="row mb-4">
+        <div class="col">
+            <dsapp-inpage-error [heading]="'ERRORS.InformationNotFound'"
+                                [msg]="errorMsg"
+                                (action)="tryAgain()"></dsapp-inpage-error>
+        </div>
     </div>
 
 </ng-template>
