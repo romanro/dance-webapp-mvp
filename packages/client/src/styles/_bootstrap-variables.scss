@@ -1,6 +1,6 @@
 /// BOOOTSRTAP VARIABLES
 
-$indigo: #1D1634;
+$indigo: #1d1634;
 $dark: $indigo;
 
 $enable-rounded: false;
@@ -9,8 +9,8 @@ $enable-rounded: false;
 
 $badge-font-size: 85%;
 // $badge-font-weight: $font-weight-bold !default;
-$badge-padding-y: .45em;
-$badge-padding-x: .5em;
+$badge-padding-y: 0.45em;
+$badge-padding-x: 0.5em;
 // $badge-border-radius: $border-radius !default;
 
 // $badge-transition: $btn-transition !default;
@@ -20,7 +20,6 @@ $badge-padding-x: .5em;
 // Use a higher than normal value to ensure completely rounded edges when
 // customizing padding or font-size on labels.
 // $badge-pill-border-radius: 10rem !default;
-
 
 // Modals
 
@@ -58,3 +57,10 @@ $modal-sm: 300px !default;
 $modal-fade-transform: translate(0, -50px) !default;
 $modal-show-transform: none !default;
 $modal-transition: transform .3s ease-out !default; */
+
+// Paragraphs
+//
+// Style p element.
+
+$paragraph-margin-bottom: 0.5rem;
+$headings-margin-bottom: $paragraph-margin-bottom;

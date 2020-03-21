@@ -1,13 +1,13 @@
 <div class="row pb-2 back-btn-row">
   <div class="col">
-    <a class="btn btn-outline-info"
+    <a class="btn btn-sm btn-link"
        [routerLink]="['/student','star']">{{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}</a>
   </div>
 </div>
 
-<ng-container *ngIf="starExists">
+<ng-template [ngIf]="star && !errorMsg && !loading">
 
-  <div class="row pb-4 star-info">
+  <div class="row pb-4 star-info-page">
     <div class="col-12 col-lg-6">
       <div class="embed-responsive embed-responsive-16by9">
         <div class="embed-responsive-item star-big-image cover-bg"
@@ -16,28 +16,42 @@
       </div>
     </div>
 
-    <div class="col-12 col-lg-6 text-center text-lg-left pt-5 pt-lg-1">
-      <h3 dsappStarName
-          [name]="star.name"></h3>
-      <p class="text-secondary">{{star.about}}</p>
+    <div class="col-12 col-lg-6 text-center text-lg-left pt-1">
+      <h5 dsappStarName
+          [name]="star.name"></h5>
+      <p class="text-muted">{{star.about}}</p>
 
-      <div class='tags-holder'>
-        <a *ngFor="let tag of star.tags"
-           class="tag badge badge-info">{{tag.text}}</a>
+      <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
+
+
+      <button class="btn btn-outline-dark"
+              (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</button>
+
+
+      <div *ngIf="star.currentChallenge"
+           class="btn-holder mt-1">
+        <button class="btn btn-sm btn-success"
+                (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.openCurrentChallenge' | translate}}</button>
       </div>
-
-      <a class="btn btn-outline-dark"
-         (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <h3>{{'STAR.STAR_INFO_PAGE.dances' | translate}}:</h3>
-    </div>
-  </div>
 
   <dsapp-star-dances-list [starId]="star.id"></dsapp-star-dances-list>
 
+</ng-template>
 
-</ng-container>
+
+<ng-template [ngIf]="!star && errorMsg && !loading">
+  <div class="row mb-4">
+    <div class="col">
+      <dsapp-inpage-error [heading]="'ERRORS.InformationNotFound'"
+                          [msg]="errorMsg"
+                          (action)="tryAgain()"></dsapp-inpage-error>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="loading">
+  <dsapp-preloader-inapp></dsapp-preloader-inapp>
+</ng-template>
