@@ -4,13 +4,13 @@ import { InfraModule } from '@app/_infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ChallengesPageComponent } from '.';
+import { ChallengePageComponent, ChallengesPageComponent } from '.';
 import { StudentChallengesRoutingModule } from './student-challenges-routing.module';
 
 @NgModule({
   imports: [
     CommonModule, TranslateModule, NgbModule, InfraModule, StudentChallengesRoutingModule
   ],
-  declarations: [ChallengesPageComponent]
+  declarations: [ChallengesPageComponent, ChallengePageComponent]
 })
 export class StudentChallengesModule { }

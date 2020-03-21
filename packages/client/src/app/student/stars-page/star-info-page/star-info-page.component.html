@@ -31,7 +31,7 @@
       <div *ngIf="star.currentChallenge"
            class="btn-holder mt-1">
         <button class="btn btn-sm btn-success"
-                (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.openCurrentChallenge' | translate}}</button>
+                [routerLink]="['/student','challenges',star.currentChallenge]">{{'STAR.STAR_INFO_PAGE.openCurrentChallenge' | translate}}</button>
       </div>
     </div>
   </div>
