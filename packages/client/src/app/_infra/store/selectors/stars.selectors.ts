@@ -16,10 +16,10 @@ export const selectAllStarsSorted = () => createSelector(
 
 export const selectStarById = (id) => createSelector(
     selectStars, (allStars) => {
-        if (allStars) {
+        if (allStars && allStars['stars']) {
             return allStars['stars'].find(star => star.id === id);
         } else {
-            return {};
+            return null;
         }
     }
 );

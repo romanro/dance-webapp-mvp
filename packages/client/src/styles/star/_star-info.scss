@@ -9,12 +9,11 @@
   }
 
   .star-info-image {
-    background-color: $gray-200;
     width: 100%;
 
     @include media-breakpoint-down(xs) {
-      margin-right: $paragraph-margin-bottom /2;
-      width: 40%;
+      margin-right: $paragraph-margin-bottom;
+      flex: 1 1 45%;
     }
   }
 
@@ -22,14 +21,14 @@
     width: 100%;
 
     @include media-breakpoint-down(xs) {
-      width: 60%;
+      flex: 1 1 55%;
     }
 
     .chlng-btn-holder {
       text-align: right;
 
       .btn-challenge {
-        border-radius: 3rem;
+        border-radius: 1rem;
 
         @include media-breakpoint-down(xs) {
           padding: 0.15rem 0.4rem;
@@ -39,8 +38,8 @@
     }
 
     .star-info-name {
-      margin-top: $paragraph-margin-bottom /2;
-      margin-bottom: $paragraph-margin-bottom /2;
+      margin-top: $paragraph-margin-bottom;
+      margin-bottom: $paragraph-margin-bottom;
 
       @include media-breakpoint-down(xs) {
         font-size: 1.1rem;
@@ -49,7 +48,7 @@
 
     .star-info-desc {
       display: block;
-      margin-bottom: $paragraph-margin-bottom /2;
+      margin-bottom: $paragraph-margin-bottom;
 
       @include media-breakpoint-down(xs) {
         font-size: 0.79rem;
@@ -67,7 +66,6 @@
       text-align: right;
 
       .btn {
-
         margin-left: 0.3rem;
 
         @include media-breakpoint-down(xs) {
@@ -77,6 +75,9 @@
       }
     }
   }
+}
+
+.star-info-page {
 }
 
 .star-big-image {

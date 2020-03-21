@@ -13,12 +13,14 @@
         <div *ngFor="let star of stars"
              class="col-12 col-sm-6 col-md-3 col-lg-4">
             <div class="star-info">
-                <div
-                     class="embed-responsive embed-responsive-16by9 star-info-image">
-                    <div class="embed-responsive-item star-big-image cover-bg"
-                         [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                <div class="star-info-image">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item star-big-image cover-bg"
+                             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="star-info-text">
                     <div class="chlng-btn-holder">

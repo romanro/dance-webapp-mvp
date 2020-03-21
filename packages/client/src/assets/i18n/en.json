@@ -106,7 +106,8 @@
       "MySkills": "My Skills",
       "Classes": "Classes",
       "dances": "Dances",
-      "backToStarsList": "Back to Stars List"
+      "backToStarsList": "Back to Stars List",
+      "openCurrentChallenge": "open current challenge"
     },
     "STAR_DANCE_FIGURES_PAGE": {
       "backToStarsPage": "Back To {{starName}}'s Page",

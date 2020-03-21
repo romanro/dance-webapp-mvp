@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import * as selectors from '@app/_infra/store/selectors';
-import { Star } from '@core/models/star.model';
+import { Star, StarError } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { VideoPlayerModalComponent } from '@ui/video-player-modal/video-player-modal.component';
@@ -10,14 +11,16 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsapp-star-info-page',
-  templateUrl: './star-info-page.component.html',
-  styles: []
+  templateUrl: './star-info-page.component.html'
 })
 export class StarInfoPageComponent implements OnInit, OnDestroy {
 
 
   starId: string;
-  star: Star;
+  star: Star = null;
+
+  loading = true;
+  errorMsg: StarError | string = null;
 
   starExists = false;
 
@@ -27,7 +30,8 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorService: AlertErrorService
   ) { }
 
   ngOnInit() {
@@ -39,10 +43,10 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
             star => {
               if (star) {
                 this.star = { ...star };
-                this.starExists = true;
+                this.loading = false;
+                this.errorMsg = null;
               } else {
                 this.store.dispatch(StarsActions.BeginGetStarsAction());
-                // this.goBackToStars();
               }
             }
           )
@@ -50,14 +54,31 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
       })
     );
+
+    this.subs.push(
+      this.store.select(
+        selectors.selectStarsError()).subscribe(res => {
+          if (res && res.type) {
+            this.star = null;
+            this.loading = false;
+            this.errorMsg = this.errorService.alertStarsError(res.type);
+          }
+        })
+    );
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
   }
 
-  goBackToStars() {
-    this.router.navigate(['/']);
+  tryAgain() {
+    this.star = null;
+    this.errorMsg = null;
+    this.loading = true;
+    setTimeout(() => {
+      this.store.dispatch(StarsActions.BeginGetStarsAction());
+    }, 2000);
+
   }
 
   openPromoModal() {
