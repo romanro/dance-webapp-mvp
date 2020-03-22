@@ -4,7 +4,7 @@ import { InfraModule } from '@app/_infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { StarInfoPageComponent, StarsPageComponent } from '.';
+import { StarContentListComponent, StarInfoPageComponent, StarsPageComponent } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
 
 
@@ -14,7 +14,8 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
   ],
   declarations: [
     StarInfoPageComponent,
-    StarsPageComponent
+    StarsPageComponent,
+    StarContentListComponent
   ]
 })
 export class StudentStarsModule { }
