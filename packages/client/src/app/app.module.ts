@@ -2,7 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoginModule } from '@app/login/login.module';
-import { StarModule } from '@app/star/star.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
 import { StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
@@ -46,8 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     InfraModule,
     LoginModule,
-    StudentModule,
-    StarModule
+    StudentModule
   ],
   entryComponents: [
     AboutDanskillModalComponent,
