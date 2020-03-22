@@ -7,7 +7,7 @@ export interface StarContent {
 
 export interface StarDance {
     dance: Dance;
-    levels: Array<any>;
+    levels: Array<StarDanceLevel>;
 }
 
 export interface StarDanceLevel {
@@ -21,4 +21,9 @@ export enum DanceLevel {
     'beginner' = 1,
     'intermediate' = 2,
     'advanced' = 3
+}
+
+export enum StarContentError {
+    GET = 'STAR.ERRORS.getStarContentError',
+    GENERAL = 'ERRORS.GeneralBackendError'
 }

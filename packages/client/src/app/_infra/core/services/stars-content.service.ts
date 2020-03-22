@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StarContent } from '@core/models';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 import { MOCK_STARS_CONTENT } from './../../../_mocks/star-content.mocks';
 

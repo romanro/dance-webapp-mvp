@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import * as selectors from '@app/_infra/store/selectors';
+import * as selectors from '@app/_infra/store/selectors/stars.selectors';
 import { Star, StarError } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
   starExists = false;
 
+  storeSelectSub: Subscription = null;
   subs: Subscription[] = [];
 
   constructor(
@@ -38,7 +39,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.route.paramMap.subscribe(params => {
         this.starId = params.get('starId');
-        this.subs.push(
+        this.storeSelectSub =
           this.store.select(selectors.selectStarById(this.starId)).subscribe(
             star => {
               if (star) {
@@ -49,9 +50,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
                 this.store.dispatch(StarsActions.BeginGetStarsAction());
               }
             }
-          )
-        );
-
+          );
       })
     );
 
@@ -69,6 +68,9 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
+    if (this.storeSelectSub) {
+      this.storeSelectSub.unsubscribe();
+    }
   }
 
   tryAgain() {

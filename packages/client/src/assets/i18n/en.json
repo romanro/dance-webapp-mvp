@@ -109,13 +109,9 @@
       "backToStarsList": "Back to Stars List",
       "openCurrentChallenge": "open current challenge"
     },
-    "STAR_DANCE_FIGURES_PAGE": {
-      "backToStarsPage": "Back To {{starName}}'s Page",
-      "soloFigures": "Solo Figures",
-      "partnerFigures": "Partner Figures"
-    },
     "ERRORS": {
-      "getStarsError": "There was an error fetching stars information. Try again later."
+      "getStarsError": "There was an error fetching stars information. Try again later.",
+      "getStarContentError": "There was an error fetching star content. Try again later."
     }
   },
   "ABOUT": {

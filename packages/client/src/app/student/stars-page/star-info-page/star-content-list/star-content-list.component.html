@@ -1,3 +1,30 @@
-<p>
-  {{starId}}
-</p>
+<ng-template [ngIf]="content && !errorMsg && !loading">
+  <p>
+    {{starId}}
+  </p>
+
+  <ngb-tabset type="pills">
+    <ng-container *ngFor="let dance of content.dances">
+      <ng-template ngbTabTitle>{{dance.dance.name}}</ng-template>
+      <ng-template ngbTabContent>
+        <p>{{dance.dance.name}}</p>
+      </ng-template>
+    </ng-container>
+
+  </ngb-tabset>
+</ng-template>
+
+
+<ng-template [ngIf]="!content && errorMsg && !loading">
+  <div class="row mb-4">
+    <div class="col">
+      <dsapp-inpage-error [msg]="errorMsg"
+                          (action)="tryAgain()"></dsapp-inpage-error>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template [ngIf]="loading">
+  <dsapp-preloader-inapp></dsapp-preloader-inapp>
+</ng-template>
