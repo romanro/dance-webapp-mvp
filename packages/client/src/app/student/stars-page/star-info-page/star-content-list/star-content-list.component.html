@@ -1,17 +1,26 @@
 <ng-template [ngIf]="content && !errorMsg && !loading">
-  <p>
-    {{starId}}
-  </p>
+  <div class="star-dances-list">
+    <ul ngbNav
+        #danceTabs="ngbNav"
+        class="nav-pills">
+      <li *ngFor="let dance of content.dances; let i = index"
+          [ngbNavItem]="i">
+        <a ngbNavLink>{{dance.dance.name}}</a>
+        <ng-template ngbNavContent>
+          <dsapp-star-content-figures-tabs-list [levels]="dance.levels"
+                                                [dance]="dance.dance">
+          </dsapp-star-content-figures-tabs-list>
+        </ng-template>
+      </li>
 
-  <ngb-tabset type="pills">
-    <ng-container *ngFor="let dance of content.dances">
-      <ng-template ngbTabTitle>{{dance.dance.name}}</ng-template>
-      <ng-template ngbTabContent>
-        <p>{{dance.dance.name}}</p>
-      </ng-template>
-    </ng-container>
+    </ul>
+  </div>
 
-  </ngb-tabset>
+
+  <div class="star-dance-tab"
+       [ngbNavOutlet]="danceTabs"></div>
+
+
 </ng-template>
 
 

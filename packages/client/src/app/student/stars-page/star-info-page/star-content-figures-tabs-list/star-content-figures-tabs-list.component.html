@@ -1,0 +1,14 @@
+<ng-template [ngIf]="levels && levels.length > 0">
+  <div class="level-tabs">
+    <ul ngbNav
+        #levelTabs="ngbNav"
+        class="nav-tabs">
+      <li *ngFor="let level of levels; let i = index"
+          [ngbNavItem]="i">
+        <a ngbNavLink>{{'STAR.STAR_INFO_PAGE.level' | translate}}
+          {{level.level}}</a>
+      </li>
+    </ul>
+  </div>
+
+</ng-template>

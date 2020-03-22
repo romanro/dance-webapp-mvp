@@ -31,7 +31,6 @@ export class StarContentListComponent implements OnInit, OnDestroy {
           content => {
             if (content) {
               this.content = { ...content };
-              console.log(content);
               this.loading = false;
               this.errorMsg = null;
             } else {
