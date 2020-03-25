@@ -10,7 +10,7 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
 
 @NgModule({
   imports: [
-    CommonModule, TranslateModule, NgbModule, StudentStarRoutingModule, InfraModule
+    CommonModule, TranslateModule.forChild(), NgbModule, StudentStarRoutingModule, InfraModule
   ],
   declarations: [
     StarInfoPageComponent,

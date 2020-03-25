@@ -108,7 +108,8 @@
       "dances": "Dances",
       "backToStarsList": "Back to Stars List",
       "openCurrentChallenge": "open current challenge",
-      "level": "level"
+      "level": "level",
+      "LEVEL": "level"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",
