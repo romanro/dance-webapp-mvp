@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Dance, StarDanceLevel } from '@core/models';
+import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
 
 
 @Component({
@@ -11,6 +11,8 @@ export class StarContentFiguresTabsListComponent implements OnInit {
 
   @Input() levels: Array<StarDanceLevel> = null;
   @Input() dance: Dance = null;
+
+  lvl = DanceLevel;
 
   constructor() { }
 

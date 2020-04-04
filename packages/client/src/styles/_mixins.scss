@@ -29,3 +29,30 @@
   transition: $trans;
   -ms-transition: $trans;
 }
+
+@mixin list-item {
+  padding: 0.7rem 0;
+  position: relative;
+
+  @include media-breakpoint-down(xs) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@mixin list-item-image ($width) {
+  width: 100%;
+
+  @include media-breakpoint-down(xs) {
+    margin-right: $paragraph-margin-bottom;
+    flex: 1 1 $width;
+  }
+}
+
+@mixin list-item-text ($width) {
+  width: 100%;
+
+  @include media-breakpoint-down(xs) {
+    flex: 1 1 $width;
+  }
+}

@@ -18,9 +18,9 @@ export interface StarDanceLevel {
 export type DanceLevelNumber = 1 | 2 | 3;
 
 export enum DanceLevel {
-    'beginner' = 1,
-    'intermediate' = 2,
-    'advanced' = 3
+    'beginner',
+    'intermediate',
+    'advanced'
 }
 
 export enum StarContentError {

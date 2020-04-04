@@ -1,28 +1,15 @@
 //
 .star-info {
-  padding: 0.7rem 0;
-  position: relative;
 
-  @include media-breakpoint-down(xs) {
-    display: flex;
-    flex-direction: row;
-  }
+  @include list-item;
 
   .star-info-image {
-    width: 100%;
-
-    @include media-breakpoint-down(xs) {
-      margin-right: $paragraph-margin-bottom;
-      flex: 1 1 45%;
-    }
+    @include list-item-image(45%);
   }
 
   .star-info-text {
-    width: 100%;
 
-    @include media-breakpoint-down(xs) {
-      flex: 1 1 55%;
-    }
+    @include list-item-text(55%);
 
     .chlng-btn-holder {
       text-align: right;
@@ -77,8 +64,7 @@
   }
 }
 
-.star-info-page {
-}
+.star-info-page {}
 
 .star-big-image {
   background-color: $gray-200;

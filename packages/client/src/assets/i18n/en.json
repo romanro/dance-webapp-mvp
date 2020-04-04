@@ -111,6 +111,9 @@
       "level": "level",
       "LEVEL": "level"
     },
+    "FIGURES": {
+      "Figure": "Figure"
+    },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",
       "getStarContentError": "There was an error fetching star content. Try again later."
