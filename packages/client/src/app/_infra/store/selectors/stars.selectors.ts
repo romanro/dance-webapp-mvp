@@ -1,4 +1,5 @@
 import { createSelector } from '@ngrx/store';
+import t from 'typy';
 
 import { StarsState } from '../state';
 
@@ -6,8 +7,8 @@ export const selectStars = (state: StarsState) => state.stars;
 
 export const selectAllStarsSorted = () => createSelector(
     selectStars, (allStars) => {
-        if (allStars && allStars['stars']) {
-            return allStars['stars'].sort((star1, star2) => star1.currentChallenge ? -1 : 1);
+        if (!t(allStars, 'stars').isNullOrUndefined) {
+            return t(allStars, 'stars').safeArray.sort((star1, star2) => star1.currentChallenge ? -1 : 1);
         } else {
             return null;
         }
@@ -16,8 +17,8 @@ export const selectAllStarsSorted = () => createSelector(
 
 export const selectStarById = (id) => createSelector(
     selectStars, (allStars) => {
-        if (allStars && allStars['stars']) {
-            return allStars['stars'].find(star => star.id === id);
+        if (!t(allStars, 'stars').isNullOrUndefined) {
+            return t(allStars, 'stars').safeArray.find(star => star.id === id);
         } else {
             return null;
         }
@@ -27,7 +28,7 @@ export const selectStarById = (id) => createSelector(
 export const selectStarsError = () => createSelector(
     selectStars, (result) => {
         if (result) {
-            return result['error'];
+            return t(result, 'error').safeObject;
         } else {
             return null;
         }

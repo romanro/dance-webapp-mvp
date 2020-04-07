@@ -1,0 +1,15 @@
+.figures-list {
+
+
+    .figure-info {
+        @include list-item;
+
+        .figure-image {
+            @include list-item-image(45%);
+        }
+
+        .figure-text {
+            @include list-item-text(55%);
+        }
+    }
+}

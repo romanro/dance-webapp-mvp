@@ -7,7 +7,7 @@
 
 <ng-template [ngIf]="star && !errorMsg && !loading">
 
-  <div class="row pb-4 star-info-page">
+  <div class="row star-info-page">
     <div class="col-12 col-lg-6">
       <div class="embed-responsive embed-responsive-16by9">
         <div class="embed-responsive-item star-big-image cover-bg"
@@ -33,6 +33,12 @@
         <button class="btn btn-sm btn-success"
                 [routerLink]="['/student','challenges',star.currentChallenge]">{{'STAR.STAR_INFO_PAGE.openCurrentChallenge' | translate}}</button>
       </div>
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col">
+      <dsapp-star-content-list [starId]="starId"></dsapp-star-content-list>
     </div>
   </div>
 

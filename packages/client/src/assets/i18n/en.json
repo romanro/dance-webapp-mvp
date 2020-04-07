@@ -107,15 +107,16 @@
       "Classes": "Classes",
       "dances": "Dances",
       "backToStarsList": "Back to Stars List",
-      "openCurrentChallenge": "open current challenge"
+      "openCurrentChallenge": "open current challenge",
+      "level": "level",
+      "LEVEL": "level"
     },
-    "STAR_DANCE_FIGURES_PAGE": {
-      "backToStarsPage": "Back To {{starName}}'s Page",
-      "soloFigures": "Solo Figures",
-      "partnerFigures": "Partner Figures"
+    "FIGURES": {
+      "Figure": "Figure"
     },
     "ERRORS": {
-      "getStarsError": "There was an error fetching stars information. Try again later."
+      "getStarsError": "There was an error fetching stars information. Try again later.",
+      "getStarContentError": "There was an error fetching star content. Try again later."
     }
   },
   "ABOUT": {

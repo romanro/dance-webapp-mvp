@@ -7,3 +7,4 @@ export * from './user.service';
 export * from './token.service';
 export * from './stars.service';
 export * from './alert-error.service';
+export * from './stars-content.service';
