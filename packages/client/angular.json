@@ -130,6 +130,6 @@
   },
   "defaultProject": "webapp",
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "npm"
   }
 }
