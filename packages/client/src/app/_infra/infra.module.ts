@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbDateStructTodateDirective, StarNameDirective } from '@core/directives';
 import { TranslateModule } from '@ngx-translate/core';
-import { VgBufferingModule } from 'videogular2/compiled/buffering';
-import { VgControlsModule } from 'videogular2/compiled/controls';
-import { VgCoreModule } from 'videogular2/compiled/core';
-import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
+import { VgBufferingModule } from 'ngx-videogular';
+import { VgControlsModule } from 'ngx-videogular';
+import { VgCoreModule } from 'ngx-videogular';
+import { VgOverlayPlayModule } from 'ngx-videogular';
 
 import {
   AboutDanskillModalComponent,
