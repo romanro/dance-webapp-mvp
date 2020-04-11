@@ -34,7 +34,6 @@
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "typy": "^3.3.0",
-    "videogular2": "^7.0.1",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
