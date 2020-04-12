@@ -23,7 +23,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": []
@@ -86,7 +86,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "../../node_modules/videogular2/fonts/videogular.css",
+              "../../node_modules/ngx-videogular/fonts/videogular.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -118,5 +118,8 @@
       }
     }
   },
-  "defaultProject": "webapp"
+  "defaultProject": "webapp",
+  "cli": {
+    "packageManager": "yarn"
+  }
 }

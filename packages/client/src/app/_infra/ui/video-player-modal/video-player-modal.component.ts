@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Name } from '@core/models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VgAPI } from 'videogular2/compiled/core';
+import { VgAPI } from 'ngx-videogular';
 
 
 @Component({

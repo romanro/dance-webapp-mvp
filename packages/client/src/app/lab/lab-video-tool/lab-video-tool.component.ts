@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
-import { VgEvents } from 'videogular2/compiled/core';
+import { VgEvents } from 'ngx-videogular';
 
 @Component({
   selector: 'dsapp-lab-video-tool',

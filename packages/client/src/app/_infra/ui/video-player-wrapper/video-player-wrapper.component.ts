@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { VgAPI } from 'ngx-videogular';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
-import { VgAPI } from 'videogular2/compiled/core';
 
 @Component({
   selector: 'ui-video-player-wrapper',
