@@ -28,4 +28,3 @@ Run `yarn build`
 
 Run `NODE_ENV=production yarn start`
 
-## The End
