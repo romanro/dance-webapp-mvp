@@ -27,3 +27,5 @@ Run `yarn build`
 ## Production
 
 Run `NODE_ENV=production yarn start`
+
+## The End
