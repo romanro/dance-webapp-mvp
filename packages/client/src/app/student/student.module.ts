@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PracticesPageComponent, StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
+import { PracticePageComponent } from './practices/practice-page/practice-page.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { StudentRoutingModule } from './student-routing.module';
   ],
   declarations: [
     StudentLayoutComponent,
-    PracticesPageComponent
+    PracticesPageComponent,
+    PracticePageComponent
   ],
 })
 export class StudentModule { }

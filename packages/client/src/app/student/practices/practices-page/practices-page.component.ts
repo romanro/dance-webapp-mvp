@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Subscription, from, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Practice } from '@core/models';
 
 @Component({
   selector: 'dsapp-practices-page',
   templateUrl: './practices-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class PracticesPageComponent implements OnInit {
 
   loading = true;
@@ -16,10 +20,17 @@ export class PracticesPageComponent implements OnInit {
   maxMonthLength: number;
   nextBtndisabled = false;
   prevBtndisabled = false;
-  prcticesData: Array<object> = null;
-  constructor() {
+  practicesData: Practice[] = null;
+  practices: Practice[]=[];
+  subs: Subscription[] = [];
+
+
+  constructor(
+    private store: Store<any>,
+
+  ) {
     this.currentDate = this.lastDate;
-    this.prcticesData = [
+    this.practicesData = [
       {
         date: new Date('1/1/2020'),
         title: 'title',
@@ -31,12 +42,12 @@ export class PracticesPageComponent implements OnInit {
         subTitle: 'subTitle'
       },
       {
-        date: new Date('5/1/2020'),
+        date: new Date('5/5/2020'),
         title: 'title',
         subTitle: 'subTitle'
       },
       {
-        date: new Date('1/3/2020'),
+        date: new Date(),
         title: 'title',
         subTitle: 'subTitle'
       },
@@ -50,8 +61,15 @@ export class PracticesPageComponent implements OnInit {
     this.setMonthsLength();
     this.maxMonthLength = this.monthLength;
     this.setDisabledBtn();
-    console.log(this.prcticesData);
+    this.getMonthlyPractices();
 
+  }
+
+  getMonthlyPractices() {
+    for (let practice of this.practicesData) {
+      if (this.compareDates(this.currentDate, practice.date))
+        this.practices.push(practice);
+    }
   }
 
   setMonthsLength() {
@@ -59,7 +77,6 @@ export class PracticesPageComponent implements OnInit {
   }
 
   setDisabledBtn() {
-    console.log(this.monthLength);
     if (this.monthLength == this.maxMonthLength)
       this.nextBtndisabled = true;
     else if (this.monthLength == 1)
@@ -75,6 +92,7 @@ export class PracticesPageComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() + 1));
     this.setMonthsLength();
     this.setDisabledBtn();
+    this.getMonthlyPractices();
 
   }
 
@@ -82,6 +100,15 @@ export class PracticesPageComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() - 1));
     this.setMonthsLength();
     this.setDisabledBtn();
+    this.getMonthlyPractices();
+
+  }
+
+  compareDates(firstDate, secondDate) {
+    if (firstDate.getMonth() == secondDate.getMonth() && firstDate.getFullYear() == secondDate.getFullYear())
+      return true;
+    else
+      return false;
 
   }
 
