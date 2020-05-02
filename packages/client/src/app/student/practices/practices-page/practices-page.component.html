@@ -1,0 +1,33 @@
+<div class="col-12 text-center">
+  <div class="row page-title-row">
+    <h2>Practices !!</h2>
+    <input>
+  </div>
+</div>
+
+<ng-template [ngIf]="prcticesData">
+  <div class="row">
+    <div class="col-12">
+      <button [disabled]=nextBtndisabled (click)="increaseMonths()">next</button>
+      <!-- <div>{{currentDate | date:'MMMM y'}}</div> -->
+      <button [disabled]=prevBtndisabled (click)="decreaseMonths()">prev</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <ng-template #test> -->
+<!-- <div>Test...</div> -->
+<!-- </ng-template> -->
+<h1>dshjkhk</h1>
+<ul>
+  <ng-container *ngFor="let practice of prcticesData">
+    <li>
+      <p>fsdf</p>
+      <!-- <dsapp-practice-page></dsapp-practice-page> -->
+    </li>
+  </ng-container>
+</ul>
+
+<ng-template [ngIf]="loading">
+  <dsapp-preloader-inapp></dsapp-preloader-inapp>
+</ng-template>
