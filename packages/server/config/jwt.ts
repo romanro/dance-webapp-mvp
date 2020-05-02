@@ -1,13 +1,13 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-exports.JWT_SECRET = 'secret';
+export const JWT_SECRET = 'secret';
 
-exports.jwtConfig = {
+export const jwtConfig = {
   issuer: 'sso.danskilll.com',
   audience: 'dansekill.com'
 };
 
-exports.getToken = payload =>
+export const getToken = (payload: any) =>
   jwt.sign(payload, exports.JWT_SECRET, {
     expiresIn: '15m',
     ...exports.jwtConfig

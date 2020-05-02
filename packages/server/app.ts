@@ -1,4 +1,6 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+import helmet from 'helmet';
+import flash from 'connect-flash';
 
 dotenv.config({ path: '.env.example' });
 
@@ -6,32 +8,23 @@ dotenv.config({ path: '.env.example' });
  * Module dependencies.
  */
 require('./config/passport');
-const express = require('express');
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const chalk = require('chalk');
-const errorHandler = require('errorhandler');
-const lusca = require('lusca');
-const path = require('path');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const expressStatusMonitor = require('express-status-monitor');
+import express, { Request, Response, NextFunction } from 'express';
+import compression from 'compression';
+import bodyParser from 'body-parser';
+import logger from 'morgan';
+import chalk from 'chalk';
+import path from 'path';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import expressStatusMonitor from 'express-status-monitor';
 
 // const contactController = require('./controllers/contact');
-const { oauth } = require('./routes/oauth');
-const { api } = require('./routes/api');
-
-/**
- * Controllers (route handlers).
- */
-const homeController = require('./controllers/home');
+const api = require('./routes/api');
 
 /**
  * Create Express server.
  */
 const app = express();
-
 /**
  * Connect to MongoDB.
  */
@@ -54,33 +47,14 @@ mongoose.connection.on('error', err => {
  */
 app.set('host', '0.0.0.0');
 app.set('port', process.env.PORT || 8080);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
+app.use(helmet());
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
-app.use((req, res, next) => {
-  return next();
-  if (req.path === '/api/upload') {
-    // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
-app.disable('x-powered-by');
-
-// Populate template for pug templates
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
 
 /* app.use(
   '/',
@@ -96,30 +70,40 @@ app.use(
     }
   )
 );
+app.use(flash());
 
 /* App routes */
-app.use('/oauth', oauth);
 app.use('/api/v1', api);
-
-/**
- * Cath-all route to angular app
- */
-app.get('/*', (req, res, next) => {
-  return homeController.app(req, res, next);
-});
 
 /**
  * Error Handler.
  */
-if (process.env.NODE_ENV === 'development') {
-  // only use in development
-  app.use(errorHandler());
-} else {
-  app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Server Error');
-  });
+
+const logErrors = (err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack)
+  next(err)
 }
+
+const clientErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' })
+  } else {
+    next(err)
+  }
+}
+
+const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(err)
+  }
+  const message = (process.env.NODE_ENV === 'development') ? err.message : 'Server Error';
+  const errorCode = err.status || 500;
+  res.status(errorCode).json({ error: message });
+}
+
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
 
 /**
  * Start Express server.

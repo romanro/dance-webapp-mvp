@@ -1,18 +1,13 @@
-const { promisify } = require('util');
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const passport = require('passport');
-const _ = require('lodash');
-const validator = require('validator');
-const mailChecker = require('mailchecker');
-const User = require('../models/User');
-const {
-  sendVerifyEmail,
-  sendForgotPasswordEmail,
-  sendResetPasswordEmail
-} = require('../services/email');
-const { getToken } = require('../config/jwt');
+import { Request, Response, NextFunction } from "express";
+import { promisify } from "util";
+import crypto from 'crypto';
+import passport from 'passport';
+import validator from 'validator';
+import { getToken } from '../config/jwt';
+import User, { IUser } from '../models/User';
+import { sendVerifyEmail, sendForgotPasswordEmail, sendResetPasswordEmail } from '../services/email';
 const randomBytesAsync = promisify(crypto.randomBytes);
+
 
 const NON_EXISTING_USER = {
   code: 'NON_EXISTING_USER',
@@ -37,17 +32,19 @@ const PASSWORD_MISMATCH = {
   code: 'PASSWORD_MISMATCH',
   msg: 'Passwords do not match'
 };
+
 /**
  * POST /login
  * Sign in using email and password.
  */
-exports.postLogin = (req, res, next) => {
+
+export const postLogin = (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
   if (validator.isEmpty(req.body.password))
     validationErrors.push({ code: 'BLANK_PASSWORD' });
 
-  if (validationErrors.length) {
+  if (validationErrors.length > 0) {
     return res.json({
       success: false,
       errors: validationErrors
@@ -90,7 +87,7 @@ exports.postLogin = (req, res, next) => {
  * POST /signup
  * Create a new local account.
  */
-exports.postSignup = async (req, res, next) => {
+export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
   if (!validator.isLength(req.body.password, { min: 8 }))
@@ -98,7 +95,7 @@ exports.postSignup = async (req, res, next) => {
   if (req.body.password !== req.body.confirmPassword)
     validationErrors.push(PASSWORD_MISMATCH);
 
-  if (validationErrors.length) {
+  if (validationErrors.length > 0) {
     return res.json({
       success: false,
       errors: validationErrors
@@ -152,20 +149,20 @@ exports.postSignup = async (req, res, next) => {
  * POST /account/profile
  * Update profile information.
  */
-exports.postUpdateProfile = (req, res, next) => {
+export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address.' });
 
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
+  if (validationErrors.length > 0) {
+    req.flash('errors', validationErrors.join(", "));
     return res.redirect('/account');
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false
   });
 
-  User.findById(req.user.id, (err, user) => {
+  User.findById(req.user.id, (err, user: IUser) => {
     if (err) {
       return next(err);
     }
@@ -178,15 +175,14 @@ exports.postUpdateProfile = (req, res, next) => {
     user.save(err => {
       if (err) {
         if (err.code === 11000) {
-          req.flash('errors', {
-            msg:
+          req.flash('errors', 
               'The email address you have entered is already associated with an account.'
-          });
+          );
           return res.redirect('/account');
         }
         return next(err);
       }
-      req.flash('success', { msg: 'Profile information has been updated.' });
+      req.flash('success', 'Profile information has been updated.' );
       res.redirect('/account');
     });
   });
@@ -196,7 +192,7 @@ exports.postUpdateProfile = (req, res, next) => {
  * POST /account/password
  * Update current password.
  */
-exports.postUpdatePassword = (req, res, next) => {
+export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push({
@@ -205,8 +201,8 @@ exports.postUpdatePassword = (req, res, next) => {
   if (req.body.password !== req.body.confirmPassword)
     validationErrors.push({ msg: 'Passwords do not match' });
 
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
+  if (validationErrors.length > 0) {
+    req.flash('errors', validationErrors.join(", "));
     return res.redirect('/account');
   }
 
@@ -214,12 +210,23 @@ exports.postUpdatePassword = (req, res, next) => {
     if (err) {
       return next(err);
     }
+    if (!user) {
+      return res.json({
+        success: false,
+        errors: [
+          {
+            code: 'NON_EXISTING_USER',
+            msg: 'User does not exist'
+          }
+        ]
+      });
+    }
     user.password = req.body.password;
     user.save(err => {
       if (err) {
         return next(err);
       }
-      req.flash('success', { msg: 'Password has been changed.' });
+      req.flash('success', 'Password has been changed.' );
       res.redirect('/account');
     });
   });
@@ -229,65 +236,23 @@ exports.postUpdatePassword = (req, res, next) => {
  * POST /account/delete
  * Delete user account.
  */
-exports.postDeleteAccount = (req, res, next) => {
+export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
   User.deleteOne({ _id: req.user.id }, err => {
     if (err) {
       return next(err);
     }
     req.logout();
-    req.flash('info', { msg: 'Your account has been deleted.' });
+    req.flash('info', 'Your account has been deleted.' );
     res.redirect('/');
   });
 };
 
-/**
- * GET /account/unlink/:provider
- * Unlink OAuth provider.
- */
-exports.getOauthUnlink = (req, res, next) => {
-  const { provider } = req.params;
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    user[provider.toLowerCase()] = undefined;
-    const tokensWithoutProviderToUnlink = user.tokens.filter(
-      token => token.kind !== provider.toLowerCase()
-    );
-    // Some auth providers do not provide an email address in the user profile.
-    // As a result, we need to verify that unlinking the provider is safe by ensuring
-    // that another login method exists.
-    if (
-      !(user.email && user.password) &&
-      tokensWithoutProviderToUnlink.length === 0
-    ) {
-      req.flash('errors', {
-        msg:
-          `The ${_.startCase(
-            _.toLower(provider)
-          )} account cannot be unlinked without another form of login enabled.` +
-          ' Please link another account or add an email address and password.'
-      });
-      return res.redirect('/account');
-    }
-    user.tokens = tokensWithoutProviderToUnlink;
-    user.save(err => {
-      if (err) {
-        return next(err);
-      }
-      req.flash('info', {
-        msg: `${_.startCase(_.toLower(provider))} account has been unlinked.`
-      });
-      res.redirect('/account');
-    });
-  });
-};
 
 /**
  * GET /reset/:token
  * Reset Password page.
  */
-exports.getReset = async (req, res, next) => {
+export const getReset = async (req: Request, res: Response, next: NextFunction) => {
   if (!validator.isHexadecimal(req.params.token)) {
     return res.json({
       success: false,
@@ -319,7 +284,7 @@ exports.getReset = async (req, res, next) => {
  * GET /account/verify/:token
  * Verify email address with an existing token
  */
-exports.getVerifyEmailToken = async (req, res, next) => {
+export const getVerifyEmailToken = async (req: Request, res: Response, next: NextFunction) => {
   if (req.user.emailVerified) {
     return res.json({
       success: false,
@@ -369,7 +334,7 @@ exports.getVerifyEmailToken = async (req, res, next) => {
  * GET /account/verify
  * Verify email address
  */
-exports.getVerifyEmail = async (req, res, next) => {
+export const getVerifyEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await verifyUserEmail(req.user);
     return res.json({
@@ -398,12 +363,12 @@ exports.getVerifyEmail = async (req, res, next) => {
   }
 };
 
-const verifyUserEmail = async user => {
+const verifyUserEmail = async (user: IUser) => {
   if (user.emailVerified) {
     throw new Error('ALREADY_VERIFIED_EMAIL');
   }
 
-  if (!mailChecker.isValid(user.email)) {
+  if (!validator.isEmail(user.email)) {
     throw new Error('INVALID_EMAIL');
   }
 
@@ -422,7 +387,7 @@ const verifyUserEmail = async user => {
  * POST /reset/:token
  * Process the reset password request.
  */
-exports.postReset = async (req, res, next) => {
+export const postReset = async (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push(PASSWORD_SHORT);
@@ -431,7 +396,7 @@ exports.postReset = async (req, res, next) => {
   if (!validator.isHexadecimal(req.params.token))
     validationErrors.push(INVALID_TOKEN);
 
-  if (validationErrors.length) {
+  if (validationErrors.length > 0) {
     return res.json({
       success: false,
       errors: validationErrors
@@ -450,8 +415,8 @@ exports.postReset = async (req, res, next) => {
       });
     }
     user.password = req.body.password;
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
+    user.passwordResetToken = "";
+    user.passwordResetExpires = 0;
     const dbUser = await user.save();
     await sendResetPasswordEmail(user.email);
 
@@ -468,7 +433,7 @@ exports.postReset = async (req, res, next) => {
  * POST /forgot
  * Create a random token, then the send user an email with a reset link.
  */
-exports.postForgot = async (req, res, next) => {
+export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
   if (!validator.isEmail(req.body.email)) {
     return res.json({
       success: false,

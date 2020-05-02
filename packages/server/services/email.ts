@@ -2,7 +2,9 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const FROM = 'hello@danskill.com';
-exports.sendVerifyEmail = async (to, token) => {
+
+// TODO: any
+export const sendVerifyEmail = async (to: any, token: string) => {
   const mailOptions = {
     to,
     from: FROM,
@@ -17,7 +19,8 @@ exports.sendVerifyEmail = async (to, token) => {
   return sgMail.send(mailOptions);
 };
 
-exports.sendForgotPasswordEmail = async (to, token) => {
+// TODO: any
+export const sendForgotPasswordEmail = async (to: any, token: string) => {
   const mailOptions = {
     to,
     from: FROM,
@@ -30,7 +33,8 @@ exports.sendForgotPasswordEmail = async (to, token) => {
   return sgMail.send(mailOptions);
 };
 
-exports.sendResetPasswordEmail = async to => {
+// TODO: any
+export const sendResetPasswordEmail = async (to :any) => {
   const mailOptions = {
     to,
     from: FROM,
