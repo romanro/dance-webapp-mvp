@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, EventEmitter } from '@angular/core';
 import { Subscription, from, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Practice } from '@core/models';
+import {ShareModule} from '../../../share.module';
 
 @Component({
   selector: 'dsapp-practices-page',
@@ -23,7 +24,8 @@ export class PracticesPageComponent implements OnInit {
   practicesData: Practice[] = null;
   practices: Practice[]=[];
   subs: Subscription[] = [];
-
+  test: string;
+  searchTerm: string = '';
 
   constructor(
     private store: Store<any>,
@@ -110,7 +112,14 @@ export class PracticesPageComponent implements OnInit {
     else
       return false;
 
+      
   }
+
+  // search(){
+  //   this.practices = this.practices.filter(res=>{
+      
+  //   })
+  // }
 
 
 }

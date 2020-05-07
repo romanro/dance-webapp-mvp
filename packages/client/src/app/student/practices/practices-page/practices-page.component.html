@@ -1,9 +1,11 @@
 <div class="col-12 text-center">
   <div class="row page-title-row">
     <h2>Practices !!</h2>
-    <input>
+    <input type="text" [(ngModel)]="searchTerm">
   </div>
 </div>
+
+{{test}}
 
 <ng-template [ngIf]="practices">
   <div class="row">
@@ -21,11 +23,11 @@
 
 <ul>
   <div class="row">
-    <ng-container *ngFor="let practice of practices">
+    <ng-container *ngFor="let practice of practices | filter: 'title' : searchTerm">
       <li class="col-12 col-lg-4" *ngIf="compareDates(practice.date, currentDate)">
-              <div class="col-3">{{practice.date | date}}</div>
-              <div class="col-3">{{practice.title}}</div>
-              <div class="col-3">{{practice.subTitle}}</div>
+        <div class="col-3">{{practice.date | date}}</div>
+        <div class="col-3">{{practice.title}}</div>
+        <div class="col-3">{{practice.subTitle}}</div>
       </li>
     </ng-container>
   </div>
