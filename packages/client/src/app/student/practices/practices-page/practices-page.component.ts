@@ -34,23 +34,27 @@ export class PracticesPageComponent implements OnInit {
     this.currentDate = this.lastDate;
     this.practicesData = [
       {
+        id: 1,
         date: new Date('1/1/2020'),
-        title: 'title',
+        title: 'title1',
         subTitle: 'subTitle'
       },
       {
+        id:2,
         date: new Date('2/1/2020'),
         title: 'title',
         subTitle: 'subTitle'
       },
       {
+        id:3,
         date: new Date('5/5/2020'),
-        title: 'title',
+        title: 'title1',
         subTitle: 'subTitle'
       },
       {
+        id: 4,
         date: new Date(),
-        title: 'title',
+        title: 'title2',
         subTitle: 'subTitle'
       },
 

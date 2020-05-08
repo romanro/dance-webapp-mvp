@@ -6,9 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
 
   transform(items: any[], field: string, value: string): any[] {
-    console.log('value:', value)
-    console.log(1111111)
-    if (!items || !value) return [];
+    if (!items) return [];
     return items.filter(it => it[field].search(value) != -1);
   }
   

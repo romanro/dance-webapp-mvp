@@ -1,34 +1,40 @@
-<div class="col-12 text-center">
-  <div class="row page-title-row">
-    <h2>Practices !!</h2>
-    <input type="text" [(ngModel)]="searchTerm">
+<div class="row page-title-row mb-2">
+  <div class="col-12 text-center">
+    <h2 class="inner-page-title mb-3">Practices !!</h2>
+    <input type="text" class="form-control" [(ngModel)]="searchTerm">
+    <img>
   </div>
 </div>
 
-{{test}}
 
 <ng-template [ngIf]="practices">
-  <div class="row">
-    <div class="col-12">
-      <button [disabled]=nextBtndisabled (click)="increaseMonths()">next</button>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-2">
+      <button class="btn" [disabled]=nextBtndisabled (click)="increaseMonths()">next</button>
+    </div>
+    <div class="col-3 d-flex justify-content-center">
       <div>{{currentDate | date:'MMMM y'}}</div>
-      <button [disabled]=prevBtndisabled (click)="decreaseMonths()">prev</button>
+    </div>
+    <div class="col-2">
+      <button class="btn" [disabled]=prevBtndisabled (click)="decreaseMonths()">prev</button>
     </div>
   </div>
 </ng-template>
 
 
-
-<h1>{{currentDate| date:'MMMM y'}}</h1>
-
-<ul>
+<ul class="list-group">
   <div class="row">
     <ng-container *ngFor="let practice of practices | filter: 'title' : searchTerm">
-      <li class="col-12 col-lg-4" *ngIf="compareDates(practice.date, currentDate)">
-        <div class="col-3">{{practice.date | date}}</div>
-        <div class="col-3">{{practice.title}}</div>
-        <div class="col-3">{{practice.subTitle}}</div>
-      </li>
+      <div class="col-12 col-lg-4 mb-3 ">
+        <li class="list-group-item d-flex bg-light p-4" *ngIf="compareDates(practice.date, currentDate)">
+          <div class="col-4">{{practice.date | date}}</div>
+          <div class="col-3">{{practice.title}}</div>
+          <div class="col-4">{{practice.subTitle}}</div>
+          <div class="col-1">
+            <button [routerLink]="[practice.id]"></button>
+          </div>
+        </li>
+      </div>
     </ng-container>
   </div>
 
