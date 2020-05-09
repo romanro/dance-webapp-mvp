@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import flash from 'connect-flash';
+import cors = require('cors');
 
 dotenv.config({ path: '.env.example' });
 
@@ -17,6 +18,7 @@ import path from 'path';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import expressStatusMonitor from 'express-status-monitor';
+
 
 // const contactController = require('./controllers/contact');
 const api = require('./routes/api');
@@ -49,6 +51,7 @@ app.set('host', '0.0.0.0');
 app.set('port', process.env.PORT || 8080);
 
 app.use(helmet());
+app.use(cors())
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
