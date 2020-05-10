@@ -77,7 +77,7 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
       }
       return res.json({
         success: true,
-        token: getToken(JSON.parse(JSON.stringify(user)))
+        token: getToken({ _id: user._id })
       });
     });
   })(req, res, next);
@@ -105,11 +105,17 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     gmail_remove_dots: false
   });
 
+
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    profile: {
+      name: req.body.name,
+      birthDate: {
+        date: req.body.birthDate
+      }
+    }
   });
-
   try {
     const existingUser = await User.findOne({ email: req.body.email });
 
@@ -136,7 +142,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     });
 
     await verifyUserEmail(user);
-    return res.json({
+    return res.status(201).json({
       success: true,
       token: getToken(user.toJSON())
     });
@@ -146,53 +152,88 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
 };
 
 /**
- * POST /account/profile
+ * PATCH /account/profile
  * Update profile information.
  */
-export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
+export const patchUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address.' });
+  // if (!req.body.email || !validator.isEmail(req.body.email))
+  //   validationErrors.push({ msg: 'Please enter a valid email address.' });
 
-  if (validationErrors.length > 0) {
-    req.flash('errors', validationErrors.join(", "));
-    return res.redirect('/account');
-  }
-  req.body.email = validator.normalizeEmail(req.body.email, {
-    gmail_remove_dots: false
-  });
+  // if (validationErrors.length > 0) {
+  //   req.flash('errors', validationErrors.join(", "));
+  //   return res.redirect('/account');
+  // }
 
-  User.findById(req.user.id, (err, user: IUser) => {
-    if (err) {
-      return next(err);
-    }
-    if (user.email !== req.body.email) user.emailVerified = false;
-    user.email = req.body.email || '';
-    user.profile.name = req.body.name || '';
-    user.profile.gender = req.body.gender || '';
-    user.profile.location = req.body.location || '';
-    user.profile.website = req.body.website || '';
-    user.save(err => {
-      if (err) {
-        if (err.code === 11000) {
-          req.flash('errors', 
-              'The email address you have entered is already associated with an account.'
-          );
-          return res.redirect('/account');
-        }
-        return next(err);
+  // req.body.email = validator.normalizeEmail(req.body.email, {
+  //   gmail_remove_dots: false
+  // });
+
+  const updateOps: any = {}; // TODO: any
+
+  // TODO: email cannot be changed (?)
+  // if (user.email !== req.body.email) user.emailVerified = false;
+  // user.email = req.body.email || '';
+  updateOps.profile = {
+    name: req.body.name || '',
+    gender: req.body.gender || '',
+    language: req.body.language || '',
+    location: req.body.location || '',
+    website: req.body.website || '',
+    birthDate: { date: req.body.birthDate || '' } // TODO: '' or something else?
+  };
+
+  // TODO: runValidators doesnt work?
+  User.findOneAndUpdate({ _id: req.user.id }, { $set: updateOps }, { runValidators: true })
+    .exec()
+    .then(user => {
+      if (!user) {
+        return res.json({
+          success: false,
+          errors: [
+            {
+              code: 'NON_EXISTING_USER',
+              msg: 'User does not exist'
+            }
+          ]
+        });
       }
-      req.flash('success', 'Profile information has been updated.' );
-      res.redirect('/account');
+      else {
+        return res.json({
+          success: true,
+        });
+      }
+    })
+    .catch(err => {
+      next(err);
     });
+}
+
+
+/**
+ * GET /account/profile
+ * Get profile information.
+ */
+
+const getMyProfileInfo = async (id: string) => (
+  await User.findById(id).select("email profile").exec()
+);
+
+export const getProfileInfo = async (req: Request, res: Response, next: NextFunction) => {
+  const userInfo = await getMyProfileInfo(req.user.id);
+
+  return res.json({
+    success: true,
+    user: userInfo
   });
+
 };
 
 /**
- * POST /account/password
+ * PATCH /account/password
  * Update current password.
  */
-export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
+export const patchUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push({
@@ -226,7 +267,7 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
       if (err) {
         return next(err);
       }
-      req.flash('success', 'Password has been changed.' );
+      req.flash('success', 'Password has been changed.');
       res.redirect('/account');
     });
   });
@@ -242,7 +283,7 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
       return next(err);
     }
     req.logout();
-    req.flash('info', 'Your account has been deleted.' );
+    req.flash('info', 'Your account has been deleted.');
     res.redirect('/');
   });
 };

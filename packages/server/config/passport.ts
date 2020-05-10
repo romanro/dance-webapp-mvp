@@ -57,7 +57,7 @@ const jwtStrategyInstance = new JWTStrategy(
   },
   // TODO: any
   function handleJWTAuth(payload: any, done: any) {
-    User.findOne({ email: payload.email }, function(err, user) {
+    User.findById(payload._id, function(err, user) {
       if (err) {
         return done(err, false);
       }

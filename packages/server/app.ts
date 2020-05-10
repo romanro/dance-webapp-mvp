@@ -73,7 +73,7 @@ app.use(
     }
   )
 );
-app.use(flash());
+// app.use(flash()); // TODO: needed?
 
 /* App routes */
 app.use('/api/v1', api);

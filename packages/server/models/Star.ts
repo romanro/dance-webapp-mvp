@@ -4,23 +4,23 @@ import { IFigure } from './Figure';
 
 const starSchema = new mongoose.Schema(
   {
-    figures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Figure' }],
+    figures: [{ type: mongoose.Schema.Types.ObjectId, ref: "Figure" }],
     name: {
-      firstName: String,
-      lastName: String,
-      nickname: String,
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      nickname: { type: String, required: true },
     },
     location: {
-      country: String,
-      city: String
+      country: { type: String, required: true },
+      city: { type: String, required: true }
     },
-    birthDate: Date,
+    birthDate: { type: Date, required: true },
     userPics: {
-      smallPicURL: String,
-      largePicURL: String
+      smallPicURL: { type: String, required: true },
+      largePicURL: { type: String, required: true },
     },
-    promoVideoURL: String,
-    about: String,
+    promoVideoURL: { type: String, required: true },
+    about: { type: String, required: true },
   },
   { timestamps: true }
 );

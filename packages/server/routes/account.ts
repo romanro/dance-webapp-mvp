@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import {
-    getVerifyEmail, getVerifyEmailToken, postUpdatePassword,
-    postUpdateProfile, postDeleteAccount
+    getVerifyEmail, getVerifyEmailToken, patchUpdatePassword,
+    patchUpdateProfile, postDeleteAccount, getProfileInfo
 } from '../controllers/user';
 import { awsUpload } from "../services/awsUpload"
 
@@ -14,13 +14,12 @@ router.post('/video/upload', awsUpload.single('video'), function (req: Request, 
     res.status(200).json({ message: 'Upload successfully completed to: ' + (req.file as any).location });
   });
 
-// JWT done
 router.get('/verify', getVerifyEmail);
 router.get('/verify/:token', getVerifyEmailToken);
 
-// JWT not done
-router.post('/password', postUpdatePassword);
-router.post('/profile', postUpdateProfile);
+router.get('/profile', getProfileInfo);
+router.patch('/profile', patchUpdateProfile);
+router.patch('/password', patchUpdatePassword);
 router.post('/delete', postDeleteAccount);
 
 module.exports = router;
