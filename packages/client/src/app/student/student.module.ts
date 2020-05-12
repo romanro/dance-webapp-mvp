@@ -9,12 +9,11 @@ import { PracticesPageComponent, StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
 
-import {ShareModule} from '../share.module';
 
 
 @NgModule({
   imports: [
-    CommonModule, TranslateModule, NgbModule, StudentRoutingModule, InfraModule, StudentProfileModule, FormsModule, ShareModule
+    CommonModule, TranslateModule, NgbModule, StudentRoutingModule, InfraModule, StudentProfileModule, FormsModule, 
   ],
   declarations: [
     StudentLayoutComponent,

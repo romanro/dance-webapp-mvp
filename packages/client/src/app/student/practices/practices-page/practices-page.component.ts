@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, EventEmitter } from '@angul
 import { Subscription, from, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Practice } from '@core/models';
-import {ShareModule} from '../../../share.module';
+
 
 @Component({
   selector: 'dsapp-practices-page',
@@ -22,10 +22,11 @@ export class PracticesPageComponent implements OnInit {
   nextBtndisabled = false;
   prevBtndisabled = false;
   practicesData: Practice[] = null;
-  practices: Practice[]=[];
+  practices: Practice[] = [];
+  test: Practice[] = [];
   subs: Subscription[] = [];
-  test: string;
   searchTerm: string = '';
+  selectedValue: string = '';
 
   constructor(
     private store: Store<any>,
@@ -40,13 +41,13 @@ export class PracticesPageComponent implements OnInit {
         subTitle: 'subTitle'
       },
       {
-        id:2,
+        id: 2,
         date: new Date('2/1/2020'),
         title: 'title',
         subTitle: 'subTitle'
       },
       {
-        id:3,
+        id: 3,
         date: new Date('5/5/2020'),
         title: 'title1',
         subTitle: 'subTitle'
@@ -115,15 +116,21 @@ export class PracticesPageComponent implements OnInit {
       return true;
     else
       return false;
-
-      
   }
 
-  // search(){
-  //   this.practices = this.practices.filter(res=>{
-      
-  //   })
-  // }
+
+  isHidden(title) {
+    return !title.includes(this.selectedValue);  
+  }
+
+  search() {
+    this.selectedValue = this.searchTerm;
+  }
+
+  clear(){
+    this.selectedValue = '';
+  }
+
 
 
 }
