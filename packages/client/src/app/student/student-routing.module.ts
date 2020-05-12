@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 
-import { PracticesPageComponent, StudentLayoutComponent } from '.';
+import { PracticesPageComponent, PracticePageComponent, StudentLayoutComponent } from '.';
 
 
 const routes: Routes = [
@@ -11,8 +11,7 @@ const routes: Routes = [
       { path: 'star', loadChildren: () => import('./stars-page/student-stars.module').then(m => m.StudentStarsModule) },
       { path: 'lab', loadChildren: () => import('../lab/lab.module').then(m => m.LabModule) },
       { path: 'practices', component: PracticesPageComponent},
-      { path: 'practices/:id', component: PracticesPageComponent },
-
+      { path: 'practices/:id', component: PracticePageComponent },
       { path: 'profile', loadChildren: () => import('./profile-pages/student-profile.module').then(m => m.StudentProfileModule) },
       { path: 'challenges', loadChildren: () => import('./challenges/student-challenges.module').then(m => m.StudentChallengesModule) },
       { path: '', redirectTo: 'star', pathMatch: 'full' }
