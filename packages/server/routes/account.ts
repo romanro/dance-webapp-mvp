@@ -8,10 +8,9 @@ import { awsUpload } from "../services/awsUpload"
 const router = express.Router();
 
 // TODO: should be moved to a controller file
-// TODO: error code: 200/201?
-// TODO: fix (req.file as any) casting
+// TODO: fix any casting
 router.post('/video/upload', awsUpload.single('video'), function (req: Request, res: Response, next: NextFunction) {
-    res.status(200).json({ message: 'Upload successfully completed to: ' + (req.file as any).location });
+    res.status(201).json({ message: 'Upload successfully completed to: ' + (req.file as any).location });
   });
 
 router.get('/verify', getVerifyEmail);
