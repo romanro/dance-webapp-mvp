@@ -30,3 +30,22 @@ export const possibleGenders = Object.values(EnumGender);
     english = 'en'
   }
 export const possibleLanguages = Object.values(EnumLanguage);
+
+
+export enum EnumView {
+  front = 'front',
+  back = 'back'
+}
+export const possibleViews = Object.values(EnumView);
+
+export enum EnumParticipatesAmount {
+  solo = 1,
+  couple = 2
+}
+export const possibleParticipatesAmounts = Object.values(EnumParticipatesAmount);
+
+export enum EnumAssociateTo {
+  user = "user",
+  figure = "figure"
+}
+export const possibleAssociateTo = Object.values(EnumAssociateTo);

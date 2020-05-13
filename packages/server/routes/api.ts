@@ -7,6 +7,7 @@ const router = express.Router();
 const account = require('./account');
 const stars = require('./stars');
 const figures = require('./figures');
+const videos = require('./videos');
 
 // TODO: should be splitted to a few files (file for each of the controllers)
 
@@ -20,6 +21,7 @@ router.post('/forgot', postForgot);
 router.use('/account', passport.authenticate('jwt', { session: false }), account);
 router.use('/stars', passport.authenticate('jwt', { session: false }), stars);
 router.use('/figures', passport.authenticate('jwt', { session: false }), figures);
+router.use('/videos', passport.authenticate('jwt', { session: false }), videos);
 
 
 module.exports = router;

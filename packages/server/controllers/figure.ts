@@ -3,6 +3,31 @@ import Star, { IStar } from '../models/Star';
 import Figure, { IFigure } from '../models/Figure';
 import { EnumDanceLevel, possibleDanceLevels, EnumDanceType, possibleDanceTypes } from "../shared/enums"
 
+const getFigureById = async (figureId: string): Promise<IFigure> => (
+    new Promise((resolve, reject) => {
+        Figure.findById(figureId)
+            .populate("videos")
+            .exec()
+            .then(figure => {
+                if (!figure) {
+                    reject(new Error("Figure not found"));
+                } else {
+                    resolve(figure);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            });
+    })
+);
+
+export const getFigure = async (req: Request, res: Response, next: NextFunction) => {
+    const figure = await getFigureById(req.params.figureId);
+    return res.json({
+        figure: figure
+    });
+}
+
 // TODO: find by name or by ID?
 
 const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level: EnumDanceLevel): Promise<IFigure[]> => (
@@ -70,7 +95,7 @@ const buildFigureFromRequest = (req: Request): IFigure => {
 const addfigureToStar = async (figure: IFigure, starIds: [string]) => (
     new Promise(async (resolve, reject) => {
         for (const starId of starIds) {
-            await Star.updateOne({ _id: starId }, { $push: { figures: figure } }).exec()
+            await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure } }).exec()
         }
         resolve();
     })
@@ -81,7 +106,7 @@ export const addFigure = async (req: Request, res: Response, next: NextFunction)
 
     const figureToAdd = buildFigureFromRequest(req);
     const figure = await figureToAdd.save();
-    await addfigureToStar(figureToAdd, req.body.starIds);
+    await addfigureToStar(figureToAdd, req.body.stars);
 
     res.status(201).json({
         message: "Figure added successfully to the star",
@@ -109,7 +134,7 @@ const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> =
 
 const removeFigureFromStar = (figure: IFigure) => (
     new Promise((resolve, reject) => {
-        for (const starId of figure.starIds) {
+        for (const starId of figure.stars) {
             Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
         }
         resolve();

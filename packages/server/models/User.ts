@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
 import { EnumGender, possibleGenders, EnumLanguage, possibleLanguages, EnumAgeGroup } from "../shared/enums"
+import { IVideo } from './Video';
 
 
 interface BirthDate {
@@ -38,6 +39,8 @@ const userSchema = new mongoose.Schema(
     facebook: String,
     google: String,
     tokens: [{ type: String }],
+
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
 
     profile: {
       gender: { type: EnumGender, enum: possibleGenders }, // TODO: required: true?
@@ -147,9 +150,13 @@ interface IUserBase extends IUserSchema {
 }
 
 export interface IUser extends IUserBase {
+  videos: [IVideo["_id"]];
+
 }
 
 export interface IUser_populated extends IUserBase {
+  videos: [IVideo]; 
+
 }
 
 export interface IUserModel extends Model<IUser> {
