@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<ng-template [ngIf]="practices">
+<ng-template [ngIf]="practices && !loading">
   <div class="row justify-content-center align-items-center">
     <div class="col-2">
       <button class="btn" [disabled]=nextBtndisabled (click)="increaseMonths()">next</button>
@@ -20,29 +20,31 @@
       <button class="btn" [disabled]=prevBtndisabled (click)="decreaseMonths()">prev</button>
     </div>
   </div>
+  
+  <ul class="list-group">
+    <div class="row">
+      <ng-container *ngFor="let practice of practices ">
+        <div class="col-12 col-lg-4 mb-3 ">
+          <li class="list-group-item d-flex bg-light p-4"
+            *ngIf="compareDates(practice.date, currentDate) && !isHidden(practice.title)">
+            <div class="col-4">{{practice.date | date}}</div>
+            <div class="col-3">{{practice.title}}</div>
+            <div class="col-4">{{practice.subTitle}}</div>
+            <div class="col-1">
+              <button [routerLink]="[practice.id]"></button>
+            </div>
+          </li>
+        </div>
+      </ng-container>
+    </div>
+  
+  </ul>
 </ng-template>
 
 <!-- | filter: 'title' : searchTerm -->
-<ul class="list-group">
-  <div class="row">
-    <ng-container *ngFor="let practice of practices ">
-      <div class="col-12 col-lg-4 mb-3 ">
-        <li class="list-group-item d-flex bg-light p-4"
-          *ngIf="compareDates(practice.date, currentDate) && !isHidden(practice.title)">
-          <div class="col-4">{{practice.date | date}}</div>
-          <div class="col-3">{{practice.title}}</div>
-          <div class="col-4">{{practice.subTitle}}</div>
-          <div class="col-1">
-            <button [routerLink]="[practice.id]"></button>
-          </div>
-        </li>
-      </div>
-    </ng-container>
-  </div>
-
-</ul>
 
 
-<!-- <ng-template [ngIf]="loading">
+
+<ng-template [ngIf]="loading">
   <dsapp-preloader-inapp></dsapp-preloader-inapp>
-</ng-template> -->
+</ng-template>

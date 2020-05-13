@@ -12,7 +12,7 @@ import { Practice } from '@core/models';
 
 export class PracticesPageComponent implements OnInit {
 
-  loading = true;
+  loading = false;
   errorMsg: string = null;
   startDate: Date = new Date('1/1/2020');
   lastDate: Date = new Date();
@@ -73,6 +73,7 @@ export class PracticesPageComponent implements OnInit {
   }
 
   getMonthlyPractices() {
+    this.practices=[];
     for (let practice of this.practicesData) {
       if (this.compareDates(this.currentDate, practice.date))
         this.practices.push(practice);
@@ -128,6 +129,7 @@ export class PracticesPageComponent implements OnInit {
   }
 
   clear(){
+    this.searchTerm='';
     this.selectedValue = '';
   }
 

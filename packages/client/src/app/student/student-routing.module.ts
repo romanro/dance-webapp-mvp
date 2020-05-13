@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'lab', loadChildren: () => import('../lab/lab.module').then(m => m.LabModule) },
       { path: 'practices', component: PracticesPageComponent},
       { path: 'practices/:id', component: PracticePageComponent },
+
       { path: 'profile', loadChildren: () => import('./profile-pages/student-profile.module').then(m => m.StudentProfileModule) },
       { path: 'challenges', loadChildren: () => import('./challenges/student-challenges.module').then(m => m.StudentChallengesModule) },
       { path: '', redirectTo: 'star', pathMatch: 'full' }

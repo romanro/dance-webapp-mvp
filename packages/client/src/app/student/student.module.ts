@@ -8,18 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { PracticesPageComponent, StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
-import { PracticePageComponent } from './practices/practice-page/practice-page.component';
 
 
 
 @NgModule({
   imports: [
-    CommonModule, TranslateModule, NgbModule, StudentRoutingModule, InfraModule, StudentProfileModule, FormsModule, 
+    CommonModule, TranslateModule, NgbModule, StudentRoutingModule, InfraModule, StudentProfileModule, FormsModule
   ],
   declarations: [
     StudentLayoutComponent,
     PracticesPageComponent,
-    PracticePageComponent,
   ],
 })
 export class StudentModule { }
