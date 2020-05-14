@@ -2,5 +2,9 @@
     "cSpell.words": [
         "dsapp",
         "ngrx"
-    ]
+    ],
+	"files.exclude": {
+      "**/*.js": {"when": "$(basename).ts"},
+      "**/*.map": {"when": "$(basename).map"}
+	}
 }
