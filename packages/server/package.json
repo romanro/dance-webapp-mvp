@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "tsnd --respawn app.ts",
-    "start": "tsc & node app.js",
+    "start": "tsc & node build/app.js",
     "test": "nyc mocha --timeout=10000 --exit",
     "lint": "eslint \"**/*.js\""
   },
