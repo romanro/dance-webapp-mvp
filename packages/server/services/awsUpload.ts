@@ -21,3 +21,27 @@ export const awsUpload = multer({
         }
     })
 })
+
+export const awsDelete = (key: string) => {
+    s3.deleteObject({
+        Bucket: "danskill",
+        Key: key
+    }, (err, data) => {
+        console.log("data: ", data);
+        console.log("err: ", err);
+    })
+}
+
+
+multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'danskill',
+        metadata: function (req: Request, file, cb) {
+            cb(null, { fieldName: file.fieldname });
+        },
+        key: function (req: Request, file, cb) {
+            cb(null, Date.now().toString() + "_" + file.originalname)
+        }
+    })
+})

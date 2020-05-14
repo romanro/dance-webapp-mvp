@@ -151,12 +151,10 @@ interface IUserBase extends IUserSchema {
 
 export interface IUser extends IUserBase {
   videos: [IVideo["_id"]];
-
 }
 
 export interface IUser_populated extends IUserBase {
-  videos: [IVideo]; 
-
+  videos: [IVideo];
 }
 
 export interface IUserModel extends Model<IUser> {

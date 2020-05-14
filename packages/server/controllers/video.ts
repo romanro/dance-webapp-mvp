@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Video, { IVideo } from '../models/Video';
-import { EnumAssociateTo, possibleAssociateTo } from "../shared/enums"
+import { EnumAssociateWith, possibleAssociateWith } from "../shared/enums"
 import mongoose, { Document, Model } from 'mongoose';
 import User from '../models/User';
 import Figure from '../models/Figure';
@@ -13,9 +13,24 @@ const buildVideoFromRequest = (req: Request): IVideo => {
     })
 }
 
+const associateVideoWithModel = async (associateWith: EnumAssociateWith, associateToId: string, newVideoId: string) => {
+    let model: Model<Document>;
+    switch (associateWith) {
+        case EnumAssociateWith.figure:
+            model = Figure;
+            break;
+        case EnumAssociateWith.video:
+            model = Video;
+            break;
+        // TODO: default:
+    }
+    return await model.updateOne({ _id: associateToId }, { $addToSet: { videos: newVideoId } }).exec()
+};
+
 export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
     const video = buildVideoFromRequest(req);
     await video.save();
+    await associateVideoWithModel(video.associateWith, video.associatedId, video._id);
 
     res.status(201).json({
         message: 'Upload successfully completed',
@@ -23,43 +38,49 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     });
 }
 
-const associateVideoWithModel = async (videoId: string, associateTo: EnumAssociateTo, associateToId: string) => {
+// deleteVideo
+
+
+const disassociateVideoFromCollection = async (associateWith: EnumAssociateWith, associateToId: string, deletedVideoId: string) => {
     let model: Model<Document>;
-    switch (associateTo) {
-        case EnumAssociateTo.figure:
+    switch (associateWith) {
+        case EnumAssociateWith.figure:
             model = Figure;
             break;
-        case EnumAssociateTo.user:
-            model = User;
+        case EnumAssociateWith.video:
+            model = Video;
             break;
         // TODO: default:
     }
-    return await model.updateOne({ _id: associateToId }, { $addToSet: { videos: videoId } }).exec()
+    return await model.updateOne({ _id: associateToId }, { $pull: { videos: deletedVideoId } }).exec()
 };
 
-export const associateVideo = async (req: Request, res: Response, next: NextFunction) => {
-    await associateVideoWithModel(req.params.videoId, req.body.associateTo, req.body.associateToId);
+const deleteVideoFromDb = (id: string): Promise<IVideo> => (
+    new Promise((resolve, reject) => {
+        Video.findByIdAndRemove(id)
+            .exec()
+            .then(video => {
+                if (!video) {
+                    reject(new Error("Video not found"));
+                } else {
+                    resolve(video);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            })
+    })
+);
 
-    res.status(201).json({ message: 'Video successfully associated' });
+export const deleteVideo = async (req: Request, res: Response, next: NextFunction) => {
+    const video = await deleteVideoFromDb(req.params.videoId);
+    console.log(video);
+    await disassociateVideoFromCollection(video.associateWith, video.associatedId, video._id);
+
+    res.status(200).json({
+        message: 'Upload successfully deleted'
+    });
 }
 
-const disassociateVideoFromCollection = async (videoId: string, associateTo: EnumAssociateTo, associateToId: string) => {
-    let model: Model<Document>;
-    switch (associateTo) {
-        case EnumAssociateTo.figure:
-            model = Figure;
-            break;
-        case EnumAssociateTo.user:
-            model = User;
-            break;
-        // TODO: default:
-    }
-    return await model.updateOne({ _id: associateToId }, { $pull: { videos: videoId } }).exec()
-};
 
 
-export const disassociateVideo = async (req: Request, res: Response, next: NextFunction) => {
-    const video = disassociateVideoFromCollection(req.params.videoId, req.body.associateTo, req.body.associateToId);
-
-    res.status(201).json({ message: 'Video successfully disassociated' });
-}

@@ -1,14 +1,20 @@
 import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
 import { EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
-    EnumAssociateTo, possibleAssociateTo } from "../shared/enums"
+    EnumVideoType, possibleVideoTypes, EnumAssociateWith, possibleAssociateWith } from "../shared/enums"
+import { IFigure } from './Figure';
+
 
 const videoSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
         path: { type: String, required: true },
-        isComparable: { type: Boolean, required: true },
         view: { type: EnumView, enum: possibleViews, required: true },
         participatesAmount: { type: EnumParticipatesAmount, enum: possibleParticipatesAmounts, required: true },
+        associateWith: { type: EnumAssociateWith, enum: possibleAssociateWith, required: true },
+        type: { type: EnumVideoType, enum: possibleVideoTypes, required: true },
+        
+        // ref should be indicated on populate (figure/video)
+        associatedId: { type: mongoose.Schema.Types.ObjectId, required: true }, 
     },
     { timestamps: true }
 );
@@ -16,9 +22,10 @@ const videoSchema = new mongoose.Schema(
 interface IVideoSchema extends Document {
     name: string;
     path: string;
-    isComparable: Boolean;
     view: EnumView;
     participatesAmount: EnumParticipatesAmount;
+    associateWith: EnumAssociateWith;
+    type: EnumVideoType;
 }
 
 interface IVideoBase extends IVideoSchema {
@@ -26,9 +33,11 @@ interface IVideoBase extends IVideoSchema {
 }
 
 export interface IVideo extends IVideoBase {
+    associatedId: IVideo["_id"] | IFigure["_id"];
 }
 
 export interface IVideo_populated extends IVideoBase {
+    associatedId: IVideo | IFigure;
 }
 
 export interface IVideoModel extends Model<IVideo> {
