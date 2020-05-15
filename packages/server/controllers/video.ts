@@ -1,9 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import Video, { IVideo } from '../models/Video';
-import { EnumAssociateWith, possibleAssociateWith } from "../shared/enums"
+import { NextFunction, Request, Response } from 'express';
 import mongoose, { Document, Model } from 'mongoose';
-import User from '../models/User';
+
 import Figure from '../models/Figure';
+import User from '../models/User';
+import Video, { IVideo } from '../models/Video';
+import { EnumAssociateWith, possibleAssociateWith } from '../shared/enums';
 
 
 const buildVideoFromRequest = (req: Request): IVideo => {
@@ -14,7 +15,7 @@ const buildVideoFromRequest = (req: Request): IVideo => {
 }
 
 const associateVideoWithModel = async (associateWith: EnumAssociateWith, associateToId: string, newVideoId: string) => {
-    let model: Model<Document>;
+    let model: Model<Document> = Figure;
     switch (associateWith) {
         case EnumAssociateWith.figure:
             model = Figure;
@@ -42,7 +43,7 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
 
 
 const disassociateVideoFromCollection = async (associateWith: EnumAssociateWith, associateToId: string, deletedVideoId: string) => {
-    let model: Model<Document>;
+    let model: Model<Document> = Figure;
     switch (associateWith) {
         case EnumAssociateWith.figure:
             model = Figure;
