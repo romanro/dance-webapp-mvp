@@ -8,7 +8,7 @@ const starSchema = new mongoose.Schema(
     name: {
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
-      nickname: { type: String, required: true },
+      nickname: { type: String },
     },
     location: {
       country: { type: String, required: true },
@@ -29,7 +29,7 @@ interface IStarSchema extends Document {
   name: {
     firstName: String,
     lastName: String,
-    nickname: String,
+    nickname?: String,
   };
   location: {
     country: String,

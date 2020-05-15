@@ -20,8 +20,8 @@ import passport from 'passport';
 import expressStatusMonitor from 'express-status-monitor';
 
 
-// const contactController = require('./controllers/contact');
 const api = require('./routes/api');
+const homeController = require('./controllers/home');
 
 /**
  * Create Express server.
@@ -77,6 +77,13 @@ app.use(
 
 /* App routes */
 app.use('/api/v1', api);
+
+/**
+ * Cath-all route to angular app
+ */
+app.get('/*', (req, res, next) => {
+  return homeController.app(req, res, next);
+});
 
 /**
  * Error Handler.
