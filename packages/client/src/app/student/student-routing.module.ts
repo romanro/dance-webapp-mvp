@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 
-import { PracticesPageComponent, PracticePageComponent, StudentLayoutComponent } from '.';
+import { PracticesPageComponent, StudentLayoutComponent, PracticePageComponent } from '.';
 
 
 const routes: Routes = [

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 import { Practice } from '@app/_infra/core/models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VideoPlayerWrapperComponent } from '@ui/video-player-wrapper/video-player-wrapper.component'
 
 @Component({
   selector: 'dsapp-practice-page',
@@ -8,31 +10,42 @@ import { Practice } from '@app/_infra/core/models';
   styles: [
   ]
 })
+
 export class PracticePageComponent implements OnInit {
 
-  practiceId: number;
-  practice: Practice;
-  test: string = 'dsadasd';
-
-  constructor(private route: ActivatedRoute, private router: Router) {
-    let paramsObj;
-    this.route.params.subscribe(params => paramsObj = params);
-    this.practiceId = paramsObj.id;
-    console.log('this.practiceId:', this.practiceId)
-  }
+  practiceId: number = null;
+  loading = false;
+  practice: Practice = null;
+  disabled: boolean = true;
+  practiceTitleInput: string = '';
+  constructor(private router: Router, private route: ActivatedRoute, ) { }
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {
+      this.practiceId = params.id;
+    });
+
     this.practice = {
       id: 3,
       date: new Date('5/5/2020'),
       title: 'title1',
       subTitle: 'subTitle'
     }
-    console.log(this.practice)
   }
 
-  backToPracticesList() {
+  backToPractices() {
     this.router.navigate(['student/practices']);
   }
+  editTitle() {
+    this.disabled = false;
+    console.log('this.disabled:', this.disabled)
 
+  }
+  saveChanges() {
+    if (!this.disabled)
+      this.practice.title = this.practiceTitleInput;
+    this.disabled = true;
+    // this.backToPractices();
+  }
 }

@@ -1,24 +1,40 @@
-<div class="row">
-    <div class="col">
-        <button (click)="backToPracticesList()">BACK</button>
+<div class="row page-title-row mb-2">
+    <div class="col-12 text-center">
+        <button (click)=backToPractices()>back to practices</button>
     </div>
 </div>
-<!-- {{practice.date | date}} -->
-{{test}}
-
-
-<!-- <ng-template [ngIf]="practice"> -->
-    <!-- <div class="row">
-        <div class="col">
-            <button>Edit</button>
-            <h2 class="inner-page-title">{{practice.title}}</h2>
-            <h2 class="inner-page-title">{{practice.date | date}}</h2>
+<ng-template [ngIf]="true && !loading">
+    <div class="row">
+        <div class="col-12">
+            <button (click)=editTitle()>edit</button>
+            <input [(ngModel)]="practiceTitleInput" [disabled]=disabled type="text" value="{{practice.title}}">
+            <div>{{practice.date | date:'MMMM y'}}</div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <div>edit note</div>
-            <input type="text" >
+            <div>Hide video</div>
+            <ui-video-player-wrapper src="http://static.videogular.com/assets/videos/videogular.mp4" > 
+
+            </ui-video-player-wrapper>>
         </div>
-    </div> -->
-<!-- </ng-template> -->
+    </div>
+    <div class="row">
+        <div class="col-4">
+            edit note
+        </div>
+        <div class="col-4">
+            hide note
+        </div>
+        <div class="col-12">
+            <input type="text">
+        </div>
+        <div class="col-12">
+            <button [disabled]="disabled" (click)=saveChanges()>Save changes</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template [ngIf]="loading">
+    <dsapp-preloader-inapp></dsapp-preloader-inapp>
+</ng-template>
