@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
-import { EnumGender, possibleGenders, EnumLanguage, possibleLanguages, EnumAgeGroup } from "../shared/enums"
+import mongoose, { Document, Model, model, Schema, Types } from 'mongoose';
+
+import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
 import { IVideo } from './Video';
 
 
@@ -76,7 +77,7 @@ const getAge = (birthday: Date) => {
 
 userSchema.virtual('profile.birthDate.group').get(function (this: { profile: IProfile }) {
   let age, group;
-  if (this.profile?.birthDate?.date) {
+  if (this.profile && this.profile.birthDate && this.profile.birthDate.date) {
     age = getAge(this.profile.birthDate.date);
 
     switch (true) {
