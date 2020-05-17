@@ -53,7 +53,7 @@ const disassociateVideoFromCollection = async (associateWith: EnumAssociateWith,
             break;
         // TODO: default:
     }
-    return await model.updateOne({ _id: associateToId }, { $pull: { videos: deletedVideoId } }).exec()
+    return await model.updateOne({ _id: associateToId }, { $pull: { videos: deletedVideoId } }).exec();
 };
 
 const deleteVideoFromDb = (id: string): Promise<IVideo> => (
@@ -75,7 +75,6 @@ const deleteVideoFromDb = (id: string): Promise<IVideo> => (
 
 export const deleteVideo = async (req: Request, res: Response, next: NextFunction) => {
     const video = await deleteVideoFromDb(req.params.videoId);
-    console.log(video);
     await disassociateVideoFromCollection(video.associateWith, video.associatedId, video._id);
 
     res.status(200).json({
