@@ -7,6 +7,67 @@ import Video, { IVideo } from '../models/Video';
 import { EnumAssociateWith, possibleAssociateWith } from '../shared/enums';
 
 
+/**
+ * GET /:videoId
+ * get video
+ */
+
+const getVideoById = async (videoId: string): Promise<IVideo> => (
+    new Promise((resolve, reject) => {
+        Video.findById(videoId)
+            .exec()
+            .then(video => {
+                if (!video) {
+                    reject(new Error("Video not found"));
+                } else {
+                    resolve(video);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            });
+    })
+);
+
+const getPopulatedVideoById = async (videoId: string, associateType: EnumAssociateWith): Promise<IVideo> => (
+    new Promise((resolve, reject) => {
+        // TODO: should be changed to switch case?
+        const populateTypeName = (associateType == EnumAssociateWith.figure) ? "Figure" : "Video";
+        Video.findById(videoId)
+            .populate({
+                path: 'associatedId',
+                model: populateTypeName,
+                // select: 'name age'
+            })
+            .exec()
+            .then(video => {
+                if (!video) {
+                    reject(new Error("Video not found"));
+                } else {
+                    resolve(video);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            });
+    })
+);
+
+export const getVideo = async (req: Request, res: Response, next: NextFunction) => {
+    const video = await getVideoById(req.params.videoId);
+    const associateType = video.associateWith;
+    const poulatedVideo = await getPopulatedVideoById(video._id, associateType);
+
+    res.status(200).json({
+        video: poulatedVideo // TODO: Is all the information should be exposed to the user?
+    });
+}
+
+/**
+ * POST /upload
+ * upload video
+ */
+
 const buildVideoFromRequest = (req: Request): IVideo => {
     return new Video({
         ...req.body,
@@ -39,8 +100,11 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     });
 }
 
-// deleteVideo
 
+/**
+ * DELETE /delete/:videoId
+ * delete video
+ */
 
 const disassociateVideoFromCollection = async (associateWith: EnumAssociateWith, associateToId: string, deletedVideoId: string) => {
     let model: Model<Document> = Figure;

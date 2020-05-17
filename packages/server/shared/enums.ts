@@ -7,10 +7,10 @@ export enum EnumDanceType {
 export const possibleDanceTypes = Object.values(EnumDanceType);
 
 export enum EnumDanceLevel {
-    one = "one",
-    two = "two",
-    three = "three",
-    four = "four"
+    one = 1,
+    two = 2,
+    three = 3,
+    four = 4
 }
 export const possibleDanceLevels = Object.values(EnumDanceLevel);
 
