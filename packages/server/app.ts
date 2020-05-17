@@ -1,7 +1,16 @@
-import dotenv from 'dotenv';
-import helmet from 'helmet';
+import bodyParser from 'body-parser';
+import chalk from 'chalk';
+import compression from 'compression';
 import flash from 'connect-flash';
 import cors = require('cors');
+import dotenv from 'dotenv';
+import express, { NextFunction, Request, Response } from 'express';
+import expressStatusMonitor from 'express-status-monitor';
+import helmet from 'helmet';
+import mongoose from 'mongoose';
+import logger from 'morgan';
+import passport from 'passport';
+import path from 'path';
 
 dotenv.config({ path: '.env.example' });
 
@@ -9,16 +18,6 @@ dotenv.config({ path: '.env.example' });
  * Module dependencies.
  */
 require('./config/passport');
-import express, { Request, Response, NextFunction } from 'express';
-import compression from 'compression';
-import bodyParser from 'body-parser';
-import logger from 'morgan';
-import chalk from 'chalk';
-import path from 'path';
-import mongoose from 'mongoose';
-import passport from 'passport';
-import expressStatusMonitor from 'express-status-monitor';
-
 
 const api = require('./routes/api');
 const homeController = require('./controllers/home');
@@ -67,7 +66,7 @@ app.use(passport.initialize());
 // Serve only the static files form the dist directory
 app.use(
   express.static(
-    path.join(__dirname, '..', '..', 'packages', 'client', 'dist', 'webapp'),
+    path.join(__dirname, '..', '..', '..', 'packages', 'client', 'dist', 'webapp'),
     {
       maxAge: 31557600000
     }
