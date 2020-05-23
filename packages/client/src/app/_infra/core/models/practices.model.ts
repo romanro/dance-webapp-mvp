@@ -4,6 +4,8 @@ export class Practice {
     date: Date;
     title: string;
     subTitle: string;
+    userVideo: string;
+    notes: Array<string>;
     // lastName: string;
     // email: string;
     // password: string;

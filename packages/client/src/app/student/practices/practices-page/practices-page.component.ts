@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, EventEmitter } from '@angul
 import { Subscription, from, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Practice } from '@core/models';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class PracticesPageComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
+    private translate: TranslateService,
 
   ) {
     this.currentDate = this.lastDate;
@@ -38,25 +40,33 @@ export class PracticesPageComponent implements OnInit {
         id: 1,
         date: new Date('1/1/2020'),
         title: 'title1',
-        subTitle: 'subTitle'
+        subTitle: 'subTitle',
+        userVideo:'',
+        notes:[]
       },
       {
         id: 2,
         date: new Date('2/1/2020'),
         title: 'title',
-        subTitle: 'subTitle'
+        subTitle: 'subTitle',
+        userVideo:'',
+        notes:[]
       },
       {
         id: 3,
         date: new Date('5/5/2020'),
         title: 'title1',
-        subTitle: 'subTitle'
+        subTitle: 'subTitle',
+        userVideo:'',
+        notes:[]
       },
       {
         id: 4,
         date: new Date(),
         title: 'title2',
-        subTitle: 'subTitle'
+        subTitle: 'subTitle',
+        userVideo:'',
+        notes:[]
       },
 
     ]

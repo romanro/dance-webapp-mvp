@@ -51,4 +51,39 @@ select:-webkit-autofill:focus {
     text-align: center;
     font-size: 1.5rem;
   }
+  .inner-page-sub-title {
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+
+//Buttons
+
+
+
+.danskill-btn{
+  border:none;
+  background: transparent;
+}
+
+.edit-btn{
+@extend .danskill-btn;
+ background-image: url('./assets/images/icons/edit.svg');
+ background-size: 100% 100%;
+ height: 15px;
+ width: 15px;
+}
+.hide-btn{
+  @extend .danskill-btn;
+}
+.title-input{
+  @extend .danskill-btn;
+}
+.save-btn{
+  // @extend .danskill-btn;
+  color: white;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
 }

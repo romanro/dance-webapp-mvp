@@ -122,5 +122,18 @@
   "ABOUT": {
     "title": "About DanSkill Application",
     "AppVersion": "Application version:"
+  },
+  "PRACTICES" : {
+    "test": "litsl",
+    "PRACTICE":{
+      "backToPractices": "Back to practives Page",
+      "hideVideo": "Hide video",
+      "showVideo": "Show video",
+      "hideNotes": "Hide Notes",
+      "showNotes": "Show Notes",
+      "editNote": "Edit Note",
+      "saveChanges": "Save changes"
+
+    }
   }
 }

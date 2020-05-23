@@ -1,36 +1,39 @@
-<div class="row page-title-row mb-2">
+
+<div class="row mb-4">
     <div class="col-12 text-center">
-        <button (click)=backToPractices()>back to practices</button>
+        <button (click)=backToPractices()>{{'PRACTICES.PRACTICE.backToPractices' | translate}}</button>
     </div>
 </div>
 <ng-template [ngIf]="true && !loading">
-    <div class="row">
+    <div class="row page-title-row mb-4 text-center">
         <div class="col-12">
-            <button (click)=editTitle()>edit</button>
-            <input [(ngModel)]="practiceTitleInput" [disabled]=disabled type="text" value="{{practice.title}}">
-            <div>{{practice.date | date:'MMMM y'}}</div>
+            <button class="edit-btn" (click)=editTitle()></button>
+            <input class="mb-2 title-input inner-page-title text-center" [(ngModel)]="practiceTitleInput" [disabled]=disabledTitle type="text">
+            <div class="inner-page-sub-title">{{practice.date | date:'MMMM y'}}</div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col">
-            <div>Hide video</div>
-            <ui-video-player-wrapper src="http://static.videogular.com/assets/videos/videogular.mp4" > 
-
-            </ui-video-player-wrapper>>
+            <button class="mb-2 hide-btn" (click)="toggleVideo()">{{videoButtonText}}</button>
+            <ui-video-player-wrapper [hidden]="hiddenVideo" src="{{practice.userVideo}}"></ui-video-player-wrapper>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4 justify-content-between">
         <div class="col-4">
-            edit note
+            <button class="hide-btn" (click)="toggleNotes()">{{noteButtonText}}</button>
         </div>
         <div class="col-4">
-            hide note
+            <button (click)="editNote()" class="hide-btn">
+                {{'PRACTICES.PRACTICE.editNote' | translate}}
+            </button>
         </div>
-        <div class="col-12">
-            <input type="text">
+        <div class="col-12 mt-2" [hidden]="hiddenNotes">
+            <textarea [disabled]="disabledNote" class="form-control" rows="4"></textarea>
         </div>
-        <div class="col-12">
-            <button [disabled]="disabled" (click)=saveChanges()>Save changes</button>
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <button class="btn-danger save-btn" [disabled]="disabled" (click)=saveChanges()>{{'PRACTICES.PRACTICE.saveChanges' | translate}}</button>
         </div>
     </div>
 </ng-template>
