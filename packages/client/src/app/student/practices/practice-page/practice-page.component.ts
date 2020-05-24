@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Practice } from '@app/_infra/core/models';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import { VideoPlayerWrapperComponent } from '@ui/video-player-wrapper/video-player-wrapper.component'
 import { TranslateService } from '@ngx-translate/core';
-import { element } from 'protractor';
 
 @Component({
   selector: 'dsapp-practice-page',

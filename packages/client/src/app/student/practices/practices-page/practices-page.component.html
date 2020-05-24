@@ -1,37 +1,38 @@
-<div class="row page-title-row mb-2">
+<div class="row page-title-row mb-4 mt-4">
   <div class="col-12 text-center">
-    <h2 class="inner-page-title mb-3">Practices !!</h2>
-    <button (click)=clear()>Clear</button>
-    <input type="text" class="form-control" [(ngModel)]="searchTerm">
-    <button (click)=search()>Search</button>
+    <h2 class="inner-page-title mb-2">{{'PRACTICES.title' | translate}}</h2>
+    <div class="search-wrapper">
+      <button class="clear-btn" (click)=clear()></button>
+      <input type="text" class="form-control search-practice" [(ngModel)]="searchTerm">
+      <button class="search-btn" (click)=search()></button>
+    </div>
     <img>
   </div>
 </div>
 
 <ng-template [ngIf]="practices && !loading">
-  <div class="row justify-content-center align-items-center">
+  <div class="row practices-dates justify-content-center align-items-center mb-4">
     <div class="col-2">
-      <button class="btn" [disabled]=nextBtndisabled (click)="increaseMonths()">next</button>
+      <button class="btn prev-btn" [disabled]=prevBtndisabled (click)="decreaseMonths()"></button>
     </div>
     <div class="col-3 d-flex justify-content-center">
       <div>{{currentDate | date:'MMMM y'}}</div>
     </div>
     <div class="col-2">
-      <button class="btn" [disabled]=prevBtndisabled (click)="decreaseMonths()">prev</button>
+      <button class="btn next-btn" [disabled]=nextBtndisabled (click)="increaseMonths()"></button>
     </div>
   </div>
-  
   <ul class="list-group">
-    <div class="row">
+    <div class="row practices-list">
       <ng-container *ngFor="let practice of practices ">
         <div class="col-12 col-lg-4 mb-3 ">
           <li class="list-group-item d-flex bg-light p-4"
             *ngIf="compareDates(practice.date, currentDate) && !isHidden(practice.title)">
-            <div class="col-4">{{practice.date | date}}</div>
+            <div class="col-4 practice-date">{{practice.date | date}}</div>
             <div class="col-3">{{practice.title}}</div>
             <div class="col-4">{{practice.subTitle}}</div>
             <div class="col-1">
-              <button [routerLink]="[practice.id]"></button>
+              <button class="edit-btn" [routerLink]="[practice.id]"></button>
             </div>
           </li>
         </div>

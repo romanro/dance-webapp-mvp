@@ -124,7 +124,7 @@
     "AppVersion": "Application version:"
   },
   "PRACTICES" : {
-    "test": "litsl",
+    "title": "Practices",
     "PRACTICE":{
       "backToPractices": "Back to practives Page",
       "hideVideo": "Hide video",
