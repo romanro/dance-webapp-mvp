@@ -112,4 +112,6 @@ select:-webkit-autofill:focus {
 .prev-btn{
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/back.svg');
+  border: 1px solid;
 }
+
