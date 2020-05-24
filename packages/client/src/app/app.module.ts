@@ -12,7 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SocialLoginModule } from 'angularx-social-login';
 
-import { StarsContentEffects, StarsEffects, UserEffects } from './_infra/store/effects';
+import { StarsContentEffects, StarsEffects, UserEffects, PracticesEffects } from './_infra/store/effects';
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra/ui';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     StoreModule.forRoot({ user: UserReducer, stars: StarsReducer, starsContent: StarsContentReducer }),
-    EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects]),
+    EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects]),
     SocialLoginModule,
     NgbModule,
     AppRoutingModule,

@@ -3,6 +3,8 @@ import { Subscription, from, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Practice } from '@core/models';
 import { TranslateService } from '@ngx-translate/core';
+import * as selectors from '@infra/store/selectors/practices.selector';
+import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class PracticesPageComponent implements OnInit {
   nextBtndisabled = false;
   prevBtndisabled = false;
   practicesData: Practice[] = null;
-  practices: Practice[] = [];
+  practices: Practice[] = null;
   test: Practice[] = [];
   subs: Subscription[] = [];
   searchTerm: string = '';
@@ -35,41 +37,41 @@ export class PracticesPageComponent implements OnInit {
 
   ) {
     this.currentDate = this.lastDate;
-    this.practicesData = [
-      {
-        id: 1,
-        date: new Date('1/1/2020'),
-        title: 'title1',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 2,
-        date: new Date('2/1/2020'),
-        title: 'title',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 3,
-        date: new Date('5/5/2020'),
-        title: 'title1',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 4,
-        date: new Date(),
-        title: 'title2',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
+    // this.practicesData = [
+    //   {
+    //     id: 1,
+    //     date: new Date('1/1/2020'),
+    //     title: 'title1',
+    //     subTitle: 'subTitle',
+    //     userVideo:'',
+    //     notes:[]
+    //   },
+    //   {
+    //     id: 2,
+    //     date: new Date('2/1/2020'),
+    //     title: 'title',
+    //     subTitle: 'subTitle',
+    //     userVideo:'',
+    //     notes:[]
+    //   },
+    //   {
+    //     id: 3,
+    //     date: new Date('5/5/2020'),
+    //     title: 'title1',
+    //     subTitle: 'subTitle',
+    //     userVideo:'',
+    //     notes:[]
+    //   },
+    //   {
+    //     id: 4,
+    //     date: new Date(),
+    //     title: 'title2',
+    //     subTitle: 'subTitle',
+    //     userVideo:'',
+    //     notes:[]
+    //   },
 
-    ]
+    // ]
   }
 
 
@@ -79,12 +81,27 @@ export class PracticesPageComponent implements OnInit {
     this.maxMonthLength = this.monthLength;
     this.setDisabledBtn();
     this.getMonthlyPractices();
-
+    console.log(1111);
+    console.log(selectors.selectAllPracticesSorted())
+    this.subs.push(
+      this.store.select(selectors.selectAllPracticesSorted()).subscribe(
+        res => {
+          if (res) {
+            this.practices = [...res];
+            this.loading = false;
+          } else {
+            console.log("else");
+            this.store.dispatch(PracticesActions.BeginGetPracticesAction());
+          }
+        }
+      )
+    );
   }
 
   getMonthlyPractices() {
+    //practitcesData
     this.practices=[];
-    for (let practice of this.practicesData) {
+    for (let practice of this.practices) {
       if (this.compareDates(this.currentDate, practice.date))
         this.practices.push(practice);
     }
