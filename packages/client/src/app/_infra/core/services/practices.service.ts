@@ -14,6 +14,8 @@ export class PracticesService {
   constructor() { }
 
   getPractices(): Observable<Practice[]> {
+    console.log('this.practices:', this.practices)
+
     return of(this.practices);
     // return throwError(['zevel']);
   }

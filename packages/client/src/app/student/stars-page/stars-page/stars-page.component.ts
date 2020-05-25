@@ -71,6 +71,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
 
   tryAgain() {
+    console.log("try")
     this.stars = null;
     this.errorMsg = null;
     this.loading = true;

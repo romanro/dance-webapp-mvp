@@ -81,8 +81,6 @@ export class PracticesPageComponent implements OnInit {
     this.maxMonthLength = this.monthLength;
     this.setDisabledBtn();
     this.getMonthlyPractices();
-    console.log(1111);
-    console.log(selectors.selectAllPracticesSorted())
     this.subs.push(
       this.store.select(selectors.selectAllPracticesSorted()).subscribe(
         res => {
@@ -90,13 +88,15 @@ export class PracticesPageComponent implements OnInit {
             this.practices = [...res];
             this.loading = false;
           } else {
-            console.log("else");
             this.store.dispatch(PracticesActions.BeginGetPracticesAction());
           }
         }
       )
     );
+
   }
+  
+
 
   getMonthlyPractices() {
     //practitcesData

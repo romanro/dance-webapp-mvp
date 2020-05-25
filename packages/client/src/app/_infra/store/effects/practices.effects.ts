@@ -11,7 +11,6 @@ import * as PracticsActions from '../actions/practices.actions';
 @Injectable()
 export class PracticesEffects {
     constructor(private action$: Actions, private practicesService: PracticesService) {
-        console.log(77777)
      }
 
     getPractices$: Observable<Action> = createEffect(() =>
@@ -20,12 +19,9 @@ export class PracticesEffects {
             mergeMap(action =>
                 this.practicesService.getPractices().pipe(
                     map((data: Practice[]) => {
-                        console.log('data:', data)
                         return PracticsActions.SuccessGetPracticesAction({ payload: data });
                     }),
                     catchError((error: Error) => {
-                        console.log('error:', error)
-                        
                         return of(PracticsActions.ErrorPracticesAction(error));
                     })
                 )

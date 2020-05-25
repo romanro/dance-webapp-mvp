@@ -1,4 +1,4 @@
-import { Practice } from '@core/models/';
+import { Practice, Star } from '@core/models/';
 
 export class PracticesState {
     practices: Array<Practice> | null;
@@ -8,3 +8,5 @@ export class PracticesState {
 export const initializePracticesState = () => {
     return { practices: null, error: null };
 };
+
+

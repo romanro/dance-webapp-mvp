@@ -16,6 +16,8 @@ export const BeginGetPracticesAction = createAction(PracticesActionType.BeginGet
 export const SuccessGetPracticesAction = createAction(
     PracticesActionType.SuccessGetPracticesAction,
     props<{ payload: Practice[] }>()
+
 );
 
 export const ErrorPracticesAction = createAction(PracticesActionType.ErrorPracticesAction, props<Error>());
+

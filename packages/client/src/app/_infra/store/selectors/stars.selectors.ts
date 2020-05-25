@@ -2,7 +2,6 @@ import { createSelector } from '@ngrx/store';
 import t from 'typy';
 
 import { StarsState } from '../state';
-
 export const selectStars = (state: StarsState) => state.stars;
 
 export const selectAllStarsSorted = () => createSelector(
