@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, EventEmitter } from '@angular/core';
 import { Subscription, from, of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Practice } from '@core/models';
+import { Practice, PracticeError } from '@core/models';
 import { TranslateService } from '@ngx-translate/core';
 import * as selectors from '@infra/store/selectors/practices.selector';
 import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
+import { AlertErrorService } from '@app/_infra/core/services';
 
 
 @Component({
@@ -16,7 +17,7 @@ import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 export class PracticesPageComponent implements OnInit {
 
   loading = false;
-  errorMsg: string = null;
+  errorMsg: PracticeError | string = null;
   startDate: Date = new Date('1/1/2020');
   lastDate: Date = new Date();
   currentDate: Date;
@@ -34,53 +35,22 @@ export class PracticesPageComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private translate: TranslateService,
-
+    private errorService: AlertErrorService
   ) {
     this.currentDate = this.lastDate;
-    // this.practicesData = [
-    //   {
-    //     id: 1,
-    //     date: new Date('1/1/2020'),
-    //     title: 'title1',
-    //     subTitle: 'subTitle',
-    //     userVideo:'',
-    //     notes:[]
-    //   },
-    //   {
-    //     id: 2,
-    //     date: new Date('2/1/2020'),
-    //     title: 'title',
-    //     subTitle: 'subTitle',
-    //     userVideo:'',
-    //     notes:[]
-    //   },
-    //   {
-    //     id: 3,
-    //     date: new Date('5/5/2020'),
-    //     title: 'title1',
-    //     subTitle: 'subTitle',
-    //     userVideo:'',
-    //     notes:[]
-    //   },
-    //   {
-    //     id: 4,
-    //     date: new Date(),
-    //     title: 'title2',
-    //     subTitle: 'subTitle',
-    //     userVideo:'',
-    //     notes:[]
-    //   },
-
-    // ]
   }
 
 
 
   ngOnInit() {
     this.setMonthsLength();
+
     this.maxMonthLength = this.monthLength;
+
     this.setDisabledBtn();
+
     this.getMonthlyPractices();
+
     this.subs.push(
       this.store.select(selectors.selectAllPracticesSorted()).subscribe(
         res => {
@@ -94,12 +64,22 @@ export class PracticesPageComponent implements OnInit {
       )
     );
 
+    this.subs.push(
+      this.store.select(
+        selectors.selectPracticesError()).subscribe(res => {
+          if (res && res.type) {
+            this.practices = null;
+            this.loading = false;
+            this.errorMsg = this.errorService.alertStarsError(res.type);
+          }
+        })
+    );
+
   }
   
 
 
   getMonthlyPractices() {
-    //practitcesData
     this.practices=[];
     for (let practice of this.practices) {
       if (this.compareDates(this.currentDate, practice.date))

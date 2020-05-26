@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Practice } from '@app/_infra/core/models';
+import { Practice, PracticeError } from '@app/_infra/core/models';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
+import { AlertErrorService } from '@app/_infra/core/services';
 
 @Component({
   selector: 'dsapp-practice-page',
@@ -29,19 +30,19 @@ export class PracticePageComponent implements OnInit {
   videoButtonText: string = '';
   storeSelectSub: Subscription = null;
   subs: Subscription[] = [];
+  errorMsg: PracticeError | string = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
     private store: Store<any>,
+    private errorService: AlertErrorService
   ) { }
 
   ngOnInit(): void {
 
     this.translateContent()
-
-
 
     this.subs.push(
       this.route.paramMap.subscribe(params => {
@@ -64,8 +65,18 @@ export class PracticePageComponent implements OnInit {
       })
     );
 
-    console.log(this.practice.title)
+    this.subs.push(
+      this.store.select(
+        selectors.selectPracticesError()).subscribe(res => {
+          if (res && res.type) {
+            this.practice = null;
+            this.loading = false;
+            this.errorMsg = this.errorService.alertStarsError(res.type);
+          }
+        })
+    );
   }
+  
   translateContent() {
     this.translate.get('PRACTICES.PRACTICE.hideNotes').subscribe((res: string) => {
       this.noteButtonText = res;

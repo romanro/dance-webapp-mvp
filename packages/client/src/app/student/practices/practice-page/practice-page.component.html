@@ -4,7 +4,7 @@
         <button (click)=backToPractices()>{{'PRACTICES.PRACTICE.backToPractices' | translate}}</button>
     </div>
 </div>
-<ng-template [ngIf]="true && !loading">
+<ng-template [ngIf]="true && !loading && !errorMsg">
     <div class="row page-title-row mb-4 text-center">
         <div class="col-12">
             <button class="edit-btn" (click)=editTitle()></button>
