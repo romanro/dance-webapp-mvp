@@ -5,10 +5,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 
-import { PracticesPageComponent, StudentLayoutComponent } from '.';
+import { StudentLayoutComponent } from '.';
 import { StudentProfileModule } from './profile-pages/student-profile.module';
 import { StudentRoutingModule } from './student-routing.module';
-import { PracticePageComponent } from './practices/practice-page/practice-page.component';
 
 
 
@@ -18,8 +17,6 @@ import { PracticePageComponent } from './practices/practice-page/practice-page.c
   ],
   declarations: [
     StudentLayoutComponent,
-    PracticesPageComponent,
-    PracticePageComponent,
   ],
 })
 export class StudentModule { }

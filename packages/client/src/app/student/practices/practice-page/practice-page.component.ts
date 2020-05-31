@@ -17,7 +17,7 @@ import { AlertErrorService } from '@app/_infra/core/services';
 
 export class PracticePageComponent implements OnInit {
 
-  practiceId: number = null;
+  practiceId: string = null;
   loading = true;
   practice: Practice = null;
   disabled: boolean = true;
@@ -46,9 +46,7 @@ export class PracticePageComponent implements OnInit {
 
     this.subs.push(
       this.route.paramMap.subscribe(params => {
-        this.route.params.subscribe(params => {
-          this.practiceId = params.id;
-        });
+        this.practiceId = params.get('practiceId');
         this.storeSelectSub =
           this.store.select(selectors.selectPracticeById(this.practiceId)).subscribe(
             practice => {
