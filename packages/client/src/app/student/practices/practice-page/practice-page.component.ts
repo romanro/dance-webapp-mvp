@@ -74,6 +74,9 @@ export class PracticePageComponent implements OnInit {
         })
     );
   }
+
+  ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
+
   
   translateContent() {
     this.translate.get('PRACTICES.PRACTICE.hideNotes').subscribe((res: string) => {

@@ -43,6 +43,7 @@ export class PracticesPageComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.setMonthsLength();
 
     this.maxMonthLength = this.monthLength;
@@ -77,6 +78,7 @@ export class PracticesPageComponent implements OnInit {
 
   }
   
+  ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
 
   getMonthlyPractices() {
