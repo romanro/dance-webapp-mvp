@@ -20,7 +20,7 @@ export const MOCK_PRACTICES: Array<Practice> = [
       {
         id: 3,
         date: new Date('5/5/2020'),
-        title: 'title1',
+        title: 'title3',
         subTitle: 'subTitle',
         userVideo:'',
         notes:[]
@@ -28,7 +28,15 @@ export const MOCK_PRACTICES: Array<Practice> = [
       {
         id: 4,
         date: new Date(),
-        title: 'title2',
+        title: 'title4',
+        subTitle: 'subTitle',
+        userVideo:'',
+        notes:[]
+      },
+      {
+        id: 5,
+        date: new Date('5/5/2020'),
+        title: 'title5',
         subTitle: 'subTitle',
         userVideo:'',
         notes:[]

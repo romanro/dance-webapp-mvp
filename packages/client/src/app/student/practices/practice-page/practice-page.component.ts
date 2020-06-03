@@ -54,7 +54,6 @@ export class PracticePageComponent implements OnInit {
                 this.practice = { ...practice };
                 this.loading = false;
                 this.practiceTitleInput= practice.title;
-                // this.errorMsg = null;
               } else {
                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
               }

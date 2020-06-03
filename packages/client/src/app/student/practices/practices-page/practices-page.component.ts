@@ -50,7 +50,6 @@ export class PracticesPageComponent implements OnInit {
 
     this.setDisabledBtn();
 
-    this.getMonthlyPractices();
 
     this.subs.push(
       this.store.select(selectors.selectAllPracticesSorted()).subscribe(
@@ -81,13 +80,17 @@ export class PracticesPageComponent implements OnInit {
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
 
-  getMonthlyPractices() {
-    this.practices=[];
-    for (let practice of this.practices) {
-      if (this.compareDates(this.currentDate, practice.date))
-        this.practices.push(practice);
-    }
-  }
+  // getMonthlyPractices() {
+
+  //   this.practices=[];
+  //   console.log("this.practices",this.practices)
+
+  //   for (let practice of this.practices) {
+  //     console.log('practice:', practice)
+  //     if (this.compareDates(this.currentDate, practice.date))
+  //       this.practices.push(practice);
+  //   }
+  // }
 
   setMonthsLength() {
     this.monthLength = this.currentDate.getMonth() - this.startDate.getMonth() + (12 * (this.currentDate.getFullYear() - this.startDate.getFullYear())) + 1;
@@ -109,7 +112,6 @@ export class PracticesPageComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() + 1));
     this.setMonthsLength();
     this.setDisabledBtn();
-    this.getMonthlyPractices();
 
   }
 
@@ -117,7 +119,6 @@ export class PracticesPageComponent implements OnInit {
     this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() - 1));
     this.setMonthsLength();
     this.setDisabledBtn();
-    this.getMonthlyPractices();
 
   }
 
