@@ -7,6 +7,7 @@ const getAllStars = async (): Promise<IStar[]> => (
 
 export const getStars = async (req: Request, res: Response, next: NextFunction) => {
     const stars = await getAllStars();
+    console.log('stars:', stars)
     return res.json({
         stars: stars
     });

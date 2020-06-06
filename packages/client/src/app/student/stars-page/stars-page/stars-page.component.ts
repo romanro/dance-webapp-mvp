@@ -45,7 +45,8 @@ export class StarsPageComponent implements OnInit, OnDestroy {
       this.store.select(selectors.selectAllStarsSorted()).subscribe(
         res => {
           if (res) {
-            this.stars = [...res];
+            console.log('res:', res[0].stars)
+            this.stars = [...res[0].stars];
             this.loading = false;
           } else {
             this.store.dispatch(StarsActions.BeginGetStarsAction());

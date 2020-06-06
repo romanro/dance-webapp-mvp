@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Configuration } from '../models';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,12 @@ import { Configuration } from '../models';
 export class ConfigurationService {
 
   private config: Configuration;
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
   load(url: string) {
     return new Promise((resolve) => {
       this.httpClient.get<Configuration>(url).subscribe((result) => {
+        console.log('result:', result)
         this.config = result;
         resolve();
       });
@@ -32,9 +34,11 @@ export class ConfigurationService {
   }
 
   getGlobalHttpHeaders(): HttpHeaders {
+    const storedToken = this.tokenService.getStoredToken();
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Accept', '*/*');
+      .set('Accept', '*/*')
+      .set('Authorization', `Bearer${storedToken}` )
     return headers;
   }
 
