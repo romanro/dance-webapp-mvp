@@ -4,7 +4,7 @@ import mongoose, { Document, Model } from 'mongoose';
 import Figure from '../models/Figure';
 import User from '../models/User';
 import Video, { IVideo } from '../models/Video';
-import { EnumAssociateWith, possibleAssociateWith } from '../shared/enums';
+import { EnumAssociateType, possibleAssociateTypes } from '../shared/enums';
 
 
 /**
@@ -29,10 +29,10 @@ const getVideoById = async (videoId: string): Promise<IVideo> => (
     })
 );
 
-const getPopulatedVideoById = async (videoId: string, associateType: EnumAssociateWith): Promise<IVideo> => (
+const getPopulatedVideoById = async (videoId: string, associateType: EnumAssociateType): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         // TODO: should be changed to switch case?
-        const populateTypeName = (associateType == EnumAssociateWith.figure) ? "Figure" : "Video";
+        const populateTypeName = (associateType == EnumAssociateType.figure) ? "Figure" : "Video";
         Video.findById(videoId)
             .populate({
                 path: 'associatedId',
@@ -75,13 +75,13 @@ const buildVideoFromRequest = (req: Request): IVideo => {
     })
 }
 
-const associateVideoWithModel = async (associateWith: EnumAssociateWith, associateToId: string, newVideoId: string) => {
+const associateVideoWithModel = async (associateWith: EnumAssociateType, associateToId: string, newVideoId: string) => {
     let model: Model<Document> = Figure;
     switch (associateWith) {
-        case EnumAssociateWith.figure:
+        case EnumAssociateType.figure:
             model = Figure;
             break;
-        case EnumAssociateWith.video:
+        case EnumAssociateType.video:
             model = Video;
             break;
         // TODO: default:
@@ -106,13 +106,13 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
  * delete video
  */
 
-const disassociateVideoFromCollection = async (associateWith: EnumAssociateWith, associateToId: string, deletedVideoId: string) => {
+const disassociateVideoFromCollection = async (associateWith: EnumAssociateType, associateToId: string, deletedVideoId: string) => {
     let model: Model<Document> = Figure;
     switch (associateWith) {
-        case EnumAssociateWith.figure:
+        case EnumAssociateType.figure:
             model = Figure;
             break;
-        case EnumAssociateWith.video:
+        case EnumAssociateType.video:
             model = Video;
             break;
         // TODO: default:

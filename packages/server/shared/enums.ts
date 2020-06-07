@@ -7,10 +7,9 @@ export enum EnumDanceType {
 export const possibleDanceTypes = Object.values(EnumDanceType);
 
 export enum EnumDanceLevel {
-    one = 1,
-    two = 2,
-    three = 3,
-    four = 4
+  beginner = 1,
+  intermediate = 2,
+  advanced = 3
 }
 export const possibleDanceLevels = Object.values(EnumDanceLevel);
 
@@ -44,11 +43,11 @@ export enum EnumParticipatesAmount {
 }
 export const possibleParticipatesAmounts = Object.values(EnumParticipatesAmount);
 
-export enum EnumAssociateWith {
+export enum EnumAssociateType {
   video = "video",
   figure = "figure"
 }
-export const possibleAssociateWith = Object.values(EnumAssociateWith);
+export const possibleAssociateTypes = Object.values(EnumAssociateType);
 
 export enum EnumVideoType {
   // the following states are used for star only
