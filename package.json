@@ -10,7 +10,7 @@
     "dev": "lerna run dev --stream",
     "test": "lerna run test",
     "setup": "lerna bootstrap",
-    "build": "lerna run build --parallel",
+    "build": "lerna run build",
     "start": "yarn workspace webapp-server start"
   },
   "devDependencies": {
