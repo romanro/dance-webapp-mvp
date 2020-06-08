@@ -14,6 +14,7 @@ export class StarsContentService {
   constructor() { }
 
   getStarsContent(): Observable<StarContent[]> {
+    console.log(11111)
     return of(this.starsContent);
     // return throwError(['zevel']);
   }

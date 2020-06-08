@@ -16,8 +16,11 @@ export const selectAllStarsSorted = () => createSelector(
 
 export const selectStarById = (id) => createSelector(
     selectStars, (allStars) => {
+        console.log('id:', id)
+
+        console.log('allStars:', allStars.stars)
         if (!t(allStars, 'stars').isNullOrUndefined) {
-            return t(allStars, 'stars').safeArray.find(star => star.id === id);
+            return t(allStars.stars, 'stars').safeArray.find(star => star['_id'] === id);
         } else {
             return null;
         }
