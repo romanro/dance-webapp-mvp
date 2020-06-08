@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import chalk from 'chalk';
 import compression from 'compression';
-import flash from 'connect-flash';
 import cors = require('cors');
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
@@ -9,7 +8,6 @@ import expressStatusMonitor from 'express-status-monitor';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import logger from 'morgan';
-import passport from 'passport';
 import path from 'path';
 
 dotenv.config({ path: '.env.example' });
@@ -17,7 +15,6 @@ dotenv.config({ path: '.env.example' });
 /**
  * Module dependencies.
  */
-require('./config/passport');
 
 const api = require('./routes/api');
 const homeController = require('./controllers/home');
@@ -56,7 +53,6 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
 
 /* app.use(
   '/',
@@ -89,30 +85,30 @@ app.get('/*', (req, res, next) => {
  */
 
 const logErrors = (err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack)
-  next(err)
+  console.error(err.stack);
+  next(err);
 }
 
 const clientErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (req.xhr) {
     res.status(500).send({ error: 'Something failed!' })
   } else {
-    next(err)
+    next(err);
   }
 }
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
-    return next(err)
+    return next(err);
   }
   const message = (process.env.NODE_ENV === 'development') ? err.message : 'Server Error';
   const errorCode = err.status || 500;
   res.status(errorCode).json({ error: message });
 }
 
-app.use(logErrors)
-app.use(clientErrorHandler)
-app.use(errorHandler)
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 /**
  * Start Express server.
