@@ -122,5 +122,21 @@
   "ABOUT": {
     "title": "About DanSkill Application",
     "AppVersion": "Application version:"
+  },
+  "PRACTICES" : {
+    "title": "Practices",
+    "PRACTICE":{
+      "backToPractices": "Back to practives Page",
+      "hideVideo": "Hide video",
+      "showVideo": "Show video",
+      "hideNotes": "Hide Notes",
+      "showNotes": "Show Notes",
+      "editNote": "Edit Note",
+      "saveChanges": "Save changes"
+    },
+    "ERRORS": {
+      "getPracticesError": "There was an error fetching practices information. Try again later.",
+      "getPracticeError": "There was an error fetching practice information. Try again later."
+    }
   }
 }
