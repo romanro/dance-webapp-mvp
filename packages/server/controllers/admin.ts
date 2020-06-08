@@ -17,7 +17,7 @@ const angularDev =
       ws: true
     });
 
-const angularAssets = (req: Request, res: Response, next: NextFunction) => {
+const angularAdminAssets = (req: Request, res: Response, next: NextFunction) => {
   res.sendFile(
     path.join(__dirname, '..', '..', '..', 'admin', 'dist', 'admin/index.html'),
     {
@@ -31,5 +31,5 @@ exports.admin = (req: Request, res: Response, next: NextFunction) => {
     return angularDev(req, res, next);
   }
 
-  return angularAssets(req, res, next);
+  return angularAdminAssets(req, res, next);
 };
