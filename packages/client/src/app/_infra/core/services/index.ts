@@ -1,3 +1,5 @@
+import { from } from 'rxjs';
+
 export * from './base-rest.service';
 export * from './alert.service';
 export * from './login.service';
@@ -8,3 +10,4 @@ export * from './token.service';
 export * from './stars.service';
 export * from './alert-error.service';
 export * from './stars-content.service';
+export * from './practices.service'

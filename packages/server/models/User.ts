@@ -22,7 +22,6 @@ interface BirthDate {
 interface Name {
   firstName: string;
   lastName: string;
-  midName?: string;
   nickname?: string;
 }
 
@@ -32,8 +31,10 @@ interface IProfile {
   birthDate: BirthDate,
   name: Name,
   about?: String,
-  location?: String,
-  website?: String,
+  location?: {
+    country: String,
+    city: String
+  };
   picture?: String,
 }
 
@@ -46,6 +47,7 @@ const userSchema = new mongoose.Schema(
     emailVerificationToken: String,
     emailVerified: { type: Boolean, default: false },
 
+    // TODO: this properties are needed?
     facebook: String,
     google: String,
     tokens: [{ type: String }],
@@ -61,14 +63,14 @@ const userSchema = new mongoose.Schema(
       name: {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
-        midName: { type: String },
         nickname: { type: String },
       },
       about: { type: String },
-      location: { type: String },
-      website: { type: String },
+      location: {
+        country: { type: String, required: true },
+        city: { type: String, required: true }
+      },
       picture: { type: String },
-      // tags?: Tag[]; // TODO:
     }
   },
   { timestamps: true }
