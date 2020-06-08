@@ -21,6 +21,7 @@ require('./config/passport');
 
 const api = require('./routes/api');
 const homeController = require('./controllers/home');
+const adminController = require('./controllers/admin');
 
 /**
  * Create Express server.
@@ -72,10 +73,26 @@ app.use(
     }
   )
 );
+
+app.use(
+  express.static(
+    path.join(__dirname, '..', '..', '..', 'packages', 'admin', 'dist', 'admin'),
+    {
+      maxAge: 31557600000
+    }
+  )
+);
 // app.use(flash()); // TODO: needed?
 
 /* App routes */
 app.use('/api/v1', api);
+
+/**
+ * Cath-all admin route to angular admin
+ */
+app.get('/admin', (req, res, next) => {
+  return adminController.admin(req, res, next);
+});
 
 /**
  * Cath-all route to angular app
