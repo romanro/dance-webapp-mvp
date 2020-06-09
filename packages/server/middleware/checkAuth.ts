@@ -6,8 +6,9 @@ import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, veri
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const token: string = req.headers.authorization?.split(" ")[1] ?
-            req.headers.authorization?.split(" ")[1] : "";
+        let token = "";
+        if (req.headers.authorization && req.headers.authorization.split(" ")[1])
+            token = req.headers.authorization.split(" ")[1];
         const decoded: any = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken);
 
         const user = await User.findById(decoded._id).exec();
