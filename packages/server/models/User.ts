@@ -1,9 +1,18 @@
+import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
-import mongoose, { Document, Model, model, Schema, Types } from 'mongoose';
+import jwt from "jsonwebtoken";
+import User from "./User"
+
 
 import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
+import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from "../config/jwt"
 import { IVideo } from './Video';
 
+interface access_dto {
+  refresh_token: String
+  access_token: String
+  expired_at: Date
+}
 
 interface BirthDate {
   date?: Date;
@@ -150,6 +159,19 @@ interface IUserSchema extends Document {
 
 interface IUserBase extends IUserSchema {
   comparePassword(candidatePassword: string, cb: any): any; // TODO: any
+  generateAuthToken(): Promise<access_dto>;
+}
+
+userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
+  const user = this;
+  const accessToken = jwt.sign({ _id: user._id }, jwtAccessPrivateKey, signOptionsAccessToken);
+  const refreshToken = jwt.sign({ _id: user._id }, jwtRefreshPrivateKey, signOptionsRefreshToken);
+
+  return {
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+    "expired_at": new Date(Date.now() + (60 * 60 * 1000 * 24 * 30)) // TODO: 30 days
+  };
 }
 
 export interface IUser extends IUserBase {
@@ -160,7 +182,23 @@ export interface IUser_populated extends IUserBase {
   videos: [IVideo];
 }
 
+
+userSchema.statics.findByCredentials = async (email: string, password: string): Promise<IUser> => {
+  const user = await User.findOne({ email: email })
+  if (!user) {
+    throw new Error("Invalid login credentials");
+  }
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatch) {
+    throw new Error("Invalid login credentials");
+  }
+
+  return user;
+}
+
 export interface IUserModel extends Model<IUser> {
+  findByCredentials(user_name: string, password: string): Promise<IUser>;
 }
 
 export default model<IUser, IUserModel>('User', userSchema);
