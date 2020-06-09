@@ -74,7 +74,7 @@ app.use(
   )
 );
 
-app.use(
+app.use('/admin',
   express.static(
     path.join(__dirname, '..', '..', '..', 'packages', 'admin', 'dist', 'admin'),
     {
@@ -90,7 +90,7 @@ app.use('/api/v1', api);
 /**
  * Cath-all admin route to angular admin
  */
-app.get('/admin', (req, res, next) => {
+app.get('/admin/*', (req, res, next) => {
   return adminController.admin(req, res, next);
 });
 
