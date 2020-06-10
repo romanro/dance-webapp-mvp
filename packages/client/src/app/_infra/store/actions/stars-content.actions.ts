@@ -11,6 +11,7 @@ export enum StarsContentActionType {
 export const GetStarsContentAction = createAction(StarsContentActionType.GetStarsContentAction);
 
 export const BeginGetStarsContentAction = createAction(StarsContentActionType.BeginGetStarsContentAction,
+    props<{ payload: string }>()
     );
 
 export const SuccessGetStarsContentAction = createAction(

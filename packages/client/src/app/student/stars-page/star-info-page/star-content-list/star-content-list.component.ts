@@ -40,7 +40,9 @@ export class StarContentListComponent implements OnInit, OnDestroy {
               this.errorMsg = null;
             } else {
               // console.log("else!!")
-              this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
+              console.log('this.starId:', this.starId)
+
+              this.store.dispatch(StarContentActions.BeginGetStarsContentAction({payload: this.starId}));
             }
           }
         )

@@ -19,10 +19,11 @@ export class StarsContentService {
     private http: HttpClient,
   ) { }
 
-  getStarsContent(): Observable<StarContent[]> {
+  getStarsContent(starId): Observable<StarContent[]> {
+    console.log('starId:', starId)
     const url: string = this.configService.getRestApiURL();
     if (url) {
-      this.REST_URL = `${url}figures/star/all/5ec1046b3ed6f9006670bba2`;
+      this.REST_URL = `${url}figures/star/all/${starId}`;
     }
     const headers = this.configService.getGlobalHttpHeaders();
     return this.http.get<StarContent[]>(this.REST_URL, {

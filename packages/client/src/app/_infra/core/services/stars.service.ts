@@ -24,12 +24,8 @@ export class StarsService {
     const url: string = this.configService.getRestApiURL();
     if (url) {
       this.REST_URL = `${url}stars`;
-      console.log('this.REST_URL:', this.REST_URL)
     }
     const headers = this.configService.getGlobalHttpHeaders();
-    const test = this.http.get<Star[]>(this.REST_URL, {
-      headers: headers
-    });
     return this.http.get<Star[]>(this.REST_URL, {
       headers: headers
     });
