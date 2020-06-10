@@ -18,7 +18,6 @@ export class StarsEffects {
             mergeMap(action =>
                 this.starsService.getStars().pipe(
                     map((data: Star[]) => {
-                        console.log('data:', data)
                         return StarsActions.SuccessGetStarsAction({ payload: data });
                     }),
                     catchError((error: Error) => {

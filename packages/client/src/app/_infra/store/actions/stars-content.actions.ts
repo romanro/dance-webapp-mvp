@@ -10,7 +10,9 @@ export enum StarsContentActionType {
 
 export const GetStarsContentAction = createAction(StarsContentActionType.GetStarsContentAction);
 
-export const BeginGetStarsContentAction = createAction(StarsContentActionType.BeginGetStarsContentAction);
+export const BeginGetStarsContentAction = createAction(StarsContentActionType.BeginGetStarsContentAction,
+    props<{ starId: string }>()
+    );
 
 export const SuccessGetStarsContentAction = createAction(
     StarsContentActionType.SuccessGetStarsContentAction,

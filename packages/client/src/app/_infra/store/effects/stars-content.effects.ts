@@ -18,11 +18,11 @@ export class StarsContentEffects {
         this.action$.pipe(
             ofType(StarsContentActions.BeginGetStarsContentAction),
             mergeMap(action =>
-                this.starsContentService.getStarsContent().pipe(
+                this.starsContentService.getStarsContent(action.starId).pipe(
                     map((data: StarContent[]) => {
                         return StarsContentActions.SuccessGetStarsContentAction({ payload: data });
                     }),
-                    catchError((error: Error) => {
+                    catchError((error: Error) => {    
                         return of(StarsContentActions.ErrorStarsContentAction(error));
                     })
                 )

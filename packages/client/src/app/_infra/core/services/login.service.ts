@@ -28,13 +28,12 @@ export class LoginService {
   ) { }
 
   login({ email, password }) {
-
     this.baseRestService
       .post<RestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res.success) {
-            this.tokenService.storeToken(res.token);
+          if (res['message']) {
+            this.tokenService.storeToken(res.tokens.access_token);
             this.afterLoginRoute();
           } else if (res.errors) {
             res.errors.forEach(err => {

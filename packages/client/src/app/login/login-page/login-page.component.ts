@@ -37,6 +37,7 @@ export class LoginPageComponent implements OnInit {
 
 
   login() {
+    console.log(22222);
     this.isSubmitted = true;
 
     if (this.loginForm.invalid) {
@@ -45,6 +46,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.loginService.login(this.loginForm.value);
+    console.log('this.loginForm.value:', this.loginForm.value)
     setTimeout(() => { this.isSubmitted = false; }, 1500);
   }
 
