@@ -8,7 +8,6 @@ export class TokenService {
   constructor() { }
 
   storeToken(token: string) {
-    console.log('token:', token)
     localStorage.setItem('token', token);
   }
 

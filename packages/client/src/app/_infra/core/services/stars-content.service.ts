@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { StarContent } from '@core/models';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
+import { HttpClient } from '@angular/common/http';
+
 import { MOCK_STARS_CONTENT } from './../../../_mocks/star-content.mocks';
 
 @Injectable({
@@ -18,19 +19,16 @@ export class StarsContentService {
     private http: HttpClient,
   ) { }
 
-  getStarsContent(starId): Observable<StarContent[]> {
+  getStarsContent(): Observable<StarContent[]> {
     const url: string = this.configService.getRestApiURL();
     if (url) {
-      this.REST_URL = `${url}stars/${starId}`;
+      this.REST_URL = `${url}figures/star/all/5ec1046b3ed6f9006670bba2`;
     }
-
     const headers = this.configService.getGlobalHttpHeaders();
     return this.http.get<StarContent[]>(this.REST_URL, {
       headers: headers
     });
-    
-    // return of(this.starsContent);
-    // return throwError(['zevel']);
+
   }
 
 }

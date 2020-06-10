@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import * as StarsContentActions from '@app/_infra/store/actions/stars-content.actions';
 import * as selectors from '@app/_infra/store/selectors/stars.selectors';
 import { Star, StarError } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -44,13 +43,11 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
           this.store.select(selectors.selectStarById(this.starId)).subscribe(
             star => {
               if (star) {
-                console.log('star:', star)
                 this.star = { ...star };
                 this.loading = false;
                 this.errorMsg = null;
               } else {
-                const props = this.starId;
-                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({starId: props}));
+                this.store.dispatch(StarsActions.BeginGetStarsAction());
               }
             }
           );

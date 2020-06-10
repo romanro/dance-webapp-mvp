@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class StarContentListComponent implements OnInit, OnDestroy {
 
   @Input() starId: string = null;
+  @Input() starContentObj: StarContent = null;
 
   content: StarContent = null;
 
@@ -25,15 +26,20 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>, private errorService: AlertErrorService) { }
 
   ngOnInit(): void {
+// console.log("this.starContentObj", this.starContentObj)
+
     if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
+              // console.log("this.starid",this.starId)
+              // console.log('content:', content)
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
             } else {
+              // console.log("else!!")
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
             }
           }

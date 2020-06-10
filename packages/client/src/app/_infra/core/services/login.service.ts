@@ -33,7 +33,7 @@ export class LoginService {
       .subscribe(
         res => {
           if (res['message']) {
-            this.tokenService.storeToken(res.tokens.access_token);
+            this.tokenService.storeToken(res['tokens'].access_token);
             this.afterLoginRoute();
           } else if (res.errors) {
             res.errors.forEach(err => {
