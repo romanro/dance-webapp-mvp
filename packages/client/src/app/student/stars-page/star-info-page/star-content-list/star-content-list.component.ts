@@ -33,15 +33,11 @@ export class StarContentListComponent implements OnInit, OnDestroy {
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
-              // console.log("this.starid",this.starId)
               // console.log('content:', content)
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
             } else {
-              // console.log("else!!")
-              console.log('this.starId:', this.starId)
-
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction({payload: this.starId}));
             }
           }
