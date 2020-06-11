@@ -16,7 +16,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   @Input() starContentObj: StarContent = null;
 
   content: StarContent = null;
-
+  levels = ['level1', 'level2', 'level3', 'level4'];
+  dances = ['danse1', 'dance2', 'dance3', 'dance4'];
   loading = true;
   errorMsg: StarContentError | string = null;
 
@@ -26,19 +27,17 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>, private errorService: AlertErrorService) { }
 
   ngOnInit(): void {
-// console.log("this.starContentObj", this.starContentObj)
-
     if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
-              // console.log('content:', content)
+              console.log('content:', content)
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
             } else {
-              this.store.dispatch(StarContentActions.BeginGetStarsContentAction({payload: this.starId}));
+              this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
             }
           }
         )

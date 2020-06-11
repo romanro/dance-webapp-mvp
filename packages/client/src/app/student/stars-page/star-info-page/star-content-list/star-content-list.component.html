@@ -1,24 +1,33 @@
 <ng-template [ngIf]="content && !errorMsg && !loading">
-  <div class="star-dances-list">
-    <ul ngbNav
-        #danceTabs="ngbNav"
-        class="nav-pills">
-      <li *ngFor="let dance of content.dances; let i = index"
-          [ngbNavItem]="i">
+  <div class="star-levels">
+    <ul>
+      <li *ngFor="let level of levels">
+        {{ level }}
+      </li>
+    </ul>
+    <ul>
+      <li *ngFor="let dance of dances">
+        {{ dance }}
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- <div class="star-dances-list">
+    <ul ngbNav #danceTabs="ngbNav" class="nav-pills">
+      <li *ngFor="let dance of content.dances; let i = index" [ngbNavItem]="i">
         <a ngbNavLink>{{dance.dance.name}}</a>
         <ng-template ngbNavContent>
-          <dsapp-star-content-figures-tabs-list [levels]="dance.levels"
-                                                [dance]="dance.dance">
+          <dsapp-star-content-figures-tabs-list [levels]="dance.levels" [dance]="dance.dance">
           </dsapp-star-content-figures-tabs-list>
         </ng-template>
       </li>
 
     </ul>
-  </div>
+  </div> -->
 
 
-  <div class="star-dance-tab-content"
-       [ngbNavOutlet]="danceTabs"></div>
+  <div class="star-dance-tab-content" [ngbNavOutlet]="danceTabs"></div>
 
 
 </ng-template>
@@ -27,8 +36,7 @@
 <ng-template [ngIf]="!content && errorMsg && !loading">
   <div class="row mb-4">
     <div class="col">
-      <dsapp-inpage-error [msg]="errorMsg"
-                          (action)="tryAgain()"></dsapp-inpage-error>
+      <dsapp-inpage-error [msg]="errorMsg" (action)="tryAgain()"></dsapp-inpage-error>
     </div>
   </div>
 </ng-template>
