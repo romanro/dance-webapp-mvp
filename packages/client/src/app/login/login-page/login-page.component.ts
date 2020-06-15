@@ -26,7 +26,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
 
     /// if token exist in local store - redirect user
-    if (this.tokenService.checkStoredToken()) { this.router.navigate(['/student']); }
+    if (this.tokenService.checkStoredAccessToken()) { this.router.navigate(['/student']); }
 
 
     this.loginForm = this.formBuilder.group({

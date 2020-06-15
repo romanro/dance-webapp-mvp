@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestResponse } from '@app/_infra/core/models';
+import { AuthRestResponse, RestResponse } from '@app/_infra/core/models';
 import { UserState } from '@app/_infra/store/state';
 import * as UserActions from '@infra/store/actions';
 import { Store } from '@ngrx/store';
@@ -30,17 +30,15 @@ export class LoginService {
   login({ email, password }) {
 
     this.baseRestService
-      .post<RestResponse>('login', { email, password })
+      .post<AuthRestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res.success) {
-            this.tokenService.storeToken(res.token);
+          if (res.tokens) {
+            this.tokenService.storeTokens(res.tokens);
             this.afterLoginRoute();
-          } else if (res.errors) {
-            res.errors.forEach(err => {
-              const errorStr = `LOGIN.FORM.${err.code}`;
-              this.alertService.error(errorStr);
-            });
+          } else if (res.message) {
+            const errorStr = `${res.message}`;
+            this.alertService.error(errorStr);
           } else {
             this.alertService.error('LOGIN.LoginFailedMsg');
           }
@@ -64,7 +62,7 @@ export class LoginService {
 
   logout() {
 
-    this.tokenService.deleteStoredToken();
+    this.tokenService.deleteStoredTokens();
     this.alertService.info('LOGIN.LogOutMsg');
     this.router.navigate(['/login']);
   }

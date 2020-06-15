@@ -94,7 +94,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       language: [Language.english],
       gender: [t(this.user.gender).isDefined ? this.user.gender : ''],
       about: [t(this.user.about).isDefined ? this.user.about : ''],
-      userPic: [t(this.user.userPic).isDefined ? this.user.userPic : '']
+      picture: [t(this.user.picture).isDefined ? this.user.picture : '']
     });
 
     setTimeout(() => {
@@ -104,7 +104,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   userPicChanged(base64img: string): void {
-    this.changeProfileForm.get('userPic').patchValue(base64img);
+    this.changeProfileForm.get('picture').patchValue(base64img);
   }
 
   saveProfile(): void {

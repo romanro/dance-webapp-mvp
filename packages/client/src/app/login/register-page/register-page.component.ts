@@ -59,6 +59,6 @@ export class RegisterPageComponent implements OnInit {
   }
 
   registerFacebook() {
-    this.registerService.registerFacebook();
+
   }
 }

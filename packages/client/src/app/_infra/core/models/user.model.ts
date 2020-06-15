@@ -21,12 +21,11 @@ export class User {
   email: string;
   name: Name;
   language: Language = Language.english;
-  permissions: UserPermissions[];
+  permissions?: UserPermissions[];
   gender?: Gender | '';
   location?: Location;
   birthDate?: BirthDate;
-  tags?: Tag[];
-  userPic?: string = null;
+  picture?: string = null;
   about?: string;
 }
 
@@ -38,6 +37,8 @@ export enum UserPermissions {
 export class Location {
   city?: string;
   country?: string;
+  lat?: string;
+  long?: string;
 }
 
 export interface BirthDate {
