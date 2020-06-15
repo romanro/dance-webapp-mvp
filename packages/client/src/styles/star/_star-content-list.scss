@@ -1,0 +1,28 @@
+.star-levels, .star-dance-types{
+    ul{
+        justify-content: space-around;
+    }
+}
+
+.star-dance-types{
+    ul{
+        li{
+            border-radius: 4px;
+            background-color: grey;
+            color: white;
+            width: 20%;
+            text-align: center;
+        }
+    }
+    
+}
+
+.star-levels{
+    ul{
+        li{
+            border: 1px solid;
+            width: 25%;
+            text-align: center;
+        }
+    }
+}

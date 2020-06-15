@@ -17,6 +17,7 @@ import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EnumDanceLevel } from "../../../server/shared/enums"
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

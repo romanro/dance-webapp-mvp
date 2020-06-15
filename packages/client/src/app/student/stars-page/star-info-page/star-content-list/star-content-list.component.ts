@@ -6,6 +6,12 @@ import { AlertErrorService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
+enum EnumDanceLevel {
+  one = "one",
+  two = "two",
+  three = "three",
+  four = "four"
+}
 @Component({
   selector: 'dsapp-star-content-list',
   templateUrl: './star-content-list.component.html'
@@ -14,6 +20,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
 
   @Input() starId: string = null;
   @Input() starContentObj: StarContent = null;
+  EnumDanceLevel : typeof EnumDanceLevel = EnumDanceLevel;
+
 
   content: StarContent = null;
   levels = ['level1', 'level2', 'level3', 'level4'];
@@ -27,6 +35,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>, private errorService: AlertErrorService) { }
 
   ngOnInit(): void {
+    console.log("danceLevels", this.EnumDanceLevel)
     if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
@@ -61,7 +70,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
     this.errorMsg = null;
     this.loading = true;
     setTimeout(() => {
-      this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
+      // this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
     }, 2000);
 
   }
