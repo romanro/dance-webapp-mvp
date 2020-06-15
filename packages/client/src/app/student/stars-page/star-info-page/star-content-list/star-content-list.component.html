@@ -1,5 +1,6 @@
 <ng-template [ngIf]="content && !errorMsg && !loading">
   <div class="star-dance-types pt-2">
+    {{EnumDanceLevel | json}}
     <ul ngbNav class="nav-pills">
       <li *ngFor="let dance of dances" class="p-1">
         <a>
@@ -8,6 +9,7 @@
       </li>
     </ul>
   </div>
+  
   <div class="star-levels pt-2">
     <ul ngbNav class="nav-pills" >
       <li *ngFor="let level of levels" class="p-2">

@@ -21,7 +21,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   @Input() starId: string = null;
   @Input() starContentObj: StarContent = null;
   EnumDanceLevel : typeof EnumDanceLevel = EnumDanceLevel;
-
+  
 
   content: StarContent = null;
   levels = ['level1', 'level2', 'level3', 'level4'];
