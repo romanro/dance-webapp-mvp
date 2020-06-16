@@ -13,11 +13,19 @@ export const getStars = async (req: Request, res: Response, next: NextFunction) 
 }
 
 const getSpecificStar = async (id: string): Promise<IStar | null> => (
-    await Star.findById(id).exec()
+    await Star.findById(id)
+    .populate("figures", "type -_id")
+    .lean()
 );
 
 export const getStar = async (req: Request, res: Response, next: NextFunction) => {
     const star = await getSpecificStar(req.params.starId);
+    if (star)
+    {
+        (star as any).danceTypes = star.figures.map((figure) => (figure.type)) as any;
+        delete star.figures;
+    }
+
     return res.json({
         star: star
     });
