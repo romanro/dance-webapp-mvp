@@ -35,6 +35,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>, private errorService: AlertErrorService) { }
 
   ngOnInit(): void {
+    console.log(this.starContentObj);
     console.log("danceLevels", this.EnumDanceLevel)
     if (this.starId) {
       this.subs.push(
