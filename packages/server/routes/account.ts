@@ -3,15 +3,16 @@ import {
     getVerifyEmail, getVerifyEmailToken, patchUpdatePassword,
     patchUpdateProfile, postDeleteAccount, getProfileInfo
 } from '../controllers/user';
+import asyncHandler from 'express-async-handler';
 
 const router = express.Router();
 
-router.get('/verify', getVerifyEmail);
-router.get('/verify/:token', getVerifyEmailToken);
+router.get('/verify', asyncHandler(getVerifyEmail));
+router.get('/verify/:token', asyncHandler(getVerifyEmailToken));
 
-router.get('/profile', getProfileInfo);
-router.patch('/profile', patchUpdateProfile);
-router.patch('/password', patchUpdatePassword);
-router.post('/delete', postDeleteAccount);
+router.get('/profile', asyncHandler(getProfileInfo));
+router.patch('/profile', asyncHandler(patchUpdateProfile));
+router.patch('/password', asyncHandler(patchUpdatePassword));
+router.post('/delete', asyncHandler(postDeleteAccount));
 
 module.exports = router;
