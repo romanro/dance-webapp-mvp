@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertErrorService } from '@app/_infra/core/services';
-import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import * as selectors from '@app/_infra/store/selectors/stars.selectors';
+import * as StarsContentActions from '@app/_infra/store/actions/stars-content.actions';
+import * as selectors from '@app/_infra/store/selectors/stars-content.selectors';
 import { Star, StarError } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -40,14 +40,16 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
       this.route.paramMap.subscribe(params => {
         this.starId = params.get('starId');
         this.storeSelectSub =
-          this.store.select(selectors.selectStarById(this.starId)).subscribe(
+          this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
             star => {
               if (star) {
+                console.log("if")
                 this.star = { ...star };
                 this.loading = false;
                 this.errorMsg = null;
               } else {
-                this.store.dispatch(StarsActions.BeginGetStarsAction());
+                console.log("else")
+                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
               }
             }
           );
@@ -56,7 +58,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
 
     this.subs.push(
       this.store.select(
-        selectors.selectStarsError()).subscribe(res => {
+        selectors.selectStarsContentError()).subscribe(res => {
           if (res && res.type) {
             this.star = null;
             this.loading = false;
@@ -78,7 +80,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     this.errorMsg = null;
     this.loading = true;
     setTimeout(() => {
-      this.store.dispatch(StarsActions.BeginGetStarsAction());
+      this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
     }, 2000);
 
   }

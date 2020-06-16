@@ -11,7 +11,7 @@ const reducer = createReducer(
     on(StarsContentActions.GetStarsContentAction, state => state),
 
     on(StarsContentActions.SuccessGetStarsContentAction, (state: StarContentState, { payload }) => {
-        // console.log(1111111111);
+        console.log(1111111111);
         return { ...state, starsContent: payload, error: null };
     }),
 
