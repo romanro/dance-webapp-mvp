@@ -18,11 +18,14 @@ const getSpecificStar = async (id: string): Promise<IStar | null> => (
     .lean()
 );
 
+
+
 export const getStar = async (req: Request, res: Response, next: NextFunction) => {
     const star = await getSpecificStar(req.params.starId);
     if (star)
     {
-        (star as any).danceTypes = star.figures.map((figure) => (figure.type)) as any;
+        (star as any).danceTypes = star.figures.map((figure) => (figure.type)).filter(
+            (value, index, self) => self.indexOf(value) === index) as any;
         delete star.figures;
     }
 
