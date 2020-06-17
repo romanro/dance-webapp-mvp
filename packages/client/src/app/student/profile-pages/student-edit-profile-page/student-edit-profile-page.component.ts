@@ -81,20 +81,22 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.changeProfileForm = this.formBuilder.group({
       email: { value: this.user.email, disabled: true },
-      name: this.formBuilder.group({
-        firstName: [this.user.name.firstName, [Validators.required]],
-        lastName: [this.user.name.lastName, [Validators.required]],
-        midName: [t(this.user.name.midName).isDefined ? t(this.user, 'name.midName').safeObject : ''],
-        nickname: [t(this.user.name.nickname).isDefined ? t(this.user, 'name.nickname').safeObject : '']
-      }),
-      birthDate: this.formBuilder.group({
-        date: [t(this.user.birthDate.date).isDefined ? t(this.user, 'birthDate.date').safeObject : null],
-        group: [t(this.user.birthDate.group).isDefined ? t(this.user, 'birthDate.group').safeObject : null]
-      }),
-      language: [Language.english],
-      gender: [t(this.user.gender).isDefined ? this.user.gender : ''],
-      about: [t(this.user.about).isDefined ? this.user.about : ''],
-      picture: [t(this.user.picture).isDefined ? this.user.picture : '']
+      profile: this.formBuilder.group({
+        name: this.formBuilder.group({
+          firstName: [this.user.profile.name.firstName, [Validators.required]],
+          lastName: [this.user.profile.name.lastName, [Validators.required]],
+          midName: [t(this.user.profile.name.midName).isDefined ? t(this.user, 'profile.name.midName').safeObject : ''],
+          nickname: [t(this.user.profile.name.nickname).isDefined ? t(this.user, 'profile.name.nickname').safeObject : '']
+        }),
+        birthDate: this.formBuilder.group({
+          date: [t(this.user.profile.birthDate.date).isDefined ? t(this.user, 'profile.birthDate.date').safeObject : null],
+          group: [t(this.user.profile.birthDate.group).isDefined ? t(this.user, 'profile.birthDate.group').safeObject : null]
+        }),
+        language: [Language.english],
+        gender: [t(this.user.profile.gender).isDefined ? this.user.profile.gender : ''],
+        about: [t(this.user.profile.about).isDefined ? this.user.profile.about : ''],
+        picture: [t(this.user.profile.picture).isDefined ? this.user.profile.picture : '']
+      })
     });
 
     setTimeout(() => {

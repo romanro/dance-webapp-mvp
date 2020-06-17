@@ -18,7 +18,12 @@ export class UserLoginData {
 }
 
 export class User {
+  id: string;
   email: string;
+  profile: UserProfile;
+}
+
+export class UserProfile {
   name: Name;
   language: Language = Language.english;
   permissions?: UserPermissions[];

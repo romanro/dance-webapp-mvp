@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService, TokenService } from '@core/services';
+import * as UserActions from '@infra/store/actions/user.actions';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -19,12 +21,12 @@ export class LoginPageComponent implements OnInit {
     private loginService: LoginService,
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private store: Store<any>
   ) { }
 
 
   ngOnInit() {
-
     /// if token exist in local store - redirect user
     if (this.tokenService.checkStoredAccessToken()) { this.router.navigate(['/student']); }
 
@@ -37,6 +39,7 @@ export class LoginPageComponent implements OnInit {
 
 
   login() {
+    this.store.dispatch(UserActions.ClearUserAction());
     this.isSubmitted = true;
 
     if (this.loginForm.invalid) {

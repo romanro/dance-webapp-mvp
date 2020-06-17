@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Configuration, User } from '../models';
+import { User, UserRestResponse as UserRestResponse } from '../models';
 import { MOCK_USER } from './../../../_mocks';
+import { BaseRestService } from './base-rest.service';
 import { ConfigurationService } from './configuration.service';
 
 
@@ -17,25 +19,27 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private configService: ConfigurationService
+    private configService: ConfigurationService,
+    private baseRestService: BaseRestService
   ) { }
 
   getUser(): Observable<User> {
+    return this.baseRestService.get<UserRestResponse>('account/profile').pipe(map(
+      res => {
+        if (res.success && res.user) {
+          return res.user;
+        } else {
+          throwError(['zevel']); // TODO: add real error here
+        }
+      },
+      error => {
+        throwError([error.message]);
+      }
 
-    return of(this.user);
+    ));
+    // return of(this.user);
     // return throwError(['zevel']);
   }
-
-  /* const config: Configuration = this.configService.getConfiguration();
-    if (config) {
-      this.REST_URL = `${config.restURL}account/me`;
-    } */
-
-  // const headers = new HttpHeaders()
-  //   .set('Content-Type', 'application/json')
-  //   .set('Accept', '*/*');
-
-  // return this.http.get(this.REST_URL, { headers });
 
   patchUser(email: string, user: User): Observable<any> {
     const url: string = this.configService.getRestApiURL();
