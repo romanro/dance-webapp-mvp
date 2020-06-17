@@ -32,8 +32,8 @@ interface IProfile {
   name: Name,
   about?: String,
   location?: {
-    country: String,
-    city: String
+    country?: String,
+    city?: String
   };
   picture?: String,
 }
@@ -67,8 +67,8 @@ const userSchema = new mongoose.Schema(
       },
       about: { type: String },
       location: {
-        country: { type: String, default: null },
-        city: { type: String, default: null }
+        country: { type: String },
+        city: { type: String }
       },
       picture: { type: String },
     }
