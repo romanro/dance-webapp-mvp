@@ -95,8 +95,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
         birthDate: this.formBuilder.group({
           date: [
             t(this.user.profile.birthDate.date).isDefined ? new Date((t(this.user, 'profile.birthDate.date').safeObject)) : new Date(1990)
-          ],
-          group: [t(this.user.profile.birthDate.group).isDefined ? t(this.user, 'profile.birthDate.group').safeObject : null]
+          ]
         }),
         language: [Language.english],
         gender: [t(this.user.profile.gender).isDefined ? this.user.profile.gender : ''],
@@ -112,7 +111,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   }
 
   userPicChanged(base64img: string): void {
-    this.changeProfileForm.get('picture').patchValue(base64img);
+    this.changeProfileForm.get('profile').get('picture').patchValue(base64img);
   }
 
   saveProfile(): void {

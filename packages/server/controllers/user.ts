@@ -169,7 +169,7 @@ export const patchUpdateProfile = (req: Request, res: Response, next: NextFuncti
     language: req.body.language || '',
     location: req.body.location || '',
     picture: req.body.picture || '',
-    birthDate: { date: req.body.birthDate || '' }, // TODO: '' or something else?
+    birthDate: { date: req.body.birthDate.date || '1990-12-31T00:00:00.000Z' }, // TODO: '' or something else?
     about: req.body.about || ''
   };
 

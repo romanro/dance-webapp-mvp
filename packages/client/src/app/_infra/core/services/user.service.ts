@@ -24,19 +24,20 @@ export class UserService {
   ) { }
 
   getUser(): Observable<User> {
-    return this.baseRestService.get<UserRestResponse>('account/profile').pipe(map(
-      res => {
-        if (res.success && res.user) {
-          return res.user;
-        } else {
-          throwError(['zevel']); // TODO: add real error here
+    return this.baseRestService.get<UserRestResponse>('account/profile').pipe(
+      map(
+        res => {
+          if (res.success && res.user) {
+            return res.user;
+          } else {
+            throwError(['zevel']); // TODO: add real error here
+          }
+        },
+        error => {
+          throwError([error.message]);
         }
-      },
-      error => {
-        throwError([error.message]);
-      }
-
-    ));
+      )
+    );
     // return of(this.user);
     // return throwError(['zevel']);
   }
@@ -54,8 +55,24 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    this.user = { ...user };
-    return of(user);
+
+    return this.baseRestService.patch<any>('account/profile', user.profile).pipe(
+      map(
+        res => {
+          console.log(res)
+          if (res.success) {
+            return user;
+          } else {
+            throwError(['zevel']); // TODO: add real error here
+          }
+        },
+        error => {
+          throwError([error.message]);
+        }
+      )
+    )
+    // this.user = { ...user };
+    // return of(user);
     // return throwError(['zevel']);
   }
 
