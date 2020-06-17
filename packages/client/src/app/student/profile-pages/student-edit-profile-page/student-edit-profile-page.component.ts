@@ -6,6 +6,7 @@ import { AlertErrorService, AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import * as selectors from '@app/_infra/store/selectors/user.selectors';
 import { UserActionType } from '@infra/store/actions';
+import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,10 @@ import t from 'typy';
 
 @Component({
   selector: 'dsapp-student-edit-profile-page',
-  templateUrl: './student-edit-profile-page.component.html'
+  templateUrl: './student-edit-profile-page.component.html',
+  providers: [
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
+  ],
 })
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
@@ -89,7 +93,9 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
           nickname: [t(this.user.profile.name.nickname).isDefined ? t(this.user, 'profile.name.nickname').safeObject : '']
         }),
         birthDate: this.formBuilder.group({
-          date: [t(this.user.profile.birthDate.date).isDefined ? t(this.user, 'profile.birthDate.date').safeObject : null],
+          date: [
+            t(this.user.profile.birthDate.date).isDefined ? new Date((t(this.user, 'profile.birthDate.date').safeObject)) : new Date(1990)
+          ],
           group: [t(this.user.profile.birthDate.group).isDefined ? t(this.user, 'profile.birthDate.group').safeObject : null]
         }),
         language: [Language.english],
@@ -100,8 +106,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     });
 
     setTimeout(() => {
-      this.changeProfileForm.get('birthDate').get('date').clearValidators();
-      this.changeProfileForm.get('birthDate').get('date').updateValueAndValidity();
+      this.changeProfileForm.get('profile').get('birthDate').get('date').clearValidators();
+      this.changeProfileForm.get('profile').get('birthDate').get('date').updateValueAndValidity();
     }, 500);
   }
 
@@ -117,7 +123,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
 
     this.isSubmitted = true;
 
-    // console.log(this.changeProfileForm.getRawValue());
+    // const dayString = (this.changeProfileForm.get('profile').get('birthDate').get('date').value.toISOString());
 
     const payload = this.changeProfileForm.getRawValue();
 

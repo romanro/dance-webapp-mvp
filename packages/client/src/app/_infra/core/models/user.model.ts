@@ -47,7 +47,7 @@ export class Location {
 }
 
 export interface BirthDate {
-  date: NgbDateStruct;
+  date: string;
   group: AgeGroup;
 }
 

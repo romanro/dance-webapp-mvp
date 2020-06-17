@@ -18,7 +18,7 @@ export const MOCK_USER: User = {
             country: 'Israel'
         },
         birthDate: {
-            date: { year: 2006, month: 2, day: 22 },
+            date: '1992-12-31T00:00:00.000Z',
             group: AgeGroup.YOUNG
         },
         // tslint:disable-next-line:max-line-length
