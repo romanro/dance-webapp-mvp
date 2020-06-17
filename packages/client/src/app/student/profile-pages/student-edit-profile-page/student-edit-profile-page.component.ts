@@ -121,11 +121,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     }
 
     this.isSubmitted = true;
-
-    // const dayString = (this.changeProfileForm.get('profile').get('birthDate').get('date').value.toISOString());
-
     const payload = this.changeProfileForm.getRawValue();
-
     this.store.dispatch(UserActions.BeginUpdateUserAction({ payload }));
 
   }

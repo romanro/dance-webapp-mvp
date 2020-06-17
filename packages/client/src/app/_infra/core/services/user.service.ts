@@ -59,7 +59,6 @@ export class UserService {
     return this.baseRestService.patch<any>('account/profile', user.profile).pipe(
       map(
         res => {
-          console.log(res)
           if (res.success) {
             return user;
           } else {
