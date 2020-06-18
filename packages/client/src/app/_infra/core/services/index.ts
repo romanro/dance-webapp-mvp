@@ -11,3 +11,4 @@ export * from './stars.service';
 export * from './alert-error.service';
 export * from './stars-content.service';
 export * from './practices.service'
+export * from './figures.service';
