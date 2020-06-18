@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Gender, Language, User, UserError } from '@app/_infra/core/models';
+import { Gender, Language, MIN_DATE, User, UserError } from '@app/_infra/core/models';
 import { AlertErrorService, AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import * as selectors from '@app/_infra/store/selectors/user.selectors';
@@ -24,6 +24,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   user: User = null;
   errorMsg: UserError | string = null;
+  formIsReady = false;
 
   changeProfileForm: FormGroup;
   isSubmitted = false;
@@ -31,6 +32,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   keys = Object.keys;
   languages = Language;
   genders = Gender;
+
+  minDate = MIN_DATE;
 
   get formControls() {
     return this.changeProfileForm.controls;
@@ -89,18 +92,19 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
         name: this.formBuilder.group({
           firstName: [this.user.profile.name.firstName, [Validators.required]],
           lastName: [this.user.profile.name.lastName, [Validators.required]],
-          midName: [t(this.user.profile.name.midName).isDefined ? t(this.user, 'profile.name.midName').safeObject : ''],
-          nickname: [t(this.user.profile.name.nickname).isDefined ? t(this.user, 'profile.name.nickname').safeObject : '']
+          nickname: [t(this.user, 'profile.name.nickname').isDefined ? t(this.user, 'profile.name.nickname').safeObject : '']
         }),
         birthDate: this.formBuilder.group({
           date: [
-            t(this.user.profile.birthDate.date).isDefined ? new Date((t(this.user, 'profile.birthDate.date').safeObject)) : new Date(1990)
+            t(this.user, 'profile.birthDate.date').isDefined ?
+              new Date((t(this.user, 'profile.birthDate.date').safeObject)) :
+              new Date('1990')
           ]
         }),
         language: [Language.english],
-        gender: [t(this.user.profile.gender).isDefined ? this.user.profile.gender : ''],
-        about: [t(this.user.profile.about).isDefined ? this.user.profile.about : ''],
-        picture: [t(this.user.profile.picture).isDefined ? this.user.profile.picture : '']
+        gender: [t(this.user, 'profile.gender').isDefined ? this.user.profile.gender : ''],
+        about: [t(this.user, 'profile.about').isDefined ? this.user.profile.about : ''],
+        picture: [t(this.user, 'profile.picture').isDefined ? this.user.profile.picture : '']
       })
     });
 
@@ -108,6 +112,8 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
       this.changeProfileForm.get('profile').get('birthDate').get('date').clearValidators();
       this.changeProfileForm.get('profile').get('birthDate').get('date').updateValueAndValidity();
     }, 500);
+
+    this.formIsReady = true;
   }
 
   userPicChanged(base64img: string): void {

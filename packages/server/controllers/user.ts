@@ -9,6 +9,8 @@ import { HttpException } from '../shared/exceptions';
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
+const DEFAULT_BIRTH_DATE = '1990-12-31T00:00:00.000Z';
+
 const NON_EXISTING_USER = {
   code: 'NON_EXISTING_USER',
   msg: 'User does not exist'
@@ -124,7 +126,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     profile: {
       name: req.body.name,
       birthDate: {
-        date: req.body.birthDate
+        date: req.body.birthDate || DEFAULT_BIRTH_DATE
       }
     }
   });
@@ -169,7 +171,7 @@ export const patchUpdateProfile = (req: Request, res: Response, next: NextFuncti
     language: req.body.language || '',
     location: req.body.location || '',
     picture: req.body.picture || '',
-    birthDate: { date: req.body.birthDate.date || '1990-12-31T00:00:00.000Z' }, // TODO: '' or something else?
+    birthDate: { date: req.body.birthDate.date || DEFAULT_BIRTH_DATE }, // TODO: '' or something else?
     about: req.body.about || ''
   };
 

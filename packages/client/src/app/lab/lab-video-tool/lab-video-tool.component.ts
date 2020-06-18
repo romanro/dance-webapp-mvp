@@ -69,7 +69,6 @@ export class LabVideoToolComponent implements OnInit {
     const masterTime = Math.round(this.masterPLayer.getCurrentTime());
     const studentTime = Math.round(this.studentPLayer.getCurrentTime());
     this.timeDiff = masterTime - studentTime;
-    // console.log(this.timeDiff);
   }
 
   unsynchronize() {
