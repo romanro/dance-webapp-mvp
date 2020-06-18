@@ -38,10 +38,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.currentLevel = EnumDanceLevel.one;
-    console.log('this.currentLevel:', this.currentLevel)
     this.danceTypes = this.starContentObj['danceTypes'];
     this.currentDance = this.danceTypes[0];
-    console.log('this.currentDance:', this.currentDance)
 
     if (this.starId) {
       this.subs.push(

@@ -1,4 +1,4 @@
-import { Practice, Star } from '@core/models/';
+import { Practice } from '@core/models/';
 
 export class PracticesState {
     practices: Array<Practice> | null;
