@@ -12,6 +12,10 @@
             color: white;
             width: 20%;
             text-align: center;
+
+            &[selected=true]{
+                border: red 2px solid;
+            }
         }
     }
     
@@ -23,6 +27,9 @@
             border: 1px solid;
             width: 25%;
             text-align: center;
+            &[selected=true]{
+                border: red 2px solid;
+            }
         }
     }
 }

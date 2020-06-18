@@ -9,7 +9,7 @@ import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
 })
 export class StarContentFiguresTabsListComponent implements OnInit {
 
-  @Input() levels: Array<StarDanceLevel> = null;
+  @Input() level: StarDanceLevel= null;
   @Input() dance: Dance = null;
 
   lvl = DanceLevel;
@@ -17,6 +17,9 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(1111111);
+    console.log("this.level", this.level)
+    console.log("this.dance", this.dance)
 
   }
 

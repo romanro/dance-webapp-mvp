@@ -5,6 +5,8 @@ import { StarContent, StarContentError } from '@core/models';
 import { AlertErrorService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
+
 
 enum EnumDanceLevel {
   one = "one",
@@ -21,11 +23,10 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   @Input() starId: string = null;
   @Input() starContentObj: StarContent = null;
   EnumDanceLevel : typeof EnumDanceLevel = EnumDanceLevel;
-  
-
+  currentDance : Dance;
+  currentLevel: StarDanceLevel;
   content: StarContent = null;
-  levels = ['level1', 'level2', 'level3', 'level4'];
-  dances = ['danse1', 'dance2', 'dance3', 'dance4'];
+  danceTypes = [];
   loading = true;
   errorMsg: StarContentError | string = null;
 
@@ -35,14 +36,18 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>, private errorService: AlertErrorService) { }
 
   ngOnInit(): void {
-    console.log(this.starContentObj);
-    console.log("danceLevels", this.EnumDanceLevel)
+
+    this.currentLevel = EnumDanceLevel.one;
+    console.log('this.currentLevel:', this.currentLevel)
+    this.danceTypes = this.starContentObj['danceTypes'];
+    this.currentDance = this.danceTypes[0];
+    console.log('this.currentDance:', this.currentDance)
+
     if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
-              console.log('content:', content)
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
@@ -79,6 +84,11 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
   }
-
+  setCurrentDance(dance){
+    this.currentDance = dance;
+  }
+  setCurrentLevel(level){
+    this.currentLevel = level;
+  }
 
 }

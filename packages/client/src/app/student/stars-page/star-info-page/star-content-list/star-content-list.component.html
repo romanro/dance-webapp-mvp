@@ -1,42 +1,26 @@
 <ng-template [ngIf]="content && !errorMsg && !loading">
   <div class="star-dance-types pt-2">
-    {{EnumDanceLevel | json}}
-    <ul ngbNav class="nav-pills">
-      <li *ngFor="let dance of dances" class="p-1">
-        <a>
+    <ul ngbNav #danceTabs="ngbNav" class="nav-pills">
+      <li *ngFor="let dance of danceTypes" class="p-1" [attr.selected]="dance == currentDance" (click)=setCurrentDance(dance)>        
+        <a >
           {{ dance }}
         </a>
       </li>
     </ul>
   </div>
-  
   <div class="star-levels pt-2">
     <ul ngbNav class="nav-pills" >
-      <li *ngFor="let level of levels" class="p-2">
+      <li *ngFor="let enum of EnumDanceLevel | keyvalue" [attr.selected]="enum.value == currentLevel" (click)=setCurrentLevel(enum.value)>
         <a>
-          {{ level }}
+          {{ enum.value}}
         </a>
       </li>
     </ul>
   </div>
-  
+ 
 
-
-  <!-- <div class="star-dances-list">
-    <ul ngbNav #danceTabs="ngbNav" class="nav-pills">
-      <li *ngFor="let dance of content.dances; let i = index" [ngbNavItem]="i">
-        <a ngbNavLink>{{dance.dance.name}}</a>
-        <ng-template ngbNavContent>
-          <dsapp-star-content-figures-tabs-list [levels]="dance.levels" [dance]="dance.dance">
-          </dsapp-star-content-figures-tabs-list>
-        </ng-template>
-      </li>
-    </ul>
-  </div> -->
-
-
-  <div class="star-dance-tab-content" [ngbNavOutlet]="danceTabs"></div>
-
+  <dsapp-star-content-figures-tabs-list [level]="currentLevel" [dance]="currentDance">
+  </dsapp-star-content-figures-tabs-list>
 
 </ng-template>
 

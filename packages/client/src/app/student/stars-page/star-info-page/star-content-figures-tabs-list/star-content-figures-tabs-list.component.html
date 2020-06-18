@@ -1,3 +1,7 @@
+<p *ngFor="let enum of levels | keyvalue">
+  {{ enum.key }} - {{ enum.value}}
+</p>
+
 <ng-template [ngIf]="levels && levels.length > 0">
   <div class="star-level-tabs mt-2">
     <ul ngbNav
