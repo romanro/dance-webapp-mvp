@@ -6,6 +6,7 @@ import { AlertErrorService, AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import * as selectors from '@app/_infra/store/selectors/user.selectors';
 import { UserActionType } from '@infra/store/actions';
+import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,10 @@ import t from 'typy';
 
 @Component({
   selector: 'dsapp-student-edit-profile-page',
-  templateUrl: './student-edit-profile-page.component.html'
+  templateUrl: './student-edit-profile-page.component.html',
+  providers: [
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
+  ],
 })
 export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
@@ -81,30 +85,33 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.changeProfileForm = this.formBuilder.group({
       email: { value: this.user.email, disabled: true },
-      name: this.formBuilder.group({
-        firstName: [this.user.name.firstName, [Validators.required]],
-        lastName: [this.user.name.lastName, [Validators.required]],
-        midName: [t(this.user.name.midName).isDefined ? t(this.user, 'name.midName').safeObject : ''],
-        nickname: [t(this.user.name.nickname).isDefined ? t(this.user, 'name.nickname').safeObject : '']
-      }),
-      birthDate: this.formBuilder.group({
-        date: [t(this.user.birthDate.date).isDefined ? t(this.user, 'birthDate.date').safeObject : null],
-        group: [t(this.user.birthDate.group).isDefined ? t(this.user, 'birthDate.group').safeObject : null]
-      }),
-      language: [Language.english],
-      gender: [t(this.user.gender).isDefined ? this.user.gender : ''],
-      about: [t(this.user.about).isDefined ? this.user.about : ''],
-      userPic: [t(this.user.userPic).isDefined ? this.user.userPic : '']
+      profile: this.formBuilder.group({
+        name: this.formBuilder.group({
+          firstName: [this.user.profile.name.firstName, [Validators.required]],
+          lastName: [this.user.profile.name.lastName, [Validators.required]],
+          midName: [t(this.user.profile.name.midName).isDefined ? t(this.user, 'profile.name.midName').safeObject : ''],
+          nickname: [t(this.user.profile.name.nickname).isDefined ? t(this.user, 'profile.name.nickname').safeObject : '']
+        }),
+        birthDate: this.formBuilder.group({
+          date: [
+            t(this.user.profile.birthDate.date).isDefined ? new Date((t(this.user, 'profile.birthDate.date').safeObject)) : new Date(1990)
+          ]
+        }),
+        language: [Language.english],
+        gender: [t(this.user.profile.gender).isDefined ? this.user.profile.gender : ''],
+        about: [t(this.user.profile.about).isDefined ? this.user.profile.about : ''],
+        picture: [t(this.user.profile.picture).isDefined ? this.user.profile.picture : '']
+      })
     });
 
     setTimeout(() => {
-      this.changeProfileForm.get('birthDate').get('date').clearValidators();
-      this.changeProfileForm.get('birthDate').get('date').updateValueAndValidity();
+      this.changeProfileForm.get('profile').get('birthDate').get('date').clearValidators();
+      this.changeProfileForm.get('profile').get('birthDate').get('date').updateValueAndValidity();
     }, 500);
   }
 
   userPicChanged(base64img: string): void {
-    this.changeProfileForm.get('userPic').patchValue(base64img);
+    this.changeProfileForm.get('profile').get('picture').patchValue(base64img);
   }
 
   saveProfile(): void {
@@ -114,11 +121,7 @@ export class StudentEditProfilePageComponent implements OnInit, OnDestroy {
     }
 
     this.isSubmitted = true;
-
-    // console.log(this.changeProfileForm.getRawValue());
-
     const payload = this.changeProfileForm.getRawValue();
-
     this.store.dispatch(UserActions.BeginUpdateUserAction({ payload }));
 
   }

@@ -4,7 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
-import { StarsContentReducer, StarsReducer, UserReducer, PracticesReducer } from '@infra/store/reducers';
+import { PracticesEffects, StarsContentEffects, StarsEffects, UserEffects } from '@infra/store/effects';
+import { PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
+import { AboutDanskillModalComponent, VideoPlayerModalComponent } from '@infra/ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -12,8 +14,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SocialLoginModule } from 'angularx-social-login';
 
-import { StarsContentEffects, StarsEffects, UserEffects, PracticesEffects } from './_infra/store/effects';
-import { AboutDanskillModalComponent, VideoPlayerModalComponent } from './_infra/ui';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,7 +27,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
   ],
-  providers: [...APP_PROVIDERS],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -51,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AboutDanskillModalComponent,
     VideoPlayerModalComponent
   ],
+  providers: [...APP_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

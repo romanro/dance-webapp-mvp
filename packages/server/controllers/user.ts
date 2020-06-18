@@ -1,12 +1,13 @@
-import { Request, Response, NextFunction } from "express";
-import { promisify } from "util";
 import crypto from 'crypto';
+import { NextFunction, Request, Response } from 'express';
+import { promisify } from 'util';
 import validator from 'validator';
-import User, { IUser } from '../models/User';
-import { sendVerifyEmail, sendForgotPasswordEmail, sendResetPasswordEmail } from '../services/email';
-const randomBytesAsync = promisify(crypto.randomBytes);
-import { HttpException } from "../shared/exceptions"
 
+import User, { IUser } from '../models/User';
+import { sendForgotPasswordEmail, sendResetPasswordEmail, sendVerifyEmail } from '../services/email';
+import { HttpException } from '../shared/exceptions';
+
+const randomBytesAsync = promisify(crypto.randomBytes);
 
 const NON_EXISTING_USER = {
   code: 'NON_EXISTING_USER',
@@ -131,7 +132,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
   await check_if_user_name_exists(req.body.email);
   await user.save();
   await verifyUserEmail(user);
-  const tokens = await user.generateAuthToken()
+  const tokens = await user.generateAuthToken();
 
   res.status(201).json({
     message: "User created",
@@ -167,8 +168,9 @@ export const patchUpdateProfile = (req: Request, res: Response, next: NextFuncti
     gender: req.body.gender || '',
     language: req.body.language || '',
     location: req.body.location || '',
-    website: req.body.website || '',
-    birthDate: { date: req.body.birthDate || '' } // TODO: '' or something else?
+    picture: req.body.picture || '',
+    birthDate: { date: req.body.birthDate.date || '1990-12-31T00:00:00.000Z' }, // TODO: '' or something else?
+    about: req.body.about || ''
   };
 
   // TODO: runValidators doesnt work?

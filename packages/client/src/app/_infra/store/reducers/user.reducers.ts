@@ -1,4 +1,3 @@
-import { User } from '@core/models';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as UserActions from '../actions/user.actions';
@@ -6,10 +5,10 @@ import { UserState } from '../state';
 
 
 
-export const intialState = { user: null, error: null };
+export const initialState = { user: null, error: null };
 
 const reducer = createReducer(
-  intialState,
+  initialState,
   on(UserActions.GetUserAction, state => state),
 
   on(UserActions.SuccessGetUserAction, (state: UserState, { payload }) => {
@@ -35,6 +34,10 @@ const reducer = createReducer(
   on(UserActions.ErrorUserAction, (state: UserState, error: Error) => {
     console.error(error);
     return { ...state, error };
+  }),
+
+  on(UserActions.ClearUserAction, state => {
+    return { user: null, error: null };
   })
 );
 

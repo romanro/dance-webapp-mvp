@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestResponse } from '@app/_infra/core/models';
-import { UserState } from '@app/_infra/store/state';
-import * as UserActions from '@infra/store/actions';
+import { AuthRestResponse, RestResponse } from '@app/_infra/core/models';
+import * as UserActions from '@infra/store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
@@ -22,7 +21,7 @@ export class LoginService {
     private router: Router,
     private alertService: AlertService,
     private authService: AuthService,
-    private store: Store<UserState>,
+    private store: Store<any>,
     private tokenService: TokenService,
     private baseRestService: BaseRestService
   ) { }
@@ -30,17 +29,15 @@ export class LoginService {
   login({ email, password }) {
 
     this.baseRestService
-      .post<RestResponse>('login', { email, password })
+      .post<AuthRestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res.success) {
-            this.tokenService.storeToken(res.token);
+          if (res.tokens) {
+            this.tokenService.storeTokens(res.tokens);
             this.afterLoginRoute();
-          } else if (res.errors) {
-            res.errors.forEach(err => {
-              const errorStr = `LOGIN.FORM.${err.code}`;
-              this.alertService.error(errorStr);
-            });
+          } else if (res.message) {
+            const errorStr = `${res.message}`;
+            this.alertService.error(errorStr);
           } else {
             this.alertService.error('LOGIN.LoginFailedMsg');
           }
@@ -63,8 +60,8 @@ export class LoginService {
   }
 
   logout() {
-
-    this.tokenService.deleteStoredToken();
+    this.store.dispatch(UserActions.ClearUserAction());
+    this.tokenService.deleteStoredTokens();
     this.alertService.info('LOGIN.LogOutMsg');
     this.router.navigate(['/login']);
   }

@@ -28,7 +28,7 @@ export class StudentUpicComponent implements OnInit {
 
   openEditor(content) {
     this.modalService.open(content, { size: 'sm', ariaLabelledBy: 'edit-modal-title' }).result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 

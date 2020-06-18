@@ -18,15 +18,19 @@ export class UserLoginData {
 }
 
 export class User {
+  id: string;
   email: string;
+  profile: UserProfile;
+}
+
+export class UserProfile {
   name: Name;
   language: Language = Language.english;
-  permissions: UserPermissions[];
+  permissions?: UserPermissions[];
   gender?: Gender | '';
   location?: Location;
   birthDate?: BirthDate;
-  tags?: Tag[];
-  userPic?: string = null;
+  picture?: string = null;
   about?: string;
 }
 
@@ -38,10 +42,12 @@ export enum UserPermissions {
 export class Location {
   city?: string;
   country?: string;
+  lat?: string;
+  long?: string;
 }
 
 export interface BirthDate {
-  date: NgbDateStruct;
+  date: string;
   group: AgeGroup;
 }
 
