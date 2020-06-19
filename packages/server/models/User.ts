@@ -170,7 +170,7 @@ userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
   return {
     "access_token": accessToken,
     "refresh_token": refreshToken,
-    "expired_at": new Date(Date.now() + (60 * 60 * 1000 * 24 * 30)) // TODO: 30 days
+    "expired_at": new Date(Date.now() + (15 * 60 * 1000)) // TODO: 15m
   };
 }
 
