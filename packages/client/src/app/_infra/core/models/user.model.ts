@@ -5,11 +5,11 @@ import { Name } from './star.model';
 import { Tag } from './tag.model';
 
 export class UserRegistrationData {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
+  name: Name;
+  birthDate?: string;
 }
 
 export class UserLoginData {
@@ -73,5 +73,7 @@ export enum UserError {
   UPDATE = 'USER.ERRORS.updateUserError',
   GENERAL = 'ERRORS.GeneralBackendError'
 }
+
+export const MIN_DATE: NgbDateStruct = { year: 1920, day: 1, month: 1 }
 
 

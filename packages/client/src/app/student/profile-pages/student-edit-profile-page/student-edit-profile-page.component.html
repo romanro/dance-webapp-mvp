@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<ng-template [ngIf]="user">
+<ng-template [ngIf]="formIsReady">
 
   <form [formGroup]="changeProfileForm"
         (ngSubmit)="saveProfile()">
@@ -85,21 +85,6 @@
 
             </div>
 
-
-            <!-- Middle name -->
-            <div class="form-group">
-
-              <label for="inputMidtName">{{'USER.midName' | translate}}:</label>
-
-              <input type="text"
-                     formControlName="midName"
-                     id="inputMidtName"
-                     class="form-control"
-                     placeholder="{{'USER.midName' | translate}}">
-
-            </div>
-
-
             <!-- Nick name -->
             <div class="form-group">
 
@@ -126,6 +111,7 @@
                      placeholder="yyyy-mm-dd"
                      ngbDatepicker
                      #d="ngbDatepicker"
+                     [minDate]="minDate"
                      formControlName="date">
               <div class="input-group-append">
                 <button class="btn btn-secondary"

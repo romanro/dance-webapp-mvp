@@ -18,9 +18,9 @@
          *ngIf="user.profile.location && user.profile.location.city">
         {{user.profile.location.city}}, {{user.profile.location.country}}
       </p>
-      <p *ngIf="user.profile.birthDate.group">
+      <p *ngIf="user.profile.birthDate && user.profile.birthDate.group">
         {{user.profile.birthDate.group | uppercase}}
-      <p *ngIf="user.profile.birthDate.date">
+      <p *ngIf="user.profile.birthDate && user.profile.birthDate.date">
         {{user.profile.birthDate.date | date}}
       </p>
     </div>
