@@ -22,13 +22,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
 
       if (err.status === 401) {
-        // auto logout if 401 response returned from api
-
         if (!this.refreshTokenInProgress) {
-          return this.handle401Error(request, next);
           // refresh token implementation goes here
+          return this.handle401Error(request, next);
         } else {
-          this.alertService.success('ERRORS.SessionIsExpired');
+          // auto logout if 401 response returned from api and token can't be refreshed
+          this.alertService.info('ERRORS.SessionIsExpired');
           const error = err.error.message || err.statusText;
           this.loginService.logout(false);
           return throwError(error);
