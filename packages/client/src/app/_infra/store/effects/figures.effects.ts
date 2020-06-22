@@ -16,13 +16,11 @@ export class FiguresEffects {
         this.action$.pipe(
             ofType(FiguresActions.BeginGetFiguresAction),
             mergeMap(action =>
-                this.figuresService.getFigures().pipe(
+                this.figuresService.getFigures(action.starId,action.level, action.danceType).pipe(
                     map((data: Figure[]) => {
-                        console.log('data:', data)
                         return FiguresActions.SuccessGetFiguresAction({ payload: data });
                     }),
                     catchError((error: Error) => {
-                        console.log('error:', error)
                         return of(FiguresActions.ErrorFiguresAction(error));
                     })
                 )

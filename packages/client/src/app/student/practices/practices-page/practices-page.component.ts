@@ -79,19 +79,6 @@ export class PracticesPageComponent implements OnInit {
   
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
-
-  // getMonthlyPractices() {
-
-  //   this.practices=[];
-  //   console.log("this.practices",this.practices)
-
-  //   for (let practice of this.practices) {
-  //     console.log('practice:', practice)
-  //     if (this.compareDates(this.currentDate, practice.date))
-  //       this.practices.push(practice);
-  //   }
-  // }
-
   setMonthsLength() {
     this.monthLength = this.currentDate.getMonth() - this.startDate.getMonth() + (12 * (this.currentDate.getFullYear() - this.startDate.getFullYear())) + 1;
   }

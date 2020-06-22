@@ -13,6 +13,7 @@ import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 })
 export class StarContentFiguresTabsListComponent implements OnInit {
 
+  @Input() starId: string = null;
   @Input() level: StarDanceLevel= null;
   @Input() danceType: Dance = null;
 
@@ -20,33 +21,42 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   subs: Array<Subscription> = [];
   figures: Figure[] = null;;
   loading = true;
-  // errorMsg: Figure | string = null;
 
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    console.log("this.level", this.level)
-    console.log("this.danceType", this.danceType)
 
     if (this.level && this.danceType) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.level, this.level)).subscribe(
           content => {
             if (content) {
-              console.log("if");
+              console.log("iff selectAllFiguresSorted")
               this.figures = { ...content };
               this.loading = false;
-              // this.errorMsg = null;
             } else {
-              console.log("else");
-              debugger;
-              this.store.dispatch(FiguresActions.BeginGetFiguresAction({ level: this.level, danceType: this.danceType }));
+              console.log("else selectAllFiguresSorted")
+
+              this.store.dispatch(FiguresActions.BeginGetFiguresAction({ starId: this.starId, level: this.level, danceType: this.danceType }));
             }
           }
         )
 
       );
     }
+    this.subs.push(
+      this.store.select(
+        selectors.selectFiguresError()).subscribe(res => {
+          if (res && res.type) {
+            this.figures = null;
+            this.loading = false;
+            // this.errorMsg = this.errorService.alertStarsContentError(res.type);
+          }
+        })
+    );
+
+    console.log("this.fuguires", this.figures);
+    
 
   }
 

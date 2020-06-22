@@ -5,7 +5,7 @@ export class FiguresState {
     error: Error | string | null; // track errors
 }
 
-export const initializePracticesState = () => {
+export const initializeFiguresState = () => {
     return { figures: null, error: null };
 };
 

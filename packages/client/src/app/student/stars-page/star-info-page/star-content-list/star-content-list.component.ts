@@ -9,10 +9,9 @@ import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
 
 
 enum EnumDanceLevel {
-  one = "one",
-  two = "two",
-  three = "three",
-  four = "four"
+  one = "beginner",
+  two = "intermediate",
+  three = "advanced",
 }
 @Component({
   selector: 'dsapp-star-content-list',
@@ -46,10 +45,13 @@ export class StarContentListComponent implements OnInit, OnDestroy {
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
+              console.log("iff selectStarContentById")
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
             } else {
+              console.log("else")
+
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
             }
           }
@@ -67,6 +69,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
           }
         })
     );
+    console.log('this.content:', this.content)
+
   }
 
   tryAgain() {

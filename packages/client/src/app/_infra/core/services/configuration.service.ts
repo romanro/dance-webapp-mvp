@@ -15,7 +15,6 @@ export class ConfigurationService {
   load(url: string) {
     return new Promise((resolve) => {
       this.httpClient.get<Configuration>(url).subscribe((result) => {
-        console.log('result:', result)
         this.config = result;
         resolve();
       });
