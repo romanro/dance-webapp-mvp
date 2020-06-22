@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
+import { Dance, DanceLevel, StarDanceLevel, Figure } from '@core/models';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as selectors from '@app/_infra/store/selectors/stars-content.selectors';
+import * as selectors from '@app/_infra/store/selectors/figures.selectors';
+import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 
 
 @Component({
@@ -13,31 +14,37 @@ import * as selectors from '@app/_infra/store/selectors/stars-content.selectors'
 export class StarContentFiguresTabsListComponent implements OnInit {
 
   @Input() level: StarDanceLevel= null;
-  @Input() dance: Dance = null;
+  @Input() danceType: Dance = null;
 
   lvl = DanceLevel;
   subs: Array<Subscription> = [];
+  figures: Figure[] = null;;
+  loading = true;
+  // errorMsg: Figure | string = null;
 
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    console.log(1111111);
     console.log("this.level", this.level)
-    console.log("this.dance", this.dance)
+    console.log("this.danceType", this.danceType)
 
-    if (this.level && this.dance) {
+    if (this.level && this.danceType) {
       this.subs.push(
-        // this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
-        //   content => {
-        //     if (content) {
-        //       this.content = { ...content };
-        //       this.loading = false;
-        //       this.errorMsg = null;
-        //     } else {
-        //       this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
-        //     }
-        //   }
-        // )
+        this.store.select(selectors.selectAllFiguresSorted(this.level, this.level)).subscribe(
+          content => {
+            if (content) {
+              console.log("if");
+              this.figures = { ...content };
+              this.loading = false;
+              // this.errorMsg = null;
+            } else {
+              console.log("else");
+              debugger;
+              this.store.dispatch(FiguresActions.BeginGetFiguresAction({ level: this.level, danceType: this.danceType }));
+            }
+          }
+        )
+
       );
     }
 

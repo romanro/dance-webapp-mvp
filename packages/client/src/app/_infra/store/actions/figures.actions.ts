@@ -1,5 +1,5 @@
-import { Practice } from '@core/models/';
 import { createAction, props } from '@ngrx/store';
+import { Dance, StarDanceLevel, Figure } from '@core/models';
 
 export enum FiguresActionType {
     GetFiguresAction = '[figures] - Get figures',
@@ -12,11 +12,11 @@ export enum FiguresActionType {
 export const GetFiguresAction = createAction(FiguresActionType.GetFiguresAction);
 
 export const BeginGetFiguresAction = createAction(FiguresActionType.BeginGetFiguresAction,
-    props<{ payload1: string, payload2: string }>()
+    props<{ level: StarDanceLevel, danceType: Dance }>()
     );
 export const SuccessGetFiguresAction = createAction(
     FiguresActionType.SuccessGetFiguresAction,
-    props<{ payload: Practice[] }>()
+    props<{ payload: Figure[] }>()
 
 );
 

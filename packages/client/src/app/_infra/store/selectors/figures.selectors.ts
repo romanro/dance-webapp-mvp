@@ -6,8 +6,9 @@ import { Practice } from '@app/_infra/core/models';
 
 export const selectFigures = (state: FiguresState) => state.figures;
 
-export const selectAllFiguresSorted = () => createSelector(
+export const selectAllFiguresSorted = (level, danceType) => createSelector(
     selectFigures, (allFigures) => {
+        console.log('allFigures:', allFigures)
         if (!t(allFigures, 'practices').isNullOrUndefined) {
             return t(allFigures, 'practices').safeArray.slice().sort((figure1, figure2) => figure1.currentChallenge ? -1 : 1);
         } else {

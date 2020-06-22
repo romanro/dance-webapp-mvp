@@ -13,7 +13,8 @@ export class FiguresService {
 
   constructor() { }
 
-  getPractices(): Observable<Figure[]> {
+  getFigures(): Observable<Figure[]> {
+    console.log(33333)
     return of(this.figures);
     // return throwError(['zevel']);
   }

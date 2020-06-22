@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Figure } from '@core/models';
-import { PracticesService } from '@core/services';
+import { FiguresService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-
-import * as PracticsActions from '../actions/practices.actions';
+import * as FiguresActions from '../actions/figures.actions';
 
 @Injectable()
 export class FiguresEffects {
-    constructor(private action$: Actions, private practicesService: PracticesService) {
+    constructor(private action$: Actions, private figuresService: FiguresService) {
      }
 
-    getPractices$: Observable<Action> = createEffect(() =>
+    getFigures$: Observable<Action> = createEffect(() =>
         this.action$.pipe(
-            ofType(PracticsActions.BeginGetPracticesAction),
+            ofType(FiguresActions.BeginGetFiguresAction),
             mergeMap(action =>
-                this.practicesService.getPractices().pipe(
-                    map((data: Practice[]) => {
-                        return PracticsActions.SuccessGetPracticesAction({ payload: data });
+                this.figuresService.getFigures().pipe(
+                    map((data: Figure[]) => {
+                        console.log('data:', data)
+                        return FiguresActions.SuccessGetFiguresAction({ payload: data });
                     }),
                     catchError((error: Error) => {
-                        return of(PracticsActions.ErrorPracticesAction(error));
+                        console.log('error:', error)
+                        return of(FiguresActions.ErrorFiguresAction(error));
                     })
                 )
             )
