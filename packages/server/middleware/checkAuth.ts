@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-
+import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import User from "../models/User";
-import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from "../config/jwt"
+
+import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from '../config/jwt';
+import User from '../models/User';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -19,16 +19,15 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         req.user = user;
         next();
     } catch (error) {
-        return res.status(401).json({ message: 'Auth failed' });
+        return res.status(401).json({ success: false, message: 'Auth failed' });
     }
 };
 
 export const checkRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.params ? req.params.refresh_token : null;
-        if (!token)
-        {
-            return res.status(401).json({ message: 'Auth failed' });
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Auth failed' });
         }
 
         const decoded: any = jwt.verify(token, jwtRefreshPublicKey, verifyOptionsRefreshToken);
@@ -41,6 +40,6 @@ export const checkRefreshToken = async (req: Request, res: Response, next: NextF
         req.user = user;
         next();
     } catch (error) {
-        return res.status(401).json({ message: 'Auth failed' });
+        return res.status(401).json({ success: false, message: 'Auth failed' });
     }
 };
