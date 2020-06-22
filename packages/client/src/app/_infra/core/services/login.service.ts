@@ -35,7 +35,6 @@ export class LoginService {
         res => {
           if (res.tokens) {
             this.tokenService.storeTokens(res.tokens);
-            this.setTokenRefreshTimeout();
             this.afterLoginRoute();
 
           } else if (res.message) {
@@ -82,13 +81,6 @@ export class LoginService {
 
   validateResetToken(token: string): Observable<RestResponse> {
     return this.baseRestService.get<RestResponse>(`reset/${token}`);
-  }
-
-  setTokenRefreshTimeout() {
-    // here will be timeout of automatic token refresh
-    /*  setTimeout(() => {
-       this.tokenService.calculateExpirationTimeout();
-     }, 5500); */
   }
 
   refreshToken() {
