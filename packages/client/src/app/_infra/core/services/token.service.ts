@@ -52,11 +52,4 @@ export class TokenService {
       return request;
     }
   }
-
-  calculateExpirationTimeout(): number {
-    const now = new Date().getTime();
-    const exp = Date.parse(localStorage.getItem('expired_at'));
-    return (exp - now);
-  }
-
 }
