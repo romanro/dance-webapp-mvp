@@ -21,6 +21,7 @@ import {
   PreloaderIconComponent,
   PreloaderInappComponent,
   TagsHolderComponent,
+  UserpicImageCropperComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
 } from './ui';
@@ -39,14 +40,14 @@ import {
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, UserpicImageCropperComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, UserpicImageCropperComponent
   ]
 })
 export class InfraModule { }
