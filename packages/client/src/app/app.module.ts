@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SocialLoginModule } from 'angularx-social-login';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects]),
     SocialLoginModule,
     NgbModule,
+    DeviceDetectorModule,
     AppRoutingModule,
     InfraModule,
     LoginModule,

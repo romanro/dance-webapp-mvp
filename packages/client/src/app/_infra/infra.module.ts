@@ -12,6 +12,7 @@ import {
   AboutDanskillModalComponent,
   AlertsComponent,
   HeaderComponent,
+  ImageFilePickerComponent,
   InpageErrorComponent,
   LogoComponent,
   NavigationComponent,
@@ -38,14 +39,14 @@ import {
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent
+    TagsHolderComponent, ImageFilePickerComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent
+    TagsHolderComponent, ImageFilePickerComponent
   ]
 })
 export class InfraModule { }

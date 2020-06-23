@@ -30,11 +30,8 @@
   <div class="modal-body">
 
     <div class="form-group">
-      <input class="form-control"
-             type="file"
-             accept="image/*"
-             capture="capture"
-             (change)="fileChangeEvent($event)" />
+      <ui-image-file-picker (pictureChange)="fileChangeEvent($event)">
+      </ui-image-file-picker>
     </div>
 
     <div class="form-group">
