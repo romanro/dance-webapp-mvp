@@ -12,4 +12,3 @@ export * from './video-player-modal/video-player-modal.component';
 export * from './inpage-error/inpage-error.component';
 export * from './tags-holder/tags-holder.component';
 export * from './image-file-picker/image-file-picker.component';
-export * from './userpic-image-cropper/userpic-image-cropper.component';

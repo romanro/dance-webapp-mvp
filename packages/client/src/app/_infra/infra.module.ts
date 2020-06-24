@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbDateStructTodateDirective, StarNameDirective } from '@core/directives';
 import { TranslateModule } from '@ngx-translate/core';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { VgBufferingModule } from 'ngx-videogular';
 import { VgControlsModule } from 'ngx-videogular';
 import { VgCoreModule } from 'ngx-videogular';
@@ -21,7 +22,6 @@ import {
   PreloaderIconComponent,
   PreloaderInappComponent,
   TagsHolderComponent,
-  UserpicImageCropperComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
 } from './ui';
@@ -33,21 +33,22 @@ import {
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    ImageCropperModule
   ],
   declarations: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, UserpicImageCropperComponent
+    TagsHolderComponent, ImageFilePickerComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, UserpicImageCropperComponent
+    TagsHolderComponent, ImageFilePickerComponent
   ]
 })
 export class InfraModule { }

@@ -12,3 +12,9 @@
     border: 2px solid $secondary;
   }
 }
+
+.student-upic-edit-modal-body {
+  .cropper-wrap {
+    min-height: 3rem;
+  }
+}

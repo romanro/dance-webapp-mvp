@@ -1,6 +1,7 @@
 {
   "name": "webapp-client",
   "version": "0.0.0",
+  "license": "Proprietary",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve",
