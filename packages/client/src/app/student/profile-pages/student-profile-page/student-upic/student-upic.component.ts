@@ -19,6 +19,9 @@ export class StudentUpicComponent implements OnInit {
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  canvasRotation = 0;
+
+  imageIsLoading = false;
 
   constructor(private sanitizer: DomSanitizer, private modalService: NgbModal, private alertService: AlertService) { }
 
@@ -32,8 +35,13 @@ export class StudentUpicComponent implements OnInit {
     });
   }
 
+  rotateCanvas(dir: 'left' | 'right') {
+    this.canvasRotation = dir === 'left' ? this.canvasRotation - 0.25 : this.canvasRotation + 0.25;
+  }
+
 
   fileChangeEvent(event: any): void {
+    this.imageIsLoading = true;
     this.imageChangedEvent = event;
   }
 
@@ -42,12 +50,14 @@ export class StudentUpicComponent implements OnInit {
   }
 
   imageLoaded() {
+    this.imageIsLoading = false;
     // show cropper
   }
   cropperReady() {
     // cropper ready
   }
   loadImageFailed() {
+    this.imageIsLoading = false;
     this.alertService.error('USER.ERRORS.loadImageError');
   }
 

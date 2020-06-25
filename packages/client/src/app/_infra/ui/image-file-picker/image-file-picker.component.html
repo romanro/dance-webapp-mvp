@@ -1,0 +1,28 @@
+<div *ngIf="!isDesktop"
+     class="text-center mb-2">
+  <button class="btn btn-info"
+          (click)="cameraInput.click()">{{'STUDENT.PROFILE.TakeFromCamera' | translate}}</button>
+  <input #cameraInput
+         style="display:none;"
+         type="file"
+         accept="image/*"
+         capture="capture"
+         (change)="fileChangeEvent($event)" />
+</div>
+
+
+<div class="text-center mb-2">
+  <button *ngIf="isDesktop"
+          class="btn btn-info"
+          (click)="fileInput.click()">{{'STUDENT.PROFILE.UploadFromComputer' | translate}}</button>
+
+  <button *ngIf="!isDesktop"
+          class="btn btn-info"
+          (click)="fileInput.click()">{{'STUDENT.PROFILE.UploadFromDevice' | translate}}</button>
+
+  <input #fileInput
+         style="display:none;"
+         type="file"
+         accept="image/*"
+         (change)="fileChangeEvent($event)" />
+</div>
