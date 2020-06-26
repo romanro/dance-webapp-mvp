@@ -1,6 +1,5 @@
-import { from } from 'rxjs';
-
 export * from './base-rest.service';
+export * from './google-analytics.service';
 export * from './alert.service';
 export * from './login.service';
 export * from './register.service';

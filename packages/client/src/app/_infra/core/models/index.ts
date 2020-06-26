@@ -1,4 +1,5 @@
 export * from './alert.model';
+export * from './googleAnalytics.models';
 export * from './auth.model';
 export * from './navButton.model';
 export * from './menuData.model';
