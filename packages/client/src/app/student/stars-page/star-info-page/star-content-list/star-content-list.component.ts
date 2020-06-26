@@ -22,8 +22,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   @Input() starId: string = null;
   @Input() starContentObj: StarContent = null;
   EnumDanceLevel : typeof EnumDanceLevel = EnumDanceLevel;
-  currentDance : Dance;
-  currentLevel: StarDanceLevel;
+  currentDance : string;
+  currentLevel: string;
   content: StarContent = null;
   danceTypes = [];
   loading = true;
@@ -36,7 +36,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.currentLevel = EnumDanceLevel.one;
+    this.currentLevel =  EnumDanceLevel.one;
     this.danceTypes = this.starContentObj['danceTypes'];
     this.currentDance = this.danceTypes[0];
 

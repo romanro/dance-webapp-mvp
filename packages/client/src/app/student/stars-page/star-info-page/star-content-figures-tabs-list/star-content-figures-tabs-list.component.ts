@@ -31,6 +31,7 @@ export class StarContentFiguresTabsListComponent implements OnInit {
         this.store.select(selectors.selectAllFiguresSorted(this.level, this.level)).subscribe(
           content => {
             if (content) {
+              console.log('content:', content)
               console.log("iff selectAllFiguresSorted")
               this.figures = { ...content };
               this.loading = false;

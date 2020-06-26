@@ -8,8 +8,8 @@ const MOCK_DANCES: Array<Dance> = [
 ];
 
 const MOCK_FIGURES: Array<Figure> = [
-    { id: 'fig1', name: 'figura 1', coverURL: 'https://images.glaciermedia.ca/polopoly_fs/1.23203917.1521219224!/fileImage/httpImage/image.jpg_gen/derivatives/landscape_804/dance-collective1.jpg' },
-    { id: 'fig2', name: 'figura 2', coverURL: 'https://images.glaciermedia.ca/polopoly_fs/1.23203917.1521219224!/fileImage/httpImage/image.jpg_gen/derivatives/landscape_804/dance-collective1.jpg' },
+    { id: 'fig1', name: 'figura 1', coverURL: 'https://images.glaciermedia.ca/polopoly_fs/1.23203917.1521219224!/fileImage/httpImage/image.jpg_gen/derivatives/landscape_804/dance-collective1.jpg', type: '', level:'', createdAt: new Date(), updatedAt: new Date() },
+    { id: 'fig2', name: 'figura 2', coverURL: 'https://images.glaciermedia.ca/polopoly_fs/1.23203917.1521219224!/fileImage/httpImage/image.jpg_gen/derivatives/landscape_804/dance-collective1.jpg', type: '', level:'', createdAt: new Date(), updatedAt: new Date() },
 ];
 
 const MOCK_DANCE_LEVELS_1: Array<StarDanceLevel> = [

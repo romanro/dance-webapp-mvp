@@ -1,10 +1,11 @@
 export interface Figure {
     id: string;
-    date: Date;
-    title: string;
-    subTitle: string;
-    userVideo: string;
-    notes: any
+    name: string;
+    coverURL: string;
+    type: string;
+    level: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface DanceFigure {
