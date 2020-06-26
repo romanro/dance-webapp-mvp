@@ -23,7 +23,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   @Input() starContentObj: StarContent = null;
   EnumDanceLevel : typeof EnumDanceLevel = EnumDanceLevel;
   currentDance : string;
-  currentLevel: string;
+  currentLevel: EnumDanceLevel;
   content: StarContent = null;
   danceTypes = [];
   loading = true;
@@ -37,6 +37,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.currentLevel =  EnumDanceLevel.one;
+    console.log('this.currentLevel:', this.currentLevel)
     this.danceTypes = this.starContentObj['danceTypes'];
     this.currentDance = this.danceTypes[0];
 
@@ -45,13 +46,10 @@ export class StarContentListComponent implements OnInit, OnDestroy {
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
           content => {
             if (content) {
-              console.log("iff selectStarContentById")
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
             } else {
-              console.log("else")
-
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
             }
           }
@@ -69,8 +67,6 @@ export class StarContentListComponent implements OnInit, OnDestroy {
           }
         })
     );
-    console.log('this.content:', this.content)
-
   }
 
   tryAgain() {
@@ -78,7 +74,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
     this.errorMsg = null;
     this.loading = true;
     setTimeout(() => {
-      // this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
+      this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
     }, 2000);
 
   }

@@ -7,7 +7,7 @@ export const selectStarsContent = (state: StarContentState) => state.starsConten
 
 export const selectStarContentById = (id) => createSelector(
     selectStarsContent, (allStarsContent) => {
-        if (!t(allStarsContent, 'starsContent').isNullOrUndefined) {
+        if (!t(allStarsContent, 'starsContent').isNullOrUndefined && allStarsContent['starsContent']['star']['_id'] === id ) {
             return t(allStarsContent, 'starsContent').safeArray[0];
         } else {
             return null;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { Figure } from '../models';
-import { MOCK_PRACTICES } from './../../../_mocks';
+import { MOCK_FIGURES } from './../../../_mocks';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class FiguresService {
 
   REST_URL = '';
-  figures = MOCK_PRACTICES;
+  figures = MOCK_FIGURES;
 
   constructor(
     private configService: ConfigurationService,

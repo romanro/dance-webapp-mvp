@@ -10,8 +10,9 @@
   </div>
   <div class="star-levels pt-2">
     <ul ngbNav class="nav-pills" >
-      <li *ngFor="let enum of EnumDanceLevel | keyvalue" [attr.selected]="enum.value == currentLevel" (click)=setCurrentLevel(enum.value)>
+      <li *ngFor="let enum of EnumDanceLevel | keyvalue" [attr.selected]="enum.value == currentLevel" (click)=setCurrentLevel(enum)>
         <a>
+          {{currentLevel}}
           {{ enum.value}}
         </a>
       </li>

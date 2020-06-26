@@ -15,14 +15,10 @@ const reducer = createReducer(
     }),
 
     on(StarsContentActions.ErrorStarsContentAction, (state: StarContentState, error: Error) => {
-        console.error(error);
-        console.log('ErrorStarsContentAction state:', state)
-
         return { ...state, error };
     })
 );
 
 export function StarsContentReducer(state: StarContentState | undefined, action: Action) {
-    // console.log("state",state)
     return reducer(state, action);
 }

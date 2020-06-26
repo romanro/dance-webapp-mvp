@@ -25,24 +25,18 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-
     if (this.level && this.danceType) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.level, this.level)).subscribe(
           content => {
             if (content) {
-              console.log('content:', content)
-              console.log("iff selectAllFiguresSorted")
-              this.figures = { ...content };
+              this.figures = [...content[0]['figures']]  ;
               this.loading = false;
             } else {
-              console.log("else selectAllFiguresSorted")
-
               this.store.dispatch(FiguresActions.BeginGetFiguresAction({ starId: this.starId, level: this.level, danceType: this.danceType }));
             }
           }
         )
-
       );
     }
     this.subs.push(
@@ -55,9 +49,6 @@ export class StarContentFiguresTabsListComponent implements OnInit {
           }
         })
     );
-
-    console.log("this.fuguires", this.figures);
-    
 
   }
 

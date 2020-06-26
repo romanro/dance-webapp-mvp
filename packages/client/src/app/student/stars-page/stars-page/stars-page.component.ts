@@ -64,7 +64,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
           }
         })
     );
-
+console.log("this.stars", this.stars)
   }
 
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
