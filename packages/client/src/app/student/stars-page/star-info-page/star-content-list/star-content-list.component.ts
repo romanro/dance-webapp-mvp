@@ -6,6 +6,7 @@ import { AlertErrorService } from '@core/services';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
+import {  Router, ActivatedRoute } from '@angular/router';
 
 
 enum EnumDanceLevel {
@@ -32,7 +33,9 @@ export class StarContentListComponent implements OnInit, OnDestroy {
 
   subs: Array<Subscription> = [];
 
-  constructor(private store: Store<any>, private errorService: AlertErrorService) { }
+  constructor(private store: Store<any>, private errorService: AlertErrorService,     private router: Router,     private route: ActivatedRoute,
+
+    ) { }
 
   ngOnInit(): void {
 
@@ -48,6 +51,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
+              // this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
             } else {
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
             }
@@ -66,6 +70,8 @@ export class StarContentListComponent implements OnInit, OnDestroy {
           }
         })
     );
+
+
   }
 
   tryAgain() {

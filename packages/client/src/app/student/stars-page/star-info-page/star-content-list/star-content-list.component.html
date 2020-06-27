@@ -1,7 +1,12 @@
 <ng-template [ngIf]="content && !errorMsg && !loading">
   <div class="star-dance-types pt-2">
     <ul ngbNav #danceTabs="ngbNav" class="nav-pills">
-      <li *ngFor="let dance of danceTypes" class="p-1" [attr.selected]="dance == currentDance" (click)=setCurrentDance(dance)>        
+      <li *ngFor="let dance of danceTypes" 
+      class="p-1" 
+      [attr.selected]="dance == currentDance" 
+      (click)=setCurrentDance(dance)
+      [routerLink]="['figures']" [queryParams]="{dance: dance,level: currentLevel.value }"
+      >        
         <a >
           {{ dance }}
         </a>
@@ -10,8 +15,12 @@
   </div>
   <div class="star-levels pt-2">
     <ul ngbNav class="nav-pills" >
-      <li *ngFor="let enum of EnumDanceLevel | keyvalue" [attr.selected]="enum.value == currentLevel.value" (click)=setCurrentLevel(enum)>
-        <a>
+      <li *ngFor="let enum of EnumDanceLevel | keyvalue" 
+      [attr.selected]="enum.value == currentLevel.value" 
+      (click)=setCurrentLevel(enum)
+      [routerLink]="['figures']" [queryParams]="{dance: currentDance,level: enum.value }"
+      >
+        <a >
           {{ enum.value}}
         </a>
       </li>
