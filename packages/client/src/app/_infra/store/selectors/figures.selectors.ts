@@ -9,6 +9,13 @@ export const selectFigures = (state: FiguresState) => state.figures;
 export const selectAllFiguresSorted = (level, danceType) => createSelector(
     selectFigures, (allFigures) => {
         if (!t(allFigures, 'figures').isNullOrUndefined) {
+            if(allFigures['figures']['figures'][0]){
+                // console.log('allFigures:', allFigures['figures']['figures'][0]['type'] === danceType)
+                // console.log('danceType:', danceType)
+                // console.log( allFigures['figures']['figures'][0]['type'])
+            }
+          
+
             return t(allFigures, 'figures').safeArray;
         } else {
             return null;

@@ -91,7 +91,10 @@ export class StarContentListComponent implements OnInit, OnDestroy {
     this.currentDance = dance;
   }
   setCurrentLevel(level){
+    console.log('level:', level.value)
     this.currentLevel = level;
+                  // this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
+
   }
 
 }

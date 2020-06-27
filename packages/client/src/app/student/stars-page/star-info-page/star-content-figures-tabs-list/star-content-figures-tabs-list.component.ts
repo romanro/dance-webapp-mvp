@@ -17,37 +17,40 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   @Input() starId: string = null;
   @Input() level: StarDanceLevel = null;
   @Input() danceType: Dance = null;
-
   lvl = DanceLevel;
   subs: Array<Subscription> = [];
   figures: Figure[] = null;;
   loading = true;
 
   constructor(private store: Store<any>, private router: Router, private route: ActivatedRoute, ) {
+
+
+
     this.router.events.subscribe(event => {
-      if(event.constructor.name === "NavigationStart") {
-        // do something...
-        console.log(1111111);
+      if (event.constructor.name === "NavigationStart") {
+        this.route.queryParams.subscribe(params => {
+          this.level = params.level;
+          this.danceType = params.dance
+        });
         this.ngOnInit();
       }
     });
+
   }
 
   ngOnInit() {
-
+    console.log('this.level:', this.level)
+    console.log('this.danceType:', this.danceType)
     this.getFigures();
-
-
-
   }
 
   getFigures() {
-    if (this.level['value'] && this.danceType) {
+    if (this.level['value'] || this.level && this.danceType) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.level['value'], this.danceType)).subscribe(
           content => {
             if (content) {
-              console.log('content:', content)
+              // console.log('content:', content)
               this.figures = [...content[0]['figures']];
               this.loading = false;
             } else {
@@ -56,18 +59,23 @@ export class StarContentFiguresTabsListComponent implements OnInit {
           }
         )
       );
+
+      this.subs.push(
+        this.store.select(
+          selectors.selectFiguresError()).subscribe(res => {
+            if (res && res.type) {
+              this.figures = null;
+              this.loading = false;
+              // this.errorMsg = this.errorService.alertStarsContentError(res.type);
+            }
+          })
+      );
     }
-    this.subs.push(
-      this.store.select(
-        selectors.selectFiguresError()).subscribe(res => {
-          if (res && res.type) {
-            this.figures = null;
-            this.loading = false;
-            // this.errorMsg = this.errorService.alertStarsContentError(res.type);
-          }
-        })
-    );
+
+
   }
+
+
 
   ngOnDestory() {
     alert('ngOnDestroy fire');
