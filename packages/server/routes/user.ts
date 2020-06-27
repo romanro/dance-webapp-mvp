@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { postLogin, postSignup, getReset, postReset, postForgot, refreshToken } from '../controllers/user';
 import { checkRefreshToken } from '../middleware/checkAuth';
 import asyncHandler from 'express-async-handler';

@@ -10,7 +10,6 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         if (req.headers.authorization && req.headers.authorization.split(" ")[1])
             token = req.headers.authorization.split(" ")[1];
         const decoded: any = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken);
-
         const user = await User.findById(decoded._id).exec();
         if (!user) {
             throw new Error("Auth failed: user not found")
@@ -26,8 +25,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
 export const checkRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.params ? req.params.refresh_token : null;
-        if (!token)
-        {
+        if (!token) {
             return res.status(401).json({ message: 'Auth failed' });
         }
 

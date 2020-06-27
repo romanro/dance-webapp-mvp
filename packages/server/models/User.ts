@@ -6,7 +6,7 @@ import User from "./User"
 
 import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
 import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from "../config/jwt"
-import { IVideo } from './Video';
+import { IPracticeItem } from './PracticeItem';
 
 interface access_dto {
   refresh_token: String
@@ -52,7 +52,9 @@ const userSchema = new mongoose.Schema(
     google: String,
     tokens: [{ type: String }],
 
-    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+    // videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+    practiceItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticeItem' }],
+
 
     profile: {
       gender: { type: EnumGender, enum: possibleGenders }, // TODO: required: true?
@@ -175,11 +177,13 @@ userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
 }
 
 export interface IUser extends IUserBase {
-  videos: [IVideo["_id"]];
+  // videos: [IVideo["_id"]];
+  practiceItems: [IPracticeItem["_id"]];
 }
 
 export interface IUser_populated extends IUserBase {
-  videos: [IVideo];
+  // videos: [IVideo];
+  practiceItems: [IPracticeItem];
 }
 
 

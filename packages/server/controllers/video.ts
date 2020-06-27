@@ -12,7 +12,7 @@ import { EnumAssociateType, possibleAssociateTypes } from '../shared/enums';
  * get video
  */
 
-const getVideoById = async (videoId: string): Promise<IVideo> => (
+export const getVideoById = async (videoId: string): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .exec()
@@ -90,6 +90,7 @@ const associateVideoWithModel = async (associateWith: EnumAssociateType, associa
 };
 
 export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
+    // TODO: validation for req.file
     const video = buildVideoFromRequest(req);
     await video.save();
     await associateVideoWithModel(video.associateWith, video.associatedId, video._id);

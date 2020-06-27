@@ -549,16 +549,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "{{authToken}}",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -586,6 +576,60 @@
 		{
 			"name": "Stars",
 			"item": [
+				{
+					"name": "add star",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed1087b5-1a2c-410b-b500-07862e42644a",
+								"exec": [
+									"pm.test(\"Add star\", function () {",
+									"        if (responseCode.code === 201)",
+									"    {",
+									"        const star = pm.response.json().star;",
+									"        pm.environment.set(\"starId\", star._id);",
+									"    }",
+									"    ",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": {\r\n    \"firstName\": \"Nina\",\r\n    \"lastName\": \"Trump\",\r\n    \"nickname\": \"Superstar\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Tel-Aviv\",\r\n      \"country\": \"Israel\"\r\n  },\r\n  \"birthDate\": \"1981-01-20\",\r\n  \"userPics\": {\r\n  \t\"smallPicURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n      \"largePicURL\": \"https://media.vogue.co.uk/photos/5d54be0919b6dd000853ad13/master/pass/original\"\r\n  },\r\n  \"promoVideoURL\": \"http://static.videogular.com/assets/videos/videogular.mp4\",\r\n   \"about\": \"A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.\",\r\n   \"slug\": \"Superstar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/stars/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"stars",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "get all stars",
 					"event": [
@@ -668,60 +712,6 @@
 					"response": []
 				},
 				{
-					"name": "add star",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ed1087b5-1a2c-410b-b500-07862e42644a",
-								"exec": [
-									"pm.test(\"Add star\", function () {",
-									"        if (responseCode.code === 201)",
-									"    {",
-									"        const star = pm.response.json().star;",
-									"        pm.environment.set(\"starId\", star._id);",
-									"    }",
-									"    ",
-									"    pm.response.to.have.status(201);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": {\r\n    \"firstName\": \"Nina\",\r\n      \"lastName\": \"Trump\",\r\n        \"nickname\": \"Superstar\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Tel-Aviv\",\r\n      \"country\": \"Israel\"\r\n  },\r\n  \"birthDate\": \"1981-01-20\",\r\n  \"userPics\": {\r\n  \t\"smallPicURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n      \"largePicURL\": \"https://media.vogue.co.uk/photos/5d54be0919b6dd000853ad13/master/pass/original\"\r\n  },\r\n  \"promoVideoURL\": \"http://static.videogular.com/assets/videos/videogular.mp4\",\r\n   \"about\": \"A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/stars/add",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"stars",
-								"add"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "delete star",
 					"request": {
 						"method": "DELETE",
@@ -760,6 +750,61 @@
 		{
 			"name": "Figures",
 			"item": [
+				{
+					"name": "add figure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ea9b52a-d6e2-4bba-a20e-69fa14295c2c",
+								"exec": [
+									"pm.test(\"Add figure\", function () {",
+									"        if (responseCode.code === 201)",
+									"    {",
+									"        const figure = pm.response.json().figure;",
+									"        pm.environment.set(\"figureId\", figure._id);",
+									"    }",
+									"    ",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"stars\": [\"{{starId}}\"],\r\n\t\"name\": \"Spin\",\r\n\t\"coverURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n\t\"type\": \"tango\",\r\n\t\"level\": \"1\",\r\n\t\"promoVideo\": \"https://www.dropbox.com/s/0x2ke57h7wv49ll/Sample_512x288.mp4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/figures/star/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"figures",
+								"star",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "get figure by id",
 					"event": [
@@ -880,7 +925,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/figures/star/{{starId}}?danceType=tango&level=1",
+							"raw": "{{baseURL}}/figures/star/{{starId}}?danceType=tango&level=beginner",
 							"host": [
 								"{{baseURL}}"
 							],
@@ -896,63 +941,8 @@
 								},
 								{
 									"key": "level",
-									"value": "1"
+									"value": "beginner"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add figure",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "4ea9b52a-d6e2-4bba-a20e-69fa14295c2c",
-								"exec": [
-									"pm.test(\"Add figure\", function () {",
-									"        if (responseCode.code === 201)",
-									"    {",
-									"        const figure = pm.response.json().figure;",
-									"        pm.environment.set(\"figureId\", figure._id);",
-									"    }",
-									"    ",
-									"    pm.response.to.have.status(201);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"stars\": [\"{{starId}}\"],\r\n\t\"name\": \"Spin\",\r\n\t\"coverURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n\t\"type\": \"tango\",\r\n\t\"level\": \"1\",\r\n\t\"promoVideo\": \"https://www.dropbox.com/s/0x2ke57h7wv49ll/Sample_512x288.mp4\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/figures/star/add",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"figures",
-								"star",
-								"add"
 							]
 						}
 					},
@@ -1035,7 +1025,7 @@
 									"key": "video",
 									"description": "video file",
 									"type": "file",
-									"src": "/C:/Users/Ohad/Downloads/file_example_MP4_480_1_5MG.mp4"
+									"src": "/home/ohad/Videos/SampleVideo_1280x720_2mb.mp4"
 								},
 								{
 									"key": "name",
@@ -1182,6 +1172,211 @@
 								"videos",
 								"delete",
 								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Practices",
+			"item": [
+				{
+					"name": "add practice item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b5aa4ec-f23e-4d1b-98bb-488a9b4536a6",
+								"exec": [
+									"pm.test(\"Add practice item\", function () {\r",
+									"    if (responseCode.code === 201) {\r",
+									"        const practiceItem = pm.response.json().data;\r",
+									"        pm.environment.set(\"practiceId\", practiceItem._id);\r",
+									"    }\r",
+									"\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"videoId\": \"{{videoId}}\"\n}",
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/practices",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"practices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all practice items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "11c039bf-dbfd-4b8c-80d6-d806e2ff5867",
+								"exec": [
+									"pm.test(\"Get all practice items\", function () {\r",
+									"\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/practices",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"practices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get practice item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f75e7837-d624-44de-a26f-e812ab8d0eaa",
+								"exec": [
+									"pm.test(\"Get practice item by id\", function () {\r",
+									"\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/practices/{{practiceId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"practices",
+								"{{practiceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete practices item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "72ece4b9-d7db-4f53-b19b-1a5750ce3172",
+								"exec": [
+									"pm.test(\"Delete practice item\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/practices/{{practiceId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"practices",
+								"{{practiceId}}"
 							]
 						}
 					},
