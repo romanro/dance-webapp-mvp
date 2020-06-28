@@ -27,7 +27,6 @@ export const MOCK_STARS: Array<Star> = [
         name: {
             firstName: 'Anthony',
             lastName: 'Cool',
-            midName: 'Dancer'
         },
         location: {
             city: 'Moscow',
@@ -48,7 +47,7 @@ export const MOCK_STARS: Array<Star> = [
         name: {
             firstName: 'Vasil',
             lastName: 'Super',
-            midName: 'Mario'
+            nickname: 'Mario'
         },
         location: {
             city: 'New York',

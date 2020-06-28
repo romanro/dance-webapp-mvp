@@ -31,10 +31,12 @@ export class RegisterPageComponent implements OnInit {
           '',
           Validators.compose([Validators.required, Validators.email])
         ],
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
         password: ['', Validators.compose(PASSWORD_VALIDATORS)],
-        confirmPassword: [null, Validators.compose([Validators.required])]
+        confirmPassword: [null, Validators.compose([Validators.required])],
+        name: this.formBuilder.group({
+          firstName: ['', [Validators.required]],
+          lastName: ['', [Validators.required]]
+        })
       },
       {
         validator: RegisterValidators.passwordMatchValidator
@@ -59,6 +61,6 @@ export class RegisterPageComponent implements OnInit {
   }
 
   registerFacebook() {
-    this.registerService.registerFacebook();
+
   }
 }

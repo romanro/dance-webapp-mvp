@@ -13,9 +13,7 @@ export class StarNameDirective implements OnInit {
 
   ngOnInit() {
     let formatedName = this.name.firstName;
-    if (this.name.midName) {
-      formatedName = `${formatedName} ${this.name.midName}`;
-    }
+
     if (this.name.nickname) {
       formatedName = `${formatedName} (${this.name.nickname})`;
     }

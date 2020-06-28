@@ -11,7 +11,7 @@ const path = require('path');
 const angularDev =
   process.env.NODE_ENV === 'production'
     ? null
-    : proxy({
+    : proxy('/admin', {
       target: 'http://localhost:4401',
       changeOrigin: true,
       ws: true

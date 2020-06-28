@@ -1,12 +1,12 @@
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
-import jwt from "jsonwebtoken";
-import User from "./User"
-
-
+import jwt from 'jsonwebtoken';
+import mongoose, { Document, Model, model, Schema, Types } from 'mongoose';
+import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from '../config/jwt';
 import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
-import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from "../config/jwt"
 import { IPracticeItem } from './PracticeItem';
+import User from './User';
+import { IVideo } from './Video';
+
 
 interface access_dto {
   refresh_token: String

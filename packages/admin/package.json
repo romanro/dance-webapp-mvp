@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --port 4401",
+    "dev": "ng serve --port 4401 --baseHref=/admin/",
     "build": "ng build --prod --baseHref=/admin/",
     "test": "ng test",
     "lint": "ng lint",

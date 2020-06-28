@@ -55,7 +55,4 @@ export const ErrorUpdateUserAction = createAction(
 export const ErrorUserAction = createAction(UserActionType.ErrorUserAction, props<Error>());
 
 // Clear user data
-export const ClearUserAction = createAction(
-  UserActionType.ClearUserAction,
-  props<{ null }>()
-);
+export const ClearUserAction = createAction(UserActionType.ClearUserAction);

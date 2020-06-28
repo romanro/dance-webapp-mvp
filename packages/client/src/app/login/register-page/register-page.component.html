@@ -27,48 +27,50 @@
 
     </div>
 
-    <!-- first name -->
-    <div class="form-group">
+    <ng-container formGroupName="name">
+      <!-- first name -->
+      <div class="form-group">
 
-      <label for="inputFirstName">{{'USER.firstName' | translate}}:</label>
+        <label for="inputFirstName">{{'USER.firstName' | translate}}:</label>
 
-      <input type="text"
-             formControlName="firstName"
-             id="inputFirstName"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['firstName'].touched && formControls['firstName'].errors }"
-             placeholder="{{'USER.firstName' | translate}}">
+        <input type="text"
+               formControlName="firstName"
+               id="inputFirstName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors }"
+               placeholder="{{'USER.firstName' | translate}}">
 
-      <div *ngIf="formControls['firstName'].touched && formControls['firstName'].errors"
-           class="invalid-feedback">
-        <p *ngIf="formControls['firstName'].errors.required">
-          {{'LOGIN.FORM.fnameIsRequired' | translate}}
-        </p>
+        <div *ngIf="registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors"
+             class="invalid-feedback">
+          <p *ngIf="registerForm.get('name.firstName').errors.required">
+            {{'LOGIN.FORM.fnameIsRequired' | translate}}
+          </p>
+        </div>
+
       </div>
 
-    </div>
 
+      <!-- last name -->
+      <div class="form-group">
 
-    <!-- last name -->
-    <div class="form-group">
+        <label for="inputLastName">{{'USER.lastName' | translate}}:</label>
 
-      <label for="inputLastName">{{'USER.lastName' | translate}}:</label>
+        <input type="text"
+               formControlName="lastName"
+               id="inputLastName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors }"
+               placeholder="{{'USER.lastName' | translate}}">
 
-      <input type="text"
-             formControlName="lastName"
-             id="inputLastName"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['lastName'].touched && formControls['lastName'].errors }"
-             placeholder="{{'USER.lastName' | translate}}">
+        <div *ngIf=" registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors"
+             class="invalid-feedback">
+          <p *ngIf=" registerForm.get('name.lastName').errors.required">
+            {{'LOGIN.FORM.lnameIsRequired' | translate}}
+          </p>
+        </div>
 
-      <div *ngIf="formControls['lastName'].touched && formControls['lastName'].errors"
-           class="invalid-feedback">
-        <p *ngIf="formControls['lastName'].errors.required">
-          {{'LOGIN.FORM.lnameIsRequired' | translate}}
-        </p>
       </div>
-
-    </div>
+    </ng-container>
 
 
     <!-- password -->

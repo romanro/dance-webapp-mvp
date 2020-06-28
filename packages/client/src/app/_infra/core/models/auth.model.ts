@@ -1,6 +1,6 @@
-import { LoginMethod } from './user.model';
-
-export class AuthData {
-  token: string;
-  loginMethod: LoginMethod;
+export interface AuthTokens {
+  access_token: string;
+  refresh_token: string;
+  expired_at: string;
 }
+
