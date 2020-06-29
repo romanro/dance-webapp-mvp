@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'dsapp-preloader-inapp',
+  selector: 'ui-preloader-inapp',
   templateUrl: './preloader-inapp.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

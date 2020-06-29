@@ -5,11 +5,11 @@ import { Name } from './star.model';
 import { Tag } from './tag.model';
 
 export class UserRegistrationData {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
+  name: Name;
+  birthDate?: string;
 }
 
 export class UserLoginData {
@@ -18,15 +18,19 @@ export class UserLoginData {
 }
 
 export class User {
+  id: string;
   email: string;
+  profile: UserProfile;
+}
+
+export class UserProfile {
   name: Name;
   language: Language = Language.english;
-  permissions: UserPermissions[];
+  permissions?: UserPermissions[];
   gender?: Gender | '';
   location?: Location;
   birthDate?: BirthDate;
-  tags?: Tag[];
-  userPic?: string = null;
+  picture?: string = null;
   about?: string;
 }
 
@@ -38,10 +42,12 @@ export enum UserPermissions {
 export class Location {
   city?: string;
   country?: string;
+  lat?: string;
+  long?: string;
 }
 
 export interface BirthDate {
-  date: NgbDateStruct;
+  date: string;
   group: AgeGroup;
 }
 
@@ -67,5 +73,7 @@ export enum UserError {
   UPDATE = 'USER.ERRORS.updateUserError',
   GENERAL = 'ERRORS.GeneralBackendError'
 }
+
+export const MIN_DATE: NgbDateStruct = { year: 1920, day: 1, month: 1 }
 
 

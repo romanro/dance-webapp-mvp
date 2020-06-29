@@ -1,43 +1,58 @@
-
 <div class="row mb-4">
     <div class="col-12 text-center">
-        <button (click)=backToPractices()>{{'PRACTICES.PRACTICE.backToPractices' | translate}}</button>
+        <button
+                (click)=backToPractices()>{{'PRACTICES.PRACTICE.backToPractices' | translate}}</button>
     </div>
 </div>
 <ng-template [ngIf]="true && !loading && !errorMsg">
     <div class="row page-title-row mb-4 text-center">
         <div class="col-12">
-            <button class="edit-btn" (click)=editTitle()></button>
-            <input class="mb-2 title-input inner-page-title text-center" [(ngModel)]="practiceTitleInput" [disabled]=disabledTitle type="text">
-            <div class="inner-page-sub-title">{{practice.date | date:'MMMM y'}}</div>
+            <button class="edit-btn"
+                    (click)=editTitle()></button>
+            <input class="mb-2 title-input inner-page-title text-center"
+                   [(ngModel)]="practiceTitleInput"
+                   [disabled]=disabledTitle
+                   type="text">
+            <div class="inner-page-sub-title">{{practice.date | date:'MMMM y'}}
+            </div>
         </div>
     </div>
     <div class="row mb-4">
         <div class="col">
-            <button class="mb-2 hide-btn" (click)="toggleVideo()">{{videoButtonText}}</button>
-            <ui-video-player-wrapper [hidden]="hiddenVideo" src="{{practice.userVideo}}"></ui-video-player-wrapper>
+            <button class="mb-2 hide-btn"
+                    (click)="toggleVideo()">{{videoButtonText}}</button>
+            <ui-video-player-wrapper [hidden]="hiddenVideo"
+                                     src="{{practice.userVideo}}">
+            </ui-video-player-wrapper>
         </div>
     </div>
     <div class="row mb-4 justify-content-between">
         <div class="col-4">
-            <button class="hide-btn" (click)="toggleNotes()">{{noteButtonText}}</button>
+            <button class="hide-btn"
+                    (click)="toggleNotes()">{{noteButtonText}}</button>
         </div>
         <div class="col-4">
-            <button (click)="editNote()" class="hide-btn">
+            <button (click)="editNote()"
+                    class="hide-btn">
                 {{'PRACTICES.PRACTICE.editNote' | translate}}
             </button>
         </div>
-        <div class="col-12 mt-2" [hidden]="hiddenNotes">
-            <textarea [disabled]="disabledNote" class="form-control" rows="4"></textarea>
+        <div class="col-12 mt-2"
+             [hidden]="hiddenNotes">
+            <textarea [disabled]="disabledNote"
+                      class="form-control"
+                      rows="4"></textarea>
         </div>
     </div>
     <div class="row text-center">
         <div class="col">
-            <button class="btn-danger save-btn" [disabled]="disabled" (click)=saveChanges()>{{'PRACTICES.PRACTICE.saveChanges' | translate}}</button>
+            <button class="btn-danger save-btn"
+                    [disabled]="disabled"
+                    (click)=saveChanges()>{{'PRACTICES.PRACTICE.saveChanges' | translate}}</button>
         </div>
     </div>
 </ng-template>
 
 <ng-template [ngIf]="loading">
-    <dsapp-preloader-inapp></dsapp-preloader-inapp>
+    <ui-preloader-inapp></ui-preloader-inapp>
 </ng-template>

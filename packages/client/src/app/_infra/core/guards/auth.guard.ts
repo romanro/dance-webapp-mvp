@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // server takes care of session
     // return true;
-    if (this.tokenService.checkStoredToken) {
+    if (this.tokenService.checkStoredAccessToken) {
       // logged in so return true
       return true;
     }

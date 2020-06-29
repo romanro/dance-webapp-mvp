@@ -52,8 +52,11 @@ const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level
 export const getFigures = async (req: Request, res: Response, next: NextFunction) => {
     // TODO: check if req.params.starId is valid
     // TODO: req.query.danceType and req.query.level
+    const typedLevelString = req.query.level as keyof typeof EnumDanceLevel;
+    const typedTypeString = req.query.danceType as keyof typeof EnumDanceType;
+
     const figures = await getStarFiguresByTypeAndLevel(req.params.starId,
-        req.query.danceType as EnumDanceType, req.query.level as EnumDanceLevel); // TODO: casting
+        EnumDanceType[typedTypeString], EnumDanceLevel[typedLevelString]);
     return res.json({
         figures: figures
     });

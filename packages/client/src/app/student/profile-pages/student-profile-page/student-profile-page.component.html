@@ -7,25 +7,28 @@
 <ng-template [ngIf]="user && !errorMsg">
   <div class="row mb-4">
     <div class="col-auto">
-      <dsapp-student-upic [picBase64]="user.userPic ? user.userPic : null">
+      <dsapp-student-upic
+                          [picBase64]="user.profile.picture ? user.profile.picture : null">
       </dsapp-student-upic>
     </div>
     <div class="col">
       <h4 dsappStarName
-          [name]="user.name"></h4>
+          [name]="user.profile.name"></h4>
       <p class="text-muted"
-         *ngIf="user.location && user.location.city !==''">
-        {{user.location.city}}, {{user.location.country}}
+         *ngIf="user.profile.location && user.profile.location.city">
+        {{user.profile.location.city}}, {{user.profile.location.country}}
       </p>
-      <p *ngIf="user.birthDate"
-         dsappNgbDateStructTodate
-         [dateStruct]="user.birthDate.date"></p>
+      <p *ngIf="user.profile.birthDate && user.profile.birthDate.group">
+        {{user.profile.birthDate.group | uppercase}}
+      <p *ngIf="user.profile.birthDate && user.profile.birthDate.date">
+        {{user.profile.birthDate.date | date}}
+      </p>
     </div>
   </div>
-  <div *ngIf="user.about"
+  <div *ngIf="user.profile.about"
        class="row mb-4">
     <div class="col">
-      <p>{{user.about}}</p>
+      <p>{{user.profile.about}}</p>
     </div>
   </div>
 
@@ -52,5 +55,5 @@
 
 
 <ng-template [ngIf]="!user && !errorMsg">
-  <dsapp-preloader-inapp></dsapp-preloader-inapp>
+  <ui-preloader-inapp></ui-preloader-inapp>
 </ng-template>

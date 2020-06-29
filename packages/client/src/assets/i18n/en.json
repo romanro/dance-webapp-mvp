@@ -93,6 +93,9 @@
       "ProfileSaveSuccess": "Profile Saved Successfully",
       "ProfileSaveError": "Error in Profile Saving",
       "ChangeUserPic": "Change User Picture",
+      "TakeFromCamera": "Take picture from Camera",
+      "UploadFromComputer": "Upload Picture from Computer",
+      "UploadFromDevice": "Upload Picture from Device",
       "FORM": {}
     }
   },
@@ -123,9 +126,9 @@
     "title": "About DanSkill Application",
     "AppVersion": "Application version:"
   },
-  "PRACTICES" : {
+  "PRACTICES": {
     "title": "Practices",
-    "PRACTICE":{
+    "PRACTICE": {
       "backToPractices": "Back to practives Page",
       "hideVideo": "Hide video",
       "showVideo": "Show video",

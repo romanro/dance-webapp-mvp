@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestResponse } from '@app/_infra/core/models';
-import { UserState } from '@app/_infra/store/state';
-import * as UserActions from '@infra/store/actions';
+import { AuthRestResponse, RestResponse } from '@app/_infra/core/models';
+import * as UserActions from '@infra/store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { AlertService } from './alert.service';
 import { BaseRestService } from './base-rest.service';
@@ -22,24 +22,23 @@ export class LoginService {
     private router: Router,
     private alertService: AlertService,
     private authService: AuthService,
-    private store: Store<UserState>,
+    private store: Store<any>,
     private tokenService: TokenService,
     private baseRestService: BaseRestService
   ) { }
 
   login({ email, password }) {
     this.baseRestService
-      .post<RestResponse>('login', { email, password })
+      .post<AuthRestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res['message']) {
-            this.tokenService.storeToken(res['tokens'].access_token);
+          if (res.tokens) {
+            this.tokenService.storeTokens(res.tokens);
             this.afterLoginRoute();
-          } else if (res.errors) {
-            res.errors.forEach(err => {
-              const errorStr = `LOGIN.FORM.${err.code}`;
-              this.alertService.error(errorStr);
-            });
+
+          } else if (res.message) {
+            const errorStr = `${res.message}`;
+            this.alertService.error(errorStr);
           } else {
             this.alertService.error('LOGIN.LoginFailedMsg');
           }
@@ -61,16 +60,18 @@ export class LoginService {
     );
   }
 
-  logout() {
-
-    this.tokenService.deleteStoredToken();
-    this.alertService.info('LOGIN.LogOutMsg');
+  logout(showMsg = true) {
+    this.store.dispatch(UserActions.ClearUserAction());
+    this.tokenService.deleteStoredTokens();
+    if (showMsg) {
+      this.alertService.info('LOGIN.LogOutMsg');
+    }
     this.router.navigate(['/login']);
   }
 
   afterLoginRoute() {
     this.alertService.success('LOGIN.LoginSuccessMsg');
-    this.router.navigate(['/student']);
+    this.router.navigate(['/student']); // TODO: Smart redirect
   }
 
   forgotPassword({ email }): Observable<RestResponse> {
@@ -79,5 +80,24 @@ export class LoginService {
 
   validateResetToken(token: string): Observable<RestResponse> {
     return this.baseRestService.get<RestResponse>(`reset/${token}`);
+  }
+
+  refreshToken() {
+    const refreshToken = this.tokenService.getStoredRefreshToken();
+    return this.baseRestService.post<AuthRestResponse>(`refreshToken/${refreshToken}`, {})
+      .pipe(
+        tap(
+          res => {
+            if (res.tokens) {
+              this.tokenService.storeTokens(res.tokens);
+            } else if (res.message) {
+              const errorStr = `${res.message}`;
+              this.alertService.error(errorStr);
+            } else {
+              this.alertService.error('LOGIN.LoginFailedMsg');
+            }
+          }
+        )
+      )
   }
 }

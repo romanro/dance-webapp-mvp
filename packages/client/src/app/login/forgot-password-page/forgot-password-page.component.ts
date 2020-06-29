@@ -36,15 +36,15 @@ export class ForgotPasswordPageComponent implements OnInit, OnDestroy {
       this.subs.push(
         this.loginService.validateResetToken(this.token).subscribe(
           res => {
-            if (res.success) {
+            if (res.message) {
               this.router.navigate(['/reset', 'edit', this.token]);
 
-            } else if (res.errors) {
-              res.errors.forEach(err => {
-                const errorStr = `LOGIN.FORM.${err.code}`;
-                this.alertService.error(errorStr);
-                this.router.navigate(['/reset']);
-              });
+            } else if (res.message) {
+
+              const errorStr = `${res.message}`;
+              this.alertService.error(errorStr);
+              this.router.navigate(['/reset']);
+
             } else {
               this.alertService.error('ERRORS.GeneralBackendError');
               this.router.navigate(['/reset']);
@@ -78,14 +78,12 @@ export class ForgotPasswordPageComponent implements OnInit, OnDestroy {
       this.loginService.forgotPassword(this.forgotPasswordForm.value)
         .subscribe(
           res => {
-            if (res.success) {
+            if (res.message) {
               this.isSend = true;
               this.isSubmitted = false;
-            } else if (res.errors) {
-              res.errors.forEach(err => {
-                const errorStr = `LOGIN.FORM.${err.code}`;
-                this.alertService.error(errorStr);
-              });
+            } else if (res.message) {
+              const errorStr = `${res.message}`;
+              this.alertService.error(errorStr);
               this.isSubmitted = false;
 
             } else {

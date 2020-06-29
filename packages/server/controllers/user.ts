@@ -1,13 +1,15 @@
-import { Request, Response, NextFunction } from "express";
-import { promisify } from "util";
 import crypto from 'crypto';
-import passport from 'passport';
+import { NextFunction, Request, Response } from 'express';
+import { promisify } from 'util';
 import validator from 'validator';
-import { getToken } from '../config/jwt';
+
 import User, { IUser } from '../models/User';
-import { sendVerifyEmail, sendForgotPasswordEmail, sendResetPasswordEmail } from '../services/email';
+import { sendForgotPasswordEmail, sendResetPasswordEmail, sendVerifyEmail } from '../services/email';
+import { HttpException } from '../shared/exceptions';
+
 const randomBytesAsync = promisify(crypto.randomBytes);
 
+const DEFAULT_BIRTH_DATE = '1990-12-31T00:00:00.000Z';
 
 const NON_EXISTING_USER = {
   code: 'NON_EXISTING_USER',
@@ -33,12 +35,17 @@ const PASSWORD_MISMATCH = {
   msg: 'Passwords do not match'
 };
 
+const USER_EXISTS = {
+  code: 'USER_EXISTS',
+  msg: 'This user already exists'
+}
+
 /**
  * POST /login
  * Sign in using email and password.
  */
 
-export const postLogin = (req: Request, res: Response, next: NextFunction) => {
+export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
   if (validator.isEmpty(req.body.password))
@@ -54,39 +61,46 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
     gmail_remove_dots: false
   });
 
-  passport.authenticate('local', (err, user) => {
-    if (err) {
-      return next(err);
-    }
+  const user = await User.findByCredentials(req.body.email, req.body.password);
+  const tokens = await user.generateAuthToken();
 
-    if (!user) {
-      return res.json({
-        success: false,
-        errors: [
-          {
-            code: 'SIGN_PROVIDER_NO_CREDENTIALS',
-            msg:
-              'Your account was registered using a sign-in provider. To enable password login, sign in using a provider, and then set a password under your user profile.'
-          }
-        ]
-      });
-    }
-    req.logIn(user, err => {
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        success: true,
-        token: getToken({ _id: user._id })
-      });
-    });
-  })(req, res, next);
+  return res.status(200).json({
+    message: "Auth succeeded",
+    tokens: tokens
+  });
 };
+
+
+/**
+ * POST /refreshToken
+ * Refresh token.
+ */
+
+export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+  const tokens = await req.user.generateAuthToken();
+
+  return res.status(200).json({
+    message: "Token refreshed successfully",
+    tokens: tokens
+  });
+};
+
 
 /**
  * POST /signup
  * Create a new local account.
  */
+
+const check_if_user_name_exists = (email: string) => (
+  new Promise(async (resolve, reject) => {
+    const doesUserNameExists = await User.exists({ email: email });
+    if (doesUserNameExists)
+      reject(new HttpException(409, "User name already exists"));
+    else
+      resolve();
+  })
+);
+
 export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
@@ -112,43 +126,20 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     profile: {
       name: req.body.name,
       birthDate: {
-        date: req.body.birthDate
+        date: req.body.birthDate || DEFAULT_BIRTH_DATE
       }
     }
   });
-  try {
-    const existingUser = await User.findOne({ email: req.body.email });
 
-    if (existingUser) {
-      return res.json({
-        success: false,
-        errors: [
-          {
-            code: 'USER_EXISTS',
-            msg: 'This user already exists'
-          }
-        ]
-      });
-    }
-    await user.save();
+  await check_if_user_name_exists(req.body.email);
+  await user.save();
+  await verifyUserEmail(user);
+  const tokens = await user.generateAuthToken();
 
-    await new Promise((resolve, reject) => {
-      req.logIn(user, async err => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(user);
-      });
-    });
-
-    await verifyUserEmail(user);
-    return res.status(201).json({
-      success: true,
-      token: getToken(user.toJSON())
-    });
-  } catch (error) {
-    return next(error);
-  }
+  res.status(201).json({
+    message: "User created",
+    tokens: tokens
+  });
 };
 
 /**
@@ -179,8 +170,9 @@ export const patchUpdateProfile = (req: Request, res: Response, next: NextFuncti
     gender: req.body.gender || '',
     language: req.body.language || '',
     location: req.body.location || '',
-    website: req.body.website || '',
-    birthDate: { date: req.body.birthDate || '' } // TODO: '' or something else?
+    picture: req.body.picture || '',
+    birthDate: { date: req.body.birthDate.date || DEFAULT_BIRTH_DATE }, // TODO: '' or something else?
+    about: req.body.about || ''
   };
 
   // TODO: runValidators doesnt work?
@@ -460,10 +452,11 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
     user.passwordResetExpires = 0;
     const dbUser = await user.save();
     await sendResetPasswordEmail(user.email);
+    const tokens = await user.generateAuthToken();
 
     return res.json({
       success: true,
-      token: getToken(dbUser.toJSON())
+      tokens: tokens
     });
   } catch (error) {
     return next(error);
