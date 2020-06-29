@@ -1,9 +1,18 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import mongoose, { Document, Model, model, Schema, Types } from 'mongoose';
-
+import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from '../config/jwt';
 import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
+import { IPracticeItem } from './PracticeItem';
+import User from './User';
 import { IVideo } from './Video';
 
+
+interface access_dto {
+  refresh_token: String
+  access_token: String
+  expired_at: Date
+}
 
 interface BirthDate {
   date?: Date;
@@ -13,7 +22,6 @@ interface BirthDate {
 interface Name {
   firstName: string;
   lastName: string;
-  midName?: string;
   nickname?: string;
 }
 
@@ -23,8 +31,10 @@ interface IProfile {
   birthDate: BirthDate,
   name: Name,
   about?: String,
-  location?: String,
-  website?: String,
+  location?: {
+    country?: String,
+    city?: String
+  };
   picture?: String,
 }
 
@@ -37,11 +47,14 @@ const userSchema = new mongoose.Schema(
     emailVerificationToken: String,
     emailVerified: { type: Boolean, default: false },
 
+    // TODO: this properties are needed?
     facebook: String,
     google: String,
     tokens: [{ type: String }],
 
-    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+    // videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+    practiceItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticeItem' }],
+
 
     profile: {
       gender: { type: EnumGender, enum: possibleGenders }, // TODO: required: true?
@@ -52,14 +65,14 @@ const userSchema = new mongoose.Schema(
       name: {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
-        midName: { type: String },
         nickname: { type: String },
       },
       about: { type: String },
-      location: { type: String },
-      website: { type: String },
+      location: {
+        country: { type: String },
+        city: { type: String }
+      },
       picture: { type: String },
-      // tags?: Tag[]; // TODO:
     }
   },
   { timestamps: true }
@@ -148,17 +161,48 @@ interface IUserSchema extends Document {
 
 interface IUserBase extends IUserSchema {
   comparePassword(candidatePassword: string, cb: any): any; // TODO: any
+  generateAuthToken(): Promise<access_dto>;
+}
+
+userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
+  const user = this;
+  const accessToken = jwt.sign({ _id: user._id }, jwtAccessPrivateKey, signOptionsAccessToken);
+  const refreshToken = jwt.sign({ _id: user._id }, jwtRefreshPrivateKey, signOptionsRefreshToken);
+
+  return {
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+    "expired_at": new Date(Date.now() + (15 * 60 * 1000)) // TODO: 15m
+  };
 }
 
 export interface IUser extends IUserBase {
-  videos: [IVideo["_id"]];
+  // videos: [IVideo["_id"]];
+  practiceItems: [IPracticeItem["_id"]];
 }
 
 export interface IUser_populated extends IUserBase {
-  videos: [IVideo];
+  // videos: [IVideo];
+  practiceItems: [IPracticeItem];
+}
+
+
+userSchema.statics.findByCredentials = async (email: string, password: string): Promise<IUser> => {
+  const user = await User.findOne({ email: email })
+  if (!user) {
+    throw new Error("Invalid login credentials");
+  }
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatch) {
+    throw new Error("Invalid login credentials");
+  }
+
+  return user;
 }
 
 export interface IUserModel extends Model<IUser> {
+  findByCredentials(user_name: string, password: string): Promise<IUser>;
 }
 
 export default model<IUser, IUserModel>('User', userSchema);

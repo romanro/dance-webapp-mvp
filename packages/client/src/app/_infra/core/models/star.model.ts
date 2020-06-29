@@ -16,7 +16,6 @@ export interface Star {
 export interface Name {
     firstName: string;
     lastName: string;
-    midName?: string;
     nickname?: string;
 }
 

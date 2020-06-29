@@ -37,6 +37,13 @@ export class BaseRestService {
     return this.http.post<T>(`${this.REST_URL}/${endpoint}`, body, options);
   }
 
+  patch<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders): Observable<T> {
+    this.getRestUrl();
+    const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;
+    const options = { headers: headersObj, method: 'PATCH' };
+    return this.http.patch<T>(`${this.REST_URL}/${endpoint}`, body, options);
+  }
+
   getRestUrl() {
     const url: string = this.configService.getRestApiURL();
     if (url) {

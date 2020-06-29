@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Practice, PracticeError } from '@app/_infra/core/models';
+import { AlertErrorService } from '@app/_infra/core/services';
+import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
+import * as selectors from '@app/_infra/store/selectors/practices.selector';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as selectors from '@app/_infra/store/selectors/practices.selector';
-import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
-import { AlertErrorService } from '@app/_infra/core/services';
 
 @Component({
   selector: 'dsapp-practice-page',
@@ -15,19 +15,19 @@ import { AlertErrorService } from '@app/_infra/core/services';
   ]
 })
 
-export class PracticePageComponent implements OnInit {
+export class PracticePageComponent implements OnInit, OnDestroy {
 
   practiceId: string = null;
   loading = true;
   practice: Practice = null;
-  disabled: boolean = true;
-  disabledNote: boolean = true;
-  disabledTitle: boolean = true;
-  practiceTitleInput: string = '';
-  hiddenVideo: boolean = false;
-  hiddenNotes: boolean = false;
-  noteButtonText: string = '';
-  videoButtonText: string = '';
+  disabled = true;
+  disabledNote = true;
+  disabledTitle = true;
+  practiceTitleInput = '';
+  hiddenVideo = false;
+  hiddenNotes = false;
+  noteButtonText = '';
+  videoButtonText = '';
   storeSelectSub: Subscription = null;
   subs: Subscription[] = [];
   errorMsg: PracticeError | string = null;
@@ -53,7 +53,7 @@ export class PracticePageComponent implements OnInit {
               if (practice) {
                 this.practice = { ...practice };
                 this.loading = false;
-                this.practiceTitleInput= practice.title;
+                this.practiceTitleInput = practice.title;
               } else {
                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
               }
@@ -74,9 +74,12 @@ export class PracticePageComponent implements OnInit {
     );
   }
 
-  ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
+  ngOnDestroy(): void {
+    if (this.storeSelectSub) { this.storeSelectSub.unsubscribe(); }
+    this.subs.forEach(s => s.unsubscribe());
+  }
 
-  
+
   translateContent() {
     this.translate.get('PRACTICES.PRACTICE.hideNotes').subscribe((res: string) => {
       this.noteButtonText = res;
@@ -127,7 +130,7 @@ export class PracticePageComponent implements OnInit {
   }
 
   translateButtons(translateTerm): string {
-    var buttonText = '';
+    let buttonText = '';
     this.translate.get(translateTerm).subscribe((res: string) => {
       buttonText = res;
     });

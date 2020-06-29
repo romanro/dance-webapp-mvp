@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestResponse, UserRegistrationData } from '@core/models';
+import { AuthRestResponse, UserRegistrationData } from '@core/models';
 
 import { AlertService } from './alert.service';
 import { BaseRestService } from './base-rest.service';
@@ -23,17 +23,15 @@ export class RegisterService {
 
   register(user: UserRegistrationData) {
     this.baseRestService
-      .post<RestResponse>('signup', user)
+      .post<AuthRestResponse>('signup', user)
       .subscribe(
         res => {
-          if (res.success) {
-            this.tokenService.storeToken(res.token);
+          if (res.tokens) {
+            this.tokenService.storeTokens(res.tokens);
             this.afterLoginRoute();
-          } else if (res.errors) {
-            res.errors.forEach(err => {
-              const errorStr = `LOGIN.FORM.${err.code}`;
-              this.alertService.error(errorStr);
-            });
+          } else if (res.message) {
+            const errorStr = `${res.message}`;
+            this.alertService.error(errorStr);
           } else {
             this.alertService.error('LOGIN.RegistrationFailedMsg');
           }
@@ -44,31 +42,24 @@ export class RegisterService {
       );
   }
 
-  registerFacebook() {
-    this.alertService.success('LOGIN.RegisterSuccessMsg');
-    this.router.navigate(['/student']);
-  }
-
   afterLoginRoute() {
     this.alertService.success('LOGIN.RegisterSuccessMsg');
-    this.router.navigate(['/student']);
+    this.router.navigate(['/student']);// TODO: smart redirect
   }
 
   changePassword({ password, confirmPassword }, token: string) {
 
     const payload = { password, confirm: confirmPassword };
 
-    this.baseRestService.post<RestResponse>(`reset/${token}`, payload)
+    this.baseRestService.post<AuthRestResponse>(`reset/${token}`, payload)
       .subscribe(
         res => {
-          if (res.success) {
-            this.tokenService.storeToken(res.token);
+          if (res.tokens) {
+            this.tokenService.storeTokens(res.tokens);
             this.afterLoginRoute();
-          } else if (res.errors) {
-            res.errors.forEach(err => {
-              const errorStr = `LOGIN.FORM.${err.code}`;
-              this.alertService.error(errorStr);
-            });
+          } else if (res.message) {
+            const errorStr = `${res.message}`;
+            this.alertService.error(errorStr);
           } else {
             this.alertService.error('ERRORS.GeneralBackendError');
           }

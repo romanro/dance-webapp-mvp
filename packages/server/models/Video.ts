@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
 import { EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
-    EnumVideoType, possibleVideoTypes, EnumAssociateWith, possibleAssociateWith } from "../shared/enums"
+    EnumVideoType, possibleVideoTypes, EnumAssociateType, possibleAssociateTypes } from "../shared/enums"
 import { IFigure } from './Figure';
 
 
@@ -10,7 +10,7 @@ const videoSchema = new mongoose.Schema(
         path: { type: String, required: true },
         view: { type: EnumView, enum: possibleViews, required: true },
         participatesAmount: { type: EnumParticipatesAmount, enum: possibleParticipatesAmounts, required: true },
-        associateWith: { type: EnumAssociateWith, enum: possibleAssociateWith, required: true },
+        associateWith: { type: EnumAssociateType, enum: possibleAssociateTypes, required: true },
         type: { type: EnumVideoType, enum: possibleVideoTypes, required: true },
         
         // ref should be indicated on populate (figure/video)
@@ -24,7 +24,7 @@ interface IVideoSchema extends Document {
     path: string;
     view: EnumView;
     participatesAmount: EnumParticipatesAmount;
-    associateWith: EnumAssociateWith;
+    associateWith: EnumAssociateType;
     type: EnumVideoType;
 }
 

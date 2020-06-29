@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, EventEmitter } from '@angular/core';
-import { Subscription, from, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { Practice, PracticeError } from '@core/models';
-import { TranslateService } from '@ngx-translate/core';
-import * as selectors from '@infra/store/selectors/practices.selector';
-import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertErrorService } from '@app/_infra/core/services';
+import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
+import { Practice, PracticeError } from '@core/models';
+import * as selectors from '@infra/store/selectors/practices.selector';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { AlertErrorService } from '@app/_infra/core/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PracticesPageComponent implements OnInit {
+export class PracticesPageComponent implements OnInit, OnDestroy {
 
   loading = false;
   errorMsg: PracticeError | string = null;
@@ -29,8 +29,8 @@ export class PracticesPageComponent implements OnInit {
   practices: Practice[] = null;
   test: Practice[] = [];
   subs: Subscription[] = [];
-  searchTerm: string = '';
-  selectedValue: string = '';
+  searchTerm = '';
+  selectedValue = '';
 
   constructor(
     private store: Store<any>,
@@ -76,17 +76,18 @@ export class PracticesPageComponent implements OnInit {
     );
 
   }
-  
+
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
   setMonthsLength() {
-    this.monthLength = this.currentDate.getMonth() - this.startDate.getMonth() + (12 * (this.currentDate.getFullYear() - this.startDate.getFullYear())) + 1;
+    const yearDelta = 12 * (this.currentDate.getFullYear() - this.startDate.getFullYear());
+    this.monthLength = this.currentDate.getMonth() - this.startDate.getMonth() + yearDelta + 1;
   }
 
   setDisabledBtn() {
-    if (this.monthLength == this.maxMonthLength)
+    if (this.monthLength === this.maxMonthLength)
       this.nextBtndisabled = true;
-    else if (this.monthLength == 1)
+    else if (this.monthLength === 1)
       this.prevBtndisabled = true;
     else {
       this.prevBtndisabled = false;
@@ -110,7 +111,7 @@ export class PracticesPageComponent implements OnInit {
   }
 
   compareDates(firstDate, secondDate) {
-    if (firstDate.getMonth() == secondDate.getMonth() && firstDate.getFullYear() == secondDate.getFullYear())
+    if (firstDate.getMonth() === secondDate.getMonth() && firstDate.getFullYear() === secondDate.getFullYear())
       return true;
     else
       return false;
@@ -118,15 +119,15 @@ export class PracticesPageComponent implements OnInit {
 
 
   isHidden(title) {
-    return !title.includes(this.selectedValue);  
+    return !title.includes(this.selectedValue);
   }
 
   search() {
     this.selectedValue = this.searchTerm;
   }
 
-  clear(){
-    this.searchTerm='';
+  clear() {
+    this.searchTerm = '';
     this.selectedValue = '';
   }
 
