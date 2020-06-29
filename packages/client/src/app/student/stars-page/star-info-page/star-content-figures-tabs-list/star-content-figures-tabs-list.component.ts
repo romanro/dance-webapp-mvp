@@ -39,8 +39,8 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.level:', this.level)
-    console.log('this.danceType:', this.danceType)
+    // console.log('this.level:', this.level)
+    // console.log('this.danceType:', this.danceType)
     this.getFigures();
   }
 
@@ -50,7 +50,6 @@ export class StarContentFiguresTabsListComponent implements OnInit {
         this.store.select(selectors.selectAllFiguresSorted(this.level['value'], this.danceType)).subscribe(
           content => {
             if (content) {
-              // console.log('content:', content)
               this.figures = [...content[0]['figures']];
               this.loading = false;
             } else {

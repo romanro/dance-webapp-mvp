@@ -29,6 +29,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
   danceTypes = [];
   loading = true;
   errorMsg: StarContentError | string = null;
+  routeUrl : string = null;
 
 
   subs: Array<Subscription> = [];
@@ -42,7 +43,11 @@ export class StarContentListComponent implements OnInit, OnDestroy {
     this.currentLevel =  {key: 'one', value: EnumDanceLevel.one};
     this.danceTypes = this.starContentObj['danceTypes'];
     this.currentDance = this.danceTypes[0];
-
+    this.routeUrl = this.router.url;
+    if(!('figure').indexOf(this.routeUrl)){
+      this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
+    }
+   
     if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
@@ -51,7 +56,6 @@ export class StarContentListComponent implements OnInit, OnDestroy {
               this.content = { ...content };
               this.loading = false;
               this.errorMsg = null;
-              // this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
             } else {
               this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.starId }));
             }
@@ -91,9 +95,7 @@ export class StarContentListComponent implements OnInit, OnDestroy {
     this.currentDance = dance;
   }
   setCurrentLevel(level){
-    console.log('level:', level.value)
     this.currentLevel = level;
-                  // this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
 
   }
 

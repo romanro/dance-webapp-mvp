@@ -18,7 +18,7 @@
       <li *ngFor="let enum of EnumDanceLevel | keyvalue" 
       [attr.selected]="enum.value == currentLevel.value" 
       (click)=setCurrentLevel(enum)
-      [routerLink]="['figures']" [queryParams]="{dance: currentDance,level: currentLevel.value }"
+      [routerLink]="['figures']" [queryParams]="{dance: currentDance,level: enum.value }"
       >
         <a >
           {{ enum.value}}
