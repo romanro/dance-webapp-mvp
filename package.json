@@ -17,5 +17,7 @@
   "devDependencies": {
     "lerna": "^3.18.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ngx-device-detector": "^1.4.5"
+  }
 }

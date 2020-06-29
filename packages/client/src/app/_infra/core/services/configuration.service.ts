@@ -33,7 +33,7 @@ export class ConfigurationService {
   }
 
   getGlobalHttpHeaders(): HttpHeaders {
-    const storedToken = this.tokenService.getStoredToken();
+    const storedToken = this.tokenService.getStoredAccessToken();
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*')
