@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Dance, DanceLevel, StarDanceLevel, Figure } from '@core/models';
+import { Dance, DanceLevel, StarDanceLevel, Figure, StarContent } from '@core/models';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
@@ -19,12 +19,13 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   @Input() danceType: Dance = null;
   lvl = DanceLevel;
   subs: Array<Subscription> = [];
-  figures: Figure[] = null;;
+  figures: Figure[] = null;
   loading = true;
 
-  constructor(private store: Store<any>, private router: Router, private route: ActivatedRoute, ) {
-
-
+  constructor(
+    private store: Store<any>, 
+    private router: Router, 
+    private route: ActivatedRoute ) {
 
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationStart") {
@@ -39,17 +40,12 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('this.level:', this.level)
-    // console.log('this.danceType:', this.danceType)
-    this.getFigures();
-  }
-
-  getFigures() {
     if (this.level['value'] || this.level && this.danceType) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.level['value'], this.danceType)).subscribe(
           content => {
             if (content) {
+              // console.log('content:', content)
               this.figures = [...content[0]['figures']];
               this.loading = false;
             } else {
@@ -70,11 +66,7 @@ export class StarContentFiguresTabsListComponent implements OnInit {
           })
       );
     }
-
-
   }
-
-
 
   ngOnDestory() {
     alert('ngOnDestroy fire');

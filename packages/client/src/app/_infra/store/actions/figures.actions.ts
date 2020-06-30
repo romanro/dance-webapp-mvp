@@ -12,7 +12,7 @@ export enum FiguresActionType {
 export const GetFiguresAction = createAction(FiguresActionType.GetFiguresAction);
 
 export const BeginGetFiguresAction = createAction(FiguresActionType.BeginGetFiguresAction,
-    props<{ starId: string, level: StarDanceLevel, danceType: Dance }>()
+    props<{ starId: string, level: StarDanceLevel, danceType: string }>()
     );
 export const SuccessGetFiguresAction = createAction(
     FiguresActionType.SuccessGetFiguresAction,

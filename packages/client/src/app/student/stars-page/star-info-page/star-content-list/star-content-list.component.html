@@ -1,4 +1,4 @@
-<ng-template [ngIf]="content && !errorMsg && !loading">
+<ng-template [ngIf]="starContentObj && !errorMsg && !loading">
   <div class="star-dance-types pt-2">
     <ul ngbNav #danceTabs="ngbNav" class="nav-pills">
       <li *ngFor="let dance of danceTypes" 
@@ -28,13 +28,13 @@
   </div>
  
 
-  <dsapp-star-content-figures-tabs-list [level]="currentLevel" [danceType]="currentDance" [starId]="starId">
+  <dsapp-star-content-figures-tabs-list [level]="currentLevel" [danceType]="currentDance" [starId]="starId" >
   </dsapp-star-content-figures-tabs-list>
 
 </ng-template>
 
 
-<ng-template [ngIf]="!content && errorMsg && !loading">
+<ng-template [ngIf]="!starContentObj && errorMsg && !loading">
   <div class="row mb-4">
     <div class="col">
       <dsapp-inpage-error [msg]="errorMsg" (action)="tryAgain()"></dsapp-inpage-error>
