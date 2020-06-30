@@ -25,6 +25,11 @@ export class StarsContentService {
       this.REST_URL = `${url}stars/${starId}`;
     }
     const headers = this.configService.getGlobalHttpHeaders();
+
+    const res = this.http.get<StarContent[]>(this.REST_URL, {
+      headers: headers
+    });
+
     return this.http.get<StarContent[]>(this.REST_URL, {
       headers: headers
     });

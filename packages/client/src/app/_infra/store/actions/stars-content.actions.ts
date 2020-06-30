@@ -16,7 +16,8 @@ export const BeginGetStarsContentAction = createAction(StarsContentActionType.Be
 
 export const SuccessGetStarsContentAction = createAction(
     StarsContentActionType.SuccessGetStarsContentAction,
-    props<{ payload: StarContent[] }>()
+    props<{ payload: StarContent[] }>(
+    )
 );
 
 export const ErrorStarsContentAction = createAction(StarsContentActionType.ErrorStarsContentAction, props<Error>());

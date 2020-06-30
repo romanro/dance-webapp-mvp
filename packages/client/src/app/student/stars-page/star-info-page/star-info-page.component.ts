@@ -43,10 +43,12 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
           this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
             star => {
               if (star) {
+                console.log('star:', star)
                 this.star = { ...star.star };
                 this.loading = false;
                 this.errorMsg = null;
               } else {
+                console.log("else")
                 this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
               }
             }

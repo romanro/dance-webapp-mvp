@@ -20,7 +20,7 @@ export class StarsContentEffects {
             mergeMap(action =>
                 this.starsContentService.getStarsContent(action.payload).pipe(
                     map((data: StarContent[]) => {
-                        return StarsContentActions.SuccessGetStarsContentAction({ payload: data });
+                        return StarsContentActions.SuccessGetStarsContentAction({ payload: data['star'] });
                     }),
                     catchError((error: Error) => {    
                         return of(StarsContentActions.ErrorStarsContentAction(error));

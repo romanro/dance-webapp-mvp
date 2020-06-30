@@ -1,8 +1,16 @@
 import { Dance, DanceFigure } from '.';
 
 export interface StarContent {
-    starId: string;
-    dances: Array<StarDance>;
+    about: string;
+    birthDate: Date;
+    createdAt: Date;
+    danceTypes: Array<string>;
+    location: string;
+    name: string;
+    promoVideoURL: string;
+    updatedAt: Date;
+    userPics: object;
+    _id: string
 }
 
 export interface StarDance {
