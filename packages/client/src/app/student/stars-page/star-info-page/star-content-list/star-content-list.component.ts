@@ -53,11 +53,11 @@ export class StarContentListComponent implements OnInit {
 
     if (this.currentLevel.value || this.currentLevel && this.currentDance) {
       this.subs.push(
-        this.store.select(selectors.selectAllFiguresSorted(this.currentLevel.value, this.currentDance)).subscribe(
+        this.store.select(selectors.selectAllFiguresSorted(this.starId)).subscribe(
           content => {
             if (content) {
               console.log('content:', content)
-              this.figures = [...content[0]['figures']];
+              this.figures = [...content];
               this.loading = false;
             } else {
               this.store.dispatch(FiguresActions.BeginGetFiguresAction({

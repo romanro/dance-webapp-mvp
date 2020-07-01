@@ -6,17 +6,21 @@ import { Figure } from '@app/_infra/core/models';
 
 export const selectFigures = (state: FiguresState) => state.figures;
 
-export const selectAllFiguresSorted = (level, danceType) => createSelector(
+export const selectAllFiguresSorted = (id) => createSelector(
     selectFigures, (allFigures) => {
+        console.log('allFigures:', allFigures)
         if (!t(allFigures, 'figures').isNullOrUndefined) {
-            if(allFigures['figures']['figures'][0]){
-                // console.log('allFigures:', allFigures['figures']['figures'][0]['type'] === danceType)
-                // console.log('danceType:', danceType)
-                // console.log( allFigures['figures']['figures'][0]['type'])
-            }
-          
+            let figuresAraay = [];
+            allFigures['figures'].forEach(figure => {
+                figure['stars'].forEach(starId => {
+                    if (starId === id) {
+                        figuresAraay.push(figure)
+                    }
+                })
 
-            return t(allFigures, 'figures').safeArray;
+            })
+            return t(figuresAraay).safeArray;
+
         } else {
             return null;
         }
