@@ -40,26 +40,21 @@ export class StarContentListComponent implements OnInit {
     this.danceTypes = this.starContentObj['danceTypes'];
     this.currentDance = this.danceTypes[0];
     this.getFigures();
-    // this.routeUrl = this.router.url;
-
-    // if(!this.routeUrl.includes('figures'))
-    //   this.router.navigate([this.router.url, 'figures' ], { queryParams: {dance: this.currentDance,level: this.currentLevel.value } });
 
   }
 
   getFigures() {
-    console.log(this.currentLevel.value);
-    console.log('this.currentDance:', this.currentDance)
-
     if (this.currentLevel.value || this.currentLevel && this.currentDance) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.starId)).subscribe(
           content => {
             if (content) {
+              console.log("if")
               console.log('content:', content)
               this.figures = [...content];
               this.loading = false;
             } else {
+              console.log("else")
               this.store.dispatch(FiguresActions.BeginGetFiguresAction({
                 starId: this.starId,
                 level: this.currentLevel.value,

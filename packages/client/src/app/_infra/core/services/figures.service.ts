@@ -22,7 +22,6 @@ export class FiguresService {
     const url: string = this.configService.getRestApiURL();
     if (url) {
       this.REST_URL = `${url}figures/star/all/${starId}`;
-      console.log('this.REST_URL:', this.REST_URL)
     }
     const headers = this.configService.getGlobalHttpHeaders();
     return this.http.get<Figure[]>(this.REST_URL, {

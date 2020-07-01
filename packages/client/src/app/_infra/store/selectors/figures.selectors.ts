@@ -15,11 +15,16 @@ export const selectAllFiguresSorted = (id) => createSelector(
                 figure['stars'].forEach(starId => {
                     if (starId === id) {
                         figuresAraay.push(figure)
+                        console.log('figure:', figure)
                     }
                 })
 
             })
-            return t(figuresAraay).safeArray;
+            console.log('figuresAraay:', figuresAraay)
+            if (figuresAraay.length > 0)
+                return t(figuresAraay).safeArray;
+            else
+                return null;
 
         } else {
             return null;

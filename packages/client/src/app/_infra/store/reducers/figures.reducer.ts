@@ -10,8 +10,6 @@ const reducer = createReducer(
     on(FiguresActions.GetFiguresAction, state => state),
 
     on(FiguresActions.SuccessGetFiguresAction, (state: FiguresState, { payload }) => {
-        let test = payload;
-        console.log('test:', test['figures'])
         return { ...state, figures: payload['figures'], error: null };
     }),
 
