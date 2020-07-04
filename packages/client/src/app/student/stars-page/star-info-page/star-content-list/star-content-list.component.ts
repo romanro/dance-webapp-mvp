@@ -1,17 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StarContent, Figure, DanceLevel } from '@core/models';
+import { StarContent, Figure, DanceLevel, StarDanceLevel } from '@core/models';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import { Store } from '@ngrx/store';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
+import { element } from 'protractor';
 
-
-enum EnumDanceLevel {
-  one = "beginner",
-  two = "intermediate",
-  three = "advanced",
-}
 
 @Component({
   selector: 'dsapp-star-content-list',
@@ -21,44 +16,93 @@ enum EnumDanceLevel {
 export class StarContentListComponent implements OnInit {
 
   @Input() starId: string = null;
-  @Input() starContentObj: StarContent = null;
-  EnumDanceLevel: typeof EnumDanceLevel = EnumDanceLevel;
+  @Input() content: StarContent = null;
+  EnumDanceLevel: typeof DanceLevel = DanceLevel;
+  levels: Array<any>;
   subs: Array<Subscription> = [];
   figures: Figure[];
-  loading = true;
+  // loading = true;
   currentDance: string;
   currentLevel: any;
-  content: StarContent = null;
-  danceTypes = [];
   routeUrl: string = null;
 
   constructor(private router: Router, private store: Store<any>) { }
 
   ngOnInit(): void {
-
-    this.currentLevel = { key: 'one', value: EnumDanceLevel.one };
-    this.danceTypes = this.starContentObj['danceTypes'];
-    this.currentDance = this.danceTypes[0];
+    this.currentDance = this.content.danceTypes[0];
+    // console.log('this.currentDance:', this.currentDance)
+    this.convertEnumToArray();
     this.getFigures();
+    this.addFiguresToArray()
+
+
+    // this.currentLevel = { key: 'one', value: EnumDanceLevel.one };
+    // this.currentDance = this.content.danceTypes[0];
+
+
+
+
 
   }
 
+  setCurrentDance(dance){
+    this.currentDance = dance
+  }
+
+  addFiguresToArray() {
+    // if (this.levels) {
+    //   this.levels.forEach(level => {
+    //     console.log('level:', level)
+
+    //   })
+    // }
+
+    // console.log(DanceLevel)
+    if (this.figures && this.levels) {
+      this.figures.forEach(figure => {
+    
+        if(figure.type == this.currentDance){
+          // console.log('figure:', figure.level)
+          // console.log('figure:', figure.type)
+          this.levels.forEach(level=>{
+            console.log('level:', level.level)
+            // if()
+
+          })
+        }
+
+      })
+    }
+
+
+
+  }
+
+  convertEnumToArray() {
+
+    const arrayObjects = []
+
+    for (const [propertyKey, propertyValue] of Object.entries(this.EnumDanceLevel)) {
+      if (!Number.isNaN(Number(propertyKey))) {
+        continue;
+      }
+      arrayObjects.push({ level: propertyValue });
+    }
+
+    this.levels = arrayObjects;
+  }
+
   getFigures() {
-    if (this.currentLevel.value || this.currentLevel && this.currentDance) {
+    if (this.starId) {
       this.subs.push(
         this.store.select(selectors.selectAllFiguresSorted(this.starId)).subscribe(
           content => {
             if (content) {
-              console.log("if")
-              console.log('content:', content)
               this.figures = [...content];
-              this.loading = false;
+              this.addFiguresToArray();
             } else {
-              console.log("else")
               this.store.dispatch(FiguresActions.BeginGetFiguresAction({
-                starId: this.starId,
-                level: this.currentLevel.value,
-                danceType: this.currentDance
+                payload: this.starId,
               })
               );
             }
@@ -71,21 +115,19 @@ export class StarContentListComponent implements OnInit {
           selectors.selectFiguresError()).subscribe(res => {
             if (res && res.type) {
               this.figures = null;
-              this.loading = false;
-              // this.errorMsg = this.errorService.alertStarsContentError(res.type);
             }
           })
       );
     }
   }
 
-  setCurrentDance(dance) {
-    this.currentDance = dance;
-  }
+  // setCurrentDance(dance) {
+  //   this.currentDance = dance;
+  // }
 
-  setCurrentLevel(level) {
-    this.currentLevel = level;
+  // setCurrentLevel(level) {
+  //   this.currentLevel = level;
 
-  }
+  // }
 
 }

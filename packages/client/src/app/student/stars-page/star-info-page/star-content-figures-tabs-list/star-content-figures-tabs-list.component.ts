@@ -15,31 +15,24 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 export class StarContentFiguresTabsListComponent implements OnInit {
 
   @Input() starId: string = null;
-  @Input() level: StarDanceLevel = null;
-  @Input() danceType: Dance = null;
+  @Input() levels: Array<StarDanceLevel> = null;
+  @Input() dance: Dance = null;
   lvl = DanceLevel;
   subs: Array<Subscription> = [];
   figures: Figure[] = null;
   loading = true;
 
   constructor(
-    private store: Store<any>, 
-    private router: Router, 
-    private route: ActivatedRoute ) {
-
-    this.router.events.subscribe(event => {
-      if (event.constructor.name === "NavigationStart") {
-        this.route.queryParams.subscribe(params => {
-          this.level = params.level;
-          this.danceType = params.dance
-        });
-        this.ngOnInit();
-      }
-    });
-
+    private store: Store<any>,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    // console.log(this.levels);
+    // console.log(this.dance);
+
+
     // if (this.level['value'] || this.level && this.danceType) {
     //   this.subs.push(
     //     this.store.select(selectors.selectAllFiguresSorted(this.level['value'], this.danceType)).subscribe(
@@ -71,4 +64,6 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   ngOnDestory() {
     alert('ngOnDestroy fire');
   }
+
+  
 }

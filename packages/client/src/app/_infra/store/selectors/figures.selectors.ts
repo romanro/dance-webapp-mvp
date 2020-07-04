@@ -8,19 +8,15 @@ export const selectFigures = (state: FiguresState) => state.figures;
 
 export const selectAllFiguresSorted = (id) => createSelector(
     selectFigures, (allFigures) => {
-        console.log('allFigures:', allFigures)
         if (!t(allFigures, 'figures').isNullOrUndefined) {
             let figuresAraay = [];
             allFigures['figures'].forEach(figure => {
                 figure['stars'].forEach(starId => {
                     if (starId === id) {
                         figuresAraay.push(figure)
-                        console.log('figure:', figure)
                     }
                 })
-
             })
-            console.log('figuresAraay:', figuresAraay)
             if (figuresAraay.length > 0)
                 return t(figuresAraay).safeArray;
             else
