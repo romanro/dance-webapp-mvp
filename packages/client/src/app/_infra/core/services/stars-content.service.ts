@@ -12,7 +12,7 @@ import { MOCK_STARS_CONTENT } from './../../../_mocks/star-content.mocks';
 export class StarsContentService {
 
   REST_URL = '';
-  starsContent = MOCK_STARS_CONTENT;
+  // starsContent = MOCK_STARS_CONTENT;
 
   constructor(
     private configService: ConfigurationService,

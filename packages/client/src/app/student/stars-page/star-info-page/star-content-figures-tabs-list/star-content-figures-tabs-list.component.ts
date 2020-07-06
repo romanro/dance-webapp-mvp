@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
 import { Dance, DanceLevel, StarDanceLevel, Figure, StarContent } from '@core/models';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { element } from 'protractor';
 
 
 @Component({
@@ -14,10 +15,12 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 export class StarContentFiguresTabsListComponent implements OnInit {
 
-  @Input() starId: string = null;
-  @Input() levels: Array<StarDanceLevel> = null;
-  @Input() dance: Dance = null;
+  // @Input() starId: string = null;
+  @Input() levels: Array<any> = null;
+  @Input() test: Array<any> = null;
+  @Input() dance: string = null;
   lvl = DanceLevel;
+
   subs: Array<Subscription> = [];
   figures: Figure[] = null;
   loading = true;
@@ -28,42 +31,24 @@ export class StarContentFiguresTabsListComponent implements OnInit {
     private route: ActivatedRoute) {
   }
 
+
   ngOnInit() {
-    // console.log(this.levels);
-    // console.log(this.dance);
+    console.log(this.levels)
+  }
 
-
-    // if (this.level['value'] || this.level && this.danceType) {
-    //   this.subs.push(
-    //     this.store.select(selectors.selectAllFiguresSorted(this.level['value'], this.danceType)).subscribe(
-    //       content => {
-    //         if (content) {
-    //           // console.log('content:', content)
-    //           this.figures = [...content[0]['figures']];
-    //           this.loading = false;
-    //         } else {
-    //           this.store.dispatch(FiguresActions.BeginGetFiguresAction({ starId: this.starId, level: this.level['value'], danceType: this.danceType }));
-    //         }
-    //       }
-    //     )
-    //   );
-
-    //   this.subs.push(
-    //     this.store.select(
-    //       selectors.selectFiguresError()).subscribe(res => {
-    //         if (res && res.type) {
-    //           this.figures = null;
-    //           this.loading = false;
-    //           // this.errorMsg = this.errorService.alertStarsContentError(res.type);
-    //         }
-    //       })
-    //   );
-    // }
+  isFigues() {
+    console.log(this.levels)
+    this.levels.find(element => {
+      console.log(element)
+      if (element.figures)
+        return true;
+    })
+    return false;
   }
 
   ngOnDestory() {
     alert('ngOnDestroy fire');
   }
 
-  
+
 }

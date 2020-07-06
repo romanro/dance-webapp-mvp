@@ -1,16 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { StarContent, Figure, DanceLevel, StarDanceLevel } from '@core/models';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, observable, of,  } from 'rxjs';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import { Store } from '@ngrx/store';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 import { element } from 'protractor';
+import {StarContentFiguresTabsListComponent} '../star-content-figures-tabs-list/star-content-figures-tabs-list.component.TS';
 
 
 @Component({
   selector: 'dsapp-star-content-list',
-  templateUrl: './star-content-list.component.html'
+  templateUrl: './star-content-list.component.html',
+
 })
 
 export class StarContentListComponent implements OnInit {
@@ -25,24 +27,18 @@ export class StarContentListComponent implements OnInit {
   currentDance: string;
   currentLevel: any;
   routeUrl: string = null;
+  danceTypes: Array<string> = [];
+  @Output() onSuggest: EventEmitter<any> = new EventEmitter();
 
   constructor(private router: Router, private store: Store<any>) { }
 
   ngOnInit(): void {
     this.currentDance = this.content.danceTypes[0];
-    // console.log('this.currentDance:', this.currentDance)
-    this.convertEnumToArray();
+    this.danceTypes = this.content.danceTypes;
+    
     this.getFigures();
+    this.convertEnumToArray();
     this.addFiguresToArray()
-
-
-    // this.currentLevel = { key: 'one', value: EnumDanceLevel.one };
-    // this.currentDance = this.content.danceTypes[0];
-
-
-
-
-
   }
 
   setCurrentDance(dance){
@@ -50,46 +46,28 @@ export class StarContentListComponent implements OnInit {
   }
 
   addFiguresToArray() {
-    // if (this.levels) {
-    //   this.levels.forEach(level => {
-    //     console.log('level:', level)
-
-    //   })
-    // }
-
-    // console.log(DanceLevel)
     if (this.figures && this.levels) {
-      this.figures.forEach(figure => {
-    
-        if(figure.type == this.currentDance){
-          // console.log('figure:', figure.level)
-          // console.log('figure:', figure.type)
-          this.levels.forEach(level=>{
-            console.log('level:', level.level)
-            // if()
-
-          })
-        }
-
+      let figuresArray = [];
+      this.levels.forEach(level=>{
+        this.figures.forEach(figure => {
+          if(figure.type == this.currentDance && +level.level === +figure.level){
+            figuresArray.push(figure)
+            level.figures= figuresArray ;
+          }
+        })
       })
     }
-
-
-
   }
 
   convertEnumToArray() {
-
     const arrayObjects = []
-
     for (const [propertyKey, propertyValue] of Object.entries(this.EnumDanceLevel)) {
       if (!Number.isNaN(Number(propertyKey))) {
         continue;
       }
-      arrayObjects.push({ level: propertyValue });
+      arrayObjects.push({ key: propertyKey, level: propertyValue });
     }
-
-    this.levels = arrayObjects;
+    this.levels = arrayObjects ;
   }
 
   getFigures() {
