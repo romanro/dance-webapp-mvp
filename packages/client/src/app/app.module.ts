@@ -5,7 +5,7 @@ import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
 import { PracticesEffects, StarsContentEffects, StarsEffects, UserEffects } from '@infra/store/effects';
-import { PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
+import { LabReducer, PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from '@infra/ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -38,7 +38,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot({ user: UserReducer, stars: StarsReducer, starsContent: StarsContentReducer, practices: PracticesReducer }),
+    StoreModule.forRoot(
+      {
+        user: UserReducer,
+        stars: StarsReducer,
+        starsContent: StarsContentReducer,
+        practices: PracticesReducer,
+        lab: LabReducer
+      }
+    ),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects]),
     SocialLoginModule,
     NgbModule,

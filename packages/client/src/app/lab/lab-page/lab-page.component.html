@@ -1,1 +1,29 @@
-<dsapp-lab-video-tool></dsapp-lab-video-tool>
+<div class="row page-title-row">
+    <div class="col text-center">
+        <h2 class="inner-page-title">{{'LAB.title' | translate}}
+        </h2>
+    </div>
+</div>
+
+
+<div *ngIf="!labItem; else lab">
+    <div class="row">
+        <div class="col text-center">
+            <p>{{'LAB.instruction' | translate}}</p>
+            <button class="btn btn-info"
+                    tabindex="0"
+                    [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #lab>
+    <div class="row">
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <dsapp-lab-video-tool></dsapp-lab-video-tool>
+        </div>
+    </div>
+</ng-template>

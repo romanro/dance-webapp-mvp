@@ -141,5 +141,10 @@
       "getPracticesError": "There was an error fetching practices information. Try again later.",
       "getPracticeError": "There was an error fetching practice information. Try again later."
     }
+  },
+  "LAB": {
+    "title": "Welcome to My Lab",
+    "instruction": "To start using Lab tool, you need to select Figure from our library first",
+    "chooseVideo": "Choose Video from Library"
   }
 }
