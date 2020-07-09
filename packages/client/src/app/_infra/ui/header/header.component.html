@@ -10,7 +10,7 @@
        class="navbar-toggler"
        (click)="toggleMenu()">
       <div class="animated-icon"
-           [ngClass]="{'open':menuIsOpen}">
+           [ngClass]="{'open':menuIsOpen$ | async}">
         <span></span>
         <span></span>
         <span></span>
@@ -22,7 +22,7 @@
   <!-- Collapsible content -->
   <div *ngIf="menuData.menuItemsGroups"
        class="collapse navbar-collapse"
-       [ngClass]="{'show': menuIsOpen}">
+       [ngClass]="{'show': menuIsOpen$ | async}">
 
     <!-- Links -->
     <ul class="navbar-nav ml-auto">

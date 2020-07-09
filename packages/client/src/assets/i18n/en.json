@@ -4,6 +4,8 @@
     "About": "About DanSkill",
     "Profile": "Profile",
     "AddToHome": "Add to Home Screen",
+    "AddToHomeSuccess": "DanSkill was successfully added to your Home Screen",
+    "AddToHomeError": "There was an error adding shortcut to your Home Screen",
     "Save": "Save",
     "Cancel": "Cancel",
     "preview": "Preview",
