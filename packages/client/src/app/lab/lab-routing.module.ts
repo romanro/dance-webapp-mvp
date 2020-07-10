@@ -6,9 +6,7 @@ import { LabPageComponent } from '.';
 
 
 const routes: Routes = [
-    {
-        path: '', component: LabPageComponent
-    }
+    { path: '', component: LabPageComponent }
 ];
 
 

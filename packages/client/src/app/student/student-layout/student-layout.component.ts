@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MenuData, MenuItemFunction, NavButton } from '@core/models/';
 
 @Component({
   selector: 'dsapp-student-layout',
-  templateUrl: './student-layout.component.html',
-  styles: []
+  templateUrl: './student-layout.component.html'
 })
 export class StudentLayoutComponent implements OnInit {
   studentMenuData: MenuData = {
@@ -35,8 +34,8 @@ export class StudentLayoutComponent implements OnInit {
     { label: 'STUDENT.NAV.Stars', routerLink: '/student/star' },
     { label: 'STUDENT.NAV.MyLab', routerLink: '/student/lab' },
     { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' }
-    // { label: 'STUDENT.NAV.Challenges', routerLink: '/student/challenges' }
   ];
+
 
   constructor() { }
 

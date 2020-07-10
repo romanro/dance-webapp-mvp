@@ -4,7 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
+<<<<<<< HEAD
 import { FiguresReducer, PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
+=======
+import { PracticesEffects, StarsContentEffects, StarsEffects, UserEffects } from '@infra/store/effects';
+import { LabReducer, PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
+>>>>>>> c047d488f7a3b6cf4a0e98d9d6efe12d85ec219e
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from '@infra/ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -18,6 +23,8 @@ import { FiguresEffects, PracticesEffects, StarsContentEffects, StarsEffects, Us
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+<<<<<<< HEAD
     StoreModule.forRoot({
       user: UserReducer,
       stars: StarsReducer,
@@ -46,13 +54,26 @@ export function HttpLoaderFactory(http: HttpClient) {
       figures: FiguresReducer
     }),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
+=======
+    StoreModule.forRoot(
+      {
+        user: UserReducer,
+        stars: StarsReducer,
+        starsContent: StarsContentReducer,
+        practices: PracticesReducer,
+        lab: LabReducer
+      }
+    ),
+    EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects]),
+>>>>>>> c047d488f7a3b6cf4a0e98d9d6efe12d85ec219e
     SocialLoginModule,
     NgbModule,
     DeviceDetectorModule,
     AppRoutingModule,
     InfraModule,
     LoginModule,
-    StudentModule
+    StudentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     AboutDanskillModalComponent,

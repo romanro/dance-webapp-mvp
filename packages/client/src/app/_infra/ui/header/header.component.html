@@ -10,8 +10,10 @@
        class="navbar-toggler"
        (click)="toggleMenu()">
       <div class="animated-icon"
-           [ngClass]="{'open':menuIsOpen}">
-        <span *ngFor="let number of [0,1,2]"></span>
+           [ngClass]="{'open':menuIsOpen$ | async}">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </a>
 
@@ -20,14 +22,23 @@
   <!-- Collapsible content -->
   <div *ngIf="menuData.menuItemsGroups"
        class="collapse navbar-collapse"
-       [ngClass]="{'show': menuIsOpen}">
+       [ngClass]="{'show': menuIsOpen$ | async}">
 
     <!-- Links -->
     <ul class="navbar-nav ml-auto">
 
+      <li *ngIf="showAddToHomeButton"
+          class="nav-item text-center pt-2 pb-1">
+        <a class="nav-link btn btn-sm btn-outline-dark"
+           (click)="addToHomeScreen()">{{'COMMON.AddToHome' | translate}}
+        </a>
+      </li>
+
       <ng-template ngFor
                    let-menuItemsGroup
                    [ngForOf]="menuData.menuItemsGroups">
+
+
 
         <li *ngIf="menuItemsGroup.title"
             class="menu-title">
