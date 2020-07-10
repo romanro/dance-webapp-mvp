@@ -58,7 +58,7 @@
         #danceTabs="ngbNav"
         class="nav-pills">
       <li *ngFor="let dance of content.danceTypes; let i = index"
-          [ngbNavItem]="i" (click)=setCurrentDance(dance)>
+          [ngbNavItem]="i" (click)=setCurrentDance(dance) >
         <a ngbNavLink>{{dance}}</a>
         <ng-template ngbNavContent>
           <!-- {{levels.figures | json}} -->

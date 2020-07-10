@@ -34,14 +34,13 @@ export class StarContentListComponent implements OnInit {
   ngOnInit(): void {
     this.currentDance = this.content.danceTypes[0];
     this.danceTypes = this.content.danceTypes;
-    
-    this.getFigures();
     this.convertEnumToArray();
-    this.addFiguresToArray()
+    this.getFigures();
   }
 
   setCurrentDance(dance){
     this.currentDance = dance
+    this.addFiguresToArray();
   }
 
   addFiguresToArray() {
@@ -56,9 +55,6 @@ export class StarContentListComponent implements OnInit {
         })
       })
       this.levels = this.levels.map(item => Object.assign({}, item));
-
-      // this.levels = Object.assign({}, this.levels)
-
     }
   }
 
@@ -102,14 +98,4 @@ export class StarContentListComponent implements OnInit {
       );
     }
   }
-
-  // setCurrentDance(dance) {
-  //   this.currentDance = dance;
-  // }
-
-  // setCurrentLevel(level) {
-  //   this.currentLevel = level;
-
-  // }
-
 }
