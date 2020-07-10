@@ -6,7 +6,6 @@ import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import { Store } from '@ngrx/store';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 import { element } from 'protractor';
-import {StarContentFiguresTabsListComponent} '../star-content-figures-tabs-list/star-content-figures-tabs-list.component.TS';
 
 
 @Component({
@@ -56,6 +55,10 @@ export class StarContentListComponent implements OnInit {
           }
         })
       })
+      this.levels = this.levels.map(item => Object.assign({}, item));
+
+      // this.levels = Object.assign({}, this.levels)
+
     }
   }
 
@@ -70,6 +73,7 @@ export class StarContentListComponent implements OnInit {
     this.levels = arrayObjects ;
   }
 
+  isFigures(){}
   getFigures() {
     if (this.starId) {
       this.subs.push(

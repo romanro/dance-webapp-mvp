@@ -1,7 +1,4 @@
-
- <h1>test test</h1>
-{{test | json}}
-  <ng-template [ngIf]="levels && levels.length > 0 ">
+  <ng-template [ngIf]="levels && levels.length > 0 ">   
     <div class="star-level-tabs mt-2">
       <ul ngbNav
           #levelTabs="ngbNav"
@@ -10,13 +7,11 @@
             [ngbNavItem]="i">
           <a ngbNavLink>{{'STAR.STAR_INFO_PAGE.level' | translate}}
             {{level.level}}</a>
-  
           <ng-template ngbNavContent>
             <div class="row figures-list">
-              {{level | json }}
-              <div *ngFor="let figure of level.figures; let j = index"
+              <div  *ngFor="let figure of level.figures; let j = index"
                    class="col-12 col-sm-6 col-md-3 col-lg-4">
-                <div class="figure-info">
+                <div class="figure-info" >
                   <div class="figure-image">
                     <div class="embed-responsive embed-responsive-16by9">
                       <div class="embed-responsive-item star-big-image cover-bg"

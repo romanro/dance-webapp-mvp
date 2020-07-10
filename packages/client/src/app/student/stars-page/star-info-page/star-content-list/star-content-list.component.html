@@ -53,7 +53,6 @@
 
 
 <ng-template [ngIf]="content">
-  <h1> test</h1>
   <div class="star-dances-list">
     <ul ngbNav
         #danceTabs="ngbNav"
@@ -62,6 +61,8 @@
           [ngbNavItem]="i" (click)=setCurrentDance(dance)>
         <a ngbNavLink>{{dance}}</a>
         <ng-template ngbNavContent>
+          <!-- {{levels.figures | json}} -->
+          <!-- {{levels | json}} -->
           <dsapp-star-content-figures-tabs-list [levels]="levels"
                                                 [dance]="dance">
           </dsapp-star-content-figures-tabs-list>
