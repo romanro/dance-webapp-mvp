@@ -18,6 +18,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     InfraModule,
     LoginModule,
-    StudentModule
+    StudentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     AboutDanskillModalComponent,
