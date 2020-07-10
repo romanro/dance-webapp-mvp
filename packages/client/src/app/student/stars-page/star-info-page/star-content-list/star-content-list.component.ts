@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { StarContent, Figure, DanceLevel, StarDanceLevel } from '@core/models';
 import { Router } from '@angular/router';
-import { Subscription, observable, of,  } from 'rxjs';
+import { Subscription, observable, of, } from 'rxjs';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import { Store } from '@ngrx/store';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
@@ -38,7 +38,7 @@ export class StarContentListComponent implements OnInit {
     this.getFigures();
   }
 
-  setCurrentDance(dance){
+  setCurrentDance(dance) {
     this.currentDance = dance
     this.addFiguresToArray();
   }
@@ -46,11 +46,11 @@ export class StarContentListComponent implements OnInit {
   addFiguresToArray() {
     if (this.figures && this.levels) {
       let figuresArray = [];
-      this.levels.forEach(level=>{
+      this.levels.forEach(level => {
         this.figures.forEach(figure => {
-          if(figure.type == this.currentDance && +level.level === +figure.level){
+          if (figure.type == this.currentDance && +level.level === +figure.level) {
             figuresArray.push(figure)
-            level.figures= figuresArray ;
+            level.figures = figuresArray;
           }
         })
       })
@@ -66,10 +66,9 @@ export class StarContentListComponent implements OnInit {
       }
       arrayObjects.push({ key: propertyKey, level: propertyValue });
     }
-    this.levels = arrayObjects ;
+    this.levels = arrayObjects;
   }
 
-  isFigures(){}
   getFigures() {
     if (this.starId) {
       this.subs.push(
@@ -79,10 +78,7 @@ export class StarContentListComponent implements OnInit {
               this.figures = [...content];
               this.addFiguresToArray();
             } else {
-              this.store.dispatch(FiguresActions.BeginGetFiguresAction({
-                payload: this.starId,
-              })
-              );
+              this.store.dispatch(FiguresActions.BeginGetFiguresAction({payload: this.starId,}));
             }
           }
         )

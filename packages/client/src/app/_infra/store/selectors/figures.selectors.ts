@@ -19,9 +19,6 @@ export const selectAllFiguresSorted = (id) => createSelector(
             })
             if (figuresAraay.length > 0)
                 return t(figuresAraay).safeArray;
-            else
-                return null;
-
         } else {
             return null;
         }
