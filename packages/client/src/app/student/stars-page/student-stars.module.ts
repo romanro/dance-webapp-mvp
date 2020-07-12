@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { InfraModule } from '@app/_infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { StarContentFiguresTabsListComponent, StarContentListComponent, StarInfoPageComponent, StarsPageComponent } from '.';
+import { StarContentFiguresTabsListComponent, StarContentListComponent, StarInfoPageComponent, StarsPageComponent, StarFigureContentComponent } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
 
 
@@ -16,7 +15,8 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     StarInfoPageComponent,
     StarsPageComponent,
     StarContentListComponent,
-    StarContentFiguresTabsListComponent
+    StarContentFiguresTabsListComponent,
+    StarFigureContentComponent
   ]
 })
 export class StudentStarsModule { }

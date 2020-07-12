@@ -1,11 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { StarContent, Figure, DanceLevel, StarDanceLevel } from '@core/models';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, observable, of, } from 'rxjs';
 import * as selectors from '@app/_infra/store/selectors/figures.selectors';
 import { Store } from '@ngrx/store';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
-import { element } from 'protractor';
+import {StarInfoSharedService} from '../star-info-shared.service'
 
 
 @Component({
@@ -16,22 +16,25 @@ import { element } from 'protractor';
 
 export class StarContentListComponent implements OnInit {
 
-  @Input() starId: string = null;
-  @Input() content: StarContent = null;
+  starId: string = null;
+  content: StarContent = null;
   EnumDanceLevel: typeof DanceLevel = DanceLevel;
   levels: Array<any>;
   subs: Array<Subscription> = [];
   figures: Figure[];
-  // loading = true;
   currentDance: string;
   currentLevel: any;
   routeUrl: string = null;
   danceTypes: Array<string> = [];
   @Output() onSuggest: EventEmitter<any> = new EventEmitter();
+  private sub: any;
 
-  constructor(private router: Router, private store: Store<any>) { }
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<any>,     private starInfoService : StarInfoSharedService
+    ) { }
 
   ngOnInit(): void {
+    this.starInfoService.currentStarId.subscribe(id => this.starId = id)
+    this.starInfoService.currentContent.subscribe(content => this.content = content)
     this.currentDance = this.content.danceTypes[0];
     this.danceTypes = this.content.danceTypes;
     this.convertEnumToArray();
