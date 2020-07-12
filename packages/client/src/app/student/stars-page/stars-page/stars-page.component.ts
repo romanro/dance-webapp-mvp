@@ -42,7 +42,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
 
     this.subs.push(
-      this.store.select(selectors.selectAllStarsSorted()).subscribe(
+      this.store.select(selectors.selectAllStars()).subscribe(
         res => {
           if (res) {
             this.stars = [...res[0].stars];

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { StarContent } from '@core/models';
 import { Observable } from 'rxjs';
 
-import { BaseRestService } from '.';
+import { BaseRestService } from './base-rest.service';
 
 @Injectable({
   providedIn: 'root'
