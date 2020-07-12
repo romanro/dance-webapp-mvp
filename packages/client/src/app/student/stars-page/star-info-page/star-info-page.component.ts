@@ -23,7 +23,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
   errorMsg: StarError | string = null;
 
   starExists = false;
-
+  currentRoute: string =null
   storeSelectSub: Subscription = null;
   subs: Subscription[] = [];
 
@@ -32,7 +32,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
-    private errorService: AlertErrorService
+    private errorService: AlertErrorService,
   ) { }
 
   ngOnInit() {
@@ -46,6 +46,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
                 this.star = { ...star };
                 this.loading = false;
                 this.errorMsg = null;
+                this.router.navigate(['figures'],{relativeTo: this.route });
               } else {
                 this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
               }
@@ -63,6 +64,10 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
           }
         })
     );
+
+ 
+
+
   }
 
   ngOnDestroy(): void {
@@ -89,4 +94,10 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.autoplay = true;
   }
 
+  // isActiveComponent(){
+  //   this.currentRoute = this.route._routerState.snapshot.url;
+  //   if(!this.currentRoute.includes('figure'))
+  //     return true;
+  //   return false
+  // }
 }
