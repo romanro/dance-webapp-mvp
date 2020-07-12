@@ -1,12 +1,12 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { StarContent, Figure, DanceLevel, StarDanceLevel } from '@core/models';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Subscription, observable, of, } from 'rxjs';
-import * as starContentSelectors from '@app/_infra/store/selectors/stars-content.selectors';
-import * as figuresSelectors from '@app/_infra/store/selectors/figures.selectors';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
 import * as StarsContentActions from '@app/_infra/store/actions/stars-content.actions';
+import * as figuresSelectors from '@app/_infra/store/selectors/figures.selectors';
+import * as starContentSelectors from '@app/_infra/store/selectors/stars-content.selectors';
+import { DanceLevel, Figure, StarContent, StarDanceLevel } from '@core/models';
+import { Store } from '@ngrx/store';
+import { observable, of, Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,6 +16,8 @@ import * as StarsContentActions from '@app/_infra/store/actions/stars-content.ac
 })
 
 export class StarContentListComponent implements OnInit {
+
+  @Output() onSuggest: EventEmitter<any> = new EventEmitter();
 
   starId: string = null;
   content: StarContent = null;
@@ -27,19 +29,18 @@ export class StarContentListComponent implements OnInit {
   currentLevel: any;
   routeUrl: string = null;
   danceTypes: Array<string> = [];
-  @Output() onSuggest: EventEmitter<any> = new EventEmitter();
   storeSelectSub: Subscription = null;
-  private sub: any;
   previousUrl: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<any>,  
-    ) {
-      const url =  router.url.split('/');
-      this.starId = url[url.length-2];
-     }
+  private sub: any;
+
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<any>,
+  ) {
+    const url = router.url.split('/');
+    this.starId = url[url.length - 2];
+  }
 
   ngOnInit(): void {
-console.log(11111)
     this.getStarContent();
     this.currentDance = this.content.danceTypes[0];
     this.danceTypes = this.content.danceTypes;
@@ -47,7 +48,7 @@ console.log(11111)
     this.getFigures();
   }
 
-  getStarContent(){
+  getStarContent() {
     this.subs.push(
       this.route.paramMap.subscribe(params => {
         this.storeSelectSub =
@@ -56,7 +57,7 @@ console.log(11111)
               if (star) {
                 this.content = { ...star };
               } else {
-                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
+                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({ payload: this.starId }));
               }
             }
           );
@@ -70,10 +71,10 @@ console.log(11111)
 
   addFiguresToArray() {
     if (this.figures && this.levels) {
-      let figuresArray = [];
+      const figuresArray = [];
       this.levels.forEach(level => {
         this.figures.forEach(figure => {
-          if (figure.type == this.currentDance && +level.level === +figure.level) {
+          if (figure.type === this.currentDance && +level.level === +figure.level) {
             figuresArray.push(figure)
             level.figures = figuresArray;
           }
@@ -103,7 +104,7 @@ console.log(11111)
               this.figures = [...content];
               this.addFiguresToArray();
             } else {
-              this.store.dispatch(FiguresActions.BeginGetFiguresAction({payload: this.starId,}));
+              this.store.dispatch(FiguresActions.BeginGetFiguresAction({ payload: this.starId, }));
             }
           }
         )

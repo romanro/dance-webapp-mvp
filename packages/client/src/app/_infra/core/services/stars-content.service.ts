@@ -1,10 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StarContent } from '@core/models';
 import { Observable, of, throwError } from 'rxjs';
-import { ConfigurationService } from './configuration.service';
-import { HttpClient } from '@angular/common/http';
 
-import { MOCK_STARS_CONTENT } from './../../../_mocks/star-content.mocks';
+import { ConfigurationService } from './configuration.service';
+
 
 @Injectable({
   providedIn: 'root'
