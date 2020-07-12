@@ -14,13 +14,13 @@ import * as StarsContentActions from '../actions/stars-content.actions';
 export class StarsContentEffects {
     constructor(private action$: Actions, private starsContentService: StarsContentService) { }
 
-    getStars$: Observable<Action> = createEffect(() =>
+    getStarContent$: Observable<Action> = createEffect(() =>
         this.action$.pipe(
             ofType(StarsContentActions.BeginGetStarsContentAction),
             mergeMap(action =>
-                this.starsContentService.getStarsContent().pipe(
+                this.starsContentService.getStarContent(action.payload).pipe(
                     map((data: StarContent[]) => {
-                        return StarsContentActions.SuccessGetStarsContentAction({ payload: data });
+                        return StarsContentActions.SuccessGetStarsContentAction({ payload: data['star'] });
                     }),
                     catchError((error: Error) => {
                         return of(StarsContentActions.ErrorStarsContentAction(error));

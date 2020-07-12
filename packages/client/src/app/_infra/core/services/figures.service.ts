@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Star } from '../models';
+import { Figure } from '../models';
 import { BaseRestService } from './base-rest.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class StarsService {
+export class FiguresService {
+
   constructor(private baseRestService: BaseRestService) { }
 
-  getStars(): Observable<Star[]> {
-    return this.baseRestService.get<Star[]>('stars');
+  getFigures(starId): Observable<Figure[]> {
+    return this.baseRestService.get<Figure[]>(`figures/star/all/${starId}`);
   }
 
 }

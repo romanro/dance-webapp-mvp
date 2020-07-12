@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
+import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
+import {  DanceLevel, Figure } from '@core/models';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -7,17 +8,20 @@ import { Dance, DanceLevel, StarDanceLevel } from '@core/models';
   templateUrl: './star-content-figures-tabs-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class StarContentFiguresTabsListComponent implements OnInit {
 
-  @Input() levels: Array<StarDanceLevel> = null;
-  @Input() dance: Dance = null;
-
+  @Input() levels: Array<any> = null;
+  @Input() dance: string = null;
   lvl = DanceLevel;
 
-  constructor() { }
+  subs: Array<Subscription> = [];
+  figures: Figure[] = null;
+  loading = true;
 
-  ngOnInit() {
+  constructor() {}
 
+  ngOnInit() { 
   }
 
 }

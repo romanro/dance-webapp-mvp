@@ -1,14 +1,16 @@
-<ng-template [ngIf]="content && !errorMsg && !loading">
+<h1>content list</h1>
+<ng-template [ngIf]="content">
   <div class="star-dances-list">
     <ul ngbNav
         #danceTabs="ngbNav"
         class="nav-pills">
-      <li *ngFor="let dance of content.dances; let i = index"
-          [ngbNavItem]="i">
-        <a ngbNavLink>{{dance.dance.name}}</a>
+      <li *ngFor="let dance of content.danceTypes; let i = index"
+          [ngbNavItem]="i"
+          (click)=setCurrentDance(dance)>
+        <a ngbNavLink>{{dance}}</a>
         <ng-template ngbNavContent>
-          <dsapp-star-content-figures-tabs-list [levels]="dance.levels"
-                                                [dance]="dance.dance">
+          <dsapp-star-content-figures-tabs-list [levels]="levels"
+                                                [dance]="dance">
           </dsapp-star-content-figures-tabs-list>
         </ng-template>
       </li>
@@ -24,7 +26,7 @@
 </ng-template>
 
 
-<ng-template [ngIf]="!content && errorMsg && !loading">
+<!-- <ng-template [ngIf]="!content && errorMsg && !loading">
   <div class="row mb-4">
     <div class="col">
       <dsapp-inpage-error [msg]="errorMsg"
@@ -36,4 +38,4 @@
 
 <ng-template [ngIf]="loading">
   <ui-preloader-inapp></ui-preloader-inapp>
-</ng-template>
+</ng-template> -->

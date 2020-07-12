@@ -1,13 +1,24 @@
-import { Dance, DanceFigure } from '.';
+import { Dance, DanceFigure, Name, StarUserPics } from '.';
 
 export interface StarContent {
-    starId: string;
-    dances: Array<StarDance>;
+    about: string;
+    birthDate: Date;
+    createdAt: Date;
+    danceTypes: Array<DanceType>;
+    location: Location;
+    name: Name;
+    slug: string;
+    promoVideoURL: string;
+    updatedAt: Date;
+    userPics: StarUserPics;
+    _id: string
 }
 
-export interface StarDance {
-    dance: Dance;
-    levels: Array<StarDanceLevel>;
+export enum DanceType {
+    WALTZ = 'waltz',
+    TANGO = 'tango',
+    QUICKSTEP = 'quickstep',
+    FOXTROT = 'foxtrot'
 }
 
 export interface StarDanceLevel {
@@ -18,9 +29,9 @@ export interface StarDanceLevel {
 export type DanceLevelNumber = 1 | 2 | 3;
 
 export enum DanceLevel {
-    'beginner',
-    'intermediate',
-    'advanced'
+    beginner = 1,
+    intermediate = 2,
+    advanced = 3
 }
 
 export enum StarContentError {

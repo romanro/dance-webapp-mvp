@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from 'express';
+
 import Star, { IStar } from '../models/Star';
 
 const getAllStars = async (): Promise<IStar[]> => (
@@ -14,16 +15,15 @@ export const getStars = async (req: Request, res: Response, next: NextFunction) 
 
 const getSpecificStar = async (id: string): Promise<IStar | null> => (
     await Star.findById(id)
-    .populate("figures", "type -_id")
-    .lean()
+        .populate("figures", "type -_id")
+        .lean()
 );
 
 
 
 export const getStar = async (req: Request, res: Response, next: NextFunction) => {
     const star = await getSpecificStar(req.params.starId);
-    if (star)
-    {
+    if (star) {
         (star as any).danceTypes = star.figures.map((figure) => (figure.type)).filter(
             (value, index, self) => self.indexOf(value) === index) as any;
         delete star.figures;

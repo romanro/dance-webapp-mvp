@@ -1,71 +1,123 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import * as StarContentActions from '@app/_infra/store/actions/stars-content.actions';
-import * as selectors from '@app/_infra/store/selectors/stars-content.selectors';
-import { StarContent, StarContentError } from '@core/models';
-import { AlertErrorService } from '@core/services';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import * as FiguresActions from '@app/_infra/store/actions/figures.actions';
+import * as StarsContentActions from '@app/_infra/store/actions/stars-content.actions';
+import * as figuresSelectors from '@app/_infra/store/selectors/figures.selectors';
+import * as starContentSelectors from '@app/_infra/store/selectors/stars-content.selectors';
+import { DanceLevel, Figure, StarContent, StarDanceLevel } from '@core/models';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { observable, of, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'dsapp-star-content-list',
-  templateUrl: './star-content-list.component.html'
+  templateUrl: './star-content-list.component.html',
+
 })
-export class StarContentListComponent implements OnInit, OnDestroy {
 
-  @Input() starId: string = null;
+export class StarContentListComponent implements OnInit {
 
+  @Output() onSuggest: EventEmitter<any> = new EventEmitter();
+
+  starId: string = null;
   content: StarContent = null;
-
-  loading = true;
-  errorMsg: StarContentError | string = null;
-
-
+  EnumDanceLevel: typeof DanceLevel = DanceLevel;
+  levels: Array<any>;
   subs: Array<Subscription> = [];
+  figures: Figure[];
+  currentDance: string;
+  currentLevel: any;
+  routeUrl: string = null;
+  danceTypes: Array<string> = [];
+  storeSelectSub: Subscription = null;
+  previousUrl: string;
 
-  constructor(private store: Store<any>, private errorService: AlertErrorService) { }
+  private sub: any;
+
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<any>,
+  ) {
+    const url = router.url.split('/');
+    this.starId = url[url.length - 2];
+  }
 
   ngOnInit(): void {
+    this.getStarContent();
+    this.currentDance = this.content.danceTypes[0];
+    this.danceTypes = this.content.danceTypes;
+    this.convertEnumToArray();
+    this.getFigures();
+  }
+
+  getStarContent() {
+    this.subs.push(
+      this.route.paramMap.subscribe(params => {
+        this.storeSelectSub =
+          this.store.select(starContentSelectors.selectStarContentById(this.starId)).subscribe(
+            star => {
+              if (star) {
+                this.content = { ...star };
+              } else {
+                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({ payload: this.starId }));
+              }
+            }
+          );
+      })
+    );
+  }
+  setCurrentDance(dance) {
+    this.currentDance = dance
+    this.addFiguresToArray();
+  }
+
+  addFiguresToArray() {
+    if (this.figures && this.levels) {
+      const figuresArray = [];
+      this.levels.forEach(level => {
+        this.figures.forEach(figure => {
+          if (figure.type === this.currentDance && +level.level === +figure.level) {
+            figuresArray.push(figure)
+            level.figures = figuresArray;
+          }
+        })
+      })
+      this.levels = this.levels.map(item => Object.assign({}, item));
+    }
+  }
+
+  convertEnumToArray() {
+    const arrayObjects = []
+    for (const [propertyKey, propertyValue] of Object.entries(this.EnumDanceLevel)) {
+      if (!Number.isNaN(Number(propertyKey))) {
+        continue;
+      }
+      arrayObjects.push({ key: propertyKey, level: propertyValue });
+    }
+    this.levels = arrayObjects;
+  }
+
+  getFigures() {
     if (this.starId) {
       this.subs.push(
-        this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
+        this.store.select(figuresSelectors.selectAllFiguresByStar(this.starId)).subscribe(
           content => {
             if (content) {
-              this.content = { ...content };
-              this.loading = false;
-              this.errorMsg = null;
+              this.figures = [...content];
+              this.addFiguresToArray();
             } else {
-              this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
+              this.store.dispatch(FiguresActions.BeginGetFiguresAction({ payload: this.starId, }));
             }
           }
         )
       );
+
+      this.subs.push(
+        this.store.select(
+          figuresSelectors.selectFiguresError()).subscribe(res => {
+            if (res && res.type) {
+              this.figures = null;
+            }
+          })
+      );
     }
-
-    this.subs.push(
-      this.store.select(
-        selectors.selectStarsContentError()).subscribe(res => {
-          if (res && res.type) {
-            this.content = null;
-            this.loading = false;
-            this.errorMsg = this.errorService.alertStarsContentError(res.type);
-          }
-        })
-    );
   }
-
-  tryAgain() {
-    this.content = null;
-    this.errorMsg = null;
-    this.loading = true;
-    setTimeout(() => {
-      this.store.dispatch(StarContentActions.BeginGetStarsContentAction());
-    }, 2000);
-
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(s => s.unsubscribe());
-  }
-
-
 }

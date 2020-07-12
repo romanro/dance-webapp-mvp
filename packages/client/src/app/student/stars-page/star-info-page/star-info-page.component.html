@@ -21,24 +21,17 @@
           [name]="star.name"></h5>
       <p class="text-muted">{{star.about}}</p>
 
-      <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
+      <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
 
 
       <button class="btn btn-outline-dark"
               (click)="openPromoModal()">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</button>
 
-
-      <div *ngIf="star.currentChallenge"
-           class="btn-holder mt-1">
-        <button class="btn btn-sm btn-success"
-                [routerLink]="['/student','challenges',star.currentChallenge]">{{'STAR.STAR_INFO_PAGE.openCurrentChallenge' | translate}}</button>
-      </div>
     </div>
   </div>
-
   <div class="row mt-1">
     <div class="col">
-      <dsapp-star-content-list [starId]="starId"></dsapp-star-content-list>
+      <router-outlet></router-outlet>
     </div>
   </div>
 
