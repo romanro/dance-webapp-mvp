@@ -18,7 +18,7 @@ export class StarsContentEffects {
         this.action$.pipe(
             ofType(StarsContentActions.BeginGetStarsContentAction),
             mergeMap(action =>
-                this.starsContentService.getStarsContent(action.payload).pipe(
+                this.starsContentService.getStarContent(action.payload).pipe(
                     map((data: StarContent[]) => {
                         return StarsContentActions.SuccessGetStarsContentAction({ payload: data['star'] });
                     }),

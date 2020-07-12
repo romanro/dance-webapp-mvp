@@ -1,21 +1,17 @@
-import { Dance, DanceFigure } from '.';
+import { Dance, DanceFigure, Name, StarUserPics } from '.';
 
 export interface StarContent {
     about: string;
     birthDate: Date;
     createdAt: Date;
     danceTypes: Array<string>;
-    location: string;
-    name: string;
+    location: Location;
+    name: Name;
+    slug: string;
     promoVideoURL: string;
     updatedAt: Date;
-    userPics: object;
+    userPics: StarUserPics;
     _id: string
-}
-
-export interface StarDance {
-    dance: Dance;
-    levels: Array<StarDanceLevel>;
 }
 
 export interface StarDanceLevel {
