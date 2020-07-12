@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as FiguresActions from '../actions/figures.actions';
-import { initializeFiguresState, FiguresState } from '../state';
+import { FiguresState, initializeFiguresState } from '../state';
 
 export const initialFiguresState = initializeFiguresState();
 
