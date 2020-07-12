@@ -4,7 +4,7 @@ export interface StarContent {
     about: string;
     birthDate: Date;
     createdAt: Date;
-    danceTypes: Array<string>;
+    danceTypes: Array<DanceType>;
     location: Location;
     name: Name;
     slug: string;
@@ -12,6 +12,13 @@ export interface StarContent {
     updatedAt: Date;
     userPics: StarUserPics;
     _id: string
+}
+
+export enum DanceType {
+    WALTZ = 'waltz',
+    TANGO = 'tango',
+    QUICKSTEP = 'quickstep',
+    FOXTROT = 'foxtrot'
 }
 
 export interface StarDanceLevel {
