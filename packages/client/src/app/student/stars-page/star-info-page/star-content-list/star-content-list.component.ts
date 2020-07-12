@@ -98,7 +98,7 @@ export class StarContentListComponent implements OnInit {
   getFigures() {
     if (this.starId) {
       this.subs.push(
-        this.store.select(figuresSelectors.selectAllFiguresSorted(this.starId)).subscribe(
+        this.store.select(figuresSelectors.selectAllFiguresByStar(this.starId)).subscribe(
           content => {
             if (content) {
               this.figures = [...content];
