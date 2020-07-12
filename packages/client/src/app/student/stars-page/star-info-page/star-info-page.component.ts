@@ -8,7 +8,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { VideoPlayerModalComponent } from '@ui/video-player-modal/video-player-modal.component';
 import { Subscription } from 'rxjs';
-import {StarInfoSharedService} from './star-info-shared.service'
 
 @Component({
   selector: 'dsapp-star-info-page',
@@ -34,7 +33,6 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private errorService: AlertErrorService,
-    private starInfoService : StarInfoSharedService
   ) { }
 
   ngOnInit() {
@@ -48,8 +46,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
                 this.star = { ...star };
                 this.loading = false;
                 this.errorMsg = null;
-                this.starInfoService.changeStarAndContent(this.starId, star)
-                this.router.navigate(['figures'], { relativeTo: this.route });
+                this.router.navigate(['figures'],{relativeTo: this.route });
               } else {
                 this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
               }

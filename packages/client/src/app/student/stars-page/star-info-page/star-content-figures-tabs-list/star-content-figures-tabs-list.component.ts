@@ -22,7 +22,6 @@ export class StarContentFiguresTabsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() { 
-    console.log(1111)
   }
 
 }

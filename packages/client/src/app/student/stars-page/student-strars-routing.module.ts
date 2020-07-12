@@ -9,8 +9,6 @@ const routes: Routes = [
   {
     path: ':starId', component: StarInfoPageComponent,
     children: [
-      // { path: '', redirectTo: 'figures', pathMatch: 'full' },
-
       { path: 'figures', component: StarContentListComponent, pathMatch: 'full' },
       { path: 'figures/test', component: StarFigureContentComponent,  pathMatch: 'full' },
 
