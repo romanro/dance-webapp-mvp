@@ -14,7 +14,8 @@
     "test": "lerna run test",
     "setup": "lerna bootstrap",
     "build": "lerna run build --parallel",
-    "start": "yarn workspace webapp-server start"
+    "start": "yarn workspace webapp-server start",
+    "postinstall": "cp lock.js node_modules/@angular/compiler-cli/ngcc/src/execution/lock_file.js && ngcc --create-ivy-entry-points"
   },
   "devDependencies": {
     "lerna": "^3.18.3",
