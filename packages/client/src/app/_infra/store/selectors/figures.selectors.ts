@@ -1,4 +1,3 @@
-import { Figure } from '@app/_infra/core/models';
 import { createSelector } from '@ngrx/store';
 import t from 'typy';
 
