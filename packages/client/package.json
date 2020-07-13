@@ -2,6 +2,9 @@
   "name": "webapp-client",
   "version": "0.0.0",
   "license": "Proprietary",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "ng": "ng",
     "dev": "ng serve",
