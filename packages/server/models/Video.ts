@@ -36,10 +36,6 @@ export interface IVideo extends IVideoBase {
     associatedId: IVideo["_id"] | IFigure["_id"];
 }
 
-export interface IVideo_populated extends IVideoBase {
-    associatedId: IVideo | IFigure;
-}
-
 export interface IVideoModel extends Model<IVideo> {
 }
 

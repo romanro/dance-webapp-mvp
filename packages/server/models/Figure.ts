@@ -35,11 +35,6 @@ export interface IFigure extends IFigureBase {
   videos: [IVideo["_id"]];
 }
 
-export interface IFigure_populated extends IFigureBase {
-  stars: [IStar]; 
-  videos: [IVideo]; 
-}
-
 export interface IFigureModel extends Model<IFigure> {
 }
 

@@ -52,7 +52,6 @@ const userSchema = new mongoose.Schema(
     google: String,
     tokens: [{ type: String }],
 
-    // videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
     practiceItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticeItem' }],
 
 
@@ -177,13 +176,7 @@ userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
 }
 
 export interface IUser extends IUserBase {
-  // videos: [IVideo["_id"]];
   practiceItems: [IPracticeItem["_id"]];
-}
-
-export interface IUser_populated extends IUserBase {
-  // videos: [IVideo];
-  practiceItems: [IPracticeItem];
 }
 
 
