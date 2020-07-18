@@ -1,6 +1,8 @@
 import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
-import { EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
-    EnumVideoType, possibleVideoTypes, EnumAssociateType, possibleAssociateTypes } from "../shared/enums"
+import {
+    EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
+    EnumVideoType, possibleVideoTypes, EnumAssociateType, possibleAssociateTypes
+} from "../shared/enums"
 import { IFigure } from './Figure';
 
 
@@ -12,9 +14,10 @@ const videoSchema = new mongoose.Schema(
         participatesAmount: { type: EnumParticipatesAmount, enum: possibleParticipatesAmounts, required: true },
         associateWith: { type: EnumAssociateType, enum: possibleAssociateTypes, required: true },
         type: { type: EnumVideoType, enum: possibleVideoTypes, required: true },
-        
+        coverURL: { type: String, required: true },
+
         // ref should be indicated on populate (figure/video)
-        associatedId: { type: mongoose.Schema.Types.ObjectId, required: true }, 
+        associatedId: { type: mongoose.Schema.Types.ObjectId, required: true },
     },
     { timestamps: true }
 );
@@ -26,6 +29,7 @@ interface IVideoSchema extends Document {
     participatesAmount: EnumParticipatesAmount;
     associateWith: EnumAssociateType;
     type: EnumVideoType;
+    coverURL: string;
 }
 
 interface IVideoBase extends IVideoSchema {
