@@ -54,10 +54,6 @@ export interface IStar extends IStarBase {
   figures: [IFigure["_id"]];
 }
 
-export interface IStar_populated extends IStarBase {
-  figures: [IFigure];
-}
-
 export interface IStarModel extends Model<IStar> {
 }
 

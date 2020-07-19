@@ -19,10 +19,6 @@ export interface IPracticeItem extends IPracticeItemBase {
     associatedVideo: IVideo["_id"];
 }
 
-export interface IPracticeItem_populated extends IPracticeItemBase {
-    associatedVideo: IVideo;
-}
-
 export interface IPracticeItemModel extends Model<IPracticeItem> {
 }
 
