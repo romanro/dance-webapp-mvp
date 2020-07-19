@@ -42,10 +42,10 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
 
     this.subs.push(
-      this.store.select(selectors.selectAllStarsSorted()).subscribe(
+      this.store.select(selectors.selectAllStars()).subscribe(
         res => {
           if (res) {
-            this.stars = [...res];
+            this.stars = [...res[0].stars];
             this.loading = false;
           } else {
             this.store.dispatch(StarsActions.BeginGetStarsAction());
@@ -64,7 +64,6 @@ export class StarsPageComponent implements OnInit, OnDestroy {
           }
         })
     );
-
   }
 
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }

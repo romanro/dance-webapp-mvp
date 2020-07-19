@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertErrorService } from '@app/_infra/core/services';
-import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import * as selectors from '@app/_infra/store/selectors/stars.selectors';
+import * as StarsContentActions from '@app/_infra/store/actions/stars-content.actions';
+import * as selectors from '@app/_infra/store/selectors/stars-content.selectors';
 import { Star, StarError } from '@core/models/star.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -23,7 +23,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
   errorMsg: StarError | string = null;
 
   starExists = false;
-
+  currentRoute: string =null
   storeSelectSub: Subscription = null;
   subs: Subscription[] = [];
 
@@ -32,7 +32,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
-    private errorService: AlertErrorService
+    private errorService: AlertErrorService,
   ) { }
 
   ngOnInit() {
@@ -40,23 +40,23 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
       this.route.paramMap.subscribe(params => {
         this.starId = params.get('starId');
         this.storeSelectSub =
-          this.store.select(selectors.selectStarById(this.starId)).subscribe(
+          this.store.select(selectors.selectStarContentById(this.starId)).subscribe(
             star => {
               if (star) {
                 this.star = { ...star };
                 this.loading = false;
                 this.errorMsg = null;
+                this.router.navigate(['figures'],{relativeTo: this.route });
               } else {
-                this.store.dispatch(StarsActions.BeginGetStarsAction());
+                this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
               }
             }
           );
       })
     );
-
     this.subs.push(
       this.store.select(
-        selectors.selectStarsError()).subscribe(res => {
+        selectors.selectStarsContentError()).subscribe(res => {
           if (res && res.type) {
             this.star = null;
             this.loading = false;
@@ -64,6 +64,10 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
           }
         })
     );
+
+ 
+
+
   }
 
   ngOnDestroy(): void {
@@ -78,7 +82,7 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     this.errorMsg = null;
     this.loading = true;
     setTimeout(() => {
-      this.store.dispatch(StarsActions.BeginGetStarsAction());
+      this.store.dispatch(StarsContentActions.BeginGetStarsContentAction({payload: this.starId}));
     }, 2000);
 
   }
@@ -90,4 +94,10 @@ export class StarInfoPageComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.autoplay = true;
   }
 
+  // isActiveComponent(){
+  //   this.currentRoute = this.route._routerState.snapshot.url;
+  //   if(!this.currentRoute.includes('figure'))
+  //     return true;
+  //   return false
+  // }
 }

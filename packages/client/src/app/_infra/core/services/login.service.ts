@@ -28,7 +28,6 @@ export class LoginService {
   ) { }
 
   login({ email, password }) {
-
     this.baseRestService
       .post<AuthRestResponse>('login', { email, password })
       .subscribe(

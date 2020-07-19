@@ -2,12 +2,11 @@
     <div class="col text-center">
         <button *ngIf="aboutVideoURL"
                 class="btn btn-outline-dark"
-                (click)="openPromoModal(aboutBtnTxt, aboutVideoURL)">{{aboutBtnTxt}}</button>
+                (click)="openPromoModal(aboutBtnTxt, aboutVideoURL)">{{'COMMON.About' | translate}}</button>
         <h2 class="inner-page-title">{{'STAR.title' | translate}}
         </h2>
     </div>
 </div>
-
 <ng-template [ngIf]="stars && !errorMsg && !loading">
     <div class="row d-flex justify-content-center">
         <div *ngFor="let star of stars"
@@ -23,21 +22,6 @@
 
 
                 <div class="star-info-text">
-                    <div class="chlng-btn-holder">
-
-                        <ng-container
-                                      *ngIf="star.currentChallenge; then chlngBtn; else noClngBtn">
-                        </ng-container>
-                        <ng-template #chlngBtn>
-                            <button
-                                    class="btn btn-sm btn-challenge btn-success">{{'STAR.currentChallenge' | translate}}</button>
-                        </ng-template>
-                        <ng-template #noClngBtn>
-                            <button disabled
-                                    class="btn btn-sm btn-challenge btn-secondary">{{'STAR.challengeFinished' | translate}}</button>
-                        </ng-template>
-
-                    </div>
 
                     <h5 class="star-info-name"
                         dsappStarName
@@ -45,14 +29,14 @@
 
                     <p class="star-info-desc text-muted">{{star.about}}</p>
 
-                    <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder>
+                    <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
 
                     <div class="star-info-btns">
                         <a class="btn btn-outline-dark"
                            (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
 
                         <a class="btn btn-info"
-                           [routerLink]="[star.id]">{{'STAR.learn' | translate}}</a>
+                           [routerLink]="[star._id]">{{'STAR.learn' | translate}}</a>
                     </div>
 
                 </div>

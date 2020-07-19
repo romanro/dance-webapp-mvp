@@ -1,31 +1,48 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MenuData, MenuItemFunction } from '@core/models/';
-import { LoginService } from '@core/services/';
+import { AlertService, LoginService, MenuService } from '@core/services/';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AboutDanskillModalComponent } from '@ui/about-danskill-modal/about-danskill-modal.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ui-header',
-  templateUrl: './header.component.html',
-  styles: []
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
 
   @Input() menuData: MenuData;
 
-  menuIsOpen = false;
+  menuIsOpen$: Observable<boolean>;
+  deferredPrompt: any;
+  showAddToHomeButton = false;
 
-  constructor(private loginService: LoginService, private modalService: NgbModal) { }
+  constructor(
+    private loginService: LoginService,
+    private modalService: NgbModal,
+    private alertService: AlertService,
+    private menuService: MenuService,
+  ) { }
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e) {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    this.deferredPrompt = e;
+    this.showAddToHomeButton = true;
+  }
 
   ngOnInit() {
+    this.menuIsOpen$ = this.menuService.menuOpenState$;
   }
 
   toggleMenu() {
-    this.menuIsOpen = !this.menuIsOpen;
+    this.menuService.toggleMenuOpenState();
   }
 
   closeMenu() {
-    this.menuIsOpen = false;
+    this.menuService.setMenuOpenState(false);
   }
 
   menuItemFunction(fType: MenuItemFunction) {
@@ -37,6 +54,27 @@ export class HeaderComponent implements OnInit {
         this.loginService.logout();
         break;
     }
+  }
+
+  addToHomeScreen() {
+
+    // Show the prompt
+    this.deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          /// User accepted the A2HS prompt
+          // hide our user interface that shows our A2HS button
+          this.showAddToHomeButton = false;
+          this.deferredPrompt = null;
+          this.alertService.success('COMMON.AddToHomeSuccess');
+          this.closeMenu();
+        } else {
+          // User dismissed the A2HS prompt
+          this.alertService.error('COMMON.AddToHomeError');
+        }
+      });
   }
 
 }
