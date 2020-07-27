@@ -3,8 +3,7 @@ import { NavButton } from '@core/models';
 
 @Component({
   selector: 'ui-navigation',
-  templateUrl: './navigation.component.html',
-  styles: []
+  templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
 
