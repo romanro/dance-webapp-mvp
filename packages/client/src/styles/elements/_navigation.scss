@@ -75,14 +75,30 @@
         font-size: 0.8rem;
         text-transform: lowercase;
         font-weight: 500;
+        overflow: hidden;
+        height: auto;
+        max-height: 50px;
 
+        @include media-breakpoint-down(md) {
+          @include trans_ition (all .22s ease-in-out);
+        }
 
         @include media-breakpoint-up(sm) {
           font-size: 1rem;
         }
 
         label {
+          display: inline-block;
           margin: 0;
+        }
+
+        &.hide-label {
+          @include media-breakpoint-down(md) {
+            height: 0;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
         }
       }
 

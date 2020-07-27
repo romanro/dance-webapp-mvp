@@ -10,7 +10,8 @@
       <i *ngIf="btn.icon"
          class="icon"
          [ngClass]="btn.icon"></i>
-      <div class="label">
+      <div class="label"
+           [ngClass]="{'hide-label':userScrolled}">
         <label>{{btn.label | translate}}</label>
       </div>
     </li>
