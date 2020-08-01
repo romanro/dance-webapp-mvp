@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { InfraModule } from '@app/_infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { StarContentFiguresTabsListComponent, StarContentListComponent, StarInfoPageComponent, StarsPageComponent, StarFigureContentComponent } from '.';
+
+import { StarContentPageComponent, StarsPageComponent } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
 
 
@@ -12,11 +13,7 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     CommonModule, TranslateModule.forChild(), NgbModule, StudentStarRoutingModule, InfraModule
   ],
   declarations: [
-    StarInfoPageComponent,
-    StarsPageComponent,
-    StarContentListComponent,
-    StarContentFiguresTabsListComponent,
-    StarFigureContentComponent
+    StarsPageComponent, StarContentPageComponent
   ]
 })
 export class StudentStarsModule { }

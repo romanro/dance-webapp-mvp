@@ -5,6 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
+import t from 'typy';
 
 import * as StarsActions from '../actions/stars.actions';
 
@@ -17,8 +18,9 @@ export class StarsEffects {
             ofType(StarsActions.BeginGetStarsAction),
             mergeMap(action =>
                 this.starsService.getStars().pipe(
-                    map((data: Star[]) => {
-                        return StarsActions.SuccessGetStarsAction({ payload: data });
+                    map((data) => {
+                        const stars = t(data, 'stars').safeArray;
+                        return StarsActions.SuccessGetStarsAction({ payload: stars });
                     }),
                     catchError((error: Error) => {
                         return of(StarsActions.ErrorStarsAction(error));

@@ -1,24 +1,23 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import { StarContentListComponent } from '../..';
+import { StarContentPageComponent } from './star-content-page.component';
 
-
-describe('StarContentListComponent', () => {
-  let component: StarContentListComponent;
-  let fixture: ComponentFixture<StarContentListComponent>;
+describe('StarContentPageComponent', () => {
+  let component: StarContentPageComponent;
+  let fixture: ComponentFixture<StarContentPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [StarContentListComponent]
+      declarations: [ StarContentPageComponent ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StarContentListComponent);
+    fixture = TestBed.createComponent(StarContentPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
