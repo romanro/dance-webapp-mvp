@@ -31,9 +31,9 @@ export class StudentLayoutComponent implements OnInit {
   };
 
   studentNavButtons: NavButton[] = [
-    { label: 'STUDENT.NAV.Stars', routerLink: '/student/star' },
-    { label: 'STUDENT.NAV.MyLab', routerLink: '/student/lab' },
-    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices' }
+    { label: 'STUDENT.NAV.Stars', routerLink: '/student/star', icon: 'icon-stars' },
+    { label: 'STUDENT.NAV.MyLab', routerLink: '/student/lab', icon: ' icon-lab' },
+    { label: 'STUDENT.NAV.Practices', routerLink: '/student/practices', icon: 'icon-practices' }
   ];
 
 

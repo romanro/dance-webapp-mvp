@@ -7,7 +7,13 @@
         [routerLinkActive]="['active']"
         [routerLinkActiveOptions]="{exact: false}">
       <div class="marker"></div>
-      <p class='label'>{{btn.label | translate}}</p>
+      <i *ngIf="btn.icon"
+         class="icon"
+         [ngClass]="btn.icon"></i>
+      <div class="label"
+           [ngClass]="{'hide-label':userScrolled}">
+        <label>{{btn.label | translate}}</label>
+      </div>
     </li>
 
   </ul>
