@@ -18,8 +18,7 @@ export class StarsEffects {
             ofType(StarsActions.BeginGetStarsAction),
             mergeMap(action =>
                 this.starsService.getStars().pipe(
-                    map((data) => {
-                        const stars = t(data, 'stars').safeArray;
+                    map((stars) => {
                         return StarsActions.SuccessGetStarsAction({ payload: stars });
                     }),
                     catchError((error: Error) => {

@@ -1,5 +1,7 @@
+import { StarContent } from './star-content.model';
 import { Tag } from './tag.model';
 import { Location } from './user.model';
+
 
 export interface Star {
     _id: string;

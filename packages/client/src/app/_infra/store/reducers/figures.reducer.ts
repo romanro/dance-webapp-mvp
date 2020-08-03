@@ -9,7 +9,7 @@ const reducer = createReducer(
     initialFiguresState,
     on(FiguresActions.GetFiguresAction, state => state),
 
-    on(FiguresActions.SuccessGetFiguresAction, (state: FiguresState, { payload }) => {
+    on(FiguresActions.SuccessGetStarFiguresAction, (state: FiguresState, { payload }) => {
         return { ...state, figures: payload['figures'], error: null };
     }),
 

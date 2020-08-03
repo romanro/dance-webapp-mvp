@@ -1,24 +1,26 @@
+import { Figure } from '@core/models';
 import { createAction, props } from '@ngrx/store';
-import { Dance, StarDanceLevel, Figure } from '@core/models';
 
 export enum FiguresActionType {
     GetFiguresAction = '[figures] - Get figures',
-    BeginGetFiguresAction = '[figures] - Begin Get figures',
-    SuccessGetFiguresAction = '[figures] - Success Get figures',
+    BeginGetStarFiguresAction = '[figures] - Begin Get Star figures',
+    SuccessGetStarFiguresAction = '[figures] - Success Get Star figures',
+    UpdateFiguresAction = '[figures] - Update figures',
     ErrorFiguresAction = '[figures] - Error'
 }
 
 
 export const GetFiguresAction = createAction(FiguresActionType.GetFiguresAction);
 
-export const BeginGetFiguresAction = createAction(FiguresActionType.BeginGetFiguresAction,
+export const BeginGetStarFiguresAction = createAction(FiguresActionType.BeginGetStarFiguresAction,
     props<{ payload: string }>()
-    );
-export const SuccessGetFiguresAction = createAction(
-    FiguresActionType.SuccessGetFiguresAction,
+);
+export const SuccessGetStarFiguresAction = createAction(
+    FiguresActionType.SuccessGetStarFiguresAction,
     props<{ payload: Figure[] }>()
 
 );
+
 
 export const ErrorFiguresAction = createAction(FiguresActionType.ErrorFiguresAction, props<Error>());
 

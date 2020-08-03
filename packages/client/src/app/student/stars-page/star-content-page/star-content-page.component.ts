@@ -1,11 +1,11 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Star } from '@app/_infra/core/models';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import * as selectors from '@infra/store/selectors/stars.selectors';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'dsapp-star-content-page',
