@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import * as StarContentActions from '@app/_infra/store/actions/stars-content.actions';
-import { Star } from '@core/models';
+import { Star, StarContent } from '@core/models';
 import * as selectors from '@infra/store/selectors/stars-content.selectors';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ export class StarContentTabsComponent implements OnInit, OnDestroy {
 
   @Input() star: Star;
 
+  content: StarContent = null;
   loading = true;
   subs: Subscription[] = [];
 
@@ -23,7 +24,8 @@ export class StarContentTabsComponent implements OnInit, OnDestroy {
       this.store.select(selectors.selectStarContentByStarId(this.star._id)).subscribe(
         content => {
           if (content) {
-            console.log('Component:', content);
+            this.content = { ...content };
+            this.loading = false;
           } else {
             this.store.dispatch(StarContentActions.BeginGetStarsContentAction({ payload: this.star._id }));
           }
