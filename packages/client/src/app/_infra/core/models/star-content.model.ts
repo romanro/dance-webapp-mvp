@@ -1,4 +1,4 @@
-import { Figure } from '.';
+import { Figure } from './figure.model';
 
 export interface StarContent {
     starId: string;

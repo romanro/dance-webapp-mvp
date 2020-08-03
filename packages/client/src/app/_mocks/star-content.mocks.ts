@@ -1,6 +1,5 @@
-import { Dance, Figure, StarContent, StarDanceLevel } from '@core/models';
 
-const MOCK_DANCES: Array<Dance> = [
+const MOCK_DANCES: Array<any> = [
     { id: '43344', name: 'waltz' },
     { id: '42244', name: 'tango' },
     { id: '43335', name: 'quickstep' },

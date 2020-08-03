@@ -13,10 +13,3 @@ export interface Figure {
     updatedAt: Date,
 
 }
-
-
-
-export interface DanceFigure {
-    number: number;
-    figure: Figure;
-}
