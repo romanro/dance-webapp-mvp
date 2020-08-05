@@ -4,7 +4,13 @@ import { InfraModule } from '@app/_infra/infra.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LevelsTabsComponent, StarContentPageComponent, StarContentTabsComponent, StarsPageComponent } from '.';
+import {
+  LevelsTabsComponent,
+  StarContentPageComponent,
+  StarContentTabsComponent,
+  StarFigurePageComponent,
+  StarsPageComponent,
+} from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
 
 
@@ -13,7 +19,7 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     CommonModule, TranslateModule.forChild(), NgbModule, StudentStarRoutingModule, InfraModule
   ],
   declarations: [
-    StarsPageComponent, StarContentPageComponent, StarContentTabsComponent, LevelsTabsComponent
+    StarsPageComponent, StarContentPageComponent, StarContentTabsComponent, LevelsTabsComponent, StarFigurePageComponent
   ]
 })
 export class StudentStarsModule { }

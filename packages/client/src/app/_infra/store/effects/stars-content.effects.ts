@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DanceType, Figure, StarContent, StarContentDance, StarDanceLevel } from '@core/models';
-import { FiguresService, StarsContentService } from '@core/services';
+import { FiguresService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -11,7 +11,7 @@ import * as StarsContentActions from '../actions/stars-content.actions';
 
 @Injectable()
 export class StarsContentEffects {
-    constructor(private action$: Actions, private starsContentService: StarsContentService, private figuresService: FiguresService) { }
+    constructor(private action$: Actions, private figuresService: FiguresService) { }
 
     getStarContent$: Observable<Action> = createEffect(() =>
         this.action$.pipe(

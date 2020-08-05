@@ -5,7 +5,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
-import { LabReducer, PracticesReducer, StarsContentReducer, StarsReducer, UserReducer } from '@infra/store/reducers';
+import {
+  FiguresReducer,
+  LabReducer,
+  PracticesReducer,
+  StarsContentReducer,
+  StarsReducer,
+  UserReducer,
+} from '@infra/store/reducers';
 import { AboutDanskillModalComponent, VideoPlayerModalComponent } from '@infra/ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -16,7 +23,7 @@ import { SocialLoginModule } from 'angularx-social-login';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import { environment } from '../environments/environment';
-import { PracticesEffects, StarsContentEffects, StarsEffects, UserEffects } from './_infra/store/effects';
+import { FiguresEffects, PracticesEffects, StarsContentEffects, StarsEffects, UserEffects } from './_infra/store/effects';
 import { APP_PROVIDERS } from './app-providers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,10 +52,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       stars: StarsReducer,
       starsContent: StarsContentReducer,
       practices: PracticesReducer,
-      lab: LabReducer
-
+      lab: LabReducer,
+      figures: FiguresReducer
     }),
-    EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects]),
+    EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
 
     SocialLoginModule,
     NgbModule,

@@ -29,5 +29,6 @@ export interface StarsRestResponse {
 
 export interface FiguresRestResponse {
     success?: boolean;
-    figures: Array<Figure>;
+    figures?: Array<Figure>;
+    figure?: Figure;
 }

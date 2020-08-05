@@ -13,6 +13,8 @@
         <div *ngFor="let figure of level.figures"
              class="figure-preview">
           <h6>{{figure.name}}</h6>
+          <button class="btn btn-sm btn-dark"
+                  [routerLink]="[figure._id]">{{'STAR.FIGURES.learnFigure' | translate}}</button>
         </div>
       </ng-template>
     </li>
@@ -21,4 +23,5 @@
 
 
 
-<div [ngbNavOutlet]="levelTabs"></div>
+<div class="level-figures-tab"
+     [ngbNavOutlet]="levelTabs"></div>

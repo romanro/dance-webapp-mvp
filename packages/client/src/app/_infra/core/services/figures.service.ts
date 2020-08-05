@@ -22,4 +22,13 @@ export class FiguresService {
       );
   }
 
+  getFigure(figureId): Observable<Figure> {
+    return this.baseRestService.get<FiguresRestResponse>(`figures/${figureId}`)
+      .pipe(
+        map((response) => {
+          return response.figure ? response.figure : null;
+        })
+      );
+  }
+
 }

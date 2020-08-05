@@ -118,7 +118,8 @@
       "LEVEL": "level"
     },
     "FIGURES": {
-      "Figure": "Figure"
+      "Figure": "Figure",
+      "learnFigure": "learn figure"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",
