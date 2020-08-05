@@ -32,6 +32,8 @@
     </div>
   </div>
 
+  <!-- BASIC PRINCIPLES VIDEOS -->
+
   <div *ngIf="basicPrinciplesVideos.length>0"
        class="row figure-videos-row basic-principles-videos-row">
     <div *ngFor="let video of basicPrinciplesVideos"
@@ -48,12 +50,45 @@
           <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
           <p>{{video.name}}</p>
           <button class="btn btn-sm btn-dark"
-                  (click)="learnPrinciples()">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
+                  (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
         </div>
       </div>
 
     </div>
   </div>
+
+  <!-- COMPARABLE VIDEOS -->
+
+  <div *ngIf="comparableVideos.length>0"
+       class="row figure-videos-row comparable-videos-row">
+    <div *ngFor="let video of comparableVideos"
+         class="col-12 col-md-6 col-lg-4">
+      <div class="figure-video comparable-video">
+        <div class="image">
+          <div class="embed-responsive embed-responsive-16by9">
+            <div class="embed-responsive-item  cover-bg"
+                 [style.backgroundImage]="'url('+ video.coverURL +')'">
+            </div>
+          </div>
+        </div>
+        <div class="text">
+          <p>{{figure.name}}</p>
+          <p>{{video.name}}</p>
+          <div class="mb-1">
+            <span class="badge badge-pill badge-secondary">{{video.view}}
+              {{'STAR.FIGURES.view' | translate}}</span>
+            <span class="badge badge-pill badge-secondary">
+              {{video.participatesAmount}}
+            </span>
+          </div>
+          <button class="btn btn-sm btn-success"
+                  (click)="openInLab(video)">{{'STAR.FIGURES.openInMyLab' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDITIONAL VIDEOS -->
 
 </ng-template>
 

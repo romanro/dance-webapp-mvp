@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Figure, Star, Video, VideoType } from '@app/_infra/core/models';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Figure, LabItem, Star, Video, VideoType } from '@app/_infra/core/models';
 import * as FigureActions from '@app/_infra/store/actions/figures.actions';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
+import { VideoPlayerModalComponent } from '@app/_infra/ui';
 import * as FigureSelectors from '@infra/store/selectors/figures.selectors';
 import * as StarSelectors from '@infra/store/selectors/stars.selectors';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import * as LabActions from '@store/actions/lab.actions';
 import { Subscription } from 'rxjs';
 
 
@@ -30,7 +33,12 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
 
-  constructor(private store: Store<any>, private route: ActivatedRoute) { }
+  constructor(
+    private store: Store<any>,
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -60,10 +68,9 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
           if (figure) {
             this.figure = { ...figure };
             this.splitVideosByType();
-            console.log(this.figure);
             this.starIsLoading = false;
           } else {
-            this.store.dispatch(FigureActions.BeginGetFigureAction({ payload: this.figureId }));
+            setTimeout(() => { this.store.dispatch(FigureActions.BeginGetFigureAction({ payload: this.figureId })); }, 1000);
           }
         })
     )
@@ -84,12 +91,28 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
           break;
         case VideoType.ADDITIONAL:
           this.additionalVideos.push(video);
+          // TODO: add additional video functionality
           break;
       }
     })
   }
 
-  learnPrinciples(): void {
+  learnPrinciples(url: string, name: string): void {
+    const modalRef = this.modalService.open(VideoPlayerModalComponent, { size: 'xl', centered: true });
+    modalRef.componentInstance.videoURL = url;
+    modalRef.componentInstance.title = name;
+    modalRef.componentInstance.autoplay = true;
+  }
+
+  openInLab(video: Video): void {
+    const labItem: LabItem = {
+      star: this.star,
+      figure: this.figure,
+      video
+    }
+    this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+
+    this.router.navigate(['/', 'student', 'lab']);
 
   }
 

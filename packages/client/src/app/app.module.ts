@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       stars: StarsReducer,
       starsContent: StarsContentReducer,
       practices: PracticesReducer,
-      lab: LabReducer,
+      labItem: LabReducer,
       figures: FiguresReducer
     }),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
