@@ -1,0 +1,79 @@
+.login-layout {
+
+  .login-tabs {
+    margin-bottom: 35px;
+    .danskill-tab-btn {
+      &.login {
+        margin: 0 -15px 0 5px;
+
+        &.selected {
+          color: $white;
+          background-color: $dark;
+        }
+
+        &:after {
+          left: auto;
+          right: 60%;
+          border-color: $dark transparent;
+        }
+      }
+
+      &.register {
+        margin: 0 5px 0 -15px;
+
+
+        &.selected {
+          color: $white;
+          background-color: $green;
+
+          &:after {
+            right: auto;
+            left: 60%;
+            border-color: $green transparent;
+          }
+        }
+      }
+    }
+  }
+
+  dsapp-login-page {
+    width: 100%;
+
+    .login-card {
+      .form-group {
+
+        &.facebook-form-group {
+          button {
+            border: #1B154B 2px solid;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+
+            img {
+              width: 80%;
+              height: 80%;
+            }
+          }
+        }
+
+
+      }
+
+    }
+  }
+
+  dsapp-register-page{
+    width: 100%;
+  }
+
+
+}
+.submit-form-group {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  opacity: 1;
+}

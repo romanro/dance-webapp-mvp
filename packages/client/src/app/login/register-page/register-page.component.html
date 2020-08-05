@@ -1,12 +1,12 @@
 <div class="login-card">
-  <h3 class="text-center">{{'LOGIN.Register' | translate}}</h3>
+<!--  <h3 class="text-center">{{'LOGIN.Register' | translate}}</h3>-->
   <form [formGroup]="registerForm"
         (ngSubmit)="register()">
 
     <!-- email -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
-      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}:</label>
+      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
 
       <input type="email"
              formControlName="email"
@@ -29,9 +29,9 @@
 
     <ng-container formGroupName="name">
       <!-- first name -->
-      <div class="form-group">
+      <div class="form-group danskill-form-group">
 
-        <label for="inputFirstName">{{'USER.firstName' | translate}}:</label>
+        <label for="inputFirstName">{{'USER.firstName' | translate}}</label>
 
         <input type="text"
                formControlName="firstName"
@@ -51,9 +51,9 @@
 
 
       <!-- last name -->
-      <div class="form-group">
+      <div class="form-group danskill-form-group">
 
-        <label for="inputLastName">{{'USER.lastName' | translate}}:</label>
+        <label for="inputLastName">{{'USER.lastName' | translate}}</label>
 
         <input type="text"
                formControlName="lastName"
@@ -74,9 +74,9 @@
 
 
     <!-- password -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
-      <label for="inputPassword">{{'LOGIN.Password' | translate}}:</label>
+      <label for="inputPassword">{{'LOGIN.Password' | translate}}</label>
 
       <input type="password"
              formControlName="password"
@@ -112,10 +112,10 @@
 
 
     <!-- confirm password -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
       <label for="inputConfirmPassword">
-        {{'LOGIN.confirmPassword' | translate}}:
+        {{'LOGIN.confirmPassword' | translate}}
       </label>
 
       <input type="password"
@@ -138,24 +138,25 @@
 
     </div>
 
-    <div class="form-group text-center">
-      <button class="btn btn-primary"
+    <div class="form-group text-center danskill-form-group submit-form-group">
+      <button class="btn btn-success danskill-next-btn"
               tabindex='0'
               type="submit"
               [disabled]="!registerForm.valid || isSubmitted">{{'LOGIN.Register' | translate}}
-        <span *ngIf="isSubmitted">(sending)</span></button>
+        <img class="arrow" src="../../../assets/images/icons/right-arrow.svg">
+      </button>
     </div>
   </form>
 
-  <div class="form-group text-center">
-    <button class="btn btn-primary"
-            [disabled]="true"
-            tabindex='0'
-            (click)="registerFacebook()">{{'LOGIN.registerWithFacebook' | translate}}</button>
-  </div>
-  <div class="text-center">
-    <p>{{'LOGIN.loginMsg' | translate}}</p>
-    <a class="btn btn-link"
-       [routerLink]="'/login'">{{'LOGIN.Login' | translate}}</a>
-  </div>
+<!--  <div class="form-group text-center danskill-form-group">-->
+<!--    <button class="btn btn-primary"-->
+<!--            [disabled]="true"-->
+<!--            tabindex='0'-->
+<!--            (click)="registerFacebook()">{{'LOGIN.registerWithFacebook' | translate}}</button>-->
+<!--  </div>-->
+<!--  <div class="text-center">-->
+<!--    <p>{{'LOGIN.loginMsg' | translate}}</p>-->
+<!--    <a class="btn btn-link"-->
+<!--       [routerLink]="'/login'">{{'LOGIN.Login' | translate}}</a>-->
+<!--  </div>-->
 </div>

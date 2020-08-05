@@ -13,11 +13,8 @@
 @import 'styles/mixins';
 
 /*global stylings */
+@import 'styles/forms';
 @import 'styles/global_styles';
-
-/* custom pages stylings */
-@import 'styles/pages/login';
-@import 'styles/pages/404';
 
 /* custom elements stylings */
 
@@ -28,6 +25,9 @@
 @import 'styles/elements/preloader';
 @import 'styles/elements/player';
 @import 'styles/elements/tags';
+/* custom pages stylings */
+@import 'styles/pages/login';
+@import 'styles/pages/404';
 
 /* student pages */
 @import 'styles/student/upic-holder';
@@ -38,4 +38,4 @@
 @import 'styles/star/star-content-list';
 
 /* practices pages */
-@import 'styles/pages/practices'
+@import 'styles/pages/practices';

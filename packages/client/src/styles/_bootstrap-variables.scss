@@ -20,7 +20,7 @@ $pink: #E02177;
 $red: #dc3545;
 $orange: #D7B627;
 $yellow: #FFD500;
-$green: #258900;
+$green: #12B200;
 $teal: #20c997;
 $cyan: $blue;
 
@@ -53,6 +53,7 @@ $font-size-sm: $font-size-base * .875;
 $font-weight-lighter: lighter;
 $font-weight-light: 100;
 $font-weight-normal: 300;
+$font-weight-bold-light: 500;
 $font-weight-bold: 700;
 $font-weight-bolder: bolder;
 
@@ -65,6 +66,8 @@ $h3-font-size: $font-size-base * 1.75;
 $h4-font-size: $font-size-base * 1.5;
 $h5-font-size: $font-size-base * 1.25;
 $h6-font-size: $font-size-base;
+
+
 
 $headings-font-family: $font-family-sans-serif;
 $headings-font-weight: 700;
@@ -132,3 +135,17 @@ $modal-transition: transform .3s ease-out !default; */
 
 $paragraph-margin-bottom: 0.5rem;
 $headings-margin-bottom: $paragraph-margin-bottom;
+
+
+//Forms
+
+//Inputs
+$input-border: $gray-500;
+$input-height: 50px;
+$input-border-radius: 0;
+$input-color: $indigo;
+
+//Buttons
+$success: $green;
+//$btn-primary-bg: $gray-200;$btn-primary-color:              #fff !default;
+//$btn-primary-color:              #fff !default;

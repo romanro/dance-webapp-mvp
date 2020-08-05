@@ -22,6 +22,7 @@
   },
   "LOGIN": {
     "registerMsg": "Don't have an Account?",
+    "orLoginWith": "Or login with",
     "Register": "Register",
     "loginMsg": "Already have an Account?",
     "Login": "Login",
