@@ -1,0 +1,99 @@
+<ng-template [ngIf]="star">
+  <div class="row">
+    <div
+         class="col d-flex flex-column justify-content-center align-items-center">
+      <div class="star-short-info">
+        <img [src]="star.userPics.smallPicURL"
+             class="rounded-circle display-block">
+
+        <h5 class="star-info-name text-center"
+            dsappStarName
+            [name]="star.name"></h5>
+
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+
+<ng-template [ngIf]="figure">
+
+  <div class="row">
+    <div class="col">
+      <div class="figure-cover-name">
+        <div class="embed-responsive embed-responsive-16by9">
+          <div class="embed-responsive-item  cover-bg"
+               [style.backgroundImage]="'url('+ figure.coverURL +')'">
+          </div>
+        </div>
+        <h5 class="text-center">{{figure.name}}</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASIC PRINCIPLES VIDEOS -->
+
+  <div *ngIf="basicPrinciplesVideos.length>0"
+       class="row figure-videos-row basic-principles-videos-row">
+    <div *ngFor="let video of basicPrinciplesVideos"
+         class="col-12 col-md-6 col-lg-4">
+      <div class="figure-video basic-principles-video">
+        <div class="image">
+          <div class="embed-responsive embed-responsive-16by9">
+            <div class="embed-responsive-item  cover-bg"
+                 [style.backgroundImage]="'url('+ video.coverURL +')'">
+            </div>
+          </div>
+        </div>
+        <div class="text">
+          <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
+          <p>{{video.name}}</p>
+          <button class="btn btn-sm btn-dark"
+                  (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPARABLE VIDEOS -->
+
+  <div *ngIf="comparableVideos.length>0"
+       class="row figure-videos-row comparable-videos-row">
+    <div *ngFor="let video of comparableVideos"
+         class="col-12 col-md-6 col-lg-4">
+      <div class="figure-video comparable-video">
+        <div class="image">
+          <div class="embed-responsive embed-responsive-16by9">
+            <div class="embed-responsive-item  cover-bg"
+                 [style.backgroundImage]="'url('+ video.coverURL +')'">
+            </div>
+          </div>
+        </div>
+        <div class="text">
+          <p>{{figure.name}}</p>
+          <p>{{video.name}}</p>
+          <div class="mb-1">
+            <span class="badge badge-pill badge-secondary">{{video.view}}
+              {{'STAR.FIGURES.view' | translate}}</span>
+            <span class="badge badge-pill badge-secondary">
+              {{video.participatesAmount}}
+            </span>
+          </div>
+          <button class="btn btn-sm btn-success"
+                  (click)="openInLab(video)">{{'STAR.FIGURES.openInMyLab' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDITIONAL VIDEOS -->
+
+</ng-template>
+
+
+
+<ng-template [ngIf]="starIsLoading && figureIsLoading">
+  <ui-preloader-inapp></ui-preloader-inapp>
+</ng-template>

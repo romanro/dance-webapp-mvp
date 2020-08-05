@@ -118,7 +118,12 @@
       "LEVEL": "level"
     },
     "FIGURES": {
-      "Figure": "Figure"
+      "Figure": "Figure",
+      "view": "view",
+      "learnFigure": "learn figure",
+      "basicPrinciples": "Basic Principles",
+      "learnPrinciples": "learn principles",
+      "openInMyLab": "open in My Lab"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",

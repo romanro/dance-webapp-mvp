@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Star } from '../models';
+import { Star, StarsRestResponse } from '../models';
 import { BaseRestService } from './base-rest.service';
 
 @Injectable({
@@ -11,7 +12,9 @@ export class StarsService {
   constructor(private baseRestService: BaseRestService) { }
 
   getStars(): Observable<Star[]> {
-    return this.baseRestService.get<Star[]>('stars');
+    return this.baseRestService.get<StarsRestResponse>('stars').pipe(map(res => {
+      return res.stars ? res.stars : [];
+    }));
   }
 
 }

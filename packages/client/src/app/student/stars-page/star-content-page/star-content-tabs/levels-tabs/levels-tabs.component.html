@@ -1,0 +1,27 @@
+<ul ngbNav
+    #levelTabs="ngbNav"
+    class="nav-tabs">
+  <ng-template ngFor
+               let-level
+               [ngForOf]="levels">
+
+    <li ngbNavItem>
+      <a ngbNavLink>{{'STAR.STAR_INFO_PAGE.level' | translate}}
+        {{level.level}}</a>
+
+      <ng-template ngbNavContent>
+        <div *ngFor="let figure of level.figures"
+             class="figure-preview">
+          <h6>{{figure.name}}</h6>
+          <button class="btn btn-sm btn-dark"
+                  [routerLink]="[figure._id]">{{'STAR.FIGURES.learnFigure' | translate}}</button>
+        </div>
+      </ng-template>
+    </li>
+  </ng-template>
+</ul>
+
+
+
+<div class="level-figures-tab"
+     [ngbNavOutlet]="levelTabs"></div>

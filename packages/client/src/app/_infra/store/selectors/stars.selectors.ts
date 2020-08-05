@@ -8,7 +8,17 @@ export const selectStars = (state: StarsState) => state.stars;
 export const selectAllStars = () => createSelector(
     selectStars, (allStars) => {
         if (!t(allStars, 'stars').isNullOrUndefined) {
-            return t(allStars, 'stars').safeArray;
+            return t(allStars, 'stars').safeObject;
+        } else {
+            return null;
+        }
+    }
+)
+
+export const selectStarBySlug = (slug: string) => createSelector(
+    selectStars, (allStars) => {
+        if (!t(allStars, 'stars').isNullOrUndefined) {
+            return t(allStars, 'stars').safeArray.find(star => star.slug === slug);
         } else {
             return null;
         }

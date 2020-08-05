@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StarContentTabsComponent } from './star-content-tabs/star-content-tabs.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StarContentTabsComponent
   ],
   imports: [
     BrowserModule,

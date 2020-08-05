@@ -1,15 +1,4 @@
-export interface FigureVideo {
-    id: string;
-    views: View[];
-    soundTrackUrl?: string;
-}
 
-export enum ViewDirection {
-    RIGHT = 'right',
-    LEFT = 'left',
-    FRONT = 'front',
-    BACK = 'back'
-}
 
 export interface Video {
     name: string;
@@ -18,6 +7,7 @@ export interface Video {
     participatesAmount: ParticipatesAmount;
     associateWith: AssociateType;
     type: VideoType;
+    coverURL: string;
 }
 
 export enum View {
@@ -49,6 +39,7 @@ export class LabStarVideo implements Video {
     name: string;
     path: string;
     view: View;
+    coverURL: string;
     participatesAmount: ParticipatesAmount;
     associateWith: AssociateType = AssociateType.VIDEO;
     type: VideoType = VideoType.COMPARABLE;

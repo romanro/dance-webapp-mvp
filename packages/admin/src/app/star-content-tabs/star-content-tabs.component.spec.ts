@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StarFigureContentComponent } from './star-figure-content.component';
+import { StarContentTabsComponent } from './star-content-tabs.component';
 
-describe('StarFigureContentComponent', () => {
-  let component: StarFigureContentComponent;
-  let fixture: ComponentFixture<StarFigureContentComponent>;
+describe('StarContentTabsComponent', () => {
+  let component: StarContentTabsComponent;
+  let fixture: ComponentFixture<StarContentTabsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StarFigureContentComponent ]
+      declarations: [ StarContentTabsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StarFigureContentComponent);
+    fixture = TestBed.createComponent(StarContentTabsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
