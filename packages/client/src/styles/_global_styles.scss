@@ -73,17 +73,23 @@ select:-webkit-autofill:focus {
   input {
     font-size: $font-size-sm;
     font-weight: $font-weight-bold-light;
+
+    &.is-invalid{
+      margin-bottom: 25px;
+    }
   }
 
   label {
     position: absolute;
     top: calc(50% - 5px);
-    right: 15px;
+    right: 25px;
     color: $dark;
     font-size: $label-font;
     font-weight: $font-weight-bold-light;
   }
   .invalid-feedback{
+    position: absolute;
+    bottom: -20px;
     //position: fixed;
     //margin-bottom: 10px;
   }

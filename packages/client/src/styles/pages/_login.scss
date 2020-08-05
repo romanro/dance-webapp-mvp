@@ -40,6 +40,7 @@
     width: 100%;
 
     .login-card {
+
       .form-group {
 
         &.facebook-form-group {
@@ -57,7 +58,11 @@
           }
         }
 
+      }
 
+      .forgot-password-link{
+        color: $dark;
+        font-size: $font-size-sm;
       }
 
     }

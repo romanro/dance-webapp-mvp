@@ -17,12 +17,12 @@
 
       <div *ngIf="formControls['email'].touched && formControls['email'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['email'].errors.required">
+        <span *ngIf="formControls['email'].errors.required">
           {{'LOGIN.FORM.emailIsRequired' | translate}}
-        </p>
-        <p *ngIf="formControls['email'].errors.email">
+        </span>
+        <span *ngIf="formControls['email'].errors.email">
           {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
-        </p>
+        </span>
       </div>
 
     </div>
@@ -42,9 +42,9 @@
 
         <div *ngIf="registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors"
              class="invalid-feedback">
-          <p *ngIf="registerForm.get('name.firstName').errors.required">
+          <span *ngIf="registerForm.get('name.firstName').errors.required">
             {{'LOGIN.FORM.fnameIsRequired' | translate}}
-          </p>
+          </span>
         </div>
 
       </div>
@@ -64,9 +64,9 @@
 
         <div *ngIf=" registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors"
              class="invalid-feedback">
-          <p *ngIf=" registerForm.get('name.lastName').errors.required">
+          <span *ngIf=" registerForm.get('name.lastName').errors.required">
             {{'LOGIN.FORM.lnameIsRequired' | translate}}
-          </p>
+          </span>
         </div>
 
       </div>
@@ -87,24 +87,24 @@
 
       <div *ngIf="formControls['password'].touched && formControls['password'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['password'].errors.required">
+        <span *ngIf="formControls['password'].errors.required">
           {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasNumber')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasNumber')">
           {{'LOGIN.FORM.passwordNumber' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasCapitalCase')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasCapitalCase')">
           {{'LOGIN.FORM.hasCapitalCase' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasSmallCase')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasSmallCase')">
           {{'LOGIN.FORM.hasSmallCase' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasSpecialCharacters')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasSpecialCharacters')">
           {{'LOGIN.FORM.hasSpecialCharacters' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].errors.minlength">
+        </span>
+        <span *ngIf="formControls['password'].errors.minlength">
           {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
-        </p>
+        </span>
       </div>
 
 
@@ -127,13 +127,13 @@
 
       <div *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['confirmPassword'].errors.required">
+        <span *ngIf="formControls['confirmPassword'].errors.required">
           {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </p>
-        <p
+        </span>
+        <span
            *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
           {{'LOGIN.FORM.PASSWORD_MISMATCH' | translate}}
-        </p>
+        </span>
       </div>
 
     </div>
