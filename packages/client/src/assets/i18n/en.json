@@ -119,7 +119,9 @@
     },
     "FIGURES": {
       "Figure": "Figure",
-      "learnFigure": "learn figure"
+      "learnFigure": "learn figure",
+      "basicPrinciples": "Basic Principles",
+      "learnPrinciples": "learn principles"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",

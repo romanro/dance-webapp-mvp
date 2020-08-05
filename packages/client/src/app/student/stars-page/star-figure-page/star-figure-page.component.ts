@@ -89,6 +89,10 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
     })
   }
 
+  learnPrinciples(): void {
+
+  }
+
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
 }
