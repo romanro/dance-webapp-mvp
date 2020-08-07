@@ -31,31 +31,10 @@ select:-webkit-autofill:focus {
   min-height: 100vh;
 }
 
-.inner-page-container {
-  padding-top: 2.5rem;
-  padding-bottom: 6rem;
-}
 
 .cover-bg {
   background-position: center;
   background-size: cover;
-}
-
-.page-title-row {
-  .btn {
-    display: inline-block;
-    min-width: 8rem;
-  }
-
-  .inner-page-title {
-    text-align: center;
-    font-size: 1.2rem;
-    color: grey;
-  }
-  .inner-page-sub-title {
-    text-align: center;
-    font-size: 1rem;
-  }
 }
 
 
@@ -63,30 +42,33 @@ select:-webkit-autofill:focus {
 
 
 
-.danskill-btn{
-  border:none;
+.danskill-btn {
+  border: none;
   background: transparent;
 }
 
-.danskill-icon-btn{
+.danskill-icon-btn {
   @extend .danskill-btn;
   background-size: 100% 100%;
   height: 15px;
   width: 15px;
 }
 
-.edit-btn{
-@extend .danskill-icon-btn;
- background-image: url('./assets/images/icons/edit.svg');
+.edit-btn {
+  @extend .danskill-icon-btn;
+  background-image: url('./assets/images/icons/edit.svg');
 
 }
-.hide-btn{
+
+.hide-btn {
   @extend .danskill-btn;
 }
-.title-input{
+
+.title-input {
   @extend .danskill-btn;
 }
-.save-btn{
+
+.save-btn {
   // @extend .danskill-btn;
   color: white;
   border-radius: 5px;
@@ -94,22 +76,22 @@ select:-webkit-autofill:focus {
   width: 100%;
 }
 
-.clear-btn{
+.clear-btn {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/close.svg');
 }
 
-.search-btn{
+.search-btn {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/search.svg');
 }
 
-.next-btn{
+.next-btn {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/next.svg');
 }
 
-.prev-btn{
+.prev-btn {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/back.svg');
 }

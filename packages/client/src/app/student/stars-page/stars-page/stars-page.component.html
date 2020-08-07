@@ -3,19 +3,42 @@
         <button *ngIf="aboutVideoURL"
                 class="btn btn-outline-dark"
                 (click)="openPromoModal(aboutBtnTxt, aboutVideoURL)">{{'COMMON.About' | translate}}</button>
-        <h2 class="inner-page-title">{{'STAR.title' | translate}}
+        <h2 class="inner-page-title">
+            <span class="underline-warning">{{'STAR.title' | translate}}</span>
         </h2>
     </div>
 </div>
 <ng-template [ngIf]="stars && !errorMsg && !loading">
+
+    <div class="row page-search-row">
+        <div class="col">
+            <div class="input-group input-group-sm">
+                <input type="text"
+                       class="form-control"
+                       [formControl]="search"
+                       placeholder="{{'STAR.chooseYourTeacher' | translate}}">
+                <div class="input-group-append">
+                    <i class="input-group-text icon-search"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row d-flex justify-content-center">
-        <div *ngFor="let star of stars"
+        <div *ngFor="let star of filteredStars"
              class="col-12 col-sm-6 col-md-3 col-lg-4">
             <div class="star-info">
                 <div class="star-info-image">
-                    <div class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive embed-responsive-16by9 video-preview-container"
+                         (click)="openPromoModal(star.name, star.promoVideoURL)">
                         <div class="embed-responsive-item star-big-image cover-bg"
                              [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                        </div>
+                        <div class="play-btn-container">
+                            <i class="icon-play"></i>
+                        </div>
+                        <div class="hover-message">
+                            {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
                         </div>
                     </div>
                 </div>
@@ -32,11 +55,8 @@
                     <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
 
                     <div class="star-info-btns">
-                        <a class="btn btn-outline-dark"
-                           (click)="openPromoModal(star.name, star.promoVideoURL)">{{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}</a>
-
-                        <a class="btn btn-info"
-                           [routerLink]="[star.slug]">{{'STAR.learn' | translate}}</a>
+                        <a class="btn btn-success"
+                           [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</a>
                     </div>
 
                 </div>
