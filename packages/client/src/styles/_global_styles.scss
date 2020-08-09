@@ -31,32 +31,10 @@ select:-webkit-autofill:focus {
   min-height: 100vh;
 }
 
-.inner-page-container {
-  padding-top: 2.5rem;
-  padding-bottom: 6rem;
-}
 
 .cover-bg {
   background-position: center;
   background-size: cover;
-}
-
-.page-title-row {
-  .btn {
-    display: inline-block;
-    min-width: 8rem;
-  }
-
-  .inner-page-title {
-    text-align: center;
-    font-size: 1.2rem;
-    color: grey;
-  }
-
-  .inner-page-sub-title {
-    text-align: center;
-    font-size: 1rem;
-  }
 }
 
 
@@ -68,13 +46,14 @@ select:-webkit-autofill:focus {
   background: transparent;
 }
 
-.danskill-form-group{
+.danskill-form-group {
   position: relative;
+
   input {
     font-size: $font-size-sm;
     font-weight: $font-weight-bold-light;
 
-    &.is-invalid{
+    &.is-invalid {
       margin-bottom: 25px;
     }
   }
@@ -87,7 +66,8 @@ select:-webkit-autofill:focus {
     font-size: $label-font;
     font-weight: $font-weight-bold-light;
   }
-  .invalid-feedback{
+
+  .invalid-feedback {
     position: absolute;
     bottom: -20px;
     //position: fixed;
@@ -95,14 +75,14 @@ select:-webkit-autofill:focus {
   }
 }
 
-.danskill-next-btn{
-    height: 60px;
-    width: 100%;
-    opacity: 1;
+.danskill-next-btn {
+  height: 60px;
+  width: 100%;
+  opacity: 1;
 
-    .arrow {
-      width: 15px;
-    }
+  .arrow {
+    width: 15px;
+  }
 
 
 }
@@ -125,14 +105,14 @@ select:-webkit-autofill:focus {
   align-items: center;
   color: $dark;
 
-  &.selected:after{
-    content:"";
-    position:absolute;
-    bottom:-15px;
-    border-width:15px 10px 0;
-    border-style:solid;
-    display:block;
-    width:0;
+  &.selected:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    border-width: 15px 10px 0;
+    border-style: solid;
+    display: block;
+    width: 0;
   }
 }
 
@@ -153,7 +133,7 @@ select:-webkit-autofill:focus {
 
 .save-btn {
   // @extend .danskill-btn;
-  color: white;
+  color: $white;
   border-radius: 5px;
   height: 40px;
   width: 100%;
@@ -178,6 +158,3 @@ select:-webkit-autofill:focus {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/back.svg');
 }
-
-
-

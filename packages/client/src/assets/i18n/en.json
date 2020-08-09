@@ -104,10 +104,11 @@
     }
   },
   "STAR": {
-    "learn": "Learn",
-    "title": "Choose your teacher",
+    "openTheirClasses": "open their classes",
+    "title": "Welcome to our Library",
     "currentChallenge": "current challenge",
     "challengeFinished": "challenge finished",
+    "chooseYourTeacher": "Choose your teacher",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
