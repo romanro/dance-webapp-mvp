@@ -11,7 +11,6 @@ export class LoginLayoutComponent implements OnInit {
   isLoginSelected: boolean;
   constructor(private router: Router) {
     this.isLoginSelected = true;
-    console.log(this.router.url.split('/')[1])
     if(this.router.url.split('/')[1] === 'register'){
       this.isLoginSelected = false;
     }
