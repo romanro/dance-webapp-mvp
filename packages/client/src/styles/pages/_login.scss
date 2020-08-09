@@ -1,5 +1,10 @@
 .login-layout {
 
+  ui-logo{
+    height: 84px;
+    display: flex;
+    align-items: center;
+  }
   .login-tabs {
     margin-bottom: 35px;
     .danskill-tab-btn {

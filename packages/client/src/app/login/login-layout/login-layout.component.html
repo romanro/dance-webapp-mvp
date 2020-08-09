@@ -1,5 +1,7 @@
 <div class="login-layout container d-flex flex-column justify-content-center align-items-center">
-  <div class="d-flex justify-content-center align-items-center" style="height: 84px; width: 100%; color: purple;">Danskill Logo</div>
+  <div class="d-flex justify-content-center align-items-center">
+    <ui-logo></ui-logo>
+  </div>
   <div class="login-tabs w-100 d-inline-flex" >
     <a  [routerLink]="'/register'" class="danskill-tab-btn register"
         [ngClass]="!isLoginSelected ? 'selected' : ''" (click)="setSelected($event)">
