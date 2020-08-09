@@ -4,5 +4,5 @@
   "buildVersion": 0,
   "buildType": "PROD",
   "restURL": "https://dance-webapp.herokuapp.com/api/v1/",
-  "aboutVideoURL": "http://static.videogular.com/assets/videos/videogular.mp4"
+  "aboutVideoURL": ""
 }
