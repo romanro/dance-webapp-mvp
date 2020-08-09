@@ -1,74 +1,68 @@
 <div class="login-card">
 
-  <h3 class="text-center">{{'LOGIN.Login' | translate}}</h3>
 
-  <form [formGroup]="loginForm"
-        (ngSubmit)="login()">
-
-    <div class="form-group">
-      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}:</label>
-      <input type="email"
-             formControlName="email"
-             id="inputEmail"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }"
-             placeholder="{{'LOGIN.EmailAddress' | translate}}">
-      <div *ngIf="formControls['email'].touched && formControls['email'].errors"
-           class="invalid-feedback">
-        <span *ngIf="formControls['email'].errors.required">
-          {{'LOGIN.FORM.emailIsRequired' | translate}}
-        </span>
-        <span *ngIf="formControls['email'].errors.email">
-          {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
-        </span>
-      </div>
-
-    </div>
-
-    <div class="form-group">
-      <label for="inputPassword">{{'LOGIN.Password' | translate}}:</label>
-      <input type="password"
-             formControlName="password"
-             id="inputPassword"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }"
-             placeholder="{{'LOGIN.Password' | translate}}">
-      <div *ngIf="formControls['password'].touched && formControls['password'].errors"
-           class="invalid-feedback">
-        <span *ngIf="formControls['password'].errors.required">
-          {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </span>
-        <span *ngIf="formControls['password'].errors.minlength">
-          {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
-        </span>
-      </div>
-
-    </div>
-
-    <div class="form-group text-center">
-      <button class="btn btn-primary"
-              tabindex='0'
-              type="submit"
-              [disabled]="!loginForm.valid || isSubmitted">{{'LOGIN.Login' | translate}}
-        <span *ngIf="isSubmitted">(sending)</span></button>
-    </div>
+    <form [formGroup]="loginForm"
+          (ngSubmit)="login()">
 
 
-  </form>
+        <div class="form-group danskill-form-group">
+            <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
+            <input type="email"
+                   formControlName="email"
+                   id="inputEmail"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }"
+                   placeholder="{{'LOGIN.EmailAddress' | translate}}">
 
-  <div class="form-group text-center">
-    <button class="btn btn-primary"
-            [disabled]="true"
-            tabindex='0'
-            (click)="loginFacebook()">{{'LOGIN.LoginWithFacebook' | translate}}</button>
-  </div>
-  <div class="text-center">
-    <a class="btn btn-link"
-       [routerLink]="'/reset'">{{'LOGIN.iForgotMyPassword' | translate}}</a>
-  </div>
-  <div class="text-center">
-    <p>{{'LOGIN.registerMsg' | translate}}</p>
-    <a class="btn btn-link"
-       [routerLink]="'/register'">{{'LOGIN.Register' | translate}}</a>
-  </div>
+            <div *ngIf="formControls['email'].touched && formControls['email'].errors"
+                 class="invalid-feedback">
+                <span *ngIf="formControls['email'].errors.required">
+                    {{'LOGIN.FORM.emailIsRequired' | translate}}
+                </span>
+                <span *ngIf="formControls['email'].errors.email">
+                    {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
+                </span>
+            </div>
+
+        </div>
+
+        <div class="form-group danskill-form-group">
+            <label for="inputPassword">{{'LOGIN.Password' | translate}}</label>
+            <input type="password"
+                   formControlName="password"
+                   id="inputPassword"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }"
+                   placeholder="{{'LOGIN.Password' | translate}}">
+            <div *ngIf="formControls['password'].touched && formControls['password'].errors"
+                 class="invalid-feedback">
+                <span *ngIf="formControls['password'].errors.required">
+                    {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
+                </span>
+                <span *ngIf="formControls['password'].errors.minlength">
+                    {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="text-right">
+            <a class="btn btn-link forgot-password-link"
+               [routerLink]="'/reset'">{{'LOGIN.iForgotMyPassword' | translate}}</a>
+        </div>
+
+
+        <div
+             class="form-group text-center submit-form-group danskill-form-group">
+            <button class="btn btn-success danskill-next-btn"
+                    tabindex='0'
+                    type="submit"
+                    [disabled]="!loginForm.valid || isSubmitted">
+                <i class="icon-arrow-right"></i>
+            </button>
+        </div>
+
+    </form>
+
 </div>

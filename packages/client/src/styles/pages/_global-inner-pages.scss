@@ -32,4 +32,16 @@
 .page-search-row {
     margin-top: $paragraph-margin-bottom;
     margin-bottom: $paragraph-margin-bottom;
+
+    .input-group {
+        .form-control {
+            border-right: none;
+        }
+
+        .input-group-append {
+            .input-group-text {
+                border-left: none;
+            }
+        }
+    }
 }
