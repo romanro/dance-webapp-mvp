@@ -11,6 +11,7 @@ import {
   ResetPasswordPageComponent,
 } from '.';
 import { LoginRoutingModule } from './login-routing.module';
+import {InfraModule} from "@infra/infra.module";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LoginRoutingModule } from './login-routing.module';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    InfraModule
   ],
   declarations: [LoginPageComponent, RegisterPageComponent, LoginLayoutComponent, ForgotPasswordPageComponent, ResetPasswordPageComponent]
 })
