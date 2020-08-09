@@ -1,5 +1,5 @@
 <div class="login-card">
-<!--  <h3 class="text-center">{{'LOGIN.Register' | translate}}</h3>-->
+
   <form [formGroup]="registerForm"
         (ngSubmit)="register()">
 
@@ -131,7 +131,7 @@
           {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
         </span>
         <span
-           *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
+              *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
           {{'LOGIN.FORM.PASSWORD_MISMATCH' | translate}}
         </span>
       </div>
@@ -143,20 +143,9 @@
               tabindex='0'
               type="submit"
               [disabled]="!registerForm.valid || isSubmitted">{{'LOGIN.Register' | translate}}
-        <img class="arrow" src="../../../assets/images/icons/right-arrow.svg">
+        <i class="icon-arrow-right"></i>
       </button>
     </div>
   </form>
 
-<!--  <div class="form-group text-center danskill-form-group">-->
-<!--    <button class="btn btn-primary"-->
-<!--            [disabled]="true"-->
-<!--            tabindex='0'-->
-<!--            (click)="registerFacebook()">{{'LOGIN.registerWithFacebook' | translate}}</button>-->
-<!--  </div>-->
-<!--  <div class="text-center">-->
-<!--    <p>{{'LOGIN.loginMsg' | translate}}</p>-->
-<!--    <a class="btn btn-link"-->
-<!--       [routerLink]="'/login'">{{'LOGIN.Login' | translate}}</a>-->
-<!--  </div>-->
 </div>

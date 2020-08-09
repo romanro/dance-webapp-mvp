@@ -1,13 +1,26 @@
 .login-layout {
 
-  ui-logo{
-    height: 84px;
+  padding-bottom: 5rem;
+
+  .logo {
+    width: 150px;
     display: flex;
     align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
+
   .login-tabs {
     margin-bottom: 35px;
+
     .danskill-tab-btn {
+      text-transform: uppercase;
+      font-weight: 500;
+
+      &.selected {
+        text-decoration: none;
+      }
+
       &.login {
         margin: 0 -15px 0 5px;
 
@@ -50,7 +63,7 @@
 
         &.facebook-form-group {
           button {
-            border: #1B154B 2px solid;
+            border: $dark 2px solid;
             border-radius: 50px;
             width: 30px;
             height: 30px;
@@ -65,7 +78,7 @@
 
       }
 
-      .forgot-password-link{
+      .forgot-password-link {
         color: $dark;
         font-size: $font-size-sm;
       }
@@ -73,12 +86,13 @@
     }
   }
 
-  dsapp-register-page{
+  dsapp-register-page {
     width: 100%;
   }
 
 
 }
+
 .submit-form-group {
   position: fixed;
   bottom: 0;

@@ -1,6 +1,5 @@
 <div class="login-card">
 
-<!--    <h3 class="text-center">{{'LOGIN.Login' | translate}}</h3>-->
 
     <form [formGroup]="loginForm"
           (ngSubmit)="login()">
@@ -18,7 +17,7 @@
             <div *ngIf="formControls['email'].touched && formControls['email'].errors"
                  class="invalid-feedback">
                 <span *ngIf="formControls['email'].errors.required">
-                  {{'LOGIN.FORM.emailIsRequired' | translate}}
+                    {{'LOGIN.FORM.emailIsRequired' | translate}}
                 </span>
                 <span *ngIf="formControls['email'].errors.email">
                     {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
@@ -37,12 +36,12 @@
                    placeholder="{{'LOGIN.Password' | translate}}">
             <div *ngIf="formControls['password'].touched && formControls['password'].errors"
                  class="invalid-feedback">
-        <span *ngIf="formControls['password'].errors.required">
-          {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </span>
+                <span *ngIf="formControls['password'].errors.required">
+                    {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
+                </span>
                 <span *ngIf="formControls['password'].errors.minlength">
-          {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
-        </span>
+                    {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
+                </span>
             </div>
 
         </div>
@@ -52,34 +51,15 @@
             <a class="btn btn-link forgot-password-link"
                [routerLink]="'/reset'">{{'LOGIN.iForgotMyPassword' | translate}}</a>
         </div>
-<!--        <div class="text-center">-->
-<!--            <p>{{'LOGIN.orLoginWith' | translate}}</p>-->
-<!--        </div>-->
-<!--        <div class="text-center">-->
-<!--            <p>{{'LOGIN.registerMsg' | translate}}</p>-->
-<!--            <a class="btn btn-link"-->
-<!--               [routerLink]="'/register'">{{'LOGIN.Register' | translate}}</a>-->
-<!--        </div>-->
 
 
-<!--        <div class="form-group text-center facebook-form-group danskill-form-group">-->
-<!--            <button class="btn"-->
-<!--                    [disabled]="true"-->
-<!--                    tabindex='0'-->
-<!--                    (click)="loginFacebook()">-->
-<!--                &lt;!&ndash;                {{'LOGIN.LoginWithFacebook' | translate}}&ndash;&gt;-->
-<!--                <img src="../../../assets/images/icons/facebook.svg">-->
-<!--            </button>-->
-<!--        </div>-->
-
-        <div class="form-group text-center submit-form-group danskill-form-group">
+        <div
+             class="form-group text-center submit-form-group danskill-form-group">
             <button class="btn btn-success danskill-next-btn"
                     tabindex='0'
                     type="submit"
                     [disabled]="!loginForm.valid || isSubmitted">
-                <!--        {{'LOGIN.Login' | translate}}-->
-                <!--        <span *ngIf="isSubmitted">(sending)</span>-->
-                <img class="arrow" src="../../../assets/images/icons/right-arrow.svg">
+                <i class="icon-arrow-right"></i>
             </button>
         </div>
 
