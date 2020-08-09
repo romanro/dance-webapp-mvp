@@ -17,10 +17,13 @@ export class LabPageComponent implements OnInit, OnDestroy {
   constructor(private store: Store<LabState>) { }
 
   ngOnInit() {
-    this.store.select(
-      selectors.selectCurrentLabItem()).subscribe(res => {
-        this.labItem = res;
-      })
+    this.subs.push(
+      this.store.select(
+        selectors.selectCurrentLabItem()).subscribe(res => {
+          this.labItem = res ? { ...res } : null;
+        })
+    )
+
   }
 
   ngOnDestroy(): void {

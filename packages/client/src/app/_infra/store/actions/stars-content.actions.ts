@@ -12,11 +12,11 @@ export const GetStarsContentAction = createAction(StarsContentActionType.GetStar
 
 export const BeginGetStarsContentAction = createAction(StarsContentActionType.BeginGetStarsContentAction,
     props<{ payload: string }>()
-    );
+);
 
 export const SuccessGetStarsContentAction = createAction(
     StarsContentActionType.SuccessGetStarsContentAction,
-    props<{ payload: StarContent[] }>(
+    props<{ payload: StarContent }>(
     )
 );
 

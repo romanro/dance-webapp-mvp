@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { StarInfoPageComponent } from './star-info-page.component';
+import { StarContentTabsComponent } from './star-content-tabs.component';
 
-describe('StarInfoPageComponent', () => {
-  let component: StarInfoPageComponent;
-  let fixture: ComponentFixture<StarInfoPageComponent>;
+describe('StarContentTabsComponent', () => {
+  let component: StarContentTabsComponent;
+  let fixture: ComponentFixture<StarContentTabsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StarInfoPageComponent ]
+      declarations: [ StarContentTabsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StarInfoPageComponent);
+    fixture = TestBed.createComponent(StarContentTabsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

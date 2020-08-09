@@ -3,19 +3,19 @@ import t from 'typy';
 
 import { FiguresState } from '../state';
 
-
 export const selectFigures = (state: FiguresState) => state.figures;
 
-export const selectAllFiguresByStar = (starId: string) => createSelector(
+export const selectFigureById = (figureId) => createSelector(
     selectFigures, (allFigures) => {
         if (!t(allFigures, 'figures').isNullOrUndefined) {
-            return t(allFigures, 'figures').safeArray.filter(figure => figure.stars.includes(starId));
-        } else {
+            return t(allFigures, 'figures').safeArray.find(figure => figure._id === figureId);
+        }
+        else {
             return null;
         }
-    }
-)
 
+    }
+);
 
 export const selectFiguresError = () => createSelector(
     selectFigures, (result) => {

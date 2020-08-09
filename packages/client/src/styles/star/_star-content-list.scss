@@ -1,35 +1,4 @@
-.star-levels, .star-dance-types{
-    ul{
-        justify-content: space-around;
-    }
-}
-
-.star-dance-types{
-    ul{
-        li{
-            border-radius: 4px;
-            background-color: grey;
-            color: white;
-            width: 20%;
-            text-align: center;
-
-            &[selected=true]{
-                border: red 2px solid;
-            }
-        }
-    }
-    
-}
-
-.star-levels{
-    ul{
-        li{
-            border: 1px solid;
-            width: 25%;
-            text-align: center;
-            &[selected=true]{
-                border: red 2px solid;
-            }
-        }
-    }
+.star-content-tabs {
+    position: relative;
+    min-height: 5rem;
 }
