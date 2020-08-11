@@ -1,15 +1,32 @@
-.figures-list {
+//.figures-list {
+//
+//
+//    .figure-info {
+//        @include list-item;
+//
+//        .figure-image {
+//            @include list-item-image(45%);
+//        }
+//
+//        .figure-text {
+//            @include list-item-text(55%);
+//        }
+//    }
+//}
+//
+//
 
 
-    .figure-info {
-        @include list-item;
-
-        .figure-image {
-            @include list-item-image(45%);
-        }
-
-        .figure-text {
-            @include list-item-text(55%);
-        }
+.figure-star-info {
+  .star-short-info {
+    img {
+      width: 85px;
     }
+  }
+}
+
+.basic-principles-videos-wrapper {
+  .basic-principles-videos-row {
+    padding-bottom: 15px;
+  }
 }

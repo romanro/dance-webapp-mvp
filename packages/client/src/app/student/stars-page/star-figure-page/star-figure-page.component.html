@@ -1,8 +1,8 @@
 <ng-template [ngIf]="star">
-  <div class="row">
+  <div class="row figure-star-info">
     <div
          class="col d-flex flex-column justify-content-center align-items-center">
-      <div class="star-short-info">
+      <div class="star-short-info text-center">
         <img [src]="star.userPics.smallPicURL"
              class="rounded-circle display-block">
 
@@ -12,7 +12,6 @@
 
       </div>
     </div>
-
   </div>
 </ng-template>
 
@@ -35,42 +34,75 @@
   <!-- BASIC PRINCIPLES VIDEOS -->
 
   <div *ngIf="basicPrinciplesVideos.length>0"
-       class="row figure-videos-row basic-principles-videos-row">
+       class=" figure-videos basic-principles-videos-wrapper">
     <div *ngFor="let video of basicPrinciplesVideos"
-         class="col-12 col-md-6 col-lg-4">
-      <div class="figure-video basic-principles-video">
+         class="row basic-principles-videos-row">
+      <div class="col-6">
         <div class="image">
-          <div class="embed-responsive embed-responsive-16by9">
-            <div class="embed-responsive-item  cover-bg"
+          <!--          <div class="embed-responsive embed-responsive-16by9">-->
+          <!--            <div class="embed-responsive-item  cover-bg"-->
+          <!--                 [style.backgroundImage]="'url('+ video.coverURL +')'">-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <div class="embed-responsive embed-responsive-16by9 video-preview-container"
+               (click)="openPromoModal(video.name, video.path)">
+            <div class="embed-responsive-item star-big-image cover-bg"
                  [style.backgroundImage]="'url('+ video.coverURL +')'">
             </div>
+            <div class="play-btn-container">
+              <i class="icon-play"></i>
+            </div>
+            <div class="hover-message">
+              {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-6">
+        <div class="figure-video basic-principles-video">
+          <div class="text">
+            <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
+            <p>{{video.name}}</p>
+            <button class="btn btn-sm btn-dark"
+                    (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
           </div>
         </div>
-        <div class="text">
-          <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
-          <p>{{video.name}}</p>
-          <button class="btn btn-sm btn-dark"
-                  (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
-        </div>
       </div>
-
     </div>
   </div>
 
   <!-- COMPARABLE VIDEOS -->
 
   <div *ngIf="comparableVideos.length>0"
-       class="row figure-videos-row comparable-videos-row">
-    <div *ngFor="let video of comparableVideos"
-         class="col-12 col-md-6 col-lg-4">
-      <div class="figure-video comparable-video">
+       class=" figure-videos comparable-videos-wrapper">
+    <div class="figure-video comparable-video-row row" *ngFor="let video of comparableVideos">
+      <div class="col-6">
+<!--        <div class="image">-->
+<!--          <div class="embed-responsive embed-responsive-16by9">-->
+<!--            <div class="embed-responsive-item  cover-bg"-->
+<!--                 [style.backgroundImage]="'url('+ video.coverURL +')'">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="image">
-          <div class="embed-responsive embed-responsive-16by9">
-            <div class="embed-responsive-item  cover-bg"
+          <div class="embed-responsive embed-responsive-16by9 video-preview-container"
+               (click)="openPromoModal(video.name, video.path)">
+            <div class="embed-responsive-item star-big-image cover-bg"
                  [style.backgroundImage]="'url('+ video.coverURL +')'">
             </div>
+            <div class="play-btn-container">
+              <i class="icon-play"></i>
+            </div>
+            <div class="hover-message">
+              {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
+            </div>
           </div>
+
         </div>
+      </div>
+      <div class="col-6">
         <div class="text">
           <p>{{figure.name}}</p>
           <p>{{video.name}}</p>
