@@ -1,4 +1,19 @@
 .star-content-tabs {
-    position: relative;
-    min-height: 5rem;
+  position: relative;
+  min-height: 5rem;
+
+  .figure-preview {
+    padding: 0.85rem 0;
+
+    .preview-img-wrapper {
+      display: flex;
+      justify-content: center;
+
+      .preview-img {
+        width: 100%;
+        height: 85%;
+      }
+    }
+
+  }
 }
