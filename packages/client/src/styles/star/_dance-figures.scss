@@ -26,7 +26,47 @@
 }
 
 .basic-principles-videos-wrapper {
-  .basic-principles-videos-row {
-    padding-bottom: 15px;
+  .basic-principles-videos {
+    .basic-principles-video {
+      display: flex;
+      flex-direction: row;
+      padding: 0.85rem 0;
+      position: relative;
+
+      .basic-principal-image {
+        flex: 1 1 40%;
+        width: 100%;
+      }
+
+      .basic-principal-content {
+        padding-left: 15px;
+        flex: 1 1 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+    }
+  }
+}
+
+.comparable-videos-wrapper {
+  .comparable-video-inner {
+    display: flex;
+    flex-direction: row;
+    padding: 0.85rem 0;
+    position: relative;
+    .comparable-video-image {
+      flex: 1 1 40%;
+      width: 100%;
+    }
+
+    .comparable-video-text {
+      padding-left: 15px;
+      flex: 1 1 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
 }

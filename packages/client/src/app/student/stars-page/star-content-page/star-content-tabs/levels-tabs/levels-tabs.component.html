@@ -9,16 +9,20 @@
       <a ngbNavLink>{{'STAR.STAR_INFO_PAGE.level' | translate}}
         {{level.level}}</a>
       <ng-template ngbNavContent>
-        <div *ngFor="let figure of level.figures"
-             class="figure-preview row">
-          <div class="col-6 preview-img-wrapper">
-            <img class="preview-img" src="{{figure.coverURL}}">
-          </div>
-          <div class="col-6 preview-content-wrapper">
-            <h6>{{figure.type}}</h6>
-            <p>{{figure.name}}</p>
-            <button class="btn btn-sm btn-dark"
-                    [routerLink]="[figure._id]">{{'STAR.FIGURES.learnFigure' | translate}}</button>
+        <div class="row d-flex justify-content-center">
+          <div *ngFor="let figure of level.figures"
+               class="figure-preview col-12 col-sm-6 col-md-3 col-lg-4">
+            <div class="figure-preview-inner">
+              <div class="preview-img-wrapper">
+                <img class="preview-img" src="{{figure.coverURL}}">
+              </div>
+              <div class=" preview-content-wrapper">
+                <h6>{{figure.type}}</h6>
+                <p>{{figure.name}}</p>
+                <button class="btn btn-sm btn-dark"
+                        [routerLink]="[figure._id]">{{'STAR.FIGURES.learnFigure' | translate}}</button>
+              </div>
+            </div>
           </div>
         </div>
       </ng-template>
