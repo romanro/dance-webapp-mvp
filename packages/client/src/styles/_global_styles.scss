@@ -145,6 +145,11 @@ select:-webkit-autofill:focus {
     background-color: $gray-500;
   }
 }
+
+.dark-link{
+  color: $dark;
+  font-size: $font-size-sm;
+}
 //.tab-btn{
 //  border: red 2px solid;
 //  background-color: red;
