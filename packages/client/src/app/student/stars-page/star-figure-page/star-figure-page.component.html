@@ -1,7 +1,9 @@
 <ng-template [ngIf]="star">
   <div class="row figure-star-info">
-    <div
-         class="col d-flex flex-column justify-content-center align-items-center">
+    <div class="col-12">
+      <a [routerLink]="['../']">{{'STAR.FIGURES.backToStarLibrary' | translate}}</a>
+    </div>
+    <div class="col d-flex flex-column justify-content-center align-items-center">
       <div class="star-short-info text-center">
         <img [src]="star.userPics.smallPicURL"
              class="rounded-circle display-block">
@@ -26,7 +28,7 @@
                [style.backgroundImage]="'url('+ figure.coverURL +')'">
           </div>
         </div>
-<!--        <h5 class="text-center">{{figure.name}}</h5>-->
+        <h5 class="text-center">{{figure.name}}</h5>
       </div>
     </div>
   </div>
