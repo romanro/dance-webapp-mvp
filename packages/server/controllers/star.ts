@@ -15,9 +15,8 @@ export const getStars = async (req: Request, res: Response, next: NextFunction) 
 const getSpecificStar = async (id: string): Promise<IStar | null> => (
     await Star.findById(id)
     .populate("figures", "type -_id")
-    .lean()
+    .exec()
 );
-
 
 
 export const getStar = async (req: Request, res: Response, next: NextFunction) => {
