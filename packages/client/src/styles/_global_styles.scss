@@ -139,6 +139,24 @@ select:-webkit-autofill:focus {
   width: 100%;
 }
 
+.btn.btn-dark{
+  border: none;
+  &:not(:disabled).active{
+    background-color: $gray-500;
+  }
+}
+
+.dark-link{
+  color: $dark;
+  font-size: $font-size-sm;
+}
+//.tab-btn{
+//  border: red 2px solid;
+//  background-color: red;
+//  &.active{
+//    background-color: green;
+//  }
+//}
 .clear-btn {
   @extend .danskill-icon-btn;
   background-image: url('./assets/images/icons/close.svg');

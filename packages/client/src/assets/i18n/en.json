@@ -125,7 +125,8 @@
       "learnFigure": "learn figure",
       "basicPrinciples": "Basic Principles",
       "learnPrinciples": "learn principles",
-      "openInMyLab": "open in My Lab"
+      "openInMyLab": "open in My Lab",
+      "backToStarLibrary": "Back to Star Library"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",
