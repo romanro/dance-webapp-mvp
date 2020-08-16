@@ -34,7 +34,6 @@ export class StarContentPageComponent implements OnInit, OnDestroy {
                 star => {
                     if (star) {
                         this.star = {...star};
-                        console.log("this.star", this.star)
                         this.loading = false;
                     } else {
                         this.store.dispatch(StarsActions.BeginGetStarsAction());

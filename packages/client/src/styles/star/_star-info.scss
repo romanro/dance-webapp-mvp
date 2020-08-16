@@ -1,16 +1,15 @@
 //
 .star-info {
 
-  //@include list-item;
+  @include list-item;
 
   .star-info-image {
-    //@include list-item-image(40%);
-    padding: 5px 30px;
+    @include list-item-image(40%);
   }
 
   .star-info-text {
 
-    //@include list-item-text(60%);
+    @include list-item-text(60%);
 
 
     .star-info-name {
@@ -29,7 +28,7 @@
 
       @include media-breakpoint-down(sm) {
         font-size: 0.76rem;
-        line-height: 1.2;
+        //line-height: 1.2;
         max-height: 2.2rem;
         display: -webkit-box;
 
@@ -55,6 +54,16 @@
   }
 }
 
+.star-info-vertical{
+
+  .star-info-image {
+    padding: 5px 30px;
+  }
+
+  .star-info-text {
+
+  }
+}
 .star-info-page {}
 
 .star-big-image {

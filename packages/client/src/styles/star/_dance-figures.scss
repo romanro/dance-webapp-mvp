@@ -1,49 +1,27 @@
-//.figures-list {
-//
-//
-//    .figure-info {
-//        @include list-item;
-//
-//        .figure-image {
-//            @include list-item-image(45%);
-//        }
-//
-//        .figure-text {
-//            @include list-item-text(55%);
-//        }
-//    }
-//}
-//
-//
-
-
 .figure-star-info {
   .star-short-info {
     img {
-      width: 85px;
+      max-width: 85px;
     }
   }
 }
+.figure-cover-name{
+  padding: 5px 30px;
+}
 
 .basic-principles-videos-wrapper {
+
   .basic-principles-videos {
     .basic-principles-video {
-      display: flex;
-      flex-direction: row;
-      padding: 0.85rem 0;
-      position: relative;
+      @include list-item;
 
       .basic-principal-image {
-        flex: 1 1 40%;
-        width: 100%;
+        @include list-item-image(40%);
+
       }
 
       .basic-principal-content {
-        padding-left: 15px;
-        flex: 1 1 60%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include list-item-text(60%);
       }
 
     }
@@ -52,21 +30,16 @@
 
 .comparable-videos-wrapper {
   .comparable-video-inner {
-    display: flex;
-    flex-direction: row;
-    padding: 0.85rem 0;
-    position: relative;
+    @include list-item;
+
     .comparable-video-image {
-      flex: 1 1 40%;
-      width: 100%;
+      @include list-item-image(40%);
+
     }
 
     .comparable-video-text {
-      padding-left: 15px;
-      flex: 1 1 60%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      @include list-item-text(60%);
+
     }
   }
 }
