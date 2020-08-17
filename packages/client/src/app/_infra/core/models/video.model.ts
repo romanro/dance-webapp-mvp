@@ -1,3 +1,4 @@
+import { Figure } from './figure.model';
 
 
 export interface Video {
@@ -6,6 +7,7 @@ export interface Video {
     view: View;
     participatesAmount: ParticipatesAmount;
     associateWith: AssociateType;
+    associatedId?: Figure | Video;
     type: VideoType;
     coverURL: string;
 }
@@ -41,6 +43,17 @@ export class LabStarVideo implements Video {
     view: View;
     coverURL: string;
     participatesAmount: ParticipatesAmount;
+    associateWith: AssociateType = AssociateType.FIGURE
+    associatedId: Figure;
+    type: VideoType = VideoType.COMPARABLE;
+}
+export class LabUserVideo implements Video {
+    name: string;
+    path: string;
+    view: View;
+    coverURL: string;
+    participatesAmount: ParticipatesAmount;
     associateWith: AssociateType = AssociateType.VIDEO;
+    associatedId: Video;
     type: VideoType = VideoType.COMPARABLE;
 }
