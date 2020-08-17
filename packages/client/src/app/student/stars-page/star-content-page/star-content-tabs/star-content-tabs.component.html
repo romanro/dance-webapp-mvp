@@ -6,12 +6,12 @@
       <div class="col">
         <ul ngbNav
             #dancesPills="ngbNav"
-            class="nav-pills">
+            class="nav-pills justify-content-around p-3">
           <ng-template ngFor
                        let-dance
                        [ngForOf]="content.dances">
             <li ngbNavItem>
-              <a ngbNavLink>{{dance.type}}</a>
+              <a ngbNavLink class="btn btn-dark">{{dance.type}}</a>
               <ng-template ngbNavContent>
 
                 <dsapp-levels-tabs [levels]="dance.levels"></dsapp-levels-tabs>
