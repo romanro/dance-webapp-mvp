@@ -1,29 +1,73 @@
 <div class="row page-title-row">
     <div class="col text-center">
-        <h2 class="inner-page-title">{{'LAB.title' | translate}}
+        <h2 class="inner-page-title"><span
+                  class="underline-warning">{{'LAB.title' | translate}}</span>
         </h2>
     </div>
 </div>
 
+<div *ngIf="labItem"
+     class="row mt-3">
+    <div class="col text-center">
+        <h5 dsappStarName
+            [name]="labItem.star.name"></h5>
+        <p>{{labItem.figure.name}}, {{'STAR.STAR_INFO_PAGE.level' | translate}}
+            {{labItem.figure.level}}</p>
+    </div>
+</div>
 
-<div *ngIf="!labItem; else lab">
+<ng-container [ngSwitch]="labView">
+
+    <!-- Preview - USER MUST TO UPLOAD --->
+
+    <div *ngSwitchCase="'preview'"
+         class="row">
+        <div class="col">
+            <div class="embed-responsive embed-responsive-16by9">
+
+                <vg-player class="embed-responsive-item"
+                           (onPlayerReady)="onPreviewPlayerReady($event)">
+                    <vg-controls [vgAutohide]="true"
+                                 [vgAutohideTime]="2">
+                        <vg-play-pause vgFor="modalVideo"></vg-play-pause>
+                        <vg-scrub-bar>
+                            <vg-scrub-bar-buffering-time vgFor="modalVideo">
+                            </vg-scrub-bar-buffering-time>
+                            <vg-scrub-bar-current-time vgFor="modalVideo">
+                            </vg-scrub-bar-current-time>
+                        </vg-scrub-bar>
+                        <vg-volume vgFor="modalVideo"></vg-volume>
+                        <vg-fullscreen></vg-fullscreen>
+                    </vg-controls>
+                    <video [vgMedia]="video"
+                           #video
+                           id="modalVideo"
+                           preload="auto">
+                        <source [src]="labItem.starVideo"
+                                type="video/mp4">
+                    </video>
+                </vg-player>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL LAB TOOL --->
+    <div *ngSwitchCase="'full'"
+         class="row">
+        <div class="col">
+            <dsapp-lab-video-tool></dsapp-lab-video-tool>
+        </div>
+    </div>
+
+    <!-- STAR VIDEO IS NOT SELECTED --->
     <div class="row">
-        <div class="col text-center">
+        <div *ngSwitchDefault
+             class="col text-center">
             <p>{{'LAB.instruction' | translate}}</p>
             <button class="btn btn-info"
                     tabindex="0"
                     [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
         </div>
     </div>
-</div>
 
-<ng-template #lab>
-    <div class="row">
-        <div class="col"></div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <dsapp-lab-video-tool></dsapp-lab-video-tool>
-        </div>
-    </div>
-</ng-template>
+</ng-container>
