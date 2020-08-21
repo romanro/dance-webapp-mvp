@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col">
+    <div class="embed-responsive embed-responsive-16by9">
+
+      <vg-player class="embed-responsive-item"
+                 (onPlayerReady)="onPreviewPlayerReady($event)">
+        <vg-overlay-play vgFor="previewVideo">
+        </vg-overlay-play>
+        <vg-controls [vgAutohide]="true"
+                     [vgAutohideTime]="2">
+          <vg-play-pause vgFor="previewVideo">
+          </vg-play-pause>
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+        <video [vgMedia]="video"
+               #video
+               id="previewVideo"
+               preload="auto"
+               [poster]="previewVideo.coverURL">
+          <source [src]="previewVideo.path"
+                  type="video/mp4">
+        </video>
+      </vg-player>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="embed-responsive embed-responsive-16by9">
+      <div class="embed-responsive-item bg-dark">
+
+      </div>
+    </div>
+  </div>
+</div>

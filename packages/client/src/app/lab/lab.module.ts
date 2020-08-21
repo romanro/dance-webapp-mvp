@@ -4,8 +4,9 @@ import { InfraModule } from '@infra/infra.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { VgBufferingModule, VgControlsModule, VgCoreModule, VgOverlayPlayModule } from 'ngx-videogular';
 
-import { LabPageComponent, LabVideoToolComponent } from '.';
+import { LabPageComponent, LabPreviewUploadComponent, LabVideoToolComponent } from '.';
 import { LabRoutingModule } from './lab-routing.module';
+
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { LabRoutingModule } from './lab-routing.module';
     VgOverlayPlayModule,
     VgBufferingModule,
   ],
-  declarations: [LabPageComponent, LabVideoToolComponent],
+  declarations: [LabPageComponent, LabVideoToolComponent, LabPreviewUploadComponent],
   exports: []
 })
 export class LabModule { }

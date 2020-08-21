@@ -32,8 +32,6 @@ export class LabPageComponent implements OnInit, OnDestroy {
 
   }
 
-  onPreviewPlayerReady(event) { }
-
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
   }
