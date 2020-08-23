@@ -2,12 +2,15 @@
 
 export interface Video {
     name: string;
-    path: string;
+    key: string;
     view: View;
     participatesAmount: ParticipatesAmount;
-    associateWith: AssociateType;
+    associatedObject: string;
+    associatedModel: AssociateType;
+    ownerUser: string;
+    ownerRole: number;
     type: VideoType;
-    coverURL: string;
+    thumbnail: string;
 }
 
 export enum View {
@@ -21,8 +24,8 @@ export enum ParticipatesAmount {
 }
 
 export enum AssociateType {
-    VIDEO = 'video',
-    FIGURE = 'figure'
+    VIDEO = 'Video',
+    FIGURE = 'Figure'
 }
 
 export enum VideoType {
@@ -37,10 +40,13 @@ export enum VideoType {
 
 export class LabStarVideo implements Video {
     name: string;
-    path: string;
+    key: string;
     view: View;
-    coverURL: string;
+    thumbnail: string;
     participatesAmount: ParticipatesAmount;
-    associateWith: AssociateType = AssociateType.VIDEO;
+    associatedObject: string;
+    associatedModel: AssociateType = AssociateType.VIDEO;
+    ownerUser: string;
+    ownerRole: number;
     type: VideoType = VideoType.COMPARABLE;
 }
