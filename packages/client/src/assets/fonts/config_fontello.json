@@ -710,6 +710,36 @@
       "src": "fontelico"
     },
     {
+      "uid": "872d9516df93eb6b776cc4d94bd97dac",
+      "css": "video-2",
+      "code": 59458,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0f99ab40ab0b4d64a74f2d0deeb03e42",
+      "css": "videocam-1",
+      "code": 59459,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "381da2c2f7fd51f8de877c044d7f439d",
+      "css": "picture-1",
+      "code": 59460,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dc3f1d5b1d006f7f7b3b6295eccab9da",
+      "css": "camera-4",
+      "code": 59461,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9d3d9d6ce1ec63eaa26281e6162853c9",
+      "css": "camera-alt",
+      "code": 59462,
+      "src": "fontawesome"
+    },
+    {
       "uid": "59ff502f8b5bdee87780e1aff509e2a2",
       "css": "rarrow-right",
       "code": 59435,

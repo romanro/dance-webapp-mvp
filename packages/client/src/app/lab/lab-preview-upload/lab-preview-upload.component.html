@@ -10,14 +10,21 @@
                      [vgAutohideTime]="2">
           <vg-play-pause vgFor="previewVideo">
           </vg-play-pause>
+
+          <vg-scrub-bar>
+            <vg-scrub-bar-current-time vgFor="previewVideo"
+                                       [vgSlider]="false">
+            </vg-scrub-bar-current-time>
+          </vg-scrub-bar>
+
           <vg-fullscreen></vg-fullscreen>
         </vg-controls>
         <video [vgMedia]="video"
                #video
                id="previewVideo"
                preload="auto"
-               [poster]="previewVideo.coverURL">
-          <source [src]="previewVideo.path"
+               [poster]="previewVideo.thumbnail">
+          <source [src]="previewVideo.key"
                   type="video/mp4">
         </video>
       </vg-player>
@@ -27,8 +34,13 @@
 <div class="row">
   <div class="col">
     <div class="embed-responsive embed-responsive-16by9">
-      <div class="embed-responsive-item bg-dark">
+      <div class="embed-responsive-item bg-dark upload-placeholder">
+        <div class="toolbox">
+          <h5>{{'LAB.uploadVideo' | translate}}</h5>
+          <ui-video-file-picker (videoChange)="fileChangeEvent($event)">
+          </ui-video-file-picker>
 
+        </div>
       </div>
     </div>
   </div>

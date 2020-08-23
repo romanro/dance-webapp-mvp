@@ -89,12 +89,17 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
         case VideoType.COMPARABLE:
           this.comparableVideos.push(video);
           break;
-        case VideoType.ADDITIONAL:
+        case VideoType.TIPS:
+          this.additionalVideos.push(video);
+          // TODO: add additional video functionality
+          break;
+        case VideoType.EXERCISES:
           this.additionalVideos.push(video);
           // TODO: add additional video functionality
           break;
       }
     })
+
   }
 
   learnPrinciples(url: string, name: string): void {

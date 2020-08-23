@@ -17,7 +17,7 @@ import { LabRoutingModule } from './lab-routing.module';
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule,
+    VgBufferingModule
   ],
   declarations: [LabPageComponent, LabVideoToolComponent, LabPreviewUploadComponent],
   exports: []

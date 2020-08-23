@@ -21,15 +21,10 @@ export class LabPreviewUploadComponent implements OnInit, OnDestroy {
   }
 
   onPreviewPlayerReady(api: VgAPI) {
-
     this.previewPlayerAPI = api;
-
-    this.subs.push(
-      this.previewPlayerAPI.getDefaultMedia().subscriptions.error.subscribe(
-        error => { console.log(error); }
-      )
-    );
   }
+
+  fileChangeEvent(event) { }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

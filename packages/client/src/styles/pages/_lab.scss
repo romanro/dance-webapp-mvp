@@ -1,1 +1,19 @@
-.lab-page {}
+.lab-page {
+    .upload-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .toolbox {
+            h5 {
+                font-weight: 400;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                color: $white;
+                width: 100%;
+            }
+        }
+    }
+}
