@@ -43,17 +43,24 @@ export enum EnumParticipatesAmount {
 }
 export const possibleParticipatesAmounts = Object.values(EnumParticipatesAmount);
 
-export enum EnumAssociateType {
-  video = "video",
-  figure = "figure"
+export enum EnumAssociateModel {
+  Video = "Video",
+  Figure = "Figure"
 }
-export const possibleAssociateTypes = Object.values(EnumAssociateType);
+export const possibleAssociateModels = Object.values(EnumAssociateModel);
+
+export enum EnumRole {
+  user = 0,
+  admin = 99
+}
+export const possibleRoles = Object.values(EnumRole);
 
 export enum EnumVideoType {
   // the following states are used for star only
   promo = "promo",
   basicPrinciples = "basicPrinciples",
-  additional = "additional",
+  tips = "tips",
+  exercises = "exercises",
 
   // the following states are shared for star and user
   comparable = "comparable",

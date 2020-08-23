@@ -1,14 +1,16 @@
 <ng-template [ngIf]="star">
   <div class="row figure-star-info">
     <div class="col-12">
-      <a class="btn-link dark-link" [routerLink]="['../']">
+      <a class="btn-link dark-link"
+         [routerLink]="['../']">
         <i class="icon-arrow-left"></i>
         {{'STAR.FIGURES.backToStarLibrary' | translate}}
       </a>
     </div>
-    <div class="col d-flex flex-column justify-content-center align-items-center">
+    <div
+         class="col d-flex flex-column justify-content-center align-items-center">
       <div class="star-short-info text-center">
-        <img [src]="star.userPics.smallPicURL"
+        <img [src]="star.logo.small"
              class="rounded-circle display-block">
 
         <h5 class="star-info-name text-center"
@@ -28,7 +30,7 @@
       <div class="figure-cover-name">
         <div class="embed-responsive embed-responsive-16by9">
           <div class="embed-responsive-item  cover-bg"
-               [style.backgroundImage]="'url('+ figure.coverURL +')'">
+               [style.backgroundImage]="'url('+ figure.logo +')'">
           </div>
         </div>
         <p class="text-center pt-2">{{figure.name}}</p>
@@ -45,16 +47,11 @@
            class="basic-principles-videos col-12 col-sm-6 col-md-3 col-lg-4">
         <div class="basic-principles-video">
           <div class="basic-principal-image">
-            <!--          <div class="embed-responsive embed-responsive-16by9">-->
-            <!--            <div class="embed-responsive-item  cover-bg"-->
-            <!--                 [style.backgroundImage]="'url('+ video.coverURL +')'">-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--          (click)="openPromoModal(video.name, video.path)"-->
-            <div class="embed-responsive embed-responsive-16by9 video-preview-container"
-            >
+
+            <div
+                 class="embed-responsive embed-responsive-16by9 video-preview-container">
               <div class="embed-responsive-item star-big-image cover-bg"
-                   [style.backgroundImage]="'url('+ video.coverURL +')'">
+                   [style.backgroundImage]="'url('+ video.thumbnail +')'">
               </div>
               <div class="play-btn-container">
                 <i class="icon-play"></i>
@@ -70,7 +67,7 @@
               <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
               <p>{{video.name}}</p>
               <button class="btn btn-sm btn-dark"
-                      (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
+                      (click)="learnPrinciples(video.key, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
             </div>
           </div>
         </div>
@@ -83,13 +80,15 @@
   <div *ngIf="comparableVideos.length>0"
        class=" figure-videos comparable-videos-wrapper">
     <div class="row d-flex justify-content-center">
-      <div class="figure-video comparable-video col-12 col-sm-6 col-md-3 col-lg-4" *ngFor="let video of comparableVideos">
+      <div class="figure-video comparable-video col-12 col-sm-6 col-md-3 col-lg-4"
+           *ngFor="let video of comparableVideos">
         <div class="comparable-video-inner">
           <div class="comparable-video-image">
             <!--          (click)="openPromoModal(video.name, video.path)-->
-            <div class="embed-responsive embed-responsive-16by9 video-preview-container">
+            <div
+                 class="embed-responsive embed-responsive-16by9 video-preview-container">
               <div class="embed-responsive-item star-big-image cover-bg"
-                   [style.backgroundImage]="'url('+ video.coverURL +')'">
+                   [style.backgroundImage]="'url('+ video.thumbnail +')'">
               </div>
               <div class="play-btn-container">
                 <i class="icon-play"></i>
@@ -103,11 +102,11 @@
             <p>{{figure.name}}</p>
             <p>{{video.name}}</p>
             <div class="mb-1">
-            <span class="badge badge-pill badge-secondary">{{video.view}}
-              {{'STAR.FIGURES.view' | translate}}</span>
+              <span class="badge badge-pill badge-secondary">{{video.view}}
+                {{'STAR.FIGURES.view' | translate}}</span>
               <span class="badge badge-pill badge-secondary">
-              {{video.participatesAmount}}
-            </span>
+                {{video.participatesAmount}}
+              </span>
             </div>
             <button class="btn btn-sm btn-success"
                     (click)="openInLab(video)">{{'STAR.FIGURES.openInMyLab' | translate}}</button>

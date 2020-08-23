@@ -6,10 +6,9 @@ export interface Figure {
     stars: Array<string>;
     videos: Array<string> | Array<Video>;
     name: string;
-    coverURL: string;
+    logo: string;
     type: DanceType;
     level: string;
-    createdAt: Date,
-    updatedAt: Date,
-
+    createdAt?: Date,
+    updatedAt?: Date
 }

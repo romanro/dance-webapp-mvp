@@ -4,6 +4,7 @@ import Video, { IVideo } from "./Video"
 const practiceItemSchema = new mongoose.Schema(
     {
         associatedVideo: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' }, 
+        // TODO: notes should be added here  
     },
     { timestamps: true }
 );

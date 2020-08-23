@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import mongoose, { Document, Model } from 'mongoose';
 
-import Figure from '../models/Figure';
 import User from '../models/User';
-import Video, { IVideo } from '../models/Video';
-import { EnumAssociateType, possibleAssociateTypes } from '../shared/enums';
 import { getVideoById } from "./video"
 import PracticeItem, { IPracticeItem } from '../models/PracticeItem';
 

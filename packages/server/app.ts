@@ -17,16 +17,19 @@ dotenv.config({ path: '.env.example' });
  */
 
 const api = require('./routes/api');
-const homeController = require('./controllers/home');
-const adminController = require('./controllers/admin');
+const homeController = require('./controllers/frontend/home');
+const adminController = require('./controllers/frontend/admin');
 
 /**
  * Create Express server.
  */
+
 const app = express();
+
 /**
  * Connect to MongoDB.
  */
+
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
@@ -55,11 +58,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/* app.use(
-  '/',
-  express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
-); */
-
 // Serve only the static files form the dist directory
 app.use(
   express.static(
@@ -86,16 +84,12 @@ app.use('/api/v1', api);
 /**
  * Cath-all admin route to angular admin
  */
-app.get('/admin/*', (req, res, next) => {
-  return adminController.admin(req, res, next);
-});
+app.get('/admin/*', (req, res, next) => { return adminController.admin(req, res, next); });
 
 /**
  * Cath-all route to angular app
  */
-app.get('/*', (req, res, next) => {
-  return homeController.app(req, res, next);
-});
+app.get('/*', (req, res, next) => { return homeController.app(req, res, next); });
 
 /**
  * Error Handler.
