@@ -1,6 +1,6 @@
 <ul ngbNav
     #levelTabs="ngbNav"
-    class="nav-tabs">
+    class="nav-tabs level-tabs list-inline {{levels.length === 1 ? 'one-tab' : 'more-then-one'}}">
   <ng-template ngFor
                let-level
                [ngForOf]="levels">
