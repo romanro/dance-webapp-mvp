@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import mongoose, { Document, Model, model, Schema, Types } from 'mongoose';
+import mongoose, { Document, Model, model, Types } from 'mongoose';
 import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from '../config/jwt';
 import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
 import { IPracticeItem } from './PracticeItem';
 import User from './User';
-import { IVideo } from './Video';
+import { NextFunction } from 'express';
 
 
 interface access_dto {
@@ -53,7 +53,6 @@ const userSchema = new mongoose.Schema(
     tokens: [{ type: String }],
 
     practiceItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticeItem' }],
-
 
     profile: {
       gender: { type: EnumGender, enum: possibleGenders }, // TODO: required: true?
@@ -113,8 +112,8 @@ userSchema.virtual('profile.birthDate.group').get(function (this: { profile: IPr
 /**
  * Password hash middleware.
  */
-userSchema.pre('save', function save(next) {
-  const user = this as IUser;
+userSchema.pre('save', function save(this: IUser, next: NextFunction) {
+  const user = this;
   if (!user.isModified('password')) {
     return next();
   }

@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "5f4101a2f3f8fd3386e9dce0"
+  },
+  "stars": [
+    {
+      "$oid": "5f40fe6ad1f6082d42e9708b"
+    }
+  ],
+  "videos": [
+    {
+      "$oid": "5f4151336391ed647f4df9c1"
+    },
+    {
+      "$oid": "5f41544fe0ec19692974cf94"
+    },
+    {
+      "$oid": "5f41549fe0ec19692974cf95"
+    },
+    {
+      "$oid": "5f4154d0e0ec19692974cf96"
+    },
+    {
+      "$oid": "5f415565e0ec19692974cf97"
+    },
+    {
+      "$oid": "5f41564ee0ec19692974cf98"
+    }
+  ],
+  "type": "tango",
+  "level": "1",
+  "name": "Opening Out",
+  "logo": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.png",
+  "createdAt": {
+    "$date": "2020-08-22T11:29:38.912Z"
+  },
+  "updatedAt": {
+    "$date": "2020-08-22T17:30:54.668Z"
+  },
+  "__v": 0
+}]

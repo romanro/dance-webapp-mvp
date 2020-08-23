@@ -12,16 +12,17 @@ const starSchema = new mongoose.Schema(
     },
     slug: { type: String, required: true, unique: true },
     location: {
-      country: { type: String, required: true },
-      city: { type: String, required: true }
+      country: { type: String },
+      city: { type: String }
     },
-    birthDate: { type: Date, required: true },
-    userPics: {
-      smallPicURL: { type: String, required: true },
-      largePicURL: { type: String, required: true },
+    birthDate: { type: Date },
+    logo: {
+      small: { type: String, required: true },
+      large: { type: String, required: true },
     },
-    promoVideoURL: { type: String, required: true },
-    about: { type: String, required: true },
+    promoVideo: { type: String, required: true },
+    about: { type: String },
+    achievements: [{ type: String }],
   },
   { timestamps: true }
 );
@@ -34,16 +35,17 @@ interface IStarSchema extends Document {
   };
   slug: String;
   location?: {
-    country: String,
-    city: String
+    country?: String,
+    city?: String
   };
-  birthDate: Date;
-  userPics: {
-    smallPicURL: String,
-    largePicURL: String
+  birthDate?: Date;
+  logo: {
+    small: String,
+    large: String
   };
-  promoVideoURL: String;
-  about: String;
+  promoVideo: String;
+  about?: String;
+  achievements?: String[];
 }
 
 interface IStarBase extends IStarSchema {

@@ -251,7 +251,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ohad2121@email.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"ohad\",\n\t\t\"lastName\": \"fein\"\n\t}\n}",
+							"raw": "{\n\t\"email\": \"ohad2121@email.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"roy\",\n\t\t\"lastName\": \"roy\"\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,7 +278,7 @@
 							"script": {
 								"id": "7b696d07-b35e-4a9c-bdfb-c592988998f6",
 								"exec": [
-									"pm.test(\"Sign up\", function () {",
+									"pm.test(\"login\", function () {",
 									"    if (responseCode.code === 200)",
 									"    {",
 									"        const tokens = pm.response.json().tokens;",
@@ -479,6 +479,20 @@
 				},
 				{
 					"name": "get my profile info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba660c6e-9c34-4db4-963c-823cb5887a01",
+								"exec": [
+									"pm.test(\"Get my profile info\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -516,6 +530,20 @@
 				},
 				{
 					"name": "edit my profile info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0eaf8a68-258c-4efa-a4fd-4fac1fcd240b",
+								"exec": [
+									"pm.test(\"Edit my profile info\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -574,62 +602,618 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Stars",
+			"name": "Admins",
 			"item": [
 				{
-					"name": "add star",
-					"event": [
+					"name": "Stars",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"id": "ed1087b5-1a2c-410b-b500-07862e42644a",
-								"exec": [
-									"pm.test(\"Add star\", function () {",
-									"        if (responseCode.code === 201)",
-									"    {",
-									"        const star = pm.response.json().star;",
-									"        pm.environment.set(\"starId\", star._id);",
-									"    }",
-									"    ",
-									"    pm.response.to.have.status(201);",
-									"});"
+							"name": "add star",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ed1087b5-1a2c-410b-b500-07862e42644a",
+										"exec": [
+											"pm.test(\"Add star\", function () {",
+											"        if (responseCode.code === 201)",
+											"    {",
+											"        const star = pm.response.json().star;",
+											"        pm.environment.set(\"starId\", star._id);",
+											"    }",
+											"    ",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript"
-							}
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"promoVideo\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/promo.MP4\",\r\n  \"name\": {\r\n    \"firstName\": \"Paul\",\r\n    \"lastName\": \"Moldovan\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Romania\"\r\n  },\r\n  \"logo\": {\r\n  \t\"small\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg\",\r\n    \"large\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg\"\r\n  },\r\n   \"about\": \"\",\r\n   \"achievements\": [\"3rd place World cup\", \"3rd place European cup\", \"2x Semi final World champoinship\", \"2x Semi final European championship\", \"2x GOC semi final\", \"5x Latvian champions\"],\r\n   \"slug\": \"Paul-Moldovan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/stars",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"stars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete star",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/stars/{{starId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"stars",
+										"{{starId}}"
+									]
+								}
+							},
+							"response": []
 						}
 					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": {\r\n    \"firstName\": \"Nina\",\r\n    \"lastName\": \"Trump\",\r\n    \"nickname\": \"Superstar\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Tel-Aviv\",\r\n      \"country\": \"Israel\"\r\n  },\r\n  \"birthDate\": \"1981-01-20\",\r\n  \"userPics\": {\r\n  \t\"smallPicURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n      \"largePicURL\": \"https://media.vogue.co.uk/photos/5d54be0919b6dd000853ad13/master/pass/original\"\r\n  },\r\n  \"promoVideoURL\": \"http://static.videogular.com/assets/videos/videogular.mp4\",\r\n   \"about\": \"A dance teacher, has a good knowledge and about 20 years of experience. Born in Moscow, Russia.\",\r\n   \"slug\": \"Superstar\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/stars/add",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"stars",
-								"add"
-							]
-						}
-					},
-					"response": []
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
+				{
+					"name": "Videos",
+					"item": [
+						{
+							"name": "upload star video",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "944b288c-8760-49dd-b092-b6d73ff15bee",
+										"exec": [
+											"pm.test(\"Add star video\", function () {\r",
+											"    if (responseCode.code === 201) {\r",
+											"        const video = pm.response.json().data;\r",
+											"        pm.environment.set(\"videoId\", video._id);\r",
+											"    }\r",
+											"\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "path",
+											"value": "stars/Paul Moldovan/Opening Out",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "videoKey",
+											"value": "stars/Paul Moldovan/Opening Out/MASTER Silabus.MP4",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Silabus",
+											"description": "video name",
+											"type": "text"
+										},
+										{
+											"key": "view",
+											"value": "front",
+											"description": "valid values: front/back",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "basicPrinciples",
+											"description": "promo/basicPrinciples/tips/exercises/comparable",
+											"type": "text"
+										},
+										{
+											"key": "participatesAmount",
+											"value": "solo",
+											"description": "valid values: solo/couple",
+											"type": "text"
+										},
+										{
+											"key": "associatedObject",
+											"value": "{{figureId}}",
+											"description": "figure id",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"value": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/MASTER+TIP.MP4",
+											"type": "text"
+										},
+										{
+											"key": "video",
+											"description": "video file",
+											"type": "file",
+											"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/Opening Out/Roy (user) - fake it till you make it.mp4",
+											"disabled": true
+										},
+										{
+											"key": "videoUrl",
+											"value": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/MASTER+Silabus.MP4",
+											"type": "text"
+										}
+									],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/videos/",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"videos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete video",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "31fee555-a8e1-405f-8bca-f21532553f92",
+										"exec": [
+											"pm.test(\"Delete video\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/videos/{{videoId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"videos",
+										"{{videoId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "S3 objects",
+					"item": [
+						{
+							"name": "delete s3 object",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a99e9d49-5f9f-4233-9c49-782d4a3e4704",
+										"exec": [
+											"pm.test(\"Delete video\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"stars/Paul Moldovan/logo.jpg\"\n}",
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/s3Objects/",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"s3Objects",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload s3 star logo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ae6d73f4-ab98-4a2e-8ad9-8e66fbf423a0",
+										"exec": [
+											"pm.test(\"Add video\", function () {\r",
+											"    if (responseCode.code === 201) {\r",
+											"        const video = pm.response.json().video;\r",
+											"        pm.environment.set(\"videoId\", video._id);\r",
+											"    }\r",
+											"\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "path",
+											"value": "stars/Paul Moldovan",
+											"description": "video name",
+											"type": "text"
+										},
+										{
+											"key": "object",
+											"description": "Must be the last parameter!!!!!",
+											"type": "file",
+											"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/photos/logo.jpg"
+										}
+									],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/s3Objects",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"s3Objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload s3 star promo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "275dc9d5-db8b-4c72-8751-ffe70674b985",
+										"exec": [
+											"pm.test(\"Add video\", function () {\r",
+											"    if (responseCode.code === 201) {\r",
+											"        const video = pm.response.json().video;\r",
+											"        pm.environment.set(\"videoId\", video._id);\r",
+											"    }\r",
+											"\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "path",
+											"value": "stars/Paul Moldovan",
+											"description": "video name",
+											"type": "text"
+										},
+										{
+											"key": "object",
+											"description": "Must be the last parameter!!!!!",
+											"type": "file",
+											"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/promo.MP4"
+										}
+									],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/s3Objects",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"s3Objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list s3 objects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5fcb13c9-f4da-4a3d-8846-586b4a9098c1",
+										"exec": [
+											"pm.test(\"Add video\", function () {\r",
+											"    if (responseCode.code === 201) {\r",
+											"        const video = pm.response.json().video;\r",
+											"        pm.environment.set(\"videoId\", video._id);\r",
+											"    }\r",
+											"\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/s3Objects",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"s3Objects"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "FIgures",
+					"item": [
+						{
+							"name": "add figure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4ea9b52a-d6e2-4bba-a20e-69fa14295c2c",
+										"exec": [
+											"pm.test(\"Add figure\", function () {",
+											"    if (responseCode.code === 201)",
+											"    {",
+											"        const figure = pm.response.json().figure;",
+											"        pm.environment.set(\"figureId\", figure._id);",
+											"    }",
+											"    ",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"stars\": [\"{{starId}}\"],\r\n\t\"type\": \"tango\",\r\n\t\"level\": \"1\",\r\n\t\"name\": \"Opening Out\",\r\n\t\"logo\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/figures",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"figures"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete figure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e4804107-27b9-4221-80bc-b63e5b0d7dc5",
+										"exec": [
+											"pm.test(\"Delete figure\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/admins/figures//{{figureId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"admins",
+										"figures",
+										"",
+										"{{figureId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Stars",
+			"item": [
 				{
 					"name": "get all stars",
 					"event": [
@@ -677,7 +1261,7 @@
 					"response": []
 				},
 				{
-					"name": "get specific star info",
+					"name": "get star info",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -710,39 +1294,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "delete star",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [],
-							"options": {
-								"formdata": {}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/stars/remove/{{starId}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"stars",
-								"remove",
-								"{{starId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -750,61 +1301,6 @@
 		{
 			"name": "Figures",
 			"item": [
-				{
-					"name": "add figure",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "4ea9b52a-d6e2-4bba-a20e-69fa14295c2c",
-								"exec": [
-									"pm.test(\"Add figure\", function () {",
-									"        if (responseCode.code === 201)",
-									"    {",
-									"        const figure = pm.response.json().figure;",
-									"        pm.environment.set(\"figureId\", figure._id);",
-									"    }",
-									"    ",
-									"    pm.response.to.have.status(201);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"stars\": [\"{{starId}}\"],\r\n\t\"name\": \"Spin\",\r\n\t\"coverURL\": \"https://i.pinimg.com/originals/6b/7d/9f/6b7d9fd9d66a97db5abe4b7952aeeb87.png\",\r\n\t\"type\": \"tango\",\r\n\t\"level\": \"1\",\r\n\t\"promoVideo\": \"https://www.dropbox.com/s/0x2ke57h7wv49ll/Sample_512x288.mp4\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/figures/star/add",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"figures",
-								"star",
-								"add"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "get figure by id",
 					"event": [
@@ -840,13 +1336,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/figures//{{figureId}}",
+							"raw": "{{baseURL}}/figures/{{figureId}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"figures",
-								"",
 								"{{figureId}}"
 							]
 						}
@@ -947,39 +1442,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "delete figure",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [],
-							"options": {
-								"formdata": {}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/figures/star/{{figureId}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"figures",
-								"star",
-								"{{figureId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -988,14 +1450,14 @@
 			"name": "Video",
 			"item": [
 				{
-					"name": "upload video",
+					"name": "upload user video",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "944b288c-8760-49dd-b092-b6d73ff15bee",
+								"id": "f043bd4c-e182-4738-994a-d1b0a998e837",
 								"exec": [
-									"pm.test(\"Add video\", function () {\r",
+									"pm.test(\"Add user video\", function () {\r",
 									"    if (responseCode.code === 201) {\r",
 									"        const video = pm.response.json().video;\r",
 									"        pm.environment.set(\"videoId\", video._id);\r",
@@ -1019,62 +1481,19 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "video",
-									"description": "video file",
-									"type": "file",
-									"src": "/home/ohad/Videos/SampleVideo_1280x720_2mb.mp4"
-								},
-								{
-									"key": "name",
-									"value": "name",
-									"description": "video name",
-									"type": "text"
-								},
-								{
-									"key": "view",
-									"value": "front",
-									"description": "valid values: front/back",
-									"type": "text"
-								},
-								{
-									"key": "participatesAmount",
-									"value": "solo",
-									"description": "valid values: solo/couple",
-									"type": "text"
-								},
-								{
-									"key": "associateWith",
-									"value": "figure",
-									"description": "valid values: figure/video\nfigure - used for add video for figures of stars\nvideo - used for a user's video that should be compared to another figure video",
-									"type": "text"
-								},
-								{
-									"key": "type",
-									"value": "comparable",
-									"description": "valid values: promo/basicPrinciples/additional/comparable",
-									"type": "text"
-								},
-								{
-									"key": "associatedId",
-									"value": "{{figureId}}",
-									"type": "text"
-								}
-							],
+							"mode": "raw",
+							"raw": "pm.test(\"Add user video\", function () {\n    if (responseCode.code === 201) {\n        const video = pm.response.json().data;\n        pm.environment.set(\"videoId\", video._id);\n    }\n\n    pm.response.to.have.status(201);\n});",
 							"options": {
 								"formdata": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/videos/upload",
+							"raw": "{{baseURL}}/videos",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"videos",
-								"upload"
+								"videos"
 							]
 						}
 					},
@@ -1138,7 +1557,7 @@
 							"script": {
 								"id": "bf4f1b52-e4ff-4306-989f-3bc0852f6319",
 								"exec": [
-									"pm.test(\"Delete video\", function () {\r",
+									"pm.test(\"Delete user video\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
@@ -1157,20 +1576,19 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [],
+							"mode": "raw",
+							"raw": "",
 							"options": {
 								"formdata": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/videos/delete/{{videoId}}",
+							"raw": "{{baseURL}}/videos/{{videoId}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"videos",
-								"delete",
 								"{{videoId}}"
 							]
 						}
@@ -1218,7 +1636,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"videoId\": \"{{videoId}}\"\n}",
 							"options": {
-								"formdata": {}
+								"raw": {}
 							}
 						},
 						"url": {

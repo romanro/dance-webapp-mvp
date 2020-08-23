@@ -1,0 +1,34 @@
+[{
+  "_id": {
+    "$oid": "5f40fc75ac07bc255b09ea4e"
+  },
+  "profile": {
+    "birthDate": {
+      "date": {
+        "$date": "1992-12-31T00:00:00Z"
+      }
+    },
+    "name": {
+      "firstName": "roy",
+      "lastName": "roy"
+    },
+    "language": "en"
+  },
+  "emailVerified": false,
+  "tokens": [],
+  "practiceItems": [
+    {
+      "$oid": "5f4165bb4e55ab7cffd54cdd"
+    }
+  ],
+  "email": "ohad2121@email.com",
+  "password": "$2b$10$bF5XfBgZtwE2n/lPAnZYyeQHQIq.l2JTeVxuj0m0/wGeOn1pVmC3q",
+  "createdAt": {
+    "$date": "2020-08-22T11:07:33.932Z"
+  },
+  "updatedAt": {
+    "$date": "2020-08-22T18:36:43.364Z"
+  },
+  "__v": 0,
+  "emailVerificationToken": "27ea3b6441cacce49b2fcaa05f2c0e61"
+}]

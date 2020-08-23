@@ -7,12 +7,12 @@ import { IVideo } from './Video';
 const figureSchema = new mongoose.Schema(
   {
     stars: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Star' }],
-    type: { type: EnumDanceType, enum: possibleDanceTypes, required: true },
-    level: { type: EnumDanceLevel, enum: possibleDanceLevels, required: true },
     videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
 
-    name: { type: String, required: true },
-    coverURL: { type: String, required: true },
+    type: { type: EnumDanceType, enum: possibleDanceTypes, required: true },
+    level: { type: EnumDanceLevel, enum: possibleDanceLevels, required: true },
+    name: { type: String, required: true }, // TODO: should be changed to enum value?
+    logo: { type: String, required: true },
   },
   { timestamps: true }
 );
@@ -21,9 +21,8 @@ const figureSchema = new mongoose.Schema(
 interface IFigureSchema extends Document {
   type: EnumDanceType;
   level: EnumDanceLevel;
-  promoVideo: string;
   name: string;
-  coverURL: string;
+  logo: string;
 }
 
 interface IFigureBase extends IFigureSchema {
