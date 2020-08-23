@@ -5,13 +5,15 @@ import { StarContentState } from '../state';
 
 export const selectStarsContent = (state: StarContentState) => state.starsContent;
 
-export const selectStarContentById = (id) => createSelector(
+export const selectStarContentByStarId = (starId) => createSelector(
     selectStarsContent, (allStarsContent) => {
         if (!t(allStarsContent, 'starsContent').isNullOrUndefined) {
-            return t(allStarsContent, 'starsContent').safeArray.find(content => content.starId === id);
-        } else {
+            return t(allStarsContent, 'starsContent').safeArray.find(content => content.starId === starId);
+        }
+        else {
             return null;
         }
+
     }
 );
 

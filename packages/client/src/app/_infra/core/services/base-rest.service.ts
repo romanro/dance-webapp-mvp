@@ -29,7 +29,6 @@ export class BaseRestService {
     return this.http.get<T>(`${this.REST_URL}/${endpoint}`, options);
   }
 
-
   post<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders): Observable<T> {
     this.getRestUrl();
     const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;

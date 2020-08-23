@@ -1,3 +1,7 @@
+/* FONTS */
+@import 'styles/fonts';
+@import 'styles/icon-font/danskill_icons';
+
 /* Bootstrap imports */
 @import 'styles/bootstrap-variables';
 @import '~bootstrap/scss/bootstrap.scss';
@@ -9,9 +13,11 @@
 @import 'styles/mixins';
 
 /*global stylings */
+@import 'styles/forms';
 @import 'styles/global_styles';
 
 /* custom pages stylings */
+@import 'styles/pages/global-inner-pages';
 @import 'styles/pages/login';
 @import 'styles/pages/404';
 
@@ -24,6 +30,10 @@
 @import 'styles/elements/preloader';
 @import 'styles/elements/player';
 @import 'styles/elements/tags';
+@import 'styles/elements/logo';
+/* custom pages stylings */
+@import 'styles/pages/login';
+@import 'styles/pages/404';
 
 /* student pages */
 @import 'styles/student/upic-holder';
@@ -31,6 +41,7 @@
 /* star pages */
 @import 'styles/star/star-info';
 @import 'styles/star/dance-figures';
+@import 'styles/star/star-content-list';
 
 /* practices pages */
-@import 'styles/pages/practices'
+@import 'styles/pages/practices';

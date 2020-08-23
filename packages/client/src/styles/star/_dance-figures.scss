@@ -1,15 +1,45 @@
-.figures-list {
-
-
-    .figure-info {
-        @include list-item;
-
-        .figure-image {
-            @include list-item-image(45%);
-        }
-
-        .figure-text {
-            @include list-item-text(55%);
-        }
+.figure-star-info {
+  .star-short-info {
+    img {
+      max-width: 85px;
     }
+  }
+}
+.figure-cover-name{
+  padding: 5px 30px;
+}
+
+.basic-principles-videos-wrapper {
+
+  .basic-principles-videos {
+    .basic-principles-video {
+      @include list-item;
+
+      .basic-principal-image {
+        @include list-item-image(40%);
+
+      }
+
+      .basic-principal-content {
+        @include list-item-text(60%);
+      }
+
+    }
+  }
+}
+
+.comparable-videos-wrapper {
+  .comparable-video-inner {
+    @include list-item;
+
+    .comparable-video-image {
+      @include list-item-image(40%);
+
+    }
+
+    .comparable-video-text {
+      @include list-item-text(60%);
+
+    }
+  }
 }

@@ -1,4 +1,5 @@
 @import "./mixins/round-buttons";
+@import "./mixins/underline";
 
 @mixin position_fixed($top: auto, $bottom: auto, $left:auto, $right :auto, $width: 100%) {
   position: fixed;
@@ -31,7 +32,7 @@
 }
 
 @mixin list-item {
-  padding: 0.7rem 0;
+  padding: 0.85rem 0;
   position: relative;
 
   @include media-breakpoint-down(xs) {
@@ -43,8 +44,7 @@
 @mixin list-item-image ($width) {
   width: 100%;
 
-  @include media-breakpoint-down(xs) {
-    margin-right: $paragraph-margin-bottom;
+  @include media-breakpoint-down(sm) {
     flex: 1 1 $width;
   }
 }
@@ -52,7 +52,21 @@
 @mixin list-item-text ($width) {
   width: 100%;
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
+    padding-left: $grid-gutter-width/2;
     flex: 1 1 $width;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@mixin text-shadow($x1:2px, $y1:2px, $blur1:5px, $color1:black, $x2:null, $y2:null, $blur2:null, $color2:null) {
+  @if ($x2) {
+    text-shadow: $x1 $y1 $blur1 $color1, $x2 $y2 $blur2 $color2;
+  }
+
+  @else {
+    text-shadow: $x1 $y1 $blur1 $color1;
   }
 }

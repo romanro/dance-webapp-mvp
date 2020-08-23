@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Star } from '../models';
-import { MOCK_STARS } from './../../../_mocks';
+import { Star, StarsRestResponse } from '../models';
+import { BaseRestService } from './base-rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StarsService {
-
-  stars = MOCK_STARS;
-
-  constructor() { }
+  constructor(private baseRestService: BaseRestService) { }
 
   getStars(): Observable<Star[]> {
-    return of(this.stars);
-    // return throwError(['zevel']);
+    return this.baseRestService.get<StarsRestResponse>('stars').pipe(map(res => {
+      return res.stars ? res.stars : [];
+    }));
   }
 
 }

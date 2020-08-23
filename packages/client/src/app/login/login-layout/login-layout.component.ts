@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'dsapp-login-layout',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginLayoutComponent implements OnInit {
 
-  constructor() { }
+  isLoginSelected: boolean;
+  constructor(private router: Router) {
+    this.isLoginSelected = true;
+    if(this.router.url.split('/')[1] === 'register'){
+      this.isLoginSelected = false;
+    }
+  }
 
   ngOnInit() {
+
+  }
+  setSelected(event){
+    this.isLoginSelected = !this.isLoginSelected
   }
 
 }
