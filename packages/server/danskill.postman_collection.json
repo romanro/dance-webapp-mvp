@@ -228,7 +228,7 @@
 									"pm.test(\"Sign up\", function () {",
 									"    if (responseCode.code === 201)",
 									"    {",
-									"        const tokens = pm.response.json().tokens;",
+									"        const tokens = pm.response.json().data;",
 									"        pm.environment.set(\"access_token\", tokens.access_token);",
 									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
 									"    }",
@@ -281,7 +281,7 @@
 									"pm.test(\"login\", function () {",
 									"    if (responseCode.code === 200)",
 									"    {",
-									"        const tokens = pm.response.json().tokens;",
+									"        const tokens = pm.response.json().data;",
 									"        pm.environment.set(\"access_token\", tokens.access_token);",
 									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
 									"    }",
@@ -334,7 +334,7 @@
 									"pm.test(\"Refresh token\", function () {",
 									"    if (responseCode.code === 200)",
 									"    {",
-									"        const tokens = pm.response.json().tokens;",
+									"        const tokens = pm.response.json().data;",
 									"        pm.environment.set(\"access_token\", tokens.access_token);",
 									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
 									"    }",
@@ -618,7 +618,7 @@
 											"pm.test(\"Add star\", function () {",
 											"        if (responseCode.code === 201)",
 											"    {",
-											"        const star = pm.response.json().star;",
+											"        const star = pm.response.json().data;",
 											"        pm.environment.set(\"starId\", star._id);",
 											"    }",
 											"    ",
@@ -663,6 +663,20 @@
 						},
 						{
 							"name": "delete star",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c4362275-8403-4a37-8c7a-3e6f9bb249dd",
+										"exec": [
+											"pm.test(\"Delete star\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -923,7 +937,7 @@
 										"exec": [
 											"pm.test(\"Add video\", function () {\r",
 											"    if (responseCode.code === 201) {\r",
-											"        const video = pm.response.json().video;\r",
+											"        const video = pm.response.json().data;\r",
 											"        pm.environment.set(\"videoId\", video._id);\r",
 											"    }\r",
 											"\r",
@@ -987,7 +1001,7 @@
 										"exec": [
 											"pm.test(\"Add video\", function () {\r",
 											"    if (responseCode.code === 201) {\r",
-											"        const video = pm.response.json().video;\r",
+											"        const video = pm.response.json().data;\r",
 											"        pm.environment.set(\"videoId\", video._id);\r",
 											"    }\r",
 											"\r",
@@ -1051,7 +1065,7 @@
 										"exec": [
 											"pm.test(\"Add video\", function () {\r",
 											"    if (responseCode.code === 201) {\r",
-											"        const video = pm.response.json().video;\r",
+											"        const video = pm.response.json().data;\r",
 											"        pm.environment.set(\"videoId\", video._id);\r",
 											"    }\r",
 											"\r",
@@ -1113,7 +1127,7 @@
 											"pm.test(\"Add figure\", function () {",
 											"    if (responseCode.code === 201)",
 											"    {",
-											"        const figure = pm.response.json().figure;",
+											"        const figure = pm.response.json().data;",
 											"        pm.environment.set(\"figureId\", figure._id);",
 											"    }",
 											"    ",
