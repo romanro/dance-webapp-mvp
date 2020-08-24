@@ -3,6 +3,9 @@
     "Welcome": "Welcome",
     "About": "About DanSkill",
     "Profile": "Profile",
+    "AddToHome": "Add to Home Screen",
+    "AddToHomeSuccess": "DanSkill was successfully added to your Home Screen",
+    "AddToHomeError": "There was an error adding shortcut to your Home Screen",
     "Save": "Save",
     "Cancel": "Cancel",
     "preview": "Preview",
@@ -19,6 +22,7 @@
   },
   "LOGIN": {
     "registerMsg": "Don't have an Account?",
+    "orLoginWith": "Or login with",
     "Register": "Register",
     "loginMsg": "Already have an Account?",
     "Login": "Login",
@@ -83,7 +87,7 @@
     "NAV": {
       "Stars": "Stars",
       "Star": "Star",
-      "MyLab": "MyLab",
+      "MyLab": "My Lab",
       "Practices": "Practices",
       "Challenges": "Challenges"
     },
@@ -100,10 +104,11 @@
     }
   },
   "STAR": {
-    "learn": "Learn",
-    "title": "Choose your teacher",
+    "openTheirClasses": "open their classes",
+    "title": "Welcome to our Library",
     "currentChallenge": "current challenge",
     "challengeFinished": "challenge finished",
+    "chooseYourTeacher": "Choose your teacher",
     "STAR_INFO_PAGE": {
       "WatchPromo": "Watch Promo",
       "MySkills": "My Skills",
@@ -115,7 +120,13 @@
       "LEVEL": "level"
     },
     "FIGURES": {
-      "Figure": "Figure"
+      "Figure": "Figure",
+      "view": "view",
+      "learnFigure": "learn figure",
+      "basicPrinciples": "Basic Principles",
+      "learnPrinciples": "learn principles",
+      "openInMyLab": "open in My Lab",
+      "backToStarLibrary": "Back to Star Library"
     },
     "ERRORS": {
       "getStarsError": "There was an error fetching stars information. Try again later.",
@@ -141,5 +152,10 @@
       "getPracticesError": "There was an error fetching practices information. Try again later.",
       "getPracticeError": "There was an error fetching practice information. Try again later."
     }
+  },
+  "LAB": {
+    "title": "Welcome to My Lab",
+    "instruction": "To start using Lab tool, you need to select Figure from our library first",
+    "chooseVideo": "Choose Video from Library"
   }
 }

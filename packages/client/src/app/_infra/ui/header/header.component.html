@@ -1,70 +1,87 @@
 <nav class="navbar header">
-  <a class="navbar-brand">
-    <ui-logo></ui-logo>
-  </a>
-
-  <div class="d-flex flex-row">
-
-    <!-- Collapse button -->
-    <a *ngIf="menuData.menuItemsGroups"
-       class="navbar-toggler"
-       (click)="toggleMenu()">
-      <div class="animated-icon"
-           [ngClass]="{'open':menuIsOpen}">
-        <span *ngFor="let number of [0,1,2]"></span>
-      </div>
+  <div class="container">
+    <a class="navbar-brand">
+      <ui-logo></ui-logo>
     </a>
 
-  </div>
+    <div class="d-flex flex-row">
 
-  <!-- Collapsible content -->
-  <div *ngIf="menuData.menuItemsGroups"
-       class="collapse navbar-collapse"
-       [ngClass]="{'show': menuIsOpen}">
+      <!-- Collapse button -->
+      <a *ngIf="menuData.menuItemsGroups"
+         class="navbar-toggler"
+         (click)="toggleMenu()">
+        <div class="animated-icon"
+             [ngClass]="{'open':menuIsOpen$ | async}">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </a>
 
-    <!-- Links -->
-    <ul class="navbar-nav ml-auto">
+    </div>
 
-      <ng-template ngFor
-                   let-menuItemsGroup
-                   [ngForOf]="menuData.menuItemsGroups">
+    <!-- Collapsible content -->
+    <div *ngIf="menuData.menuItemsGroups"
+         class="collapse navbar-collapse"
+         [ngClass]="{'show': menuIsOpen$ | async}">
 
-        <li *ngIf="menuItemsGroup.title"
-            class="menu-title">
-          <h5>{{menuItemsGroup.title | translate}}</h5>
-        </li>
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
 
-
-        <li *ngFor="let menuItem of menuItemsGroup.menuItems"
-            class="nav-item"
-            (click)="closeMenu()"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{exact: true}"
-            #rla="routerLinkActive">
-
-          <a *ngIf="menuItem.routerLink"
-             class="nav-link"
-             [routerLink]="menuItem.routerLink">{{menuItem.label | translate}}
-            <span *ngIf="rla.isActive"
-                  class="sr-only">(current)</span></a>
-
-          <a *ngIf="menuItem.function"
-             (click)="menuItemFunction(menuItem.function)"
-             class="nav-link">{{menuItem.label | translate}}
+        <li *ngIf="showAddToHomeButton"
+            class="nav-item text-center pt-2 pb-1">
+          <a class="nav-link btn btn-sm btn-outline-dark"
+             (click)="addToHomeScreen()">{{'COMMON.AddToHome' | translate}}
           </a>
-
         </li>
 
-        <li *ngIf="menuItemsGroup.hasSeparator"
-            class="menu-separator"></li>
+        <ng-template ngFor
+                     let-menuItemsGroup
+                     [ngForOf]="menuData.menuItemsGroups">
 
-      </ng-template>
 
-    </ul>
-    <!-- Links -->
+
+          <li *ngIf="menuItemsGroup.title"
+              class="menu-title">
+            <h5>{{menuItemsGroup.title | translate}}</h5>
+          </li>
+
+
+          <li *ngFor="let menuItem of menuItemsGroup.menuItems"
+              class="nav-item"
+              (click)="closeMenu()"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact: true}"
+              #rla="routerLinkActive">
+
+            <a *ngIf="menuItem.routerLink"
+               class="nav-link"
+               [routerLink]="menuItem.routerLink">{{menuItem.label | translate}}
+              <span *ngIf="rla.isActive"
+                    class="sr-only">(current)</span></a>
+
+            <a *ngIf="menuItem.function"
+               (click)="menuItemFunction(menuItem.function)"
+               class="nav-link">{{menuItem.label | translate}}
+            </a>
+
+          </li>
+
+          <li *ngIf="menuItemsGroup.hasSeparator"
+              class="menu-separator"></li>
+
+        </ng-template>
+
+      </ul>
+      <!-- Links -->
+
+    </div>
+    <!-- Collapsible content -->
 
   </div>
-  <!-- Collapsible content -->
+
+
+
 
 
 </nav>

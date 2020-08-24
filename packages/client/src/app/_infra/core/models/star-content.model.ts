@@ -1,27 +1,27 @@
-import { Dance, DanceFigure } from '.';
+import { Figure } from './figure.model';
 
 export interface StarContent {
     starId: string;
-    dances: Array<StarDance>;
+    dances: Array<StarContentDance>
 }
 
-export interface StarDance {
-    dance: Dance;
+export enum DanceType {
+    WALTZ = 'waltz',
+    TANGO = 'tango',
+    QUICKSTEP = 'quickstep',
+    FOXTROT = 'foxtrot'
+}
+
+export interface StarContentDance {
+    type: DanceType;
     levels: Array<StarDanceLevel>;
 }
 
 export interface StarDanceLevel {
-    level: DanceLevelNumber;
-    figures: Array<DanceFigure>;
+    level: string;
+    figures: Array<Figure>;
 }
 
-export type DanceLevelNumber = 1 | 2 | 3;
-
-export enum DanceLevel {
-    'beginner',
-    'intermediate',
-    'advanced'
-}
 
 export enum StarContentError {
     GET = 'STAR.ERRORS.getStarContentError',

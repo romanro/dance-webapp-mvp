@@ -1,0 +1,47 @@
+.inner-page-container {
+    padding-top: 2.7rem;
+    padding-bottom: 5rem;
+    background: url('assets/images/pagebg-1.svg') no-repeat fixed;
+    background-position: 50% 30%;
+    background-size: 140%;
+}
+
+
+.page-title-row {
+
+    .btn {
+        display: inline-block;
+        min-width: 8rem;
+    }
+
+    .inner-page-title {
+        display: block;
+        margin-top: 1.5rem;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+
+    }
+
+    .inner-page-sub-title {
+        text-align: center;
+        font-size: 1rem;
+    }
+}
+
+.page-search-row {
+    margin-top: $paragraph-margin-bottom;
+    margin-bottom: $paragraph-margin-bottom;
+
+    .input-group {
+        .form-control {
+            border-right: none;
+        }
+
+        .input-group-append {
+            .input-group-text {
+                border-left: none;
+            }
+        }
+    }
+}

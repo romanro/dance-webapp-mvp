@@ -215,6 +215,11 @@
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-9.1.1.tgz#a296207900b623d991cd1e6371ae2341ffa40e8c"
   integrity sha512-OQ5Ctd+swF7ZNlgUxrkGKk2B4yBFqJm0QCxkM86kFDCKQV/4OButZ+4HPy1HxeozBIAmm2pbQA+YjsAUs0VZcQ==
 
+"@angular/service-worker@~9.1.1":
+  version "9.1.11"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-9.1.11.tgz#38dc4ba2cb0a4c25072ef8d0f790253a3c2597a5"
+  integrity sha512-tdfI+XlKnNsh36rWsF/ZNUwKBG7sYcd8V1ZTmwONj0zKioHO0uzdan8pOSA/SUdjzX3xGOTMnHwMubPIqgpbAg==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.5.5.tgz#bc0782f6d69f7b7d49531219699b988f669a8f9d"
@@ -13503,6 +13508,11 @@ typescript@^3.5.3:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
   integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
+
+typescript@^3.9.6:
+  version "3.9.6"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
+  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
 
 typescript@~3.8.3:
   version "3.8.3"

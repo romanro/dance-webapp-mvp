@@ -1,0 +1,45 @@
+<ng-template [ngIf]="star && !loading">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <a class="btn-link dark-link" [routerLink]="['../']">
+                <i class="icon-arrow-left"></i>
+                {{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}
+            </a>
+        </div>
+        <div class="col">
+            <div class="star-info-vertical">
+                <div class="star-info-image">
+                    <div class="embed-responsive embed-responsive-16by9 video-preview-container"
+                         (click)="openPromoModal(star.name, star.promoVideoURL)">
+                        <div class="embed-responsive-item star-big-image cover-bg"
+                             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                        </div>
+                        <div class="play-btn-container">
+                            <i class="icon-play"></i>
+                        </div>
+                        <div class="hover-message">
+                            {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="star-info-text text-center">
+
+                    <h5 class="star-info-name"
+                        dsappStarName
+                        [name]="star.name"></h5>
+
+                    <p class="star-info-desc text-muted">{{star.about}}</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <dsapp-star-content-tabs [star]="star"></dsapp-star-content-tabs>
+</ng-template>
+
+<ng-template [ngIf]="loading">
+    <ui-preloader-inapp></ui-preloader-inapp>
+</ng-template>

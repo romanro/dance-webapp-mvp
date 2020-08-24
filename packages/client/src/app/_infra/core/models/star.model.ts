@@ -1,16 +1,18 @@
+import { StarContent } from './star-content.model';
 import { Tag } from './tag.model';
 import { Location } from './user.model';
 
+
 export interface Star {
-    id: string;
+    _id: string;
     name: Name;
+    slug: string;
     location: Location;
     birthDate: string;
     tags: Tag[];
     userPics: StarUserPics;
     promoVideoURL: string;
     about: string;
-    currentChallenge?: string | null;
 }
 
 export interface Name {
@@ -25,7 +27,7 @@ export interface StarUserPics {
 }
 
 export interface StarBasicInfo {
-    id: string;
+    _id: string;
     name: Name;
     userPics: StarUserPics;
 }

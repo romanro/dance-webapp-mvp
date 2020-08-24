@@ -1,12 +1,12 @@
 <div class="login-card">
-  <h3 class="text-center">{{'LOGIN.Register' | translate}}</h3>
+
   <form [formGroup]="registerForm"
         (ngSubmit)="register()">
 
     <!-- email -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
-      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}:</label>
+      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
 
       <input type="email"
              formControlName="email"
@@ -17,21 +17,21 @@
 
       <div *ngIf="formControls['email'].touched && formControls['email'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['email'].errors.required">
+        <span *ngIf="formControls['email'].errors.required">
           {{'LOGIN.FORM.emailIsRequired' | translate}}
-        </p>
-        <p *ngIf="formControls['email'].errors.email">
+        </span>
+        <span *ngIf="formControls['email'].errors.email">
           {{'LOGIN.FORM.INVALID_EMAIL' | translate}}
-        </p>
+        </span>
       </div>
 
     </div>
 
     <ng-container formGroupName="name">
       <!-- first name -->
-      <div class="form-group">
+      <div class="form-group danskill-form-group">
 
-        <label for="inputFirstName">{{'USER.firstName' | translate}}:</label>
+        <label for="inputFirstName">{{'USER.firstName' | translate}}</label>
 
         <input type="text"
                formControlName="firstName"
@@ -42,18 +42,18 @@
 
         <div *ngIf="registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors"
              class="invalid-feedback">
-          <p *ngIf="registerForm.get('name.firstName').errors.required">
+          <span *ngIf="registerForm.get('name.firstName').errors.required">
             {{'LOGIN.FORM.fnameIsRequired' | translate}}
-          </p>
+          </span>
         </div>
 
       </div>
 
 
       <!-- last name -->
-      <div class="form-group">
+      <div class="form-group danskill-form-group">
 
-        <label for="inputLastName">{{'USER.lastName' | translate}}:</label>
+        <label for="inputLastName">{{'USER.lastName' | translate}}</label>
 
         <input type="text"
                formControlName="lastName"
@@ -64,9 +64,9 @@
 
         <div *ngIf=" registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors"
              class="invalid-feedback">
-          <p *ngIf=" registerForm.get('name.lastName').errors.required">
+          <span *ngIf=" registerForm.get('name.lastName').errors.required">
             {{'LOGIN.FORM.lnameIsRequired' | translate}}
-          </p>
+          </span>
         </div>
 
       </div>
@@ -74,9 +74,9 @@
 
 
     <!-- password -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
-      <label for="inputPassword">{{'LOGIN.Password' | translate}}:</label>
+      <label for="inputPassword">{{'LOGIN.Password' | translate}}</label>
 
       <input type="password"
              formControlName="password"
@@ -87,24 +87,24 @@
 
       <div *ngIf="formControls['password'].touched && formControls['password'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['password'].errors.required">
+        <span *ngIf="formControls['password'].errors.required">
           {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasNumber')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasNumber')">
           {{'LOGIN.FORM.passwordNumber' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasCapitalCase')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasCapitalCase')">
           {{'LOGIN.FORM.hasCapitalCase' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasSmallCase')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasSmallCase')">
           {{'LOGIN.FORM.hasSmallCase' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].hasError('hasSpecialCharacters')">
+        </span>
+        <span *ngIf="formControls['password'].hasError('hasSpecialCharacters')">
           {{'LOGIN.FORM.hasSpecialCharacters' | translate}}
-        </p>
-        <p *ngIf="formControls['password'].errors.minlength">
+        </span>
+        <span *ngIf="formControls['password'].errors.minlength">
           {{'LOGIN.FORM.PASSWORD_SHORT' | translate}}
-        </p>
+        </span>
       </div>
 
 
@@ -112,10 +112,10 @@
 
 
     <!-- confirm password -->
-    <div class="form-group">
+    <div class="form-group danskill-form-group">
 
       <label for="inputConfirmPassword">
-        {{'LOGIN.confirmPassword' | translate}}:
+        {{'LOGIN.confirmPassword' | translate}}
       </label>
 
       <input type="password"
@@ -127,35 +127,25 @@
 
       <div *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].errors"
            class="invalid-feedback">
-        <p *ngIf="formControls['confirmPassword'].errors.required">
+        <span *ngIf="formControls['confirmPassword'].errors.required">
           {{'LOGIN.FORM.BLANK_PASSWORD' | translate}}
-        </p>
-        <p
-           *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
+        </span>
+        <span
+              *ngIf="formControls['confirmPassword'].hasError('PASSWORD_MISMATCH')">
           {{'LOGIN.FORM.PASSWORD_MISMATCH' | translate}}
-        </p>
+        </span>
       </div>
 
     </div>
 
-    <div class="form-group text-center">
-      <button class="btn btn-primary"
+    <div class="form-group text-center danskill-form-group submit-form-group">
+      <button class="btn btn-success danskill-next-btn"
               tabindex='0'
               type="submit"
               [disabled]="!registerForm.valid || isSubmitted">{{'LOGIN.Register' | translate}}
-        <span *ngIf="isSubmitted">(sending)</span></button>
+        <i class="icon-arrow-right"></i>
+      </button>
     </div>
   </form>
 
-  <div class="form-group text-center">
-    <button class="btn btn-primary"
-            [disabled]="true"
-            tabindex='0'
-            (click)="registerFacebook()">{{'LOGIN.registerWithFacebook' | translate}}</button>
-  </div>
-  <div class="text-center">
-    <p>{{'LOGIN.loginMsg' | translate}}</p>
-    <a class="btn btn-link"
-       [routerLink]="'/login'">{{'LOGIN.Login' | translate}}</a>
-  </div>
 </div>

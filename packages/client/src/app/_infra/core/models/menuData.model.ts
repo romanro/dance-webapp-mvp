@@ -23,5 +23,6 @@ export interface MenuItem {
 
 export enum MenuItemFunction {
   logout = 'LOGOUT',
-  about = 'ABOUT'
+  about = 'ABOUT',
+  addToHome = 'ADD_TO_HOMESCREEN'
 }

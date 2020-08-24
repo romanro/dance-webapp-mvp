@@ -10,7 +10,7 @@ export * from './tag.model';
 export * from './language.model';
 export * from './http-responce.model';
 export * from './video.model';
-export * from './dance.model';
 export * from './star-content.model';
 export * from './figure.model';
 export * from './practices.model';
+export * from './lab.model';

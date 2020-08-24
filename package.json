@@ -6,6 +6,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "lerna run dev --stream",
     "test": "lerna run test",
@@ -16,6 +19,5 @@
   },
   "devDependencies": {
     "lerna": "^3.18.3"
-  },
-  "dependencies": {}
+  }
 }

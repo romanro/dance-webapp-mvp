@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import Star, { IStar } from '../models/Star';
+import { NextFunction, Request, Response } from 'express';
+
 import Figure, { IFigure } from '../models/Figure';
-import { EnumDanceLevel, possibleDanceLevels, EnumDanceType, possibleDanceTypes } from "../shared/enums"
+import Star, { IStar } from '../models/Star';
+import { EnumDanceLevel, EnumDanceType, possibleDanceLevels, possibleDanceTypes } from '../shared/enums';
 
 const getFigureById = async (figureId: string): Promise<IFigure> => (
     new Promise((resolve, reject) => {

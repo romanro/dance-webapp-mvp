@@ -1,4 +1,6 @@
 import { AuthTokens } from './auth.model';
+import { Figure } from './figure.model';
+import { Star } from './star.model';
 import { User } from './user.model';
 
 // export type RegistrationErrorCode = 'PASSWORD_SHORT' | 'INVALID_EMAIL' | 'PASSWORD_MISMATCH' | 'USER_EXISTS';
@@ -18,4 +20,15 @@ export interface AuthRestResponse {
 export interface UserRestResponse {
     success: boolean;
     user: User;
+}
+
+export interface StarsRestResponse {
+    success?: boolean;
+    stars: Array<Star>;
+}
+
+export interface FiguresRestResponse {
+    success?: boolean;
+    figures?: Array<Figure>;
+    figure?: Figure;
 }
