@@ -23,8 +23,10 @@ const getFigureById = async (figureId: string): Promise<IFigure> => (
 
 export const getFigure = async (req: Request, res: Response, next: NextFunction) => {
     const figure = await getFigureById(req.params.figureId);
-    return res.json({
-        figure: figure
+
+    res.status(200).json({
+        success: true,
+        data: figure
     });
 }
 
@@ -57,8 +59,10 @@ export const getFigures = async (req: Request, res: Response, next: NextFunction
 
     const figures = await getStarFiguresByTypeAndLevel(req.params.starId,
         EnumDanceType[typedTypeString], EnumDanceLevel[typedLevelString]);
-    return res.json({
-        figures: figures
+
+    res.status(200).json({
+        success: true,
+        data: figures
     });
 }
 
@@ -83,8 +87,9 @@ const getAllStarFigures = async (starId: string): Promise<IStar[]> => (
 
 export const getAllFigures = async (req: Request, res: Response, next: NextFunction) => {
     const figures = await getAllStarFigures(req.params.starId);
-    return res.json({
+
+    res.status(200).json({
         success: true,
-        figures: figures
+        data: figures
     });
 }

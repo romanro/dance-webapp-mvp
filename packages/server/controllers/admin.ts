@@ -25,8 +25,9 @@ export const addStar = async (req: Request, res: Response, next: NextFunction) =
     await star.save();
 
     res.status(201).json({
+        success: true,
         message: "Created star successfully",
-        star: star
+        data: star
     });
 }
 
@@ -170,7 +171,7 @@ export const addFigure = async (req: Request, res: Response, next: NextFunction)
     res.status(201).json({
         success: true,
         message: "Figure added successfully to the star",
-        figure: figure
+        data: figure
     });
 }
 

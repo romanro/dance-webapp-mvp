@@ -55,6 +55,7 @@ export const getVideo = async (req: Request, res: Response, next: NextFunction) 
     const poulatedVideo = await getPopulatedVideoById(video._id, associatedModel);
 
     res.status(200).json({
+        success: true,
         data: poulatedVideo // TODO: Is all the information should be exposed to the user?
     });
 }
@@ -87,6 +88,7 @@ export const associateVideoWithModel = async (associatedModel: EnumAssociateMode
             break;
         // TODO: default:
     }
+    
     return await model.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
