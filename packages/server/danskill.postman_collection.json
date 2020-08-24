@@ -251,7 +251,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ohad2121@email.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"roy\",\n\t\t\"lastName\": \"roy\"\n\t}\n}",
+							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"roy\",\n\t\t\"lastName\": \"roy\"\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,7 +304,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ohad2121@email.com\",\n\t\"password\": \"somePassword\"\n}",
+							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1459,7 +1459,7 @@
 								"exec": [
 									"pm.test(\"Add user video\", function () {\r",
 									"    if (responseCode.code === 201) {\r",
-									"        const video = pm.response.json().video;\r",
+									"        const video = pm.response.json().data;\r",
 									"        pm.environment.set(\"videoId\", video._id);\r",
 									"    }\r",
 									"\r",
@@ -1481,8 +1481,27 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "pm.test(\"Add user video\", function () {\n    if (responseCode.code === 201) {\n        const video = pm.response.json().data;\n        pm.environment.set(\"videoId\", video._id);\n    }\n\n    pm.response.to.have.status(201);\n});",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "fake it till you make it",
+									"description": "video name",
+									"type": "text"
+								},
+								{
+									"key": "associatedObject",
+									"value": "5f41544fe0ec19692974cf94",
+									"description": "video id",
+									"type": "text"
+								},
+								{
+									"key": "video",
+									"description": "video file",
+									"type": "file",
+									"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/Opening Out/Roy (user) - fake it till you make it.mp4"
+								}
+							],
 							"options": {
 								"formdata": {}
 							}
