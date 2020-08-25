@@ -9,26 +9,26 @@ import { User } from './user.model';
 
 
 export interface RestResponse {
-    message: string;
-}
-
-export interface AuthRestResponse {
-    message: string;
-    tokens?: AuthTokens;
-}
-
-export interface UserRestResponse {
     success: boolean;
-    user: User;
+    message?: string;
+    data?: any;
 }
 
-export interface StarsRestResponse {
-    success?: boolean;
-    stars: Array<Star>;
+export interface AuthRestResponse extends RestResponse {
+    data?: AuthTokens;
 }
 
-export interface FiguresRestResponse {
-    success?: boolean;
-    figures?: Array<Figure>;
-    figure?: Figure;
+export interface UserRestResponse extends RestResponse {
+    data?: User;
+}
+
+export interface StarsRestResponse extends RestResponse {
+    data?: Array<Star>;
+}
+
+export interface FiguresRestResponse extends RestResponse {
+    data?: Array<Figure>;
+}
+export interface SingleFigureRestResponse extends RestResponse {
+    data?: Figure;
 }

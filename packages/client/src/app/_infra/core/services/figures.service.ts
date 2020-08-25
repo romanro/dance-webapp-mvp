@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Figure, FiguresRestResponse } from '../models';
+import { Figure, FiguresRestResponse, SingleFigureRestResponse } from '../models';
 import { BaseRestService } from './base-rest.service';
 
 
@@ -17,16 +17,16 @@ export class FiguresService {
     return this.baseRestService.get<FiguresRestResponse>(`figures/star/all/${starId}`)
       .pipe(
         map((response) => {
-          return response.figures ? response.figures : [];
+          return response.data ? response.data : [];
         })
       );
   }
 
   getFigure(figureId): Observable<Figure> {
-    return this.baseRestService.get<FiguresRestResponse>(`figures/${figureId}`)
+    return this.baseRestService.get<SingleFigureRestResponse>(`figures/${figureId}`)
       .pipe(
         map((response) => {
-          return response.figure ? response.figure : null;
+          return response.data ? response.data : null;
         })
       );
   }
