@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {Practice, PracticeItemsRestResponse} from '../models';
+import { Observable, of, throwError } from 'rxjs';
+
+import {Practice, StarsRestResponse, PracticeItemsRestResponse} from '../models';
 import { MOCK_PRACTICES } from './../../../_mocks';
 import {map} from 'rxjs/operators';
 import {BaseRestService} from '@core/services/base-rest.service';
@@ -15,8 +16,10 @@ export class PracticesService {
   constructor(private baseRestService: BaseRestService) { }
 
   getPractices(): Observable<Practice[]> {
-    return this.baseRestService.get<PracticeItemsRestResponse>('account/practices').pipe(map(res => {
-      return res.data ? res.data : [];
-    }));  }
+    return of(this.practices);
+    // return this.baseRestService.get<PracticeItemsRestResponse>('account/practices').pipe(map(res => {
+    //   return res.data ? res.data : [];
+    // }));  }
+  }
 
 }

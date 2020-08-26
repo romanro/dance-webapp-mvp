@@ -2,45 +2,46 @@ import { Practice } from '@core/models';
 
 export const MOCK_PRACTICES: Array<Practice> = [
       {
-        id: 1,
-        date: new Date('1/1/2020'),
-        title: 'title1',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
+        _id: '14564dsfds',
+          associatedVideo: {
+              _id: '5f4165814e55ab7cffd54cdc',
+              name: 'fake it till you make it',
+              associatedObject: '5f41544fe0ec19692974cf94',
+              ownerUser: '5f40fc75ac07bc255b09ea4e',
+              associatedModel: 'Video',
+              ownerRole: 0,
+              key: 'https://danskill1.s3.amazonaws.com/users/Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4_2020-08-22T18-35-28.314Z',
+              type: 'comparable',
+              createdAt: '2020-08-22T18:35:45.301Z',
+              updatedAt: '2020-08-22T18:35:45.301Z',
+              __v: 0
+          },
+          createdAt: '2020-08-22T18:35:45.301Z',
+          updatedAt:  '2020-08-22T18:35:45.301Z',
+          _v: 0
+
       },
-      {
-        id: 2,
-        date: new Date('2/1/2020'),
-        title: 'title',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 3,
-        date: new Date('5/5/2020'),
-        title: 'title3',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 4,
-        date: new Date(),
-        title: 'title4',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
-      {
-        id: 5,
-        date: new Date('5/5/2020'),
-        title: 'title5',
-        subTitle: 'subTitle',
-        userVideo:'',
-        notes:[]
-      },
+    {
+        _id: '14564dsfds45',
+        associatedVideo: {
+            _id: '5f4165814e55ab7cffd54cdc',
+            name: 'fake it till you make it 55555555555',
+            associatedObject: '5f41544fe0ec19692974cf94',
+            ownerUser: '5f40fc75ac07bc255b09ea4e',
+            associatedModel: 'Video',
+            ownerRole: 0,
+            key: 'https://danskill1.s3.amazonaws.com/users/Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4_2020-08-22T18-35-28.314Z',
+            type: 'comparable',
+            createdAt: '2020-08-22T18:35:45.301Z',
+            updatedAt: '2020-08-22T18:35:45.301Z',
+            __v: 0
+        },
+        createdAt: '2020-07-22T18:35:45.301Z',
+        updatedAt:  '2020-07-22T18:35:45.301Z',
+        _v: 0
+
+    },
+
 
     ]
 

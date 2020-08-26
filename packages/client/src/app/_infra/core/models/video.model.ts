@@ -1,16 +1,17 @@
 
 
 export interface Video {
-    name: string;
-    key: string;
-    view: View;
-    participatesAmount: ParticipatesAmount;
-    associatedObject: string;
-    associatedModel: AssociateType;
-    ownerUser: string;
-    ownerRole: number;
-    type: VideoType;
-    thumbnail: string;
+    _id:string,
+    name: string,
+    associatedObject: any,
+    ownerUser: string,
+    associatedModel: string,
+    ownerRole: number,
+    key: string,
+    type: string,
+    createdAt: string,
+    updatedAt: string,
+    __v: number
 }
 
 export enum View {
