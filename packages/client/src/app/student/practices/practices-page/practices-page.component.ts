@@ -6,7 +6,6 @@ import * as selectors from '@infra/store/selectors/practices.selector';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import {FormControl} from "@angular/forms";
 
 
 @Component({
@@ -57,7 +56,6 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
         res => {
           if (res) {
             this.practices = [...res];
-            // console.log("this.practices", this.practices);
             this.loading = false;
           } else {
             this.store.dispatch(PracticesActions.BeginGetPracticesAction());
@@ -113,6 +111,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
   }
 
   compareDates(firstDate, secondDate) {
+    firstDate = new Date(firstDate);
     if (firstDate.getMonth() === secondDate.getMonth() && firstDate.getFullYear() === secondDate.getFullYear())
       return true;
     else

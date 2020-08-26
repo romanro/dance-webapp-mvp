@@ -52,7 +52,6 @@ export class PracticePageComponent implements OnInit, OnDestroy {
             practice => {
               if (practice) {
                 this.practice = { ...practice };
-                console.log("practice", this.practice)
                 this.loading = false;
                 this.practiceTitleInput = practice.title;
               } else {
@@ -106,7 +105,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
   }
 
   saveChanges() {
-    this.practice.title = this.practiceTitleInput;
+    this.practice.associatedVideo.name = this.practiceTitleInput;
     this.disabled = true;
     this.disabledNote = true;
     this.disabledTitle = true;
