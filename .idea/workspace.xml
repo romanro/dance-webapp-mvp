@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ba9d3809-63eb-4ad6-b069-f4fe30159890" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/client/src/app/_infra/core/models/http-responce.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/_infra/core/models/http-responce.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/client/src/app/_infra/core/services/practices.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/_infra/core/services/practices.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/client/src/app/student/practices/practices-page/practices-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/student/practices/practices-page/practices-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/app/_infra/store/selectors/practices.selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/_infra/store/selectors/practices.selector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/app/student/practices/practice-page/practice-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/student/practices/practice-page/practice-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/app/student/practices/practice-page/practice-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/student/practices/practice-page/practice-page.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/client/src/app/student/practices/practices-page/practices-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/app/student/practices/practices-page/practices-page.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +69,7 @@
       <workItem from="1596472236781" duration="5041000" />
       <workItem from="1596477291572" duration="9630000" />
       <workItem from="1596643973919" duration="13333000" />
-      <workItem from="1598462801631" duration="1297000" />
+      <workItem from="1598462801631" duration="1911000" />
     </task>
     <servers />
   </component>
@@ -102,21 +102,21 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="819" y="234" width="770" height="773" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1594920176610" />
-    <state x="2559" y="307" width="1004" height="594" key="find.popup" timestamp="1598463688708">
+    <state x="2559" y="307" width="1004" height="594" key="find.popup" timestamp="1598464412837">
       <screen x="1920" y="36" width="1920" height="1080" />
     </state>
     <state x="639" y="291" width="1004" height="566" key="find.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1596474407181" />
     <state x="2559" y="271" width="1004" height="581" key="find.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1596643160534" />
-    <state x="2559" y="307" width="1004" height="594" key="find.popup/3840.0.1920.1080/1920.36.1920.1080/0.36.1920.1080@1920.36.1920.1080" timestamp="1598463688708" />
+    <state x="2559" y="307" width="1004" height="594" key="find.popup/3840.0.1920.1080/1920.36.1920.1080/0.36.1920.1080@1920.36.1920.1080" timestamp="1598464412837" />
     <state x="684" y="291" width="968" height="522" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1594988498363" />
     <state x="2559" y="323" width="1004" height="580" key="find.popup/67.27.1853.1053/3840.52.1920.1080/1920.52.1920.1080@1920.52.1920.1080" timestamp="1594996318069" />
-    <state x="2530" y="272" width="697" height="696" key="search.everywhere.popup" timestamp="1598463410009">
+    <state x="2530" y="272" width="697" height="696" key="search.everywhere.popup" timestamp="1598464479002">
       <screen x="1920" y="36" width="1920" height="1080" />
     </state>
     <state x="610" y="257" width="697" height="679" key="search.everywhere.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1596477872194" />
     <state x="2530" y="236" width="697" height="697" key="search.everywhere.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1596642087944" />
     <state x="656" y="257" width="673" height="680" key="search.everywhere.popup/1920.0.1920.1080/67.27.1853.1053@67.27.1853.1053" timestamp="1596532755094" />
-    <state x="2530" y="272" width="697" height="696" key="search.everywhere.popup/3840.0.1920.1080/1920.36.1920.1080/0.36.1920.1080@1920.36.1920.1080" timestamp="1598463410009" />
+    <state x="2530" y="272" width="697" height="696" key="search.everywhere.popup/3840.0.1920.1080/1920.36.1920.1080/0.36.1920.1080@1920.36.1920.1080" timestamp="1598464479002" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1594981074473" />
     <state x="2530" y="288" width="697" height="696" key="search.everywhere.popup/67.27.1853.1053/3840.52.1920.1080/1920.52.1920.1080@1920.52.1920.1080" timestamp="1594997116360" />
   </component>

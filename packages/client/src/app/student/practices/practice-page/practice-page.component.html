@@ -9,11 +9,12 @@
         <div class="col-12">
             <button class="edit-btn"
                     (click)=editTitle()></button>
+<!--            [(ngModel)]="practiceTitleInput"-->
+<!--            [disabled]=disabledTitle-->
             <input class="mb-2 title-input inner-page-title text-center"
-                   [(ngModel)]="practiceTitleInput"
-                   [disabled]=disabledTitle
+                   value="{{practice.associatedVideo.name}}"
                    type="text">
-            <div class="inner-page-sub-title">{{practice.date | date:'MMMM y'}}
+            <div class="inner-page-sub-title">{{practice.createdAt | date:'MMMM y'}}
             </div>
         </div>
     </div>
@@ -22,7 +23,7 @@
             <button class="mb-2 hide-btn"
                     (click)="toggleVideo()">{{videoButtonText}}</button>
             <ui-video-player-wrapper [hidden]="hiddenVideo"
-                                     src="{{practice.userVideo}}">
+                                     src="{{practice.associatedVideo.key}}">
             </ui-video-player-wrapper>
         </div>
     </div>

@@ -52,6 +52,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
             practice => {
               if (practice) {
                 this.practice = { ...practice };
+                console.log("practice", this.practice)
                 this.loading = false;
                 this.practiceTitleInput = practice.title;
               } else {
