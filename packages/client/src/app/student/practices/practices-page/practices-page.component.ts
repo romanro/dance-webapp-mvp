@@ -17,7 +17,7 @@ import {FormControl} from "@angular/forms";
 
 export class PracticesPageComponent implements OnInit, OnDestroy {
 
-  loading = false;
+  loading = true;
   errorMsg: PracticeError | string = null;
   startDate: Date = new Date('1/1/2020');
   lastDate: Date = new Date();
@@ -45,7 +45,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.setMonthsLength();
+    // this.setMonthsLength();
 
     this.maxMonthLength = this.monthLength;
 
@@ -57,6 +57,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
         res => {
           if (res) {
             this.practices = [...res];
+            console.log("this.practices", this.practices);
             this.loading = false;
           } else {
             this.store.dispatch(PracticesActions.BeginGetPracticesAction());
