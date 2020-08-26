@@ -10,7 +10,14 @@ import PracticeItem, { IPracticeItem } from '../models/PracticeItem';
  */
 
 export const getPracticeItems = async (req: Request, res: Response, next: NextFunction) => {
-    await req.user.populate("practiceItems").execPopulate();
+    await req.user.populate({
+        path: 'practiceItems',
+        populate: {
+            path: 'associatedVideo',
+            //select: '' // TODO: select is needed
+        }
+    }).execPopulate();
+
     res.status(200).json({
         success: true,
         data: req.user.practiceItems
@@ -25,6 +32,8 @@ export const getPracticeItems = async (req: Request, res: Response, next: NextFu
 export const getPracticeItemById = async (practiceItemId: string): Promise<IPracticeItem> => (
     new Promise((resolve, reject) => {
         PracticeItem.findById(practiceItemId)
+            //.select() // TODO: select is needed
+            .populate("associatedVideo")
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
@@ -63,7 +72,7 @@ const buildpracticeItemFromRequest = async (req: Request): Promise<IPracticeItem
 
 export const addPracticeItem = async (req: Request, res: Response, next: NextFunction) => {
     const practiceItem = await buildpracticeItemFromRequest(req);
-    
+
     await practiceItem.save();
     await User.updateOne({ _id: req.user._id }, { $addToSet: { practiceItems: practiceItem._id } }).exec();
 
