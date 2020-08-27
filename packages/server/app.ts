@@ -45,6 +45,7 @@ mongoose
   )
   .then(() => console.log("Connected to MongoDB..."))
   .catch(err => {
+    console.error(err);
     console.log(
       '%s MongoDB connection error. Please make sure MongoDB is running.',
       chalk.red('✗')
