@@ -100,7 +100,7 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     // (https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html);
 
     const videoUrl = (req.file as any).location;
-    const videoKey = (req.file as any).location;
+    const videoKey = (req.file as any).key;
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
 
     await video.save();
