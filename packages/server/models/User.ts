@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import mongoose, { Document, Model, model, Types } from 'mongoose';
 import { jwtAccessPrivateKey, jwtRefreshPrivateKey, signOptionsAccessToken, signOptionsRefreshToken } from '../config/jwt';
-import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages } from '../shared/enums';
+import { EnumAgeGroup, EnumGender, EnumLanguage, possibleGenders, possibleLanguages, EnumRole, possibleRoles } from '../shared/enums';
 import { IPracticeItem } from './PracticeItem';
 import User from './User';
 import { NextFunction } from 'express';
@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema(
   {
     email: { type: String, unique: true },
     password: { type: String, required: true },
+    role: { type: EnumRole, enum: possibleRoles, default: EnumRole.user },
     passwordResetToken: String,
     passwordResetExpires: Number,
     emailVerificationToken: String,
@@ -145,6 +146,7 @@ userSchema.methods.comparePassword = function comparePassword(candidatePassword:
 interface IUserSchema extends Document {
   email: string;
   password: string;
+  ownerRole: EnumRole;
   passwordResetToken: string;
   passwordResetExpires: number;
   emailVerificationToken: string;
