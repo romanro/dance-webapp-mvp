@@ -12,8 +12,10 @@ const getAllStars = async (): Promise<IStar[]> => (
 
 export const getStars = async (req: Request, res: Response, next: NextFunction) => {
     const stars = await getAllStars();
-    return res.json({
-        stars: stars
+
+    res.status(200).json({
+        success: true,
+        data: stars
     });
 }
 
@@ -26,7 +28,7 @@ export const getStars = async (req: Request, res: Response, next: NextFunction) 
 const getStarInfo = async (id: string): Promise<IStar | null> => (
     new Promise((resolve, reject) => {
         Star.findById(id)
-        .populate("figures", "type -_id")
+            .populate("figures", "type -_id")
             .exec()
             .then(star => {
                 if (!star) {
@@ -44,7 +46,7 @@ const getStarInfo = async (id: string): Promise<IStar | null> => (
 export const getStar = async (req: Request, res: Response, next: NextFunction) => {
     const star = await getStarInfo(req.params.starId);
 
-    return res.json({
+    res.status(200).json({
         success: true,
         data: star
     });

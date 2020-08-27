@@ -32,11 +32,11 @@ export class LoginService {
       .post<AuthRestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res.tokens) {
-            this.tokenService.storeTokens(res.tokens);
+          if (res.success) {
+            this.tokenService.storeTokens(res.data);
             this.afterLoginRoute();
 
-          } else if (res.message) {
+          } else if (!res.success && res.message) {
             const errorStr = `${res.message}`;
             this.alertService.error(errorStr);
           } else {
@@ -88,9 +88,9 @@ export class LoginService {
       .pipe(
         tap(
           res => {
-            if (res.tokens) {
-              this.tokenService.storeTokens(res.tokens);
-            } else if (res.message) {
+            if (res.success) {
+              this.tokenService.storeTokens(res.data);
+            } else if (!res.success && res.message) {
               const errorStr = `${res.message}`;
               this.alertService.error(errorStr);
             } else {

@@ -25,8 +25,9 @@ export const addStar = async (req: Request, res: Response, next: NextFunction) =
     await star.save();
 
     res.status(201).json({
+        success: true,
         message: "Created star successfully",
-        star: star
+        data: star
     });
 }
 
@@ -67,11 +68,12 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     // (https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html);
 
     const videoUrl = req.file ? (req.file as any).location : req.body.videoUrl;
-    const videoKey = req.file ? (req.file as any).location : req.body.videoKey;
+    const videoKey = req.file ? (req.file as any).key : req.body.videoKey;
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
 
     await video.save();
     await associateVideoWithModel(EnumAssociateModel.Figure, video.associatedObject, video._id);
+    // TODO: select params for video
 
     res.status(201).json({
         success: true,
@@ -170,7 +172,7 @@ export const addFigure = async (req: Request, res: Response, next: NextFunction)
     res.status(201).json({
         success: true,
         message: "Figure added successfully to the star",
-        figure: figure
+        data: figure
     });
 }
 

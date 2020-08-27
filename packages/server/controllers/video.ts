@@ -55,6 +55,7 @@ export const getVideo = async (req: Request, res: Response, next: NextFunction) 
     const poulatedVideo = await getPopulatedVideoById(video._id, associatedModel);
 
     res.status(200).json({
+        success: true,
         data: poulatedVideo // TODO: Is all the information should be exposed to the user?
     });
 }
@@ -87,6 +88,7 @@ export const associateVideoWithModel = async (associatedModel: EnumAssociateMode
             break;
         // TODO: default:
     }
+    
     return await model.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
@@ -98,7 +100,7 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     // (https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html);
 
     const videoUrl = (req.file as any).location;
-    const videoKey = (req.file as any).location;
+    const videoKey = (req.file as any).key;
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
 
     await video.save();

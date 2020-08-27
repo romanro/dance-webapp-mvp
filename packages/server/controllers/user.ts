@@ -65,8 +65,9 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
   const tokens = await user.generateAuthToken();
 
   return res.status(200).json({
+    success: true,
     message: "Auth succeeded",
-    tokens: tokens
+    data: tokens
   });
 };
 
@@ -80,8 +81,9 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
   const tokens = await req.user.generateAuthToken();
 
   return res.status(200).json({
+    success: true,
     message: "Token refreshed successfully",
-    tokens: tokens
+    data: tokens
   });
 };
 
@@ -137,8 +139,9 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
   const tokens = await user.generateAuthToken();
 
   res.status(201).json({
+    success: true,
     message: "User created",
-    tokens: tokens
+    data: tokens
   });
 };
 
@@ -216,9 +219,8 @@ export const getProfileInfo = async (req: Request, res: Response, next: NextFunc
 
   return res.json({
     success: true,
-    user: userInfo
+    data: userInfo
   });
-
 };
 
 /**
@@ -456,7 +458,7 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
 
     return res.json({
       success: true,
-      tokens: tokens
+      data: tokens
     });
   } catch (error) {
     return next(error);
