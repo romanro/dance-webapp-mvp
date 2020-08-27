@@ -10,7 +10,8 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       BASE_URL: string;
-      MONGODB_URI: string;
+      MONGODB_PRODUCTION_URI: string;
+      MONGODB_DEVELOPMENT_URI: string;
 
       SESSION_SECRET: string;
 
