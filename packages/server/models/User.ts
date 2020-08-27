@@ -146,7 +146,7 @@ userSchema.methods.comparePassword = function comparePassword(candidatePassword:
 interface IUserSchema extends Document {
   email: string;
   password: string;
-  ownerRole: EnumRole;
+  role: EnumRole;
   passwordResetToken: string;
   passwordResetExpires: number;
   emailVerificationToken: string;
