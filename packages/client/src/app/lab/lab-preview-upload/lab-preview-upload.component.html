@@ -24,7 +24,7 @@
                id="previewVideo"
                preload="auto"
                [poster]="previewVideo.thumbnail">
-          <source [src]="previewVideo.key"
+          <source [src]="previewVideo.path"
                   type="video/mp4">
         </video>
       </vg-player>
@@ -39,6 +39,16 @@
           <h5>{{'LAB.uploadVideo' | translate}}</h5>
           <ui-video-file-picker (videoChange)="fileChangeEvent($event)">
           </ui-video-file-picker>
+
+          <video #uploadVideo
+                 style="display: none;"
+                 *ngIf="intVideoUrl"
+                 width="0"
+                 height="0"
+                 controls="false"
+                 [attr.src]="intVideoUrl"
+                 (loadedmetadata)="getUploadingVideoDuration($event)">
+          </video>
 
         </div>
       </div>

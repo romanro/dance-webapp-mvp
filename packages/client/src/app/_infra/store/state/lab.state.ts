@@ -47,7 +47,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
                 type: 'promo',
                 createdAt: '2020-08-22T17:09:07.596Z',
                 updatedAt: '2020-08-22T17:09:07.596Z',
@@ -64,7 +64,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
                 createdAt: '2020-08-22T17:22:23.419Z',
                 updatedAt: '2020-08-22T18:35:45.313Z',
                 __v: 0
@@ -80,7 +80,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+BASIC.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+BASIC.MP4',
                 createdAt: '2020-08-22T17:23:43.666Z',
                 updatedAt: '2020-08-22T17:23:43.666Z',
                 __v: 0
@@ -96,7 +96,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+EXERCISE.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+EXERCISE.MP4',
                 createdAt: '2020-08-22T17:24:32.791Z',
                 updatedAt: '2020-08-22T17:24:32.791Z',
                 __v: 0
@@ -112,7 +112,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+EXERCISE.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Master+EXERCISE.MP4',
                 createdAt: '2020-08-22T17:27:01.435Z',
                 updatedAt: '2020-08-22T17:27:01.435Z',
                 __v: 0
@@ -128,7 +128,7 @@ const MOCK_LAB = {
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/MASTER+Silabus.MP4',
+                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/MASTER+Silabus.MP4',
                 createdAt: '2020-08-22T17:30:54.666Z',
                 updatedAt: '2020-08-22T17:30:54.666Z',
                 __v: 0
@@ -150,12 +150,32 @@ const MOCK_LAB = {
         view: 'front',
         type: 'comparable',
         participatesAmount: 'solo',
-        associatedObject: '5f4101a2f3f8fd3386e9dce0',
+        associatedObject: {
+            stars: [
+                '5f40fe6ad1f6082d42e9708b'
+            ],
+            videos: [
+                '5f4151336391ed647f4df9c1',
+                '5f41544fe0ec19692974cf94',
+                '5f41549fe0ec19692974cf95',
+                '5f4154d0e0ec19692974cf96',
+                '5f415565e0ec19692974cf97',
+                '5f41564ee0ec19692974cf98'
+            ],
+            _id: '5f4101a2f3f8fd3386e9dce0',
+            type: 'tango',
+            level: '1',
+            name: 'Opening Out',
+            logo: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.png',
+            createdAt: '2020-08-22T11:29:38.912Z',
+            updatedAt: '2020-08-22T17:30:54.668Z',
+            __v: 0
+        },
         thumbnail: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.png',
         ownerUser: '5f40fc75ac07bc255b09ea4e',
         ownerRole: 99,
         associatedModel: 'Figure',
-        key: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
+        path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/Opening+Out/Fake+it+till+you+make+it.MP4',
         createdAt: '2020-08-22T17:22:23.419Z',
         updatedAt: '2020-08-22T18:35:45.313Z',
         __v: 0
