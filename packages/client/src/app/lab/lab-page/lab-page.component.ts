@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class LabPageComponent implements OnInit, OnDestroy {
 
   labItem: LabItem = null;
+  labView: null | 'preview' | 'full' = null;
   subs: Subscription[] = [];
 
   constructor(private store: Store<LabState>) { }
@@ -21,6 +22,11 @@ export class LabPageComponent implements OnInit, OnDestroy {
       this.store.select(
         selectors.selectCurrentLabItem()).subscribe(res => {
           this.labItem = res ? { ...res } : null;
+          if (this.labItem && this.labItem.starVideo && this.labItem.userVideo) {
+            this.labView = 'full';
+          } else if (this.labItem && this.labItem.starVideo && !this.labItem.userVideo) {
+            this.labView = 'preview';
+          }
         })
     )
 

@@ -1,29 +1,55 @@
-<div class="row page-title-row">
-    <div class="col text-center">
-        <h2 class="inner-page-title">{{'LAB.title' | translate}}
-        </h2>
-    </div>
-</div>
-
-
-<div *ngIf="!labItem; else lab">
-    <div class="row">
+<div class="lab-page">
+    <div class="row page-title-row">
         <div class="col text-center">
-            <p>{{'LAB.instruction' | translate}}</p>
-            <button class="btn btn-info"
-                    tabindex="0"
-                    [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
+            <h2 class="inner-page-title"><span
+                      class="underline-warning">{{'LAB.title' | translate}}</span>
+            </h2>
         </div>
     </div>
-</div>
 
-<ng-template #lab>
-    <div class="row">
-        <div class="col"></div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <dsapp-lab-video-tool></dsapp-lab-video-tool>
+    <div *ngIf="labItem"
+         class="row mt-2">
+        <div class="col-12 text-center">
+            <h5 dsappStarName
+                [name]="labItem.star.name"></h5>
+            <p>{{labItem.figure.name}},
+                {{'STAR.STAR_INFO_PAGE.level' | translate}}
+                {{labItem.figure.level}}</p>
         </div>
     </div>
-</ng-template>
+
+    <ng-container [ngSwitch]="labView">
+
+        <!-- Preview - USER MUST TO UPLOAD --->
+
+        <ng-container *ngSwitchCase="'preview'">
+            <dsapp-lab-preview-upload [previewVideo]="labItem.starVideo">
+            </dsapp-lab-preview-upload>
+
+        </ng-container>
+
+
+        <!-- FULL LAB TOOL --->
+        <ng-container *ngSwitchCase="'full'">
+            <div class="row">
+                <div class="col">
+                    <dsapp-lab-video-tool></dsapp-lab-video-tool>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- STAR VIDEO IS NOT SELECTED --->
+        <ng-container *ngSwitchDefault>
+            <div class="row">
+                <div class="col text-center">
+                    <p>{{'LAB.instruction' | translate}}</p>
+                    <button class="btn btn-dark"
+                            tabindex="0"
+                            [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
+                </div>
+            </div>
+        </ng-container>
+
+    </ng-container>
+
+</div>

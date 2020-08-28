@@ -156,6 +156,9 @@
   "LAB": {
     "title": "Welcome to My Lab",
     "instruction": "To start using Lab tool, you need to select Figure from our library first",
-    "chooseVideo": "Choose Video from Library"
+    "chooseVideo": "Choose Video from Library",
+    "uploadVideo": "Upload your Video",
+    "FilmVideo": "Film Video",
+    "UploadVideo": "Upload Video"
   }
 }

@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col">
+    <div class="embed-responsive embed-responsive-16by9">
+
+      <vg-player class="embed-responsive-item"
+                 (onPlayerReady)="onPreviewPlayerReady($event)">
+        <vg-overlay-play vgFor="previewVideo">
+        </vg-overlay-play>
+        <vg-controls [vgAutohide]="true"
+                     [vgAutohideTime]="2">
+          <vg-play-pause vgFor="previewVideo">
+          </vg-play-pause>
+
+          <vg-scrub-bar>
+            <vg-scrub-bar-current-time vgFor="previewVideo"
+                                       [vgSlider]="false">
+            </vg-scrub-bar-current-time>
+          </vg-scrub-bar>
+
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+        <video [vgMedia]="video"
+               #video
+               id="previewVideo"
+               preload="auto"
+               [poster]="previewVideo.thumbnail">
+          <source [src]="previewVideo.path"
+                  type="video/mp4">
+        </video>
+      </vg-player>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="embed-responsive embed-responsive-16by9">
+      <div class="embed-responsive-item bg-dark upload-placeholder">
+        <div class="toolbox">
+          <h5>{{'LAB.uploadVideo' | translate}}</h5>
+          <ui-video-file-picker (videoChange)="fileChangeEvent($event)">
+          </ui-video-file-picker>
+
+          <video #uploadVideo
+                 style="display: none;"
+                 *ngIf="intVideoUrl"
+                 width="0"
+                 height="0"
+                 controls="false"
+                 [attr.src]="intVideoUrl"
+                 (loadedmetadata)="getUploadingVideoDuration($event)">
+          </video>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

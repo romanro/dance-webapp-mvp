@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
 import { VgEvents } from 'ngx-videogular';
 
 @Component({
   selector: 'dsapp-lab-video-tool',
-  templateUrl: './lab-video-tool.component.html',
-  styles: []
+  templateUrl: './lab-video-tool.component.html'
 })
 export class LabVideoToolComponent implements OnInit {
+
+  // @Input() 
 
   @ViewChild('masterPLayer', { static: true }) masterPLayer: VideoPlayerWrapperComponent;
   @ViewChild('studentPLayer', { static: true }) studentPLayer: VideoPlayerWrapperComponent;

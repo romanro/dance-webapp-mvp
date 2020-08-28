@@ -21,7 +21,6 @@
   }
 }
 
-
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: "danskill_icons";
@@ -348,6 +347,31 @@
 }
 
 /* '' */
+.icon-video-2:before {
+  content: '\e842';
+}
+
+/* '' */
+.icon-videocam-1:before {
+  content: '\e843';
+}
+
+/* '' */
+.icon-picture-1:before {
+  content: '\e844';
+}
+
+/* '' */
+.icon-camera-4:before {
+  content: '\e845';
+}
+
+/* '' */
+.icon-camera-alt:before {
+  content: '\e846';
+}
+
+/* '' */
 .icon-circle-empty:before {
   content: '\f10c';
 }

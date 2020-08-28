@@ -1,16 +1,26 @@
+import { Figure } from './figure.model';
 
 
 export interface Video {
+    _id: string;
     name: string;
-    key: string;
+    path: string;
     view: View;
     participatesAmount: ParticipatesAmount;
-    associatedObject: string;
+    associatedObject: Video | Figure;
     associatedModel: AssociateType;
     ownerUser: string;
     ownerRole: number;
     type: VideoType;
     thumbnail: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export interface UploadVideoData {
+    name: string;
+    associatedObject: string,
+    video: File
 }
 
 export enum View {
@@ -32,21 +42,39 @@ export enum VideoType {
     // the following states are used for star only
     PROMO = 'promo',
     BASIC_PRINCIPLES = 'basicPrinciples',
-    ADDITIONAL = 'additional',
+    TIPS = 'tips',
+    EXERCISES = 'exercises',
 
     // the following states are shared for star and user
     COMPARABLE = 'comparable'
 }
 
 export class LabStarVideo implements Video {
+    _id: string;
     name: string;
-    key: string;
+    path: string;
     view: View;
     thumbnail: string;
     participatesAmount: ParticipatesAmount;
-    associatedObject: string;
+    associatedObject: Figure;
+    associatedModel: AssociateType = AssociateType.FIGURE;
+    ownerUser: string;
+    ownerRole: number;
+    type: VideoType = VideoType.COMPARABLE;
+}
+
+export class LabUserVideo implements Video {
+    _id: string;
+    name: string;
+    path: string;
+    view: View;
+    thumbnail: string;
+    participatesAmount: ParticipatesAmount;
+    associatedObject: Video;
     associatedModel: AssociateType = AssociateType.VIDEO;
     ownerUser: string;
     ownerRole: number;
     type: VideoType = VideoType.COMPARABLE;
 }
+
+
