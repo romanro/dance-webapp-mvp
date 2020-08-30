@@ -8,3 +8,5 @@ export interface LabItem {
     starVideo: LabStarVideo;
     userVideo?: LabUserVideo;
 }
+
+export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 5;

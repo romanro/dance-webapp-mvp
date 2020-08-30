@@ -18,38 +18,53 @@
         </div>
     </div>
 
-    <ng-container [ngSwitch]="labView">
+    <!-- FULL LAB TOOL --->
+    <ng-container *ngIf="labItem">
+        <div class="row">
+            <div class="col">
+                <dsapp-lab-video-tool [masterVideo]="labItem.starVideo ? labItem.starVideo : null"
+                                      [studentVideo]="labItem.userVideo ? labItem.userVideo : null"
+                                      (masterPlayerDurationReady)="setDurationLimit($event)">
+                </dsapp-lab-video-tool>
+            </div>
+        </div>
+    </ng-container>
 
-        <!-- Preview - USER MUST TO UPLOAD --->
 
-        <ng-container *ngSwitchCase="'preview'">
-            <dsapp-lab-preview-upload [previewVideo]="labItem.starVideo">
-            </dsapp-lab-preview-upload>
+    <!-- USER MUST TO UPLOAD --->
 
-        </ng-container>
+    <ng-container *ngIf="labItem && !labItem.userVideo">
 
-
-        <!-- FULL LAB TOOL --->
-        <ng-container *ngSwitchCase="'full'">
-            <div class="row">
-                <div class="col">
-                    <dsapp-lab-video-tool></dsapp-lab-video-tool>
+        <div class="row">
+            <div class="col">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div
+                         class="embed-responsive-item bg-dark upload-placeholder">
+                        <div class="toolbox">
+                            <h5>{{'LAB.uploadVideo' | translate}}</h5>
+                            <ui-video-file-picker
+                                                  (videoChange)="userVideoFileChanged($event)">
+                            </ui-video-file-picker>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </ng-container>
-
-        <!-- STAR VIDEO IS NOT SELECTED --->
-        <ng-container *ngSwitchDefault>
-            <div class="row">
-                <div class="col text-center">
-                    <p>{{'LAB.instruction' | translate}}</p>
-                    <button class="btn btn-dark"
-                            tabindex="0"
-                            [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
-                </div>
-            </div>
-        </ng-container>
+        </div>
 
     </ng-container>
+
+
+    <!-- STAR VIDEO IS NOT SELECTED --->
+    <ng-container *ngIf="!labItem">
+        <div class="row">
+            <div class="col text-center">
+                <p>{{'LAB.instruction' | translate}}</p>
+                <button class="btn btn-dark"
+                        tabindex="0"
+                        [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
+            </div>
+        </div>
+    </ng-container>
+
 
 </div>

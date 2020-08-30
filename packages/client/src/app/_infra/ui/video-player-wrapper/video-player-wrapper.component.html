@@ -1,7 +1,18 @@
 <div class="embed-responsive embed-responsive-16by9 video-wrapper">
   <vg-player class="embed-responsive-item"
              (onPlayerReady)="onPlayerReady($event)">
-    <vg-controls>
+
+    <vg-overlay-play *ngIf="preview"
+                     vgFor="mainVideo">
+    </vg-overlay-play>
+
+    <vg-controls [vgAutohide]="true"
+                 [vgAutohideTime]="2">
+
+      <vg-play-pause *ngIf="preview"
+                     vgFor="mainVideo">
+      </vg-play-pause>
+
       <vg-scrub-bar [vgSlider]="false">
         <vg-scrub-bar-buffering-time vgFor="mainVideo">
         </vg-scrub-bar-buffering-time>
@@ -9,9 +20,13 @@
                                    [vgSlider]="false">
         </vg-scrub-bar-current-time>
       </vg-scrub-bar>
+
+      <vg-fullscreen *ngIf="preview"
+                     vgFor="mainVideo"></vg-fullscreen>
     </vg-controls>
     <video [vgMedia]="video"
            [playbackRate]="playbackRate"
+           [poster]="poster"
            #video
            id="mainVideo"
            preload="auto">
@@ -19,7 +34,7 @@
               type="video/mp4">
     </video>
   </vg-player>
-  <div *ngIf="!synchronized"
+  <div *ngIf="!synchronized && !preview"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
@@ -27,7 +42,7 @@
 </div>
 
 
-<div *ngIf="playerIsReady"
+<div *ngIf="playerIsReady && !preview"
      class="player-controls">
 
   <div class="controls-row">
@@ -43,13 +58,12 @@
     <button class="btn btn-info btn-sm"
             (click)="jump('bwd')">
       << BWD</button>
-         <button
-         class="btn btn-info btn-sm"
-         (click)="jump('fwd')">FWD >>
-    </button>
+        <button class="btn btn-info btn-sm"
+                (click)="jump('fwd')">FWD >>
+        </button>
 
-    <button class="btn btn-danger btn-sm"
-            (click)="stop()">STOP</button>
+        <button class="btn btn-danger btn-sm"
+                (click)="stop()">STOP</button>
   </div>
 
   <div *ngIf="!synchronized"

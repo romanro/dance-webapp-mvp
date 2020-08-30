@@ -1,3 +1,5 @@
+import { SafeUrl } from '@angular/platform-browser';
+
 import { Figure } from './figure.model';
 
 
@@ -63,18 +65,11 @@ export class LabStarVideo implements Video {
     type: VideoType = VideoType.COMPARABLE;
 }
 
-export class LabUserVideo implements Video {
-    _id: string;
-    name: string;
-    path: string;
-    view: View;
-    thumbnail: string;
-    participatesAmount: ParticipatesAmount;
-    associatedObject: Video;
-    associatedModel: AssociateType = AssociateType.VIDEO;
-    ownerUser: string;
-    ownerRole: number;
+export class LabUserVideo {
+    name?: string;
+    path?: string | SafeUrl;
     type: VideoType = VideoType.COMPARABLE;
+    file?: File;
 }
 
 

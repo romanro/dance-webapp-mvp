@@ -1,16 +1,22 @@
 <div class="row position-relative video-wrapper">
 
-  <div class="col-12 col-md-6">
+  <div *ngIf="masterVideo"
+       class="col-12 col-md-6">
     <ui-video-player-wrapper #masterPLayer
-                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [src]="masterVideo.path"
+                             [poster]="masterVideo.thumbnail"
                              [synchronized]="synchronized"
+                             [preview]="!studentVideo"
+                             (durationEvent)="masterPlayerDuration($event)"
                              (playerEvent)="masterPLayerEvent($event)"
                              (playerStateChange)="masterPLayerStateChange($event)">
     </ui-video-player-wrapper>
   </div>
-  <div class="col-12 col-md-6">
+  <div *ngIf="studentVideo"
+       class="col-12 col-md-6">
     <ui-video-player-wrapper #studentPLayer
-                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [src]="studentVideo.path"
+                             [preview]="false"
                              [synchronized]="synchronized"
                              (playerEvent)="studentPLayerEvent($event)"
                              (playerStateChange)="studentPLayerStateChange($event)">
@@ -24,7 +30,8 @@
        (pan)="onPan($event)"></div>
 </div>
 
-<div class="row">
+<div *ngIf="studentVideo"
+     class="row">
   <div class="col">
     <div class="player-controls">
 
@@ -45,13 +52,12 @@
         <button class="btn btn-info"
                 (click)="jump('bwd')">
           << BWD</button>
-             <button
-             class="btn btn-info"
-             (click)="jump('fwd')">FWD >>
-        </button>
+            <button class="btn btn-info"
+                    (click)="jump('fwd')">FWD >>
+            </button>
 
-        <button class="btn btn-danger"
-                (click)="stop()">STOP</button>
+            <button class="btn btn-danger"
+                    (click)="stop()">STOP</button>
       </div>
 
       <div *ngIf="synchronized"
