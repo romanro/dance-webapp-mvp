@@ -1,6 +1,6 @@
 import { LabItem } from '@core/models/';
 
-const MOCK_LAB = {
+/* const MOCK_LAB = {
     star: {
         name: {
             firstName: 'Paul',
@@ -133,7 +133,7 @@ const MOCK_LAB = {
         updatedAt: '2020-08-22T18:35:45.313Z',
         __v: 0
     }
-}
+} */
 
 export class LabState {
     labItem: LabItem | null;
@@ -141,5 +141,5 @@ export class LabState {
 }
 
 export const initializeLabState = () => {
-    return { labItem: MOCK_LAB, error: null };
+    return { labItem: null, error: null };
 };

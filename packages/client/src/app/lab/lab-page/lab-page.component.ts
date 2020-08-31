@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabUserVideo } from '@core/models/';
 import * as LabActions from '@infra/store/actions//lab.actions';
@@ -16,11 +17,12 @@ export class LabPageComponent implements OnInit, OnDestroy {
 
   private maxVideoDuration = 0;
   private userStamp: string;
+  userVideo: LabUserVideo;
 
   labItem: LabItem = null;
   subs: Subscription[] = [];
 
-  constructor(private store: Store<any>, private sanitizer: DomSanitizer) { }
+  constructor(private store: Store<any>, private sanitizer: DomSanitizer, private alertService: AlertService) { }
 
   ngOnInit() {
     this.subs.push(
@@ -46,20 +48,40 @@ export class LabPageComponent implements OnInit, OnDestroy {
     this.maxVideoDuration = masterDuration + LAB_USER_VIDEO_DURATION_DIFF_LIMIT;
   }
 
+
   userVideoFileChanged(event) {
     const file = (event.target as HTMLInputElement).files[0];
     if (file) {
-
-      const userVideo: LabUserVideo = new LabUserVideo();
-      userVideo.name = `${encodeURI(this.labItem.figure.name)}_${this.userStamp}`;
-      userVideo.path = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
-      userVideo.file = file;
-
-      const payload: LabItem = { ...this.labItem, userVideo }
-
-      this.store.dispatch(LabActions.UpdateLabAction({ payload }))
-
+      this.userVideo = new LabUserVideo({
+        name: `${encodeURI(this.labItem.figure.name)}_${this.userStamp}`,
+        path: this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)),
+        file
+      });
     }
+  }
+
+  checkUserVideoDuration(event) {
+    const duration = event.target.duration;
+    if (duration > this.maxVideoDuration) {
+      this.clearUserVideo();
+      this.alertService.error('LAB.ERRORS.userDurationError', this.maxVideoDuration.toString());
+    } else {
+      this.updateLabStore();
+    }
+  }
+
+  clearUserVideo() {
+    this.userVideo = null;
+    this.updateLabStore();
+  }
+
+  clearLabItem() {
+    this.store.dispatch(LabActions.ClearLabAction());
+  }
+
+  updateLabStore() {
+    const payload: LabItem = { ...this.labItem, userVideo: this.userVideo };
+    this.store.dispatch(LabActions.UpdateLabAction({ payload }));
   }
 
   ngOnDestroy(): void {

@@ -18,6 +18,24 @@
         </div>
     </div>
 
+    <div *ngIf="labItem"
+         class="row">
+
+        <div *ngIf="labItem.starVideo"
+             class="col text-left">
+            <button class="btn btn-sm btn-link"
+                    (click)="clearLabItem()"
+                    [routerLink]="['/student','star']">{{'LAB.chooseAnotherVideo' | translate}}</button>
+        </div>
+
+        <div *ngIf="labItem.userVideo"
+             class="col text-right">
+            <button class="btn btn-sm btn-link"
+                    (click)="clearUserVideo()">{{'LAB.removeVideo' | translate}}</button>
+        </div>
+
+    </div>
+
     <!-- FULL LAB TOOL --->
     <ng-container *ngIf="labItem">
         <div class="row">
@@ -68,3 +86,15 @@
 
 
 </div>
+
+
+<video #videoMta
+       style="display: none;"
+       *ngIf="userVideo"
+       width="0"
+       height="0"
+       preload="metadata"
+       controls="false"
+       [attr.src]="userVideo.path"
+       (loadedmetadata)="checkUserVideoDuration($event)">
+</video>

@@ -159,6 +159,11 @@
     "chooseVideo": "Choose Video from Library",
     "uploadVideo": "Upload your Video",
     "FilmVideo": "Film Video",
-    "UploadVideo": "Upload Video"
+    "UploadVideo": "Upload Video",
+    "chooseAnotherVideo": "choose another video",
+    "removeVideo": "remove video",
+    "ERRORS": {
+      "userDurationError": "Your video is too long. Please, film video less than {{param}} seconds"
+    }
   }
 }

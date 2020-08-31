@@ -68,8 +68,12 @@ export class LabStarVideo implements Video {
 export class LabUserVideo {
     name?: string;
     path?: string | SafeUrl;
-    type: VideoType = VideoType.COMPARABLE;
     file?: File;
+    readonly type: VideoType = VideoType.COMPARABLE;
+
+    constructor(init?: Partial<LabUserVideo>) {
+        Object.assign(this, init);
+    }
 }
 
 
