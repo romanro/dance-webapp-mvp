@@ -14,8 +14,8 @@ export class LabVideoToolComponent implements OnInit {
 
   @Output() masterPlayerDurationReady = new EventEmitter<number>();
 
-  @ViewChild('masterPLayer', { static: true }) masterPLayer: VideoPlayerWrapperComponent;
-  @ViewChild('studentPLayer', { static: true }) studentPLayer: VideoPlayerWrapperComponent;
+  @ViewChild('masterPLayer', { static: false }) masterPLayer: VideoPlayerWrapperComponent;
+  @ViewChild('studentPLayer', { static: false }) studentPLayer: VideoPlayerWrapperComponent;
 
   synchronized = false;
   timeDiff = 0;

@@ -39,7 +39,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPlayerReady(api) {
-
     this.playerAPI = api;
     this.playerAPI.volume = 0;
 

@@ -49,12 +49,11 @@ export class LabPageComponent implements OnInit, OnDestroy {
   userVideoFileChanged(event) {
     const file = (event.target as HTMLInputElement).files[0];
     if (file) {
-      console.log(file.name);
+
       const userVideo: LabUserVideo = new LabUserVideo();
       userVideo.name = `${encodeURI(this.labItem.figure.name)}_${this.userStamp}`;
       userVideo.path = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
       userVideo.file = file;
-      console.log(userVideo);
 
       const payload: LabItem = { ...this.labItem, userVideo }
 
