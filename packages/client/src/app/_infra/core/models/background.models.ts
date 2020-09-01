@@ -6,7 +6,7 @@ export class BackgroundPosition {
     constructor() {
         this.posX = `${this.getRandomInt(0, 150)}%`;
         this.posY = `${this.getRandomInt(0, 150)}%`;
-        this.size = `${this.getRandomInt(40, 250)}%`;
+        this.size = `${this.getRandomInt(50, 150)}%`;
     }
 
     private getRandomInt(min: number, max: number): number {

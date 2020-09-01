@@ -7,6 +7,7 @@
         </div>
     </div>
 
+    <!-- PAGE TITTLE -->
     <div *ngIf="labItem"
          class="row mt-2">
         <div class="col-12 text-center">
@@ -18,6 +19,8 @@
         </div>
     </div>
 
+
+    <!-- VIDEO UP TOOLBAR (2 buutons) -->
     <div *ngIf="labItem"
          class="row">
 
@@ -36,56 +39,85 @@
 
     </div>
 
-    <!-- FULL LAB TOOL --->
-    <ng-container *ngIf="labItem">
-        <div class="row">
-            <div class="col">
-                <dsapp-lab-video-tool [masterVideo]="labItem.starVideo ? labItem.starVideo : null"
-                                      [studentVideo]="labItem.userVideo ? labItem.userVideo : null"
-                                      (masterPlayerDurationReady)="setDurationLimit($event)">
-                </dsapp-lab-video-tool>
-            </div>
-        </div>
+
+
+    <ng-container [ngSwitch]="labView">
+        <ng-container *ngSwitchCase="'full'"
+                      [ngTemplateOutlet]="labTool">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'preview'">
+            <ng-container [ngTemplateOutlet]="labTool"></ng-container>
+            <ng-container [ngTemplateOutlet]="emptyUserVideo"></ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'empty'">
+            <ng-container [ngTemplateOutlet]="emptyStarVideo"></ng-container>
+            <ng-container [ngTemplateOutlet]="emptyUserVideo"></ng-container>
+        </ng-container>
     </ng-container>
 
 
-    <!-- USER MUST TO UPLOAD --->
 
-    <ng-container *ngIf="labItem && !labItem.userVideo">
 
-        <div class="row">
-            <div class="col">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <div
-                         class="embed-responsive-item bg-dark upload-placeholder">
-                        <div class="toolbox">
-                            <h5>{{'LAB.uploadVideo' | translate}}</h5>
-                            <ui-video-file-picker
-                                                  (videoChange)="userVideoFileChanged($event)">
-                            </ui-video-file-picker>
+
+</div>
+
+<!-- STAR VIDEO IS NOT SELECTED --->
+<ng-template #emptyStarVideo>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="embed-responsive embed-responsive-16by9">
+                <div class="embed-responsive-item bg-dark upload-placeholder">
+                    <div class="step-number">1</div>
+                    <div class="toolbox">
+                        <h5>{{'LAB.instruction' | translate}}</h5>
+                        <div class="text-center">
+                            <button class="btn icon-btn"
+                                    tabindex="0"
+                                    [routerLink]="['/student','star']">
+                                <span class="icon-folder"></span>
+                                {{'LAB.chooseVideo' | translate}}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</ng-template>
 
-    </ng-container>
-
-
-    <!-- STAR VIDEO IS NOT SELECTED --->
-    <ng-container *ngIf="!labItem">
-        <div class="row">
-            <div class="col text-center">
-                <p>{{'LAB.instruction' | translate}}</p>
-                <button class="btn btn-dark"
-                        tabindex="0"
-                        [routerLink]="['/student','star']">{{'LAB.chooseVideo' | translate}}</button>
+<!-- USER MUST TO UPLOAD --->
+<ng-template #emptyUserVideo>
+    <div class="row">
+        <div class="col">
+            <div class="embed-responsive embed-responsive-16by9">
+                <div class="embed-responsive-item upload-placeholder"
+                     [ngClass]="labItem && labItem.starVideo? 'bg-dark':'bg-secondary'">
+                    <div class="step-number">2</div>
+                    <div class="toolbox">
+                        <h5>{{'LAB.uploadVideo' | translate}}</h5>
+                        <ui-video-file-picker
+                                              (videoChange)="userVideoFileChanged($event)">
+                        </ui-video-file-picker>
+                    </div>
+                </div>
             </div>
         </div>
-    </ng-container>
+    </div>
+</ng-template>
 
-
-</div>
+<!-- FULL LAB TOOL --->
+<ng-template #labTool>
+    <div class="row">
+        <div class="col">
+            <dsapp-lab-video-tool [masterVideo]="labItem.starVideo ? labItem.starVideo : null"
+                                  [studentVideo]="labItem.userVideo ? labItem.userVideo : null"
+                                  (masterPlayerDurationReady)="setDurationLimit($event)">
+            </dsapp-lab-video-tool>
+        </div>
+    </div>
+</ng-template>
 
 
 <video #videoMta

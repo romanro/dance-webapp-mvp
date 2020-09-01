@@ -10,3 +10,9 @@ export interface LabItem {
 }
 
 export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 6;
+
+export enum LabViewType {
+    FULL = 'full',
+    PREVIEW = 'preview',
+    EMPTY = 'empty'
+}
