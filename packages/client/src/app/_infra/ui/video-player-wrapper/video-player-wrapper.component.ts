@@ -11,8 +11,11 @@ import { Subscription } from 'rxjs';
 export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
   @Input() src: string;
+  @Input() poster: string = null;
   @Input() synchronized = false;
+  @Input() preview = true;
 
+  @Output() durationEvent = new EventEmitter<number>();
   @Output() playerEvent = new EventEmitter();
   @Output() playerStateChange = new EventEmitter();
 
@@ -21,7 +24,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   playerAPI: VgAPI;
 
   time = 0;
-
   playbackRate = 1;
 
   subs: Subscription[] = [];
@@ -37,13 +39,14 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPlayerReady(api) {
-
     this.playerAPI = api;
     this.playerAPI.volume = 0;
 
-    this.play();
 
-    setTimeout(() => { this.stop(); }, 200);
+    this.subs.push(this.playerAPI.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
+      /// getting original video duration
+      this.durationEvent.emit(this.playerAPI.getDefaultMedia().duration);
+    }))
 
 
     this.subs.push(

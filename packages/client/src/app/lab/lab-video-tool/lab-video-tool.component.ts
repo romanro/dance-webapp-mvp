@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { LabStarVideo, LabUserVideo } from '@app/_infra/core/models';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
 import { VgEvents } from 'ngx-videogular';
 
@@ -8,10 +9,13 @@ import { VgEvents } from 'ngx-videogular';
 })
 export class LabVideoToolComponent implements OnInit {
 
-  // @Input() 
+  @Input() masterVideo: LabStarVideo = null;
+  @Input() studentVideo: LabUserVideo = null;
 
-  @ViewChild('masterPLayer', { static: true }) masterPLayer: VideoPlayerWrapperComponent;
-  @ViewChild('studentPLayer', { static: true }) studentPLayer: VideoPlayerWrapperComponent;
+  @Output() masterPlayerDurationReady = new EventEmitter<number>();
+
+  @ViewChild('masterPLayer', { static: false }) masterPLayer: VideoPlayerWrapperComponent;
+  @ViewChild('studentPLayer', { static: false }) studentPLayer: VideoPlayerWrapperComponent;
 
   synchronized = false;
   timeDiff = 0;
@@ -31,6 +35,10 @@ export class LabVideoToolComponent implements OnInit {
       this.seekToSyncTime();
       [this.masterPLayer, this.studentPLayer].map(p => p.play());
     }
+  }
+
+  masterPlayerDuration(duration: number) {
+    this.masterPlayerDurationReady.emit(duration);
   }
 
   masterPLayerEvent(event) {
