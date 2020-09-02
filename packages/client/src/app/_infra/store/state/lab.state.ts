@@ -132,6 +132,10 @@ const MOCK_LAB = {
         createdAt: '2020-08-22T17:22:23.419Z',
         updatedAt: '2020-08-22T18:35:45.313Z',
         __v: 0
+    },
+    userVideo: {
+        name: 'user video',
+        path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_+LAB_PAUL.mp4'
     }
 }
 

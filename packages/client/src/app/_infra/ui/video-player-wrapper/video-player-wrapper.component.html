@@ -7,11 +7,34 @@
     </vg-overlay-play>
 
     <vg-controls [vgAutohide]="true"
-                 [vgAutohideTime]="2">
+                 [vgAutohideTime]="preview? 2: 20">
 
-      <vg-play-pause *ngIf="preview"
-                     vgFor="mainVideo">
-      </vg-play-pause>
+
+      <div *ngIf="!synchronized"
+           class="left-side-controls">
+
+        <vg-play-pause vgFor="mainVideo">
+        </vg-play-pause>
+
+        <div role="button"
+             class="icon icon-prew"
+             (click)="jump('bwd')"></div>
+        <div role="button"
+             class="icon icon-next"
+             (click)="jump('fwd')"></div>
+      </div>
+
+      <div *ngIf="!synchronized"
+           class="right-side-controls">
+
+        <div role="button"
+             class="icon vg-icon-stop text-warning"
+             (click)="stop()"></div>
+
+
+      </div>
+
+
 
       <vg-scrub-bar [vgSlider]="false">
         <vg-scrub-bar-buffering-time vgFor="mainVideo">
@@ -35,11 +58,11 @@
               type="video/mp4">
     </video>
   </vg-player>
-  <div *ngIf="!synchronized && !preview"
+  <!--   <div *ngIf="!synchronized && !preview"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
-       (pan)="onPan($event)"></div>
+       (pan)="onPan($event)"></div> -->
 </div>
 
 
