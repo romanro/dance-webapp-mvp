@@ -23,7 +23,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   playerIsPlaying = false;
   playerAPI: VgAPI;
 
-  time = 0;
+  time = '0';
   playbackRate = 1;
 
   subs: Subscription[] = [];
@@ -117,7 +117,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.timeUpdate.subscribe(
         event => {
-          this.time = Number(this.getCurrentTime().toFixed(2));
+          this.time = (Math.round(this.getCurrentTime() * 100) / 100).toFixed(2);
           this.playerEvent.emit(event);
         }
       )
@@ -136,10 +136,10 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   jump(direction) {
     switch (direction) {
       case 'fwd':
-        this.playerAPI.getDefaultMedia().currentTime += 1;
+        this.playerAPI.getDefaultMedia().currentTime += 0.5;
         break;
       case 'bwd':
-        this.playerAPI.getDefaultMedia().currentTime -= 1;
+        this.playerAPI.getDefaultMedia().currentTime -= 0.5;
         break;
     }
   }
@@ -161,7 +161,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPan(evt) {
-
     const devVelocity = evt.velocityX / 3;
     const seekRatio = Number(devVelocity.toFixed(2));
     const time = Number(this.getCurrentTime().toFixed(2));

@@ -1,4 +1,29 @@
 <div class="embed-responsive embed-responsive-16by9 video-wrapper">
+  <p class="onplayer-controls time"
+     *ngIf="playerIsReady && !preview">{{time}}</p>
+
+  <div *ngIf="playerIsReady && !preview && !synchronized"
+       class="onplayer-controls speed-controls">
+
+
+    <button class="btn btn-sm"
+            (click)="changePLayBackRate('minus')">
+      <i class="icon-left-open-big"></i>
+    </button>
+    <span class="btn btn-sm">{{playbackRate}}</span>
+    <button class="btn btn-sm"
+            (click)="changePLayBackRate('plus')">
+      <i class="icon-right-open-big"></i>
+    </button>
+
+    <button class="btn btn-sm"
+            (click)="changePLayBackRate('def')">
+      <i class="icon-restart"></i>
+    </button>
+
+  </div>
+
+
   <vg-player class="embed-responsive-item"
              (onPlayerReady)="onPlayerReady($event)">
 
@@ -16,15 +41,18 @@
         <vg-play-pause vgFor="mainVideo">
         </vg-play-pause>
 
-        <div role="button"
-             class="icon icon-prew"
-             (click)="jump('bwd')"></div>
-        <div role="button"
-             class="icon icon-next"
-             (click)="jump('fwd')"></div>
+        <ng-template [ngIf]="playerIsReady && !preview">
+          <div role="button"
+               class="icon icon-prew"
+               (click)="jump('bwd')"></div>
+          <div role="button"
+               class="icon icon-next"
+               (click)="jump('fwd')"></div>
+        </ng-template>
+
       </div>
 
-      <div *ngIf="!synchronized"
+      <div *ngIf="!synchronized && playerIsReady && !preview"
            class="right-side-controls">
 
         <div role="button"
@@ -58,54 +86,9 @@
               type="video/mp4">
     </video>
   </vg-player>
-  <!--   <div *ngIf="!synchronized && !preview"
+  <div *ngIf="!synchronized && !preview"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
-       (pan)="onPan($event)"></div> -->
-</div>
-
-
-<div *ngIf="playerIsReady && !preview"
-     class="player-controls">
-
-  <div class="controls-row">
-    <p>{{time}}</p>
-  </div>
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="togglePlay()">
-      <span *ngIf="!playerIsPlaying">PLAY</span>
-      <span *ngIf="playerIsPlaying">PAUSE</span>
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="jump('bwd')">
-      << BWD</button>
-        <button class="btn btn-info btn-sm"
-                (click)="jump('fwd')">FWD >>
-        </button>
-
-        <button class="btn btn-danger btn-sm"
-                (click)="stop()">STOP</button>
-  </div>
-
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('plus')">
-      +
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('minus')">
-      -
-    </button>
-    <span>{{playbackRate}}</span>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('def')">
-      Default
-    </button>
-  </div>
-
-
+       (pan)="onPan($event)"></div>
 </div>
