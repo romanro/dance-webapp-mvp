@@ -161,9 +161,9 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPan(evt) {
-    const devVelocity = evt.velocityX / 3;
-    const seekRatio = Number(devVelocity.toFixed(2));
-    const time = Number(this.getCurrentTime().toFixed(2));
+    const devVelocity = evt.velocityX / 20;
+    const seekRatio = devVelocity;
+    const time = this.getCurrentTime();
     const seekTo = seekRatio + time;
     this.seekTo(seekTo);
   }

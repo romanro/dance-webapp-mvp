@@ -1,27 +1,33 @@
 <div class="embed-responsive embed-responsive-16by9 video-wrapper">
-  <p class="onplayer-controls time"
-     *ngIf="playerIsReady && !preview">{{time}}</p>
 
-  <div *ngIf="playerIsReady && !preview && !synchronized"
-       class="onplayer-controls speed-controls">
+  <div *ngIf="playerIsReady && !preview"
+       class="top-controls onplayer-controls">
+    <p class="time btn btn-sm">{{time}}</p>
+
+    <div *ngIf="!synchronized"
+         class="speed-controls">
 
 
-    <button class="btn btn-sm"
-            (click)="changePLayBackRate('minus')">
-      <i class="icon-left-open-big"></i>
-    </button>
-    <span class="btn btn-sm">{{playbackRate}}</span>
-    <button class="btn btn-sm"
-            (click)="changePLayBackRate('plus')">
-      <i class="icon-right-open-big"></i>
-    </button>
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('minus')">
+        <i class="icon-left-open-big"></i>
+      </button>
+      <span class="btn btn-sm">{{playbackRate}}</span>
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('plus')">
+        <i class="icon-right-open-big"></i>
+      </button>
 
-    <button class="btn btn-sm"
-            (click)="changePLayBackRate('def')">
-      <i class="icon-restart"></i>
-    </button>
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('def')">
+        <i class="icon-restart"></i>
+      </button>
 
+    </div>
   </div>
+
+
+
 
 
   <vg-player class="embed-responsive-item"
@@ -31,12 +37,12 @@
                      vgFor="mainVideo">
     </vg-overlay-play>
 
-    <vg-controls [vgAutohide]="true"
+    <vg-controls *ngIf="!synchronized"
+                 [vgAutohide]="true"
                  [vgAutohideTime]="preview? 2: 20">
 
 
-      <div *ngIf="!synchronized"
-           class="left-side-controls">
+      <div class="left-side-controls">
 
         <vg-play-pause vgFor="mainVideo">
         </vg-play-pause>

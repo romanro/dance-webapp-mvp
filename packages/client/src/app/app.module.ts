@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
@@ -56,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       figures: FiguresReducer
     }),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
-
+    HammerModule,
     SocialLoginModule,
     NgbModule,
     DeviceDetectorModule,

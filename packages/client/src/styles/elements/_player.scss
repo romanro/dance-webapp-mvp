@@ -2,33 +2,41 @@
 
     position: relative;
 
+
+
     .onplayer-controls {
         position: absolute;
         z-index: +1;
         color: $white;
-        background: rgba($black, 0.75);
-        font-weight: 500;
-        font-size: 0.7rem;
+        background: rgba($black, 0.70);
     }
 
-    .time {
+    .top-controls {
+        display: flex;
+        justify-content: space-between;
         top: 0;
         left: 0;
-        padding: 0.2rem;
-    }
-
-    .speed-controls {
-        top: 0;
-        right: 0;
+        width: 100%;
 
         .btn {
             color: $white;
         }
 
-        span {
-            min-width: 40px;
+        .time {
+            margin: 0;
+        }
+
+        .speed-controls {
+
+
+
+            span {
+                min-width: 40px;
+            }
         }
     }
+
+
 
     .touch-controls {
         position: absolute;
