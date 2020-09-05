@@ -3,17 +3,18 @@ import Video, { IVideo } from "./Video"
 
 const practiceItemSchema = new mongoose.Schema(
     {
-        associatedVideo: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' }, 
         // TODO: notes should be added here  
+        associatedVideo: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' },
+        name: { type: String, required: true },
     },
     { timestamps: true }
 );
 
 interface IPracticeItemSchema extends Document {
+    name: string;
 }
 
 interface IPracticeItemBase extends IPracticeItemSchema {
-    // Virtuals and instance methods - should be here
 }
 
 export interface IPracticeItem extends IPracticeItemBase {
