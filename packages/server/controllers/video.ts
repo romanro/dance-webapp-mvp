@@ -77,19 +77,8 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
     })
 }
 
-export const associateVideoWithModel = async (associatedModel: EnumAssociateModel, associatedId: string, newVideoId: string) => {
-    let model: Model<Document> = Figure;
-    switch (associatedModel) {
-        case EnumAssociateModel.Figure:
-            model = Figure;
-            break;
-        case EnumAssociateModel.Video:
-            model = Video;
-            break;
-        // TODO: default:
-    }
-    
-    return await model.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
+export const associateVideoWithStarVideo = async (associatedId: string, newVideoId: string) => {
+    return await Video.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
 export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
@@ -104,7 +93,7 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
 
     await video.save();
-    await associateVideoWithModel(EnumAssociateModel.Video, video.associatedObject, video._id);
+    await associateVideoWithStarVideo(video.associatedObject, video._id);
 
     res.status(201).json({
         success: true,
