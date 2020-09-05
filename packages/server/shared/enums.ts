@@ -2,7 +2,8 @@ export enum EnumDanceType {
     waltz = "waltz",
     tango = "tango",
     quickstep = "quickstep",
-    foxtrot = "foxtrot"
+    foxtrot = "foxtrot",
+    rumba = 'rumba'
 }
 export const possibleDanceTypes = Object.values(EnumDanceType);
 
@@ -50,7 +51,7 @@ export enum EnumAssociateModel {
 export const possibleAssociateModels = Object.values(EnumAssociateModel);
 
 export enum EnumRole {
-  user = 0,
+  user = 1,
   admin = 99
 }
 export const possibleRoles = Object.values(EnumRole);

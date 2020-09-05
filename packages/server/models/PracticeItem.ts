@@ -4,7 +4,7 @@ import Video, { IVideo } from "./Video"
 const practiceItemSchema = new mongoose.Schema(
     {
         // TODO: notes should be added here  
-        associatedVideo: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' },
+        video: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' },
         name: { type: String, required: true },
     },
     { timestamps: true }
@@ -18,7 +18,7 @@ interface IPracticeItemBase extends IPracticeItemSchema {
 }
 
 export interface IPracticeItem extends IPracticeItemBase {
-    associatedVideo: IVideo["_id"];
+    video: IVideo["_id"];
 }
 
 export interface IPracticeItemModel extends Model<IPracticeItem> {
