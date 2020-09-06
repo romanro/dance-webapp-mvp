@@ -1,4 +1,23 @@
 .lab-page {
+
+    .lab-tool-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .lab-tool-player-wrapper {
+            width: 100%;
+        }
+
+        .controls-row {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            padding: 0.2rem 0;
+            color: $white;
+            background-color: $dark;
+        }
+    }
+
     .upload-placeholder {
         display: flex;
         flex-direction: column;

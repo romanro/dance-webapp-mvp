@@ -1,7 +1,7 @@
-<div class="row position-relative video-wrapper">
+<div class="lab-tool-wrapper video-wrapper">
 
   <div *ngIf="masterVideo"
-       class="col-12 col-md-6">
+       class="lab-tool-player-wrapper star-player-wrapper">
     <ui-video-player-wrapper #masterPLayer
                              [src]="masterVideo.path"
                              [poster]="masterVideo.thumbnail"
@@ -12,8 +12,14 @@
                              (playerStateChange)="masterPLayerStateChange($event)">
     </ui-video-player-wrapper>
   </div>
+  <div class="controls-row">
+    <button *ngIf="!synchronized"
+            class="btn icon-btn btn-sm btn-danger"
+            (click)="synchronize()"><span class="icon-link"></span> link
+      videos</button>
+  </div>
   <div *ngIf="studentVideo"
-       class="col-12 col-md-6">
+       class="lab-tool-player-wrapper student-player-wrapper">
     <ui-video-player-wrapper #studentPLayer
                              [src]="studentVideo ? studentVideo.path : null"
                              [preview]="false"
@@ -35,11 +41,7 @@
   <div class="col">
     <div class="player-controls">
 
-      <div *ngIf="!synchronized"
-           class="controls-row text-center">
-        <button class="btn btn-danger"
-                (click)="synchronize()">SYNCHRONIZE</button>
-      </div>
+
 
       <div *ngIf="synchronized"
            class="controls-row">
@@ -80,7 +82,8 @@
       <div *ngIf="synchronized"
            class="controls-row text-center">
         <button class="btn btn-outline-danger"
-                (click)="unsynchronize()">UNSYNCHRONIZE</button>
+                (click)="unsynchronize()"><span class="icon-unlink"></span>
+          unlink videos</button>
       </div>
     </div>
   </div>
