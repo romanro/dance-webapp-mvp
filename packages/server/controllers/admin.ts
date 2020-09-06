@@ -5,7 +5,7 @@ import Figure, { IFigure } from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
 import { EnumAssociateModel, EnumRole } from '../shared/enums';
 import { awsDelete, awsListObjects } from '../services/aws';
-import { associateVideoWithModel, deleteVideoFromDb, disassociateVideoFromCollection } from './video'
+import { deleteVideoFromDb, disassociateVideoFromCollection } from './video'
 import Star, { IStar } from '../models/Star';
 
 
@@ -60,19 +60,20 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
     })
 }
 
+export const associateVideoWithFigure = async (associatedId: string, newVideoId: string) => {
+    return await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
+};
+
 export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
     // TODO: validation for req.file
-
-    // if (!req.body.thumbnail)
-    //     generate thumbnail (mabye by s3 Lambda function
-    // (https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html);
 
     const videoUrl = req.file ? (req.file as any).location : req.body.videoUrl;
     const videoKey = req.file ? (req.file as any).key : req.body.videoKey;
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
 
     await video.save();
-    await associateVideoWithModel(EnumAssociateModel.Figure, video.associatedObject, video._id);
+    await associateVideoWithFigure(video.associatedObject, video._id);
+
     // TODO: select params for video
 
     res.status(201).json({

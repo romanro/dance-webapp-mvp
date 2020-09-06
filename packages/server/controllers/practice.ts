@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import User from '../models/User';
-import { getVideoById } from "./video"
+import { buildVideoFromRequest, associateVideoWithStarVideo, disassociateVideoFromCollection, deleteVideoFromDb } from "./video"
 import PracticeItem, { IPracticeItem } from '../models/PracticeItem';
+import { IVideo } from '../models/Video';
+import { awsDelete } from '../services/aws';
 
 /**
  * GET /
@@ -13,7 +15,7 @@ export const getPracticeItems = async (req: Request, res: Response, next: NextFu
     await req.user.populate({
         path: 'practiceItems',
         populate: {
-            path: 'associatedVideo',
+            path: 'video',
             //select: '' // TODO: select is needed
         }
     }).execPopulate();
@@ -33,7 +35,7 @@ export const getPracticeItemById = async (practiceItemId: string): Promise<IPrac
     new Promise((resolve, reject) => {
         PracticeItem.findById(practiceItemId)
             //.select() // TODO: select is needed
-            .populate("associatedVideo")
+            .populate("video")
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
@@ -62,17 +64,21 @@ export const getPracticeItem = async (req: Request, res: Response, next: NextFun
  * add practice item
  */
 
-const buildpracticeItemFromRequest = async (req: Request): Promise<IPracticeItem> => {
-    const video = await getVideoById(req.body.videoId);
-
+const buildpracticeItemFromRequest = async (req: Request, video: IVideo): Promise<IPracticeItem> => {
     return new PracticeItem({
-        associatedVideo: video._id
+        video: video._id,
+        name: req.body.name
     })
 }
 
 export const addPracticeItem = async (req: Request, res: Response, next: NextFunction) => {
-    const practiceItem = await buildpracticeItemFromRequest(req);
+    const videoUrl = (req.file as any).location;
+    const videoKey = (req.file as any).key;
+    const video = buildVideoFromRequest(req, videoUrl, videoKey);
+    await video.save();
+    await associateVideoWithStarVideo(video.associatedObject, video._id);
 
+    const practiceItem = await buildpracticeItemFromRequest(req, video);
     await practiceItem.save();
     await User.updateOne({ _id: req.user._id }, { $addToSet: { practiceItems: practiceItem._id } }).exec();
 
@@ -107,7 +113,13 @@ const deletePracticeItemFromDb = (id: string): Promise<IPracticeItem> => (
 );
 
 export const deletePracticeItem = async (req: Request, res: Response, next: NextFunction) => {
-    const practiceItem = await deletePracticeItemFromDb(req.params.practiceItemId);
+    const practiceItem = await getPracticeItemById(req.params.practiceItemId);
+
+    const video = await deleteVideoFromDb(practiceItem.video._id);
+    await disassociateVideoFromCollection(video.associatedModel, video.associatedObject, video._id);
+    await awsDelete(video.key);
+
+    await deletePracticeItemFromDb(req.params.practiceItemId);
     await User.updateOne({ _id: req.user._id }, { $pull: { practiceItems: practiceItem._id } }).exec();
 
     res.status(200).json({
