@@ -1,4 +1,5 @@
-<div class="lab-tool-wrapper video-wrapper">
+<div class="lab-tool-wrapper video-wrapper"
+     [ngClass]="{'linked':synchronized}">
 
   <div *ngIf="masterVideo"
        class="lab-tool-player-wrapper star-player-wrapper">
@@ -13,10 +14,67 @@
     </ui-video-player-wrapper>
   </div>
   <div class="controls-row">
-    <button *ngIf="!synchronized"
-            class="btn icon-btn btn-sm btn-danger"
-            (click)="synchronize()"><span class="icon-link"></span> link
-      videos</button>
+
+
+    <ng-template [ngIf]="synchronized"
+                 [ngIfElse]="notSyncronized">
+      <div *ngIf="studentVideo"
+           class="linked-controls">
+
+        <div class="left-side-controls">
+          <div role="button"
+               class="icon"
+               [ngClass]="{ 'icon-play-1':!playing, 'icon-pause-1':playing}"
+               (click)="toggleVideos()">
+          </div>
+          <div role="button"
+               class="icon icon-prew"
+               (click)="jump('bwd')"></div>
+          <div role="button"
+               class="icon icon-next"
+               (click)="jump('fwd')"></div>
+        </div>
+
+        <div class="right-side-controls">
+
+          <div class="speed-controls">
+
+            <span>{{'LAB.speed' | translate}}:</span>
+            <button class="btn btn-sm"
+                    (click)="changePLayBackRate('minus')">
+              <i class="icon-minus-1"></i>
+            </button>
+            <span class="btn btn-sm">{{playbackRate}}</span>
+            <button class="btn btn-sm"
+                    (click)="changePLayBackRate('plus')">
+              <i class="icon-plus-1"></i>
+            </button>
+
+            <button class="btn btn-sm"
+                    (click)="changePLayBackRate('def')">
+              <i class="icon-restart"></i>
+            </button>
+
+          </div>
+
+          <div role="button"
+               class="icon vg-icon-stop text-warning"
+               (click)="stop()"></div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #notSyncronized>
+      <div class="not-linked-controls">
+        <button *ngIf="!synchronized"
+                class="btn icon-btn btn-sm btn-danger"
+                (click)="synchronize()"><span class="icon-link"></span>
+          {{'LAB.linkVideos' | translate}}</button>
+      </div>
+
+    </ng-template>
+
+
   </div>
   <div *ngIf="studentVideo"
        class="lab-tool-player-wrapper student-player-wrapper">
@@ -37,53 +95,15 @@
 </div>
 
 <div *ngIf="studentVideo"
-     class="row">
+     class="row pt-2">
   <div class="col">
     <div class="player-controls">
 
-
-
-      <div *ngIf="synchronized"
-           class="controls-row">
-        <button class="btn btn-outline-dark"
-                (click)="toggleVideos()">
-          <span *ngIf="!playing">PLAY</span>
-          <span *ngIf="playing">PAUSE</span>
-        </button>
-
-        <button class="btn btn-info"
-                (click)="jump('bwd')">
-          << BWD</button>
-            <button class="btn btn-info"
-                    (click)="jump('fwd')">FWD >>
-            </button>
-
-            <button class="btn btn-danger"
-                    (click)="stop()">STOP</button>
-      </div>
-
-      <div *ngIf="synchronized"
-           class="controls-row">
-        <button class="btn btn-info"
-                (click)="changePLayBackRate('plus')">
-          +
-        </button>
-        <button class="btn btn-info"
-                (click)="changePLayBackRate('minus')">
-          -
-        </button>
-        <span>{{playbackRate}}</span>
-        <button class="btn btn-info btn-sm"
-                (click)="changePLayBackRate('def')">
-          Default
-        </button>
-      </div>
-
       <div *ngIf="synchronized"
            class="controls-row text-center">
-        <button class="btn btn-outline-danger"
+        <button class="btn icon-btn btn-outline-danger"
                 (click)="unsynchronize()"><span class="icon-unlink"></span>
-          unlink videos</button>
+          {{'LAB.unlinkVideos' | translate}}</button>
       </div>
     </div>
   </div>

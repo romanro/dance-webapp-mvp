@@ -162,6 +162,9 @@
     "UploadVideo": "Upload Video",
     "chooseAnotherVideo": "choose another video",
     "removeVideo": "remove video",
+    "speed": "speed",
+    "linkVideos": "link videos",
+    "unlinkVideos": "unlink videos",
     "ERRORS": {
       "userDurationError": "Your video is too long. Please, film video less than {{param}} seconds"
     }

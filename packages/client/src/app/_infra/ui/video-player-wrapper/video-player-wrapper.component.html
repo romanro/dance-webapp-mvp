@@ -7,15 +7,15 @@
     <div *ngIf="!synchronized"
          class="speed-controls">
 
-
+      <span>{{'LAB.speed' | translate}}:</span>
       <button class="btn btn-sm"
               (click)="changePLayBackRate('minus')">
-        <i class="icon-left-open-big"></i>
+        <i class="icon-minus-1"></i>
       </button>
       <span class="btn btn-sm">{{playbackRate}}</span>
       <button class="btn btn-sm"
               (click)="changePLayBackRate('plus')">
-        <i class="icon-right-open-big"></i>
+        <i class="icon-plus-1"></i>
       </button>
 
       <button class="btn btn-sm"

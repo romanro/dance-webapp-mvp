@@ -12,9 +12,41 @@
             display: flex;
             flex-direction: row;
             width: 100%;
-            padding: 0.2rem 0;
+
             color: $white;
             background-color: $dark;
+
+            z-index: +2;
+
+            .not-linked-controls {
+                height: 50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .icon-btn {
+                    display: block;
+                    min-width: 200px;
+                }
+            }
+
+            .linked-controls {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .speed-controls {
+                    .btn {
+                        color: $white;
+                    }
+
+                    .btn-sm {
+                        padding: 0;
+                    }
+                }
+            }
         }
     }
 
