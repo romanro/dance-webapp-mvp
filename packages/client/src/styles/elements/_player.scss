@@ -13,7 +13,7 @@
         position: absolute;
         z-index: +1;
         color: $white;
-        background: rgba($dark, 0.80);
+        background: rgba($black, 0.80);
     }
 
     .top-controls {
@@ -81,10 +81,15 @@
         align-items: center;
     }
 
+    .center-controls {
+        display: flex;
+        align-items: center;
+    }
+
 
     vg-controls {
         justify-content: space-between;
-        background: rgba($dark, 0.80);
+        background: rgba($black, 0.80);
 
 
         vg-scrub-bar {

@@ -13,7 +13,8 @@
                              (playerStateChange)="masterPLayerStateChange($event)">
     </ui-video-player-wrapper>
   </div>
-  <div class="controls-row">
+  <div class="controls-row"
+       [ngClass]="{'linked':synchronized}">
 
 
     <ng-template [ngIf]="synchronized"
@@ -33,6 +34,13 @@
           <div role="button"
                class="icon icon-next"
                (click)="jump('fwd')"></div>
+
+        </div>
+
+        <div class="center-controls">
+          <button class="btn icon-btn btn-sm btn-success"
+                  (click)="unsynchronize()"><span class="icon-unlink"></span>
+            {{'LAB.unlinkVideos' | translate}}</button>
         </div>
 
         <div class="right-side-controls">
@@ -67,7 +75,7 @@
     <ng-template #notSyncronized>
       <div class="not-linked-controls">
         <button *ngIf="!synchronized"
-                class="btn icon-btn btn-sm btn-danger"
+                class="btn icon-btn btn-sm btn-success"
                 (click)="synchronize()"><span class="icon-link"></span>
           {{'LAB.linkVideos' | translate}}</button>
       </div>
@@ -92,19 +100,4 @@
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
        (pan)="onPan($event)"></div>
-</div>
-
-<div *ngIf="studentVideo"
-     class="row pt-2">
-  <div class="col">
-    <div class="player-controls">
-
-      <div *ngIf="synchronized"
-           class="controls-row text-center">
-        <button class="btn icon-btn btn-outline-danger"
-                (click)="unsynchronize()"><span class="icon-unlink"></span>
-          {{'LAB.unlinkVideos' | translate}}</button>
-      </div>
-    </div>
-  </div>
 </div>
