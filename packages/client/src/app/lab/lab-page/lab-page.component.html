@@ -69,14 +69,14 @@
         <div class="col">
             <div class="embed-responsive embed-responsive-16by9">
                 <div class="embed-responsive-item bg-dark upload-placeholder">
-                    <div class="step-number">1</div>
+                    <!--  <div class="step-number">1</div> -->
                     <div class="toolbox">
                         <h5>{{'LAB.instruction' | translate}}</h5>
                         <div class="text-center">
-                            <button class="btn icon-btn btn-sm"
+                            <button class="btn icon-btn"
                                     tabindex="0"
                                     [routerLink]="['/student','star']">
-                                <span class="icon-folder"></span>
+                                <span class="icon-video-2"></span>
                                 {{'LAB.chooseVideo' | translate}}
                             </button>
                         </div>
@@ -94,7 +94,7 @@
             <div class="embed-responsive embed-responsive-16by9">
                 <div class="embed-responsive-item upload-placeholder"
                      [ngClass]="labItem && labItem.starVideo? 'bg-dark':'bg-secondary'">
-                    <div class="step-number">2</div>
+                    <!-- <div class="step-number">2</div> -->
                     <div class="toolbox">
                         <h5>{{'LAB.uploadVideo' | translate}}</h5>
                         <ui-video-file-picker

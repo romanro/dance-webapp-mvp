@@ -13,14 +13,14 @@
                              (playerStateChange)="masterPLayerStateChange($event)">
     </ui-video-player-wrapper>
   </div>
-  <div class="controls-row"
+  <div *ngIf="studentVideo"
+       class="controls-row"
        [ngClass]="{'linked':synchronized}">
 
 
     <ng-template [ngIf]="synchronized"
                  [ngIfElse]="notSyncronized">
-      <div *ngIf="studentVideo"
-           class="linked-controls">
+      <div class="linked-controls">
 
         <div class="left-side-controls">
           <div role="button"
