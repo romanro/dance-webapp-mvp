@@ -86,7 +86,9 @@
            [poster]="poster"
            #video
            id="mainVideo"
-           preload="auto">
+           preload="auto"
+           playsinline
+           webkit-playsinline>
       <source *ngIf="src"
               [src]="src"
               type="video/mp4">

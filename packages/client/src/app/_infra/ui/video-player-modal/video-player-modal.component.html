@@ -32,7 +32,9 @@
       <video [vgMedia]="video"
              #video
              id="modalVideo"
-             preload="auto">
+             preload="auto"
+             playsinline
+             webkit-playsinline>
         <source [src]="videoURL"
                 type="video/mp4">
       </video>
