@@ -1,6 +1,6 @@
 import { LabItem } from '@core/models/';
 
-/* 
+
 const MOCK_LAB = {
     star: {
         name: {
@@ -138,7 +138,7 @@ const MOCK_LAB = {
         name: 'user video',
         path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4'
     }
-} */
+}
 
 export class LabState {
     labItem: LabItem | null;
@@ -146,5 +146,5 @@ export class LabState {
 }
 
 export const initializeLabState = () => {
-    return { labItem: null, error: null };
+    return { labItem: MOCK_LAB, error: null };
 };
