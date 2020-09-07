@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "5f40fc75ac07bc255b09ea4e"
+    "$oid": "5f53e610c57684288918a92d"
   },
   "profile": {
     "birthDate": {
@@ -14,21 +14,22 @@
     },
     "language": "en"
   },
+  "role": 99,
   "emailVerified": false,
   "tokens": [],
   "practiceItems": [
     {
-      "$oid": "5f4165bb4e55ab7cffd54cdd"
+      "$oid": "5f53f6d16ffba730ca8df601"
     }
   ],
   "email": "ohad2121@gmail.com",
-  "password": "$2b$10$bF5XfBgZtwE2n/lPAnZYyeQHQIq.l2JTeVxuj0m0/wGeOn1pVmC3q",
+  "password": "$2b$10$..IxTSeyHB5RvZkTHYFDt.Y/d.f52cH3vkzqkOaii5xkUeC3KJPhC",
   "createdAt": {
-    "$date": "2020-08-22T11:07:33.932Z"
+    "$date": "2020-09-05T19:25:04.945Z"
   },
   "updatedAt": {
-    "$date": "2020-08-22T18:36:43.364Z"
+    "$date": "2020-09-05T20:36:33.744Z"
   },
   "__v": 0,
-  "emailVerificationToken": "27ea3b6441cacce49b2fcaa05f2c0e61"
+  "emailVerificationToken": "5f53b898a8ee00bc3ee2b3ca21ff78a4"
 }]

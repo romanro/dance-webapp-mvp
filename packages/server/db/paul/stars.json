@@ -1,10 +1,10 @@
 [{
   "_id": {
-    "$oid": "5f40fe6ad1f6082d42e9708b"
+    "$oid": "5f53f2a76ffba730ca8df5fb"
   },
   "figures": [
     {
-      "$oid": "5f4101a2f3f8fd3386e9dce0"
+      "$oid": "5f53f50d6ffba730ca8df5fc"
     }
   ],
   "achievements": [
@@ -15,7 +15,7 @@
     "2x GOC semi final",
     "5x Latvian champions"
   ],
-  "promoVideo": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/promo.MP4",
+  "promoVideo": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4",
   "name": {
     "firstName": "Paul",
     "lastName": "Moldovan"
@@ -24,16 +24,16 @@
     "city": "Romania"
   },
   "logo": {
-    "small": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg",
-    "large": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg"
+    "small": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg",
+    "large": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg"
   },
   "about": "",
   "slug": "Paul-Moldovan",
   "createdAt": {
-    "$date": "2020-08-22T11:15:54.964Z"
+    "$date": "2020-09-05T20:18:47.122Z"
   },
   "updatedAt": {
-    "$date": "2020-08-22T11:29:38.931Z"
+    "$date": "2020-09-05T20:29:01.222Z"
   },
   "__v": 0
 }]
