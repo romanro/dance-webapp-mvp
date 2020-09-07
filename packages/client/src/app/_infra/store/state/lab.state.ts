@@ -1,6 +1,7 @@
 import { LabItem } from '@core/models/';
 
-/* const MOCK_LAB = {
+/* 
+const MOCK_LAB = {
     star: {
         name: {
             firstName: 'Paul',
@@ -25,7 +26,7 @@ import { LabItem } from '@core/models/';
             '5x Latvian champions'
         ],
         _id: '5f40fe6ad1f6082d42e9708b',
-        promoVideo: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4',
+        promoVideo: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4',
         about: '',
         slug: 'Paul-Moldovan',
         createdAt: '2020-08-22T11:15:54.964Z',
@@ -47,7 +48,7 @@ import { LabItem } from '@core/models/';
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_+LAB_PAUL.mp4',
+                path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4',
                 type: 'promo',
                 createdAt: '2020-08-22T17:09:07.596Z',
                 updatedAt: '2020-08-22T17:09:07.596Z',
@@ -64,7 +65,7 @@ import { LabItem } from '@core/models/';
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_+LAB_PAUL.mp4',
+                path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4',
                 createdAt: '2020-08-22T17:22:23.419Z',
                 updatedAt: '2020-08-22T18:35:45.313Z',
                 __v: 0
@@ -80,7 +81,7 @@ import { LabItem } from '@core/models/';
                 ownerUser: '5f40fc75ac07bc255b09ea4e',
                 ownerRole: 99,
                 associatedModel: 'Figure',
-                path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4',
+                path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4',
                 createdAt: '2020-08-22T17:23:43.666Z',
                 updatedAt: '2020-08-22T17:23:43.666Z',
                 __v: 0
@@ -128,10 +129,14 @@ import { LabItem } from '@core/models/';
         ownerUser: '5f40fc75ac07bc255b09ea4e',
         ownerRole: 99,
         associatedModel: 'Figure',
-        path: 'https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_+LAB_PAUL.mp4',
+        path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4',
         createdAt: '2020-08-22T17:22:23.419Z',
         updatedAt: '2020-08-22T18:35:45.313Z',
         __v: 0
+    },
+    userVideo: {
+        name: 'user video',
+        path: 'https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4'
     }
 } */
 

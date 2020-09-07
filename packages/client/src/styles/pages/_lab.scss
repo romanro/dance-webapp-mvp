@@ -1,18 +1,124 @@
 .lab-page {
+
+    .col {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .lab-tool-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .lab-tool-player-wrapper {
+            width: 100%;
+        }
+
+        .controls-row {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+
+            background-color: transparent;
+
+            z-index: +2;
+
+            @include trans_ition (background-color 0.5s ease-in-out);
+
+            &.linked {
+                color: $white;
+                background-color: $black;
+            }
+
+            .not-linked-controls {
+                height: 50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .icon-btn {
+                    display: block;
+                    padding-left: 0.2rem;
+                }
+            }
+
+            .linked-controls {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .icon {
+                    width: 28px;
+                }
+
+                .speed-controls {
+                    .btn {
+                        color: $white;
+                    }
+
+                    .btn-sm {
+                        padding: 0;
+                    }
+
+                    >span {
+                        font-size: 0.66rem;
+                    }
+                }
+
+                .center-controls {
+                    .icon-btn {
+                        padding-left: 0.1rem;
+
+                        .icon-btn span {
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .upload-placeholder {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
 
         .toolbox {
+            padding: 0 0.5rem;
+
             h5 {
+                text-align: center;
+                font-size: 0.8rem;
+                line-height: 1.4;
                 font-weight: 400;
-                margin-bottom: 1.5rem;
+                margin-bottom: 2rem;
+                max-width: 250px;
             }
 
             .btn {
-                color: $white;
-                width: 100%;
+                // color: $white;
+                background: $white;
+                width: 12rem;
+                text-align: left;
+                font-weight: 700;
+            }
+        }
+
+        &.bg-secondary {
+            color: $gray-500;
+            pointer-events: none;
+
+            .step-number {
+                border-color: $gray-500;
+            }
+
+            .toolbox {
+                .btn {
+                    color: $gray-500;
+                }
             }
         }
     }

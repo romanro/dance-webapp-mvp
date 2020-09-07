@@ -1,5 +1,5 @@
 <div *ngIf="!isDesktop"
-     class="text-center mb-2">
+     class="text-center mb-4">
   <button class="btn icon-btn"
           (click)="cameraInput.click()">
     <span class="icon-videocam-1"></span>
@@ -14,10 +14,10 @@
 </div>
 
 
-<div class="text-center mb-2">
+<div class="text-center">
   <button class="btn icon-btn"
           (click)="fileInput.click()">
-    <span class="icon-video-2"></span>
+    <span class="icon-folder"></span>
     {{'LAB.UploadVideo' | translate}}
   </button>
 

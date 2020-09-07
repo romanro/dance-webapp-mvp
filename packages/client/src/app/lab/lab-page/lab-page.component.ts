@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
-import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabUserVideo } from '@core/models/';
+import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabUserVideo, LabViewType } from '@core/models/';
 import * as LabActions from '@infra/store/actions//lab.actions';
 import * as labSelectors from '@infra/store/selectors/lab.selectors';
 import * as userSelectors from '@infra/store/selectors/user.selectors';
@@ -20,15 +20,19 @@ export class LabPageComponent implements OnInit, OnDestroy {
   userVideo: LabUserVideo;
 
   labItem: LabItem = null;
+  labView: LabViewType = LabViewType.EMPTY;
   subs: Subscription[] = [];
 
   constructor(private store: Store<any>, private sanitizer: DomSanitizer, private alertService: AlertService) { }
 
   ngOnInit() {
+    this.setLabView();
+
     this.subs.push(
       this.store.select(
         labSelectors.selectCurrentLabItem()).subscribe(res => {
           this.labItem = res ? { ...res } : null;
+          this.setLabView();
         })
     )
     this.subs.push(
@@ -42,14 +46,23 @@ export class LabPageComponent implements OnInit, OnDestroy {
         })
     )
 
+
+
   }
 
-  setDurationLimit(masterDuration: number) {
+  setLabView(): void {
+    if (!this.labItem) {
+      this.labView = LabViewType.EMPTY;
+    } else {
+      this.labView = this.labItem.starVideo && this.labItem.userVideo ? LabViewType.FULL : LabViewType.PREVIEW;
+    }
+  }
+
+  setDurationLimit(masterDuration: number): void {
     this.maxVideoDuration = masterDuration + LAB_USER_VIDEO_DURATION_DIFF_LIMIT;
   }
 
-
-  userVideoFileChanged(event) {
+  userVideoFileChanged(event): void {
     const file = (event.target as HTMLInputElement).files[0];
     if (file) {
       this.userVideo = new LabUserVideo({

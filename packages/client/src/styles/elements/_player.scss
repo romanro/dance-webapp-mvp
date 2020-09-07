@@ -1,82 +1,167 @@
+// hiding native iOs player controls
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button {
+    opacity: 0;
+    pointer-events: none;
+    width: 5px;
+}
+
 .video-wrapper {
+    position: relative;
+
+    .onplayer-controls {
+        position: absolute;
+        z-index: +1;
+        color: $white;
+        background: rgba($black, 0.80);
+    }
+
+    .top-controls {
+        display: flex;
+        justify-content: space-between;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        .btn {
+            color: $white;
+        }
+
+        .time {
+            margin: 0;
+        }
+
+        .speed-controls {
+            span {
+                min-width: 40px;
+            }
+        }
+    }
+
+
     .touch-controls {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        border: 4px solid transparent;
+        height: calc(100% - 50px);
         cursor: pointer;
+    }
 
-        &:hover {
-            border-color: $success;
+    &.linked {
+        .touch-controls {
+            height: 100%;
         }
     }
+
+    .icon {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        display: flex;
+        height: 50px;
+        width: 50px;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+    }
+
+    .left-side-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .right-side-controls {
+        margin-right: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .center-controls {
+        display: flex;
+        align-items: center;
+    }
+
 
     vg-controls {
-        pointer-events: none !important;
-    }
-}
+        justify-content: space-between;
+        background: rgba($black, 0.80);
 
-.player-controls {
-    .controls-row {
-        margin: 0.2rem 0;
 
-        .btn {
-            margin: 0 0.2rem;
+        vg-scrub-bar {
+            position: absolute;
+            margin: 0;
+            height: 5px;
 
-            &:first-child {
-                margin-left: 0;
+            vg-scrub-bar-current-time {
+                border-radius: 0;
+
+                .background {
+                    border-radius: 0;
+                    background-color: $success;
+                    border: none;
+                }
             }
 
-            &:last-child {
-                margin-right: 0;
+            vg-scrub-bar-buffering-time {
+                border-radius: 0;
+
+                .background {
+                    border-radius: 0;
+                    background-color: rgba($white, 0.6);
+                }
             }
         }
     }
 }
 
-.video-preview-container{
-    .hover-message{
-        display:none;
+.video-preview-container {
+    .hover-message {
+        display: none;
         top: 50%;
         left: 0;
-        width:100%;
-        margin-top:15px;
-        text-align:center;
+        width: 100%;
+        margin-top: 15px;
+        text-align: center;
         position: absolute;
         color: $white;
-        @include text-shadow(0,0,5px,rgba(0,0,0,.75));
+        @include text-shadow(0, 0, 5px, rgba(0, 0, 0, .75));
 
     }
 
     &:hover {
-        .hover-message{
-            display:block;
-        } 
+        .hover-message {
+            display: block;
+        }
     }
+
     .play-btn-container {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+
         .icon-play {
             position: absolute;
-            display:block;
-            width:30px;
-            height:30px;
-            top:50%;
-            left:50%;
-            margin-top:-15px;
-            margin-left:-15px;
+            display: block;
+            width: 30px;
+            height: 30px;
+            top: 50%;
+            left: 50%;
+            margin-top: -15px;
+            margin-left: -15px;
             color: $white;
-            @include text-shadow(0,0,5px,rgba(0,0,0,.75));
+            @include text-shadow(0, 0, 5px, rgba(0, 0, 0, .75));
 
             &:before {
-                margin:0;
+                margin: 0;
                 font-size: 30px;
-                line-height:30px;
+                line-height: 30px;
             }
         }
     }
