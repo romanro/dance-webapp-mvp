@@ -101,13 +101,13 @@ export class LabVideoToolComponent implements OnInit {
   }
 
   syncStudentPlayer() {
-    const masterTime = Math.round(this.masterPLayer.getCurrentTime());
+    const masterTime = this.masterPLayer.getCurrentTime();
     const studentTime = masterTime - this.timeDiff;
     this.studentPLayer.seekTo(studentTime);
   }
 
   syncMasterPlayer() {
-    const studentTime = Math.round(this.studentPLayer.getCurrentTime());
+    const studentTime = this.studentPLayer.getCurrentTime();
     const masterTime = studentTime - this.timeDiff;
     this.masterPLayer.seekTo(masterTime);
 
@@ -141,9 +141,8 @@ export class LabVideoToolComponent implements OnInit {
 
   onPan(evt) {
     const devVelocity = evt.velocityX / 3;
-    const seekRatio = Number(devVelocity.toFixed(2));
-    const time = Number(this.masterPLayer.playerAPI.getDefaultMedia().currentTime.toFixed(2));
-    const seekTo = seekRatio + time;
+    const time = this.masterPLayer.playerAPI.getDefaultMedia().currentTime;
+    const seekTo = devVelocity + time;
     this.masterPLayer.seekTo(seekTo);
     this.syncStudentPlayer();
 
