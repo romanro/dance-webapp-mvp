@@ -10,7 +10,8 @@
                              [preview]="!studentVideo"
                              (durationEvent)="masterPlayerDuration($event)"
                              (playerEvent)="masterPLayerEvent($event)"
-                             (playerStateChange)="masterPLayerStateChange($event)">
+                             (playerStateChange)="masterPLayerStateChange($event)"
+                             (clearVideoFile)="masterVideoClear()">
     </ui-video-player-wrapper>
   </div>
   <div *ngIf="studentVideo"
@@ -91,7 +92,8 @@
                              [preview]="false"
                              [synchronized]="synchronized"
                              (playerEvent)="studentPLayerEvent($event)"
-                             (playerStateChange)="studentPLayerStateChange($event)">
+                             (playerStateChange)="studentPLayerStateChange($event)"
+                             (clearVideoFile)="studentVideoClear()">
     </ui-video-player-wrapper>
   </div>
 

@@ -16,3 +16,8 @@ export enum LabViewType {
     PREVIEW = 'preview',
     EMPTY = 'empty'
 }
+
+export enum LabPlayerType {
+    MASTER = 'master',
+    STUDENT = 'student'
+}
