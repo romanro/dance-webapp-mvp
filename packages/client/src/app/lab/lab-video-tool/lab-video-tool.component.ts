@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { LabStarVideo, LabUserVideo } from '@app/_infra/core/models';
+import { LabPlayerType, LabStarVideo, LabUserVideo } from '@app/_infra/core/models';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
+import { User } from '@core/models';
 import { VgEvents } from 'ngx-videogular';
 
 @Component({
@@ -13,6 +14,7 @@ export class LabVideoToolComponent implements OnInit {
   @Input() studentVideo: LabUserVideo = null;
 
   @Output() masterPlayerDurationReady = new EventEmitter<number>();
+  @Output() clearVideo = new EventEmitter<LabPlayerType>();
 
   @ViewChild('masterPLayer', { static: false }) masterPLayer: VideoPlayerWrapperComponent;
   @ViewChild('studentPLayer', { static: false }) studentPLayer: VideoPlayerWrapperComponent;
@@ -149,6 +151,13 @@ export class LabVideoToolComponent implements OnInit {
 
   onTap(evt) {
     this.toggleVideos();
+  }
+
+  masterVideoClear() {
+    this.clearVideo.emit(LabPlayerType.MASTER);
+  }
+  studentVideoClear() {
+    this.clearVideo.emit(LabPlayerType.STUDENT);
   }
 
 }

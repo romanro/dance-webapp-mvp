@@ -54,17 +54,18 @@
           <div role="button"
                class="icon icon-next"
                (click)="jump('fwd')"></div>
+
+          <div role="button"
+               class="icon vg-icon-stop"
+               (click)="stop()"></div>
         </ng-template>
 
       </div>
 
-      <div *ngIf="!synchronized && playerIsReady && !preview"
-           class="right-side-controls">
+      <div class="right-side-controls">
 
-        <div role="button"
-             class="icon vg-icon-stop text-warning"
-             (click)="stop()"></div>
-
+        <a class="btn btn-sm btn-link"
+           (click)="clearVideo()">{{'LAB.removeVideo' | translate}}</a>
 
       </div>
 

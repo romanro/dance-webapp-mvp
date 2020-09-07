@@ -20,27 +20,6 @@
     </div>
 
 
-    <!-- VIDEO UP TOOLBAR (2 buutons) -->
-    <div *ngIf="labItem"
-         class="row">
-
-        <div *ngIf="labItem.starVideo"
-             class="col text-left">
-            <button class="btn btn-sm btn-link"
-                    (click)="clearLabItem()"
-                    [routerLink]="['/student','star']">{{'LAB.chooseAnotherVideo' | translate}}</button>
-        </div>
-
-        <div *ngIf="labItem.userVideo"
-             class="col text-right">
-            <button class="btn btn-sm btn-link"
-                    (click)="clearUserVideo()">{{'LAB.removeVideo' | translate}}</button>
-        </div>
-
-    </div>
-
-
-
     <ng-container [ngSwitch]="labView">
         <ng-container *ngSwitchCase="'full'"
                       [ngTemplateOutlet]="labTool">
@@ -56,10 +35,6 @@
             <ng-container [ngTemplateOutlet]="emptyUserVideo"></ng-container>
         </ng-container>
     </ng-container>
-
-
-
-
 
 </div>
 
@@ -113,7 +88,8 @@
         <div class="col">
             <dsapp-lab-video-tool [masterVideo]="labItem.starVideo ? labItem.starVideo : null"
                                   [studentVideo]="labItem.userVideo ? labItem.userVideo : null"
-                                  (masterPlayerDurationReady)="setDurationLimit($event)">
+                                  (masterPlayerDurationReady)="setDurationLimit($event)"
+                                  (clearVideo)="clearVideo($event)">
             </dsapp-lab-video-tool>
         </div>
     </div>

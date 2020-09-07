@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
-import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabUserVideo, LabViewType } from '@core/models/';
+import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabPlayerType, LabUserVideo, LabViewType } from '@core/models/';
 import * as LabActions from '@infra/store/actions//lab.actions';
 import * as labSelectors from '@infra/store/selectors/lab.selectors';
 import * as userSelectors from '@infra/store/selectors/user.selectors';
@@ -23,7 +24,7 @@ export class LabPageComponent implements OnInit, OnDestroy {
   labView: LabViewType = LabViewType.EMPTY;
   subs: Subscription[] = [];
 
-  constructor(private store: Store<any>, private sanitizer: DomSanitizer, private alertService: AlertService) { }
+  constructor(private store: Store<any>, private sanitizer: DomSanitizer, private alertService: AlertService, private router: Router) { }
 
   ngOnInit() {
     this.setLabView();
@@ -90,6 +91,19 @@ export class LabPageComponent implements OnInit, OnDestroy {
 
   clearLabItem() {
     this.store.dispatch(LabActions.ClearLabAction());
+  }
+
+  clearVideo(type: LabPlayerType): void {
+    switch (type) {
+      case LabPlayerType.MASTER:
+        this.clearLabItem();
+        this.router.navigate(['/student', 'star']);
+        break;
+      case LabPlayerType.STUDENT:
+        this.clearUserVideo();
+        break;
+    }
+
   }
 
   updateLabStore() {

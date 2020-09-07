@@ -18,6 +18,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   @Output() durationEvent = new EventEmitter<number>();
   @Output() playerEvent = new EventEmitter();
   @Output() playerStateChange = new EventEmitter();
+  @Output() clearVideoFile = new EventEmitter();
 
   playerIsReady = false;
   playerIsPlaying = false;
@@ -194,6 +195,10 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
       default:
         this.playbackRate = 1;
     }
+  }
+
+  clearVideo(): void {
+    this.clearVideoFile.emit();
   }
 
 }
