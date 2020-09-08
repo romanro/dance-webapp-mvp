@@ -14,8 +14,8 @@
   },
   "ownerRole": 99,
   "associatedModel": "Figure",
-  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
-  "path": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
   "createdAt": {
     "$date": "2020-09-05T20:30:31.967Z"
   },
@@ -39,8 +39,8 @@
   },
   "ownerRole": 99,
   "associatedModel": "Figure",
-  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
-  "path": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
+  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
   "createdAt": {
     "$date": "2020-09-05T20:34:20.570Z"
   },
@@ -64,8 +64,8 @@
   },
   "ownerRole": 99,
   "associatedModel": "Figure",
-  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
-  "path": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
+  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
   "createdAt": {
     "$date": "2020-09-05T20:35:10.216Z"
   },
@@ -85,8 +85,8 @@
   },
   "associatedModel": "Video",
   "ownerRole": 1,
-  "key": "https://danskill1.s3.amazonaws.com/users/2020-09-05T20-36-16.597Z_Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4",
-  "path": "users/2020-09-05T20-36-16.597Z_Roy (user) - fake it till you make it.mp4",
+  "path": "https://danskill1.s3.amazonaws.com/users/2020-09-05T20-36-16.597Z_Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4",
+  "key": "users/2020-09-05T20-36-16.597Z_Roy (user) - fake it till you make it.mp4",
   "type": "comparable",
   "createdAt": {
     "$date": "2020-09-05T20:36:33.708Z"
