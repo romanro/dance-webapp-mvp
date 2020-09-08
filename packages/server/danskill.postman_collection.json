@@ -1561,7 +1561,7 @@
 									"type": "text"
 								},
 								{
-									"key": "associatedVIdeoId",
+									"key": "associatedVideoId",
 									"value": "{{videoId}}",
 									"description": "video id",
 									"type": "text"
