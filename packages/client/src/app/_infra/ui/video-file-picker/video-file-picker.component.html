@@ -1,0 +1,29 @@
+<div *ngIf="!isDesktop"
+     class="text-center mb-4">
+  <button class="btn icon-btn"
+          (click)="cameraInput.click()">
+    <span class="icon-videocam-1"></span>
+    {{'LAB.FilmVideo' | translate}}
+  </button>
+  <input #cameraInput
+         style="display:none;"
+         type="file"
+         accept="video/*"
+         capture="environment"
+         (change)="fileChangeEvent($event)" />
+</div>
+
+
+<div class="text-center">
+  <button class="btn icon-btn"
+          (click)="fileInput.click()">
+    <span class="icon-folder"></span>
+    {{'LAB.UploadVideo' | translate}}
+  </button>
+
+  <input #fileInput
+         style="display:none;"
+         type="file"
+         accept="video/mp4,video/x-m4v,video/*"
+         (change)="fileChangeEvent($event)" />
+</div>

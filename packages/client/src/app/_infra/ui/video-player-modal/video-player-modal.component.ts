@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Name } from '@core/models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { VgAPI } from 'ngx-videogular';
+import { Subscription } from 'rxjs';
 
 
 @Component({
   selector: 'dsapp-video-player-modal',
-  templateUrl: './video-player-modal.component.html',
-  styles: []
+  templateUrl: './video-player-modal.component.html'
 })
-export class VideoPlayerModalComponent implements OnInit {
+export class VideoPlayerModalComponent implements OnInit, OnDestroy {
 
   @Input() videoURL: string;
   @Input() autoplay = false;
@@ -17,6 +17,8 @@ export class VideoPlayerModalComponent implements OnInit {
 
   isString = true;
   playerAPI: VgAPI;
+
+  subs: Subscription[] = [];
 
   constructor(public activeModal: NgbActiveModal) { }
 
@@ -26,10 +28,22 @@ export class VideoPlayerModalComponent implements OnInit {
 
   onPlayerReady(api) {
     this.playerAPI = api;
-    if (this.autoplay) {
-      this.playerAPI.play();
-    }
+
+    this.subs.push(
+      this.playerAPI.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
+        event => {
+          if (this.autoplay) {
+            this.playerAPI.play();
+          }
+        }
+      )
+    );
   }
+
+  ngOnDestroy() {
+    this.subs.forEach(s => { s.unsubscribe(); });
+  }
+
 
 
 

@@ -19,14 +19,14 @@ export class UserService {
     return this.baseRestService.get<UserRestResponse>('account/profile').pipe(
       map(
         res => {
-          if (res.success && res.user) {
-            return res.user;
+          if (res.success) {
+            return res.data;
           } else {
-            throwError(['zevel']); // TODO: add real error here
+            throwError([res.message]); // TODO: add real error here
           }
         },
         error => {
-          throwError([error.message]);
+          throwError(['ERRORS.GeneralBackendError']);
         }
       )
     );
@@ -36,17 +36,17 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
 
-    return this.baseRestService.patch<any>('account/profile', user.profile).pipe(
+    return this.baseRestService.patch<UserRestResponse>('account/profile', user.profile).pipe(
       map(
         res => {
           if (res.success) {
             return user;
           } else {
-            throwError(['zevel']); // TODO: add real error here
+            throwError([res.message]); // TODO: add real error here
           }
         },
         error => {
-          throwError([error.message]);
+          throwError(['ERRORS.GeneralBackendError']);
         }
       )
     )

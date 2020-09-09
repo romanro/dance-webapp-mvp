@@ -1,16 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { LabPlayerType, LabStarVideo, LabUserVideo } from '@app/_infra/core/models';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
+import { User } from '@core/models';
 import { VgEvents } from 'ngx-videogular';
 
 @Component({
   selector: 'dsapp-lab-video-tool',
-  templateUrl: './lab-video-tool.component.html',
-  styles: []
+  templateUrl: './lab-video-tool.component.html'
 })
 export class LabVideoToolComponent implements OnInit {
 
-  @ViewChild('masterPLayer', { static: true }) masterPLayer: VideoPlayerWrapperComponent;
-  @ViewChild('studentPLayer', { static: true }) studentPLayer: VideoPlayerWrapperComponent;
+  @Input() masterVideo: LabStarVideo = null;
+  @Input() studentVideo: LabUserVideo = null;
+
+  @Output() masterPlayerDurationReady = new EventEmitter<number>();
+  @Output() clearVideo = new EventEmitter<LabPlayerType>();
+
+  @ViewChild('masterPLayer', { static: false }) masterPLayer: VideoPlayerWrapperComponent;
+  @ViewChild('studentPLayer', { static: false }) studentPLayer: VideoPlayerWrapperComponent;
 
   synchronized = false;
   timeDiff = 0;
@@ -30,6 +37,10 @@ export class LabVideoToolComponent implements OnInit {
       this.seekToSyncTime();
       [this.masterPLayer, this.studentPLayer].map(p => p.play());
     }
+  }
+
+  masterPlayerDuration(duration: number) {
+    this.masterPlayerDurationReady.emit(duration);
   }
 
   masterPLayerEvent(event) {
@@ -140,6 +151,13 @@ export class LabVideoToolComponent implements OnInit {
 
   onTap(evt) {
     this.toggleVideos();
+  }
+
+  masterVideoClear() {
+    this.clearVideo.emit(LabPlayerType.MASTER);
+  }
+  studentVideoClear() {
+    this.clearVideo.emit(LabPlayerType.STUDENT);
   }
 
 }

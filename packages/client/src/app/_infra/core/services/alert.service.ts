@@ -35,20 +35,20 @@ export class AlertService {
   }
 
   // convenience methods
-  success(message: string, alertId?: string, keepAfterRouteChange = true) {
-    this.alert(new Alert({ message, type: AlertType.Success, alertId, keepAfterRouteChange }));
+  success(message: string, param?: string, alertId?: string, keepAfterRouteChange = true) {
+    this.alert(new Alert({ message, param, type: AlertType.Success, alertId, keepAfterRouteChange }));
   }
 
-  error(message: string, alertId?: string, keepAfterRouteChange = true) {
-    this.alert(new Alert({ message, type: AlertType.Error, alertId, keepAfterRouteChange }));
+  error(message: string, param?: string, alertId?: string, keepAfterRouteChange = true) {
+    this.alert(new Alert({ message, param, type: AlertType.Error, alertId, keepAfterRouteChange }));
   }
 
-  info(message: string, alertId?: string, keepAfterRouteChange = true) {
-    this.alert(new Alert({ message, type: AlertType.Info, alertId, keepAfterRouteChange }));
+  info(message: string, param?: string, alertId?: string, keepAfterRouteChange = true) {
+    this.alert(new Alert({ message, param, type: AlertType.Info, alertId, keepAfterRouteChange }));
   }
 
-  warn(message: string, alertId?: string, keepAfterRouteChange = true) {
-    this.alert(new Alert({ message, type: AlertType.Warning, alertId, keepAfterRouteChange }));
+  warn(message: string, param?: string, alertId?: string, keepAfterRouteChange = true) {
+    this.alert(new Alert({ message, param, type: AlertType.Warning, alertId, keepAfterRouteChange }));
   }
 
   // main alert method

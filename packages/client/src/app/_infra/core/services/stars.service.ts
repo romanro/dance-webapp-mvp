@@ -13,7 +13,7 @@ export class StarsService {
 
   getStars(): Observable<Star[]> {
     return this.baseRestService.get<StarsRestResponse>('stars').pipe(map(res => {
-      return res.stars ? res.stars : [];
+      return res.data ? res.data : [];
     }));
   }
 

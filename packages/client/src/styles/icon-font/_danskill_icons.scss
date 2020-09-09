@@ -21,7 +21,6 @@
   }
 }
 
-
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: "danskill_icons";
@@ -57,6 +56,7 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
+
 
 .icon-warning:before {
   content: '\e800';
@@ -348,6 +348,81 @@
 }
 
 /* '' */
+.icon-link:before {
+  content: '\e83a';
+}
+
+/* '' */
+.icon-cancel:before {
+  content: '\e83b';
+}
+
+/* '' */
+.icon-ccw:before {
+  content: '\e83c';
+}
+
+/* '' */
+.icon-minus-1:before {
+  content: '\e83d';
+}
+
+/* '' */
+.icon-plus-1:before {
+  content: '\e83e';
+}
+
+/* '' */
+.icon-cw:before {
+  content: '\e83f';
+}
+
+/* '' */
+.icon-arrows-ccw:before {
+  content: '\e840';
+}
+
+/* '' */
+.icon-cog:before {
+  content: '\e841';
+}
+
+/* '' */
+.icon-video-2:before {
+  content: '\e842';
+}
+
+/* '' */
+.icon-videocam-1:before {
+  content: '\e843';
+}
+
+/* '' */
+.icon-picture-1:before {
+  content: '\e844';
+}
+
+/* '' */
+.icon-camera-4:before {
+  content: '\e845';
+}
+
+/* '' */
+.icon-camera-alt:before {
+  content: '\e846';
+}
+
+/* '' */
+.icon-cog-alt:before {
+  content: '\e847';
+}
+
+/* '' */
+.icon-wrench:before {
+  content: '\e848';
+}
+
+/* '' */
 .icon-circle-empty:before {
   content: '\f10c';
 }
@@ -363,6 +438,11 @@
 }
 
 /* '' */
+.icon-unlink:before {
+  content: '\f127';
+}
+
+/* '' */
 .icon-ok-squared:before {
   content: '\f14a';
 }
@@ -373,6 +453,11 @@
 }
 
 /* '' */
+.icon-sliders:before {
+  content: '\f1de';
+}
+
+/* '' */
 .icon-toggle-off:before {
   content: '\f204';
 }

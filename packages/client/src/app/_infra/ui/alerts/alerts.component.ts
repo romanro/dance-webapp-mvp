@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-alerts',
-  templateUrl: './alerts.component.html',
-  styles: []
+  templateUrl: './alerts.component.html'
 })
 export class AlertsComponent implements OnInit, OnDestroy {
 

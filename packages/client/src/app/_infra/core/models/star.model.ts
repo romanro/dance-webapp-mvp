@@ -8,11 +8,13 @@ export interface Star {
     name: Name;
     slug: string;
     location: Location;
-    birthDate: string;
-    tags: Tag[];
-    userPics: StarUserPics;
-    promoVideoURL: string;
-    about: string;
+    logo: StarUserPics;
+    promoVideo: string;
+    achievements?: Array<string>;
+    about?: string;
+    figures?: Array<any>
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Name {
@@ -22,8 +24,8 @@ export interface Name {
 }
 
 export interface StarUserPics {
-    smallPicURL: string;
-    largePicURL: string;
+    small: string;
+    large: string;
 }
 
 export interface StarBasicInfo {

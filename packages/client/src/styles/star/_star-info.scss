@@ -39,6 +39,13 @@
       }
     }
 
+    .star-info-achivments {
+      p {
+        margin-bottom: 0;
+      }
+
+    }
+
     .star-info-btns {
       text-align: left;
 
@@ -54,16 +61,15 @@
   }
 }
 
-.star-info-vertical{
+.star-info-vertical {
 
   .star-info-image {
     padding: 5px 30px;
   }
 
-  .star-info-text {
-
-  }
+  .star-info-text {}
 }
+
 .star-info-page {}
 
 .star-big-image {
