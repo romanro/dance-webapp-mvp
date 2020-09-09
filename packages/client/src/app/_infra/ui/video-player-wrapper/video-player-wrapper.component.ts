@@ -6,8 +6,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-video-player-wrapper',
-  templateUrl: './video-player-wrapper.component.html',
-  styles: []
+  templateUrl: './video-player-wrapper.component.html'
 })
 export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
@@ -63,7 +62,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
@@ -74,7 +72,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.error.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
