@@ -19,9 +19,11 @@ import {
   NavigationComponent,
   NotificationsPageComponent,
   PageNotFoundComponent,
+  PlayerSpeedControlsComponent,
   PreloaderIconComponent,
   PreloaderInappComponent,
   TagsHolderComponent,
+  ToggleSwitchDirective,
   VideoFilePickerComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
@@ -42,14 +44,16 @@ import {
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    ToggleSwitchDirective
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    ToggleSwitchDirective
   ]
 })
 export class InfraModule { }

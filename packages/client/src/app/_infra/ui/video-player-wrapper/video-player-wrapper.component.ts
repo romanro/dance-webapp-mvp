@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { LabPlayerPlaybackOperator } from '@app/_infra/core/models';
 import { VgAPI } from 'ngx-videogular';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
@@ -181,7 +182,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     return this.playerAPI.getDefaultMedia().currentTime;
   }
 
-  changePLayBackRate(operator) {
+  changePLayBackRate(operator: LabPlayerPlaybackOperator) {
     switch (operator) {
       case 'plus':
         const plus = parseFloat((this.playbackRate + 0.1).toFixed(1));

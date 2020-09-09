@@ -13,3 +13,5 @@ export * from './inpage-error/inpage-error.component';
 export * from './tags-holder/tags-holder.component';
 export * from './image-file-picker/image-file-picker.component';
 export * from './video-file-picker/video-file-picker.component';
+export * from './directives/toggle-switch.directive';
+export * from './video-player-wrapper/player-speed-controls/player-speed-controls.component';

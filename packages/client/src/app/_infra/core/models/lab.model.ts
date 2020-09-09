@@ -21,3 +21,5 @@ export enum LabPlayerType {
     MASTER = 'master',
     STUDENT = 'student'
 }
+
+export type LabPlayerPlaybackOperator = 'plus' | 'minus' | 'def';
