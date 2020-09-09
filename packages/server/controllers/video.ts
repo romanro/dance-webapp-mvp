@@ -67,12 +67,12 @@ export const getVideo = async (req: Request, res: Response, next: NextFunction) 
 
 export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string): IVideo => {
     return new Video({
-        associatedObject: req.body.associatedVIdeoId,
+        associatedObject: req.body.associatedVideoId,
         ownerUser: req.user._id,
         associatedModel: EnumAssociateModel.Video,
         ownerRole: EnumRole.user,
-        key: videoUrl,
-        path: videoKey,
+        key: videoKey,
+        path: videoUrl,
         type: EnumVideoType.comparable
     })
 }
