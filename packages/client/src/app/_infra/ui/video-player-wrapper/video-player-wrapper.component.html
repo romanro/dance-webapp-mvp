@@ -25,26 +25,12 @@
                        [vgAutohideTime]="preview? 2: 20">
 
 
-               <div *ngIf="playerIsReady"
-                    class="left-side-controls">
+               <ui-player-controls *ngIf="playerIsReady"
+                                   [playing]="playerIsPlaying"
+                                   (toggleVideos)="togglePlay()"
+                                   (jump)="jump($event)"
+                                   (stop)="stop()"></ui-player-controls>
 
-                    <vg-play-pause vgFor="mainVideo">
-                    </vg-play-pause>
-
-                    <ng-template [ngIf]="!preview">
-                         <div role="button"
-                              class="icon icon-prew"
-                              (click)="jump('bwd')"></div>
-                         <div role="button"
-                              class="icon icon-next"
-                              (click)="jump('fwd')"></div>
-
-                         <div role="button"
-                              class="icon vg-icon-stop"
-                              (click)="stop()"></div>
-                    </ng-template>
-
-               </div>
 
                <div *ngIf="playerIsReady"
                     class="right-side-controls">
@@ -53,7 +39,6 @@
                        (click)="clearVideo()">{{'LAB.removeVideo' | translate}}</a>
 
                </div>
-
 
 
                <vg-scrub-bar [vgSlider]="false">

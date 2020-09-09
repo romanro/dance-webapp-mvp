@@ -19,6 +19,7 @@ import {
   NavigationComponent,
   NotificationsPageComponent,
   PageNotFoundComponent,
+  PlayerControlsComponent,
   PlayerSpeedControlsComponent,
   PreloaderIconComponent,
   PreloaderInappComponent,
@@ -45,6 +46,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    PlayerControlsComponent,
     ToggleSwitchDirective
   ],
   exports: [
@@ -53,6 +55,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    PlayerControlsComponent,
     ToggleSwitchDirective
   ]
 })

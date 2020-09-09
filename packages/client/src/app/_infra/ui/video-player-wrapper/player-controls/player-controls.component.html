@@ -1,0 +1,17 @@
+<div class="left-side-controls player-controls">
+  <div role="button"
+       class="icon"
+       [ngClass]="{ 'icon-play-1':!playing, 'icon-pause-1':playing}"
+       (click)="onToggleVideos()">
+  </div>
+  <div role="button"
+       class="icon icon-prew"
+       (click)="onJump('bwd')"></div>
+  <div role="button"
+       class="icon icon-next"
+       (click)="onJump('fwd')"></div>
+  <div role="button"
+       class="icon vg-icon-stop"
+       (click)="onStop()"></div>
+
+</div>

@@ -23,39 +23,7 @@
     </ui-video-player-wrapper>
   </div>
 
-  <ng-template [ngIf]="synchronized && studentVideo">
-    <div class="linked-controls">
 
-      <div class="left-side-controls">
-        <div role="button"
-             class="icon"
-             [ngClass]="{ 'icon-play-1':!playing, 'icon-pause-1':playing}"
-             (click)="toggleVideos()">
-        </div>
-        <div role="button"
-             class="icon icon-prew"
-             (click)="jump('bwd')"></div>
-        <div role="button"
-             class="icon icon-next"
-             (click)="jump('fwd')"></div>
-        <div role="button"
-             class="icon vg-icon-stop"
-             (click)="stop()"></div>
-
-      </div>
-
-
-      <div class="right-side-controls">
-
-        <ui-player-speed-controls [playbackRate]="playbackRate"
-                                  (changePLayBackRate)="changePLayBackRate($event)">
-        </ui-player-speed-controls>
-
-
-
-      </div>
-    </div>
-  </ng-template>
 
 
   <div *ngIf="studentVideo"
@@ -70,9 +38,25 @@
     </ui-video-player-wrapper>
   </div>
 
-  <!-- <div *ngIf="synchronized"
+  <ng-template [ngIf]="synchronized && studentVideo">
+    <div class="linked-controls">
+      <ui-player-controls [playing]="playing"
+                          (toggleVideos)="toggleVideos()"
+                          (jump)="jump($event)"
+                          (stop)="stop()"></ui-player-controls>
+      <div class="right-side-controls">
+
+        <ui-player-speed-controls [playbackRate]="playbackRate"
+                                  (changePLayBackRate)="changePLayBackRate($event)">
+        </ui-player-speed-controls>
+
+      </div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="synchronized"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
-       (pan)="onPan($event)"></div> -->
+       (pan)="onPan($event)"></div>
 </div>

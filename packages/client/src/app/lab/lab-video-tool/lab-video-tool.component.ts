@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { LabPlayerPlaybackOperator, LabPlayerType, LabStarVideo, LabUserVideo } from '@app/_infra/core/models';
+import {
+  LabPlayerJumpDirection,
+  LabPlayerPlaybackOperator,
+  LabPlayerType,
+  LabStarVideo,
+  LabUserVideo,
+} from '@app/_infra/core/models';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
 import { User } from '@core/models';
 import { VgEvents } from 'ngx-videogular';
@@ -130,7 +136,7 @@ export class LabVideoToolComponent implements OnInit {
     this.playbackRate = 1;
   }
 
-  jump(direction) {
+  jump(direction: LabPlayerJumpDirection) {
     [this.masterPLayer, this.studentPLayer].map(p => p.jump(direction));
   }
 
@@ -149,13 +155,14 @@ export class LabVideoToolComponent implements OnInit {
   }
 
   onPan(evt) {
-    const devVelocity = evt.velocityX / 3;
+    const devVelocity = evt.velocityX / 20;
     const time = this.masterPLayer.playerAPI.getDefaultMedia().currentTime;
-    const seekTo = devVelocity + time;
+    const seekTo = -(devVelocity) + time;
     this.masterPLayer.seekTo(seekTo);
     this.syncStudentPlayer();
 
   }
+
 
   onTap(evt) {
     this.toggleVideos();

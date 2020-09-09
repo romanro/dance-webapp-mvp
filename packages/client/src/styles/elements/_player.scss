@@ -50,7 +50,8 @@
 
     &.linked {
         .touch-controls {
-            height: 100%;
+            top: 33px;
+            height: calc(100% - 83px);
         }
     }
 
