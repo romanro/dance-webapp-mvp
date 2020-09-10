@@ -15,3 +15,4 @@ export * from './figure.model';
 export * from './practices.model';
 export * from './lab.model';
 export * from './background.models';
+export * from './background-processes.models';

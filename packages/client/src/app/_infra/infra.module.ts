@@ -12,6 +12,7 @@ import { VgOverlayPlayModule } from 'ngx-videogular';
 import {
   AboutDanskillModalComponent,
   AlertsComponent,
+  BackgroundProcessesComponent,
   HeaderComponent,
   ImageFilePickerComponent,
   InpageErrorComponent,
@@ -46,7 +47,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
-    PlayerControlsComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent,
     ToggleSwitchDirective
   ],
   exports: [
@@ -55,7 +56,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
-    PlayerControlsComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent,
     ToggleSwitchDirective
   ]
 })
