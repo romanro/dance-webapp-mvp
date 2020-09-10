@@ -1,41 +1,39 @@
-[
-  {
-    "_id": {
-      "$oid": "5f53f2a76ffba730ca8df5fb"
-    },
-    "figures": [
-      {
-        "$oid": "5f53f50d6ffba730ca8df5fc"
-      }
-    ],
-    "achievements": [
-      "3rd place World cup",
-      "3rd place European cup",
-      "2x Semi final World champoinship",
-      "2x Semi final European championship",
-      "2x GOC semi final",
-      "5x Latvian champions"
-    ],
-    "promoVideo": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4",
-    "name": {
-      "firstName": "Paul",
-      "lastName": "Moldovan"
-    },
-    "location": {
-      "city": "Romania"
-    },
-    "logo": {
-      "small": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg",
-      "large": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg"
-    },
-    "about": "",
-    "slug": "Paul-Moldovan",
-    "createdAt": {
-      "$date": "2020-09-05T20:18:47.122Z"
-    },
-    "updatedAt": {
-      "$date": "2020-09-05T20:29:01.222Z"
-    },
-    "__v": 0
-  }
-]
+[{
+  "_id": {
+    "$oid": "5f40fe6ad1f6082d42e9708b"
+  },
+  "figures": [
+    {
+      "$oid": "5f53f50d6ffba730ca8df5fc"
+    }
+  ],
+  "achievements": [
+    "3rd place World cup",
+    "3rd place European cup",
+    "2x Semi final World champoinship",
+    "2x Semi final European championship",
+    "2x GOC semi final",
+    "5x Latvian champions"
+  ],
+  "promoVideo": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4",
+  "name": {
+    "firstName": "Paul",
+    "lastName": "Moldovan"
+  },
+  "location": {
+    "country": "Romania"
+  },
+  "logo": {
+    "small": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg",
+    "large": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/Paul+Moldovan/logo.jpg"
+  },
+  "about": "",
+  "slug": "Paul-Moldovan",
+  "createdAt": {
+    "$date": "2020-08-22T11:15:54.964Z"
+  },
+  "updatedAt": {
+    "$date": "2020-08-22T11:29:38.931Z"
+  },
+  "__v": 0
+}]

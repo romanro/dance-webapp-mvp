@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LabPlayerPlaybackOperator } from '@app/_infra/core/models';
 import { VgAPI } from 'ngx-videogular';
-import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
 
 @Component({
