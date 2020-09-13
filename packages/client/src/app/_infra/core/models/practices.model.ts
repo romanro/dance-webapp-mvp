@@ -1,11 +1,12 @@
+import {Video} from '@models/video.model';
 
 export class Practice {
-    id: number;
-    date: Date;
-    title: string;
-    subTitle: string;
-    userVideo: string;
-    notes: Array<string>;
+    _id: string;
+    associatedVideo: Video;
+    createdAt: string;
+    updatedAt: string;
+    _v: number
+
 }
 
 export enum PracticeError {

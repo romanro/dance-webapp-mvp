@@ -1,7 +1,13 @@
 .page-title-row{
+    .practice-title{
+        margin: 0;
+    }
+
     .search-wrapper{
         position: relative;
+
         input{
+            border-right: none;
             border-radius: 5px;
             padding: 0 40px;
             text-align: center;
@@ -26,7 +32,18 @@
 
 .practices-list{
     // border: 1px solid;
+
+    .practice-title{
+        font-size: 0.9rem;
+        margin: 0;
+    }
     .practice-date{
+        display: flex;
+        align-items: center;
+        p{
+            margin: 0;
+            font-size: 0.7rem;
+        }
        &:after{
            content: ' ';
            position: absolute;
@@ -38,3 +55,4 @@
        }
     }
 }
+

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 
 export class PracticesPageComponent implements OnInit, OnDestroy {
 
-  loading = false;
+  loading = true;
   errorMsg: PracticeError | string = null;
   startDate: Date = new Date('1/1/2020');
   lastDate: Date = new Date();
@@ -44,7 +44,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.setMonthsLength();
+    // this.setMonthsLength();
 
     this.maxMonthLength = this.monthLength;
 
@@ -111,6 +111,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
   }
 
   compareDates(firstDate, secondDate) {
+    firstDate = new Date(firstDate);
     if (firstDate.getMonth() === secondDate.getMonth() && firstDate.getFullYear() === secondDate.getFullYear())
       return true;
     else
