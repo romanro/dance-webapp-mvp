@@ -15,7 +15,7 @@ export class BackgroundProcessesService {
 
   // enable subscribing to processes observable
   onBackgroundProcess(processtId?: string): Observable<BackgroundProcess> {
-    return this.subject.asObservable().pipe(filter(x => x && x.processtId === processtId));
+    return this.subject.asObservable();
   }
 
   // convenience methods

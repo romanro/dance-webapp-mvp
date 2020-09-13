@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BackgroundProcess } from '@core/models';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BackgroundProcess, BackgroundProcessCallbackData } from '@core/models';
 import { BackgroundProcessesService } from '@core/services';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 })
 export class BackgroundProcessesComponent implements OnInit, OnDestroy {
 
-  @Input() id: string;
 
   processes: BackgroundProcess[] = [];
   subscription: Subscription;
@@ -17,10 +16,20 @@ export class BackgroundProcessesComponent implements OnInit, OnDestroy {
   constructor(private backgroundProcessesService: BackgroundProcessesService) { }
 
   ngOnInit() {
-    this.subscription = this.backgroundProcessesService.onBackgroundProcess(this.id)
+    this.subscription = this.backgroundProcessesService.onBackgroundProcess()
       .subscribe(process => {
         this.processes.push(process);
       });
+  }
+
+  handleProcessCallback(data: BackgroundProcessCallbackData) {
+
+  }
+
+
+  removeProcess(process: BackgroundProcess) {
+    // remove specified alert from array
+    this.processes = this.processes.filter(x => x !== process);
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
+import { CreatePracticeData } from '@core/models';
 import { LAB_USER_VIDEO_DURATION_DIFF_LIMIT, LabItem, LabPlayerType, LabUserVideo, LabViewType } from '@core/models/';
+import { BackgroundProcessesService } from '@core/services';
 import * as LabActions from '@infra/store/actions//lab.actions';
 import * as labSelectors from '@infra/store/selectors/lab.selectors';
 import * as userSelectors from '@infra/store/selectors/user.selectors';
@@ -24,7 +26,13 @@ export class LabPageComponent implements OnInit, OnDestroy {
   labView: LabViewType = LabViewType.EMPTY;
   subs: Subscription[] = [];
 
-  constructor(private store: Store<any>, private sanitizer: DomSanitizer, private alertService: AlertService, private router: Router) { }
+  constructor(
+    private store: Store<any>,
+    private sanitizer: DomSanitizer,
+    private alertService: AlertService,
+    private router: Router,
+    private backgroundProcessesService: BackgroundProcessesService
+  ) { }
 
   ngOnInit() {
     this.setLabView();
@@ -109,6 +117,11 @@ export class LabPageComponent implements OnInit, OnDestroy {
   updateLabStore() {
     const payload: LabItem = { ...this.labItem, userVideo: this.userVideo };
     this.store.dispatch(LabActions.UpdateLabAction({ payload }));
+  }
+
+  saveToPractices(): void {
+    const data: CreatePracticeData = null;
+    this.backgroundProcessesService.uploadPractice(data, 'uploadPractice');
   }
 
   ngOnDestroy(): void {

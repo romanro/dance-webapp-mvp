@@ -9,6 +9,7 @@ import { VgControlsModule } from 'ngx-videogular';
 import { VgCoreModule } from 'ngx-videogular';
 import { VgOverlayPlayModule } from 'ngx-videogular';
 
+import { BaseBgProcessComponent } from './core/models';
 import {
   AboutDanskillModalComponent,
   AlertsComponent,
@@ -26,6 +27,7 @@ import {
   PreloaderInappComponent,
   TagsHolderComponent,
   ToggleSwitchDirective,
+  UploadPracticeBgProcessComponent,
   VideoFilePickerComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
@@ -47,7 +49,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
-    PlayerControlsComponent, BackgroundProcessesComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent, BaseBgProcessComponent,
     ToggleSwitchDirective
   ],
   exports: [
@@ -56,7 +58,7 @@ import {
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
-    PlayerControlsComponent, BackgroundProcessesComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent,
     ToggleSwitchDirective
   ]
 })

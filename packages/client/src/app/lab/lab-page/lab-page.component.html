@@ -93,8 +93,16 @@
             </dsapp-lab-video-tool>
         </div>
     </div>
+
 </ng-template>
 
+<div class="row">
+    <div class="col text-center mt-2">
+        <button class="btn btn-danger"
+                (click)="saveToPractices()"><i class="icon icon-practices"></i>
+            {{'LAB.saveToMyPractices' | translate}}</button>
+    </div>
+</div>
 
 <video #videoMta
        style="display: none;"

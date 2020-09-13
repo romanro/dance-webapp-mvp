@@ -165,6 +165,7 @@
     "speed": "speed",
     "linkVideos": "link videos",
     "unlinkVideos": "unlink videos",
+    "saveToMyPractices": "Save to My Practices",
     "ERRORS": {
       "userDurationError": "Your video is too long. Please, film video less than {{param}} seconds"
     }

@@ -1,3 +1,5 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 export class BackgroundProcess {
     type: BackgroundProcessType;
     processtId: string;
@@ -10,4 +12,21 @@ export class BackgroundProcess {
 
 export enum BackgroundProcessType {
     UPLOAD_PRACTICE = 'uploadPractice'
+}
+
+export interface BackgroundProcessCallbackData {
+    process: BackgroundProcess;
+    action: BackgroundProcessCallbackAction
+}
+
+export enum BackgroundProcessCallbackAction {
+    CLOSE = 'close'
+}
+
+@Component({
+    template: ''
+})
+export class BaseBgProcessComponent {
+    @Input() process: BackgroundProcess;
+    @Output() processCallback = new EventEmitter<BackgroundProcessCallbackData>();
 }

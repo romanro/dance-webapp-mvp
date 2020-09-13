@@ -17,3 +17,4 @@ export * from './directives/toggle-switch.directive';
 export * from './video-player-wrapper/player-speed-controls/player-speed-controls.component';
 export * from './video-player-wrapper/player-controls/player-controls.component';
 export * from './background-processes/background-processes.component';
+export * from './background-processes/upload-practice-bg-process/upload-practice-bg-process.component';
