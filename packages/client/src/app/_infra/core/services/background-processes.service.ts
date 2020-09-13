@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { BackgroundProcess } from '../models';
+import { BackgroundProcess, BackgroundProcessType, CreatePracticeData } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,11 @@ export class BackgroundProcessesService {
   // enable subscribing to processes observable
   onBackgroundProcess(processtId?: string): Observable<BackgroundProcess> {
     return this.subject.asObservable().pipe(filter(x => x && x.processtId === processtId));
+  }
+
+  // convenience methods
+  uploadPractice(data: CreatePracticeData, processtId?: string) {
+    this.startBackgroundProcess(new BackgroundProcess({ type: BackgroundProcessType.UPLOAD_PRACTICE, processtId, data }));
   }
 
   // main process method
