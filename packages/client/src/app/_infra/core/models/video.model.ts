@@ -7,17 +7,17 @@ export interface Video {
     _id: string;
     name: string;
     path: string;
-    view: View;
-    participatesAmount: ParticipatesAmount;
-    associatedObject: Video | Figure;
+    view?: View;
+    participatesAmount?: ParticipatesAmount;
+    associatedObject: string;
     associatedModel: AssociateType;
-    ownerUser: string;
+    ownerUser?: string;
     ownerRole: number;
     type: VideoType;
-    thumbnail: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-    __v: number
+    thumbnail?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number
 }
 
 export interface UploadVideoData {
@@ -59,7 +59,7 @@ export class LabStarVideo implements Video {
     view: View;
     thumbnail: string;
     participatesAmount: ParticipatesAmount;
-    associatedObject: Figure;
+    associatedObject: string;
     associatedModel: AssociateType = AssociateType.FIGURE;
     ownerUser: string;
     ownerRole: number;
