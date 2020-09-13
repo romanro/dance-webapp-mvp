@@ -2,6 +2,7 @@ import { AuthTokens } from './auth.model';
 import { Figure } from './figure.model';
 import { Star } from './star.model';
 import { User } from './user.model';
+import {Practice} from "@models/practices.model";
 
 // export type RegistrationErrorCode = 'PASSWORD_SHORT' | 'INVALID_EMAIL' | 'PASSWORD_MISMATCH' | 'USER_EXISTS';
 // export type LoginErrorCode = 'INVALID_EMAIL' | 'BLANK_PASSWORD' | 'SIGN_PROVIDER_NO_CREDENTIALS';
@@ -31,4 +32,7 @@ export interface FiguresRestResponse extends RestResponse {
 }
 export interface SingleFigureRestResponse extends RestResponse {
     data?: Figure;
+}
+export interface PracticeItemsRestResponse extends RestResponse {
+    data?: Array<Practice>;
 }
