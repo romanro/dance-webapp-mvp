@@ -1,6 +1,7 @@
 export class Alert {
   type: AlertType;
   message: string;
+  param?: string;
   alertId: string;
   keepAfterRouteChange: boolean;
 

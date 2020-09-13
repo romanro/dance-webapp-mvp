@@ -1,27 +1,29 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { LabPlayerPlaybackOperator } from '@app/_infra/core/models';
 import { VgAPI } from 'ngx-videogular';
-import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-video-player-wrapper',
-  templateUrl: './video-player-wrapper.component.html',
-  styles: []
+  templateUrl: './video-player-wrapper.component.html'
 })
 export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
   @Input() src: string;
+  @Input() poster: string = null;
   @Input() synchronized = false;
+  @Input() preview = true;
 
+  @Output() durationEvent = new EventEmitter<number>();
   @Output() playerEvent = new EventEmitter();
   @Output() playerStateChange = new EventEmitter();
+  @Output() clearVideoFile = new EventEmitter();
 
   playerIsReady = false;
   playerIsPlaying = false;
   playerAPI: VgAPI;
 
-  time = 0;
-
+  time = '0';
   playbackRate = 1;
 
   subs: Subscription[] = [];
@@ -37,13 +39,14 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPlayerReady(api) {
-
     this.playerAPI = api;
     this.playerAPI.volume = 0;
 
-    this.play();
 
-    setTimeout(() => { this.stop(); }, 200);
+    this.subs.push(this.playerAPI.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
+      /// getting original video duration
+      this.durationEvent.emit(this.playerAPI.getDefaultMedia().duration);
+    }))
 
 
     this.subs.push(
@@ -58,7 +61,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
@@ -69,7 +71,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.error.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
@@ -114,7 +115,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.timeUpdate.subscribe(
         event => {
-          this.time = Number(this.getCurrentTime().toFixed(2));
+          this.time = (Math.round(this.getCurrentTime() * 100) / 100).toFixed(2);
           this.playerEvent.emit(event);
         }
       )
@@ -133,10 +134,10 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   jump(direction) {
     switch (direction) {
       case 'fwd':
-        this.playerAPI.getDefaultMedia().currentTime += 1;
+        this.playerAPI.getDefaultMedia().currentTime += 0.5;
         break;
       case 'bwd':
-        this.playerAPI.getDefaultMedia().currentTime -= 1;
+        this.playerAPI.getDefaultMedia().currentTime -= 0.5;
         break;
     }
   }
@@ -158,11 +159,10 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   }
 
   onPan(evt) {
-
-    const devVelocity = evt.velocityX / 3;
-    const seekRatio = Number(devVelocity.toFixed(2));
-    const time = Number(this.getCurrentTime().toFixed(2));
-    const seekTo = seekRatio + time;
+    const devVelocity = evt.velocityX / 20;
+    const seekRatio = devVelocity;
+    const time = this.getCurrentTime();
+    const seekTo = -(seekRatio) + time;
     this.seekTo(seekTo);
   }
 
@@ -178,7 +178,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     return this.playerAPI.getDefaultMedia().currentTime;
   }
 
-  changePLayBackRate(operator) {
+  changePLayBackRate(operator: LabPlayerPlaybackOperator) {
     switch (operator) {
       case 'plus':
         const plus = parseFloat((this.playbackRate + 0.1).toFixed(1));
@@ -192,6 +192,10 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
       default:
         this.playbackRate = 1;
     }
+  }
+
+  clearVideo(): void {
+    this.clearVideoFile.emit();
   }
 
 }

@@ -12,6 +12,7 @@ export interface Star {
     promoVideo: string;
     achievements?: Array<string>;
     about?: string;
+    figures?: Array<any>
     createdAt?: Date;
     updatedAt?: Date;
 }

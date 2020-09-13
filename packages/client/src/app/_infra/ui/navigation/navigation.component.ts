@@ -22,7 +22,7 @@ export class NavigationComponent implements OnInit {
   }
 
   detectScrollPosition() {
-    this.userScrolled = document.documentElement.scrollTop > 80;
+    this.userScrolled = document.documentElement.scrollTop > 20;
   }
 
 }

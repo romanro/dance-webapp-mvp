@@ -61,8 +61,9 @@
                     <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
 
                     <div class="star-info-btns">
-                        <a class="btn btn-success"
-                           [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</a>
+                        <button class="btn btn-success"
+                                [disabled]="star.figures.length === 0"
+                                [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</button>
                     </div>
 
                 </div>

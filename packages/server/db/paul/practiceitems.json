@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "5f53f6d16ffba730ca8df601"
+  },
+  "video": {
+    "$oid": "5f53f6d16ffba730ca8df600"
+  },
+  "name": "fake it till you make it #1",
+  "createdAt": {
+    "$date": "2020-09-05T20:36:33.726Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-05T20:36:33.726Z"
+  },
+  "__v": 0
+}]

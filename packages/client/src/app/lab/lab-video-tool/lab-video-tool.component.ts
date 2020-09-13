@@ -1,16 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  LabPlayerJumpDirection,
+  LabPlayerPlaybackOperator,
+  LabPlayerType,
+  LabStarVideo,
+  LabUserVideo,
+} from '@app/_infra/core/models';
 import { VideoPlayerWrapperComponent } from '@app/_infra/ui';
+import { User } from '@core/models';
 import { VgEvents } from 'ngx-videogular';
 
 @Component({
   selector: 'dsapp-lab-video-tool',
-  templateUrl: './lab-video-tool.component.html',
-  styles: []
+  templateUrl: './lab-video-tool.component.html'
 })
 export class LabVideoToolComponent implements OnInit {
 
-  @ViewChild('masterPLayer', { static: true }) masterPLayer: VideoPlayerWrapperComponent;
-  @ViewChild('studentPLayer', { static: true }) studentPLayer: VideoPlayerWrapperComponent;
+  @Input() masterVideo: LabStarVideo = null;
+  @Input() studentVideo: LabUserVideo = null;
+
+  @Output() masterPlayerDurationReady = new EventEmitter<number>();
+  @Output() clearVideo = new EventEmitter<LabPlayerType>();
+
+  @ViewChild('masterPLayer', { static: false }) masterPLayer: VideoPlayerWrapperComponent;
+  @ViewChild('studentPLayer', { static: false }) studentPLayer: VideoPlayerWrapperComponent;
 
   synchronized = false;
   timeDiff = 0;
@@ -30,6 +43,10 @@ export class LabVideoToolComponent implements OnInit {
       this.seekToSyncTime();
       [this.masterPLayer, this.studentPLayer].map(p => p.play());
     }
+  }
+
+  masterPlayerDuration(duration: number) {
+    this.masterPlayerDurationReady.emit(duration);
   }
 
   masterPLayerEvent(event) {
@@ -63,6 +80,15 @@ export class LabVideoToolComponent implements OnInit {
   masterPLayerStateChange(event) { this.playing = event; }
   studentPLayerStateChange(event) { }
 
+
+  toggleSync() {
+    if (!this.studentVideo) {
+      return;
+    }
+
+    const func = this.synchronized ? this.unsynchronize() : this.synchronize();
+  }
+
   synchronize() {
     this.synchronized = true;
     this.resetPlayers();
@@ -90,13 +116,13 @@ export class LabVideoToolComponent implements OnInit {
   }
 
   syncStudentPlayer() {
-    const masterTime = Math.round(this.masterPLayer.getCurrentTime());
+    const masterTime = this.masterPLayer.getCurrentTime();
     const studentTime = masterTime - this.timeDiff;
     this.studentPLayer.seekTo(studentTime);
   }
 
   syncMasterPlayer() {
-    const studentTime = Math.round(this.studentPLayer.getCurrentTime());
+    const studentTime = this.studentPLayer.getCurrentTime();
     const masterTime = studentTime - this.timeDiff;
     this.masterPLayer.seekTo(masterTime);
 
@@ -105,12 +131,12 @@ export class LabVideoToolComponent implements OnInit {
   resetPlayers() {
     [this.masterPLayer, this.studentPLayer].map(p => {
       p.pause();
-      p.changePLayBackRate('default');
+      p.changePLayBackRate('def');
     });
     this.playbackRate = 1;
   }
 
-  jump(direction) {
+  jump(direction: LabPlayerJumpDirection) {
     [this.masterPLayer, this.studentPLayer].map(p => p.jump(direction));
   }
 
@@ -119,7 +145,7 @@ export class LabVideoToolComponent implements OnInit {
     this.seekToSyncTime(0);
   }
 
-  changePLayBackRate(operator) {
+  changePLayBackRate(operator: LabPlayerPlaybackOperator) {
     [this.masterPLayer, this.studentPLayer].map(p => p.changePLayBackRate(operator));
     setTimeout(() => { this.playbackRate = this.masterPLayer.playbackRate; }, 200);
   }
@@ -129,17 +155,24 @@ export class LabVideoToolComponent implements OnInit {
   }
 
   onPan(evt) {
-    const devVelocity = evt.velocityX / 3;
-    const seekRatio = Number(devVelocity.toFixed(2));
-    const time = Number(this.masterPLayer.playerAPI.getDefaultMedia().currentTime.toFixed(2));
-    const seekTo = seekRatio + time;
+    const devVelocity = evt.velocityX / 20;
+    const time = this.masterPLayer.playerAPI.getDefaultMedia().currentTime;
+    const seekTo = -(devVelocity) + time;
     this.masterPLayer.seekTo(seekTo);
     this.syncStudentPlayer();
 
   }
 
+
   onTap(evt) {
     this.toggleVideos();
+  }
+
+  masterVideoClear() {
+    this.clearVideo.emit(LabPlayerType.MASTER);
+  }
+  studentVideoClear() {
+    this.clearVideo.emit(LabPlayerType.STUDENT);
   }
 
 }

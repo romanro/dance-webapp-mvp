@@ -1,81 +1,62 @@
-<div class="row position-relative video-wrapper">
+<div class="lab-tool-wrapper video-wrapper"
+     [ngClass]="{'linked':synchronized}">
 
-  <div class="col-12 col-md-6">
+  <div class="controls-row"
+       (click)="toggleSync()">
+    <div uiToggleSwitch
+         [state]="synchronized"
+         [disabled]="!studentVideo"></div>
+    <label>{{synchronized ? ('LAB.unlinkVideos' | translate):('LAB.linkVideos' | translate)}}</label>
+  </div>
+
+  <div *ngIf="masterVideo"
+       class="lab-tool-player-wrapper star-player-wrapper">
     <ui-video-player-wrapper #masterPLayer
-                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [src]="masterVideo.path"
+                             [poster]="masterVideo.thumbnail"
                              [synchronized]="synchronized"
+                             [preview]="!studentVideo"
+                             (durationEvent)="masterPlayerDuration($event)"
                              (playerEvent)="masterPLayerEvent($event)"
-                             (playerStateChange)="masterPLayerStateChange($event)">
+                             (playerStateChange)="masterPLayerStateChange($event)"
+                             (clearVideoFile)="masterVideoClear()">
     </ui-video-player-wrapper>
   </div>
-  <div class="col-12 col-md-6">
+
+
+
+
+  <div *ngIf="studentVideo"
+       class="lab-tool-player-wrapper student-player-wrapper">
     <ui-video-player-wrapper #studentPLayer
-                             [src]="'http://static.videogular.com/assets/videos/videogular.mp4'"
+                             [src]="studentVideo ? studentVideo.path : null"
+                             [preview]="false"
                              [synchronized]="synchronized"
                              (playerEvent)="studentPLayerEvent($event)"
-                             (playerStateChange)="studentPLayerStateChange($event)">
+                             (playerStateChange)="studentPLayerStateChange($event)"
+                             (clearVideoFile)="studentVideoClear()">
     </ui-video-player-wrapper>
   </div>
+
+  <ng-template [ngIf]="synchronized && studentVideo">
+    <div class="linked-controls">
+      <ui-player-controls [playing]="playing"
+                          (toggleVideos)="toggleVideos()"
+                          (jump)="jump($event)"
+                          (stop)="stop()"></ui-player-controls>
+      <div class="right-side-controls">
+
+        <ui-player-speed-controls [playbackRate]="playbackRate"
+                                  (changePLayBackRate)="changePLayBackRate($event)">
+        </ui-player-speed-controls>
+
+      </div>
+    </div>
+  </ng-template>
 
   <div *ngIf="synchronized"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
        (pan)="onPan($event)"></div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <div class="player-controls">
-
-      <div *ngIf="!synchronized"
-           class="controls-row text-center">
-        <button class="btn btn-danger"
-                (click)="synchronize()">SYNCHRONIZE</button>
-      </div>
-
-      <div *ngIf="synchronized"
-           class="controls-row">
-        <button class="btn btn-outline-dark"
-                (click)="toggleVideos()">
-          <span *ngIf="!playing">PLAY</span>
-          <span *ngIf="playing">PAUSE</span>
-        </button>
-
-        <button class="btn btn-info"
-                (click)="jump('bwd')">
-          << BWD</button>
-             <button
-             class="btn btn-info"
-             (click)="jump('fwd')">FWD >>
-        </button>
-
-        <button class="btn btn-danger"
-                (click)="stop()">STOP</button>
-      </div>
-
-      <div *ngIf="synchronized"
-           class="controls-row">
-        <button class="btn btn-info"
-                (click)="changePLayBackRate('plus')">
-          +
-        </button>
-        <button class="btn btn-info"
-                (click)="changePLayBackRate('minus')">
-          -
-        </button>
-        <span>{{playbackRate}}</span>
-        <button class="btn btn-info btn-sm"
-                (click)="changePLayBackRate('def')">
-          Default
-        </button>
-      </div>
-
-      <div *ngIf="synchronized"
-           class="controls-row text-center">
-        <button class="btn btn-outline-danger"
-                (click)="unsynchronize()">UNSYNCHRONIZE</button>
-      </div>
-    </div>
-  </div>
 </div>

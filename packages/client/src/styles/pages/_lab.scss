@@ -1,0 +1,138 @@
+.lab-page {
+
+    .col {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .lab-tool-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .lab-tool-player-wrapper {
+            border: $lab-player-border;
+            width: 100%;
+        }
+
+        &.linked {
+            .lab-tool-player-wrapper {
+                border-color: $success;
+            }
+        }
+
+        .star-player-wrapper {
+            border-bottom: none;
+        }
+
+        .student-player-wrapper {
+            border-top: none;
+        }
+
+        .linked-controls {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            z-index: +2;
+            width: calc(100% - 4px);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background: rgba($black, 0.8);
+
+
+
+            .speed-controls {
+                .btn {
+                    color: $white;
+                }
+
+                .btn-sm {
+                    padding: 0;
+                }
+
+                >span {
+                    font-size: 0.66rem;
+                    color: $white;
+                }
+            }
+
+            .center-controls {
+                .icon-btn {
+                    padding-left: 0.1rem;
+
+                    .icon-btn span {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+
+        .controls-row {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            width: 100%;
+            background-color: transparent;
+
+            z-index: +2;
+
+            label {
+                display: inline-block;
+                margin-bottom: 0.2rem;
+                line-height: 1;
+            }
+
+            &.linked {
+                color: $white;
+                background-color: $black;
+            }
+
+
+
+
+        }
+    }
+
+    .upload-placeholder {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        .toolbox {
+            padding: 0 0.5rem;
+
+            h5 {
+                text-align: center;
+                font-size: 0.8rem;
+                line-height: 1.4;
+                font-weight: 400;
+                margin-bottom: 2rem;
+                max-width: 250px;
+            }
+
+            .btn {
+                // color: $white;
+                background: $white;
+                width: 12rem;
+                text-align: left;
+                font-weight: 700;
+            }
+        }
+
+        &.bg-secondary {
+            color: $gray-500;
+            pointer-events: none;
+
+            .step-number {
+                border-color: $gray-500;
+            }
+
+            .toolbox {
+                .btn {
+                    color: $gray-500;
+                }
+            }
+        }
+    }
+}

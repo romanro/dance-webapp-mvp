@@ -26,7 +26,7 @@ export const awsUserUpload = multer({
         s3: s3,
         bucket: default_bucket_name,
         key: function (req: Request, file, cb) {
-            cb(null, "users/" + file.originalname + "_" + new Date().toISOString().replace(/:/g, '-'))
+            cb(null, "users/" + new Date().toISOString().replace(/:/g, '-') + "_" + file.originalname)
         }
     })
 })

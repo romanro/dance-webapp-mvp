@@ -9,7 +9,8 @@
           class="close"
           aria-label="Close"
           (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true"
+          class="icon-cancel"></span>
   </button>
 </div>
 <div class="modal-body">
@@ -26,13 +27,15 @@
           <vg-scrub-bar-current-time vgFor="modalVideo">
           </vg-scrub-bar-current-time>
         </vg-scrub-bar>
-        <vg-volume vgFor="modalVideo"></vg-volume>
+        <!--         <vg-volume vgFor="modalVideo"></vg-volume> -->
         <vg-fullscreen></vg-fullscreen>
       </vg-controls>
       <video [vgMedia]="video"
              #video
              id="modalVideo"
-             preload="auto">
+             preload="auto"
+             playsinline
+             webkit-playsinline>
         <source [src]="videoURL"
                 type="video/mp4">
       </video>
