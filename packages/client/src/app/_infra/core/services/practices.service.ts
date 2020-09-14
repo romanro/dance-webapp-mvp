@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BaseRestService } from '@core/services/base-rest.service';
+import { Observable, of } from 'rxjs';
 
-import {Practice, StarsRestResponse, PracticeItemsRestResponse} from '../models';
+import { CreatePracticeData, Practice } from '../models';
 import { MOCK_PRACTICES } from './../../../_mocks';
-import {map} from 'rxjs/operators';
-import {BaseRestService} from '@core/services/base-rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +19,10 @@ export class PracticesService {
     // return this.baseRestService.get<PracticeItemsRestResponse>('account/practices').pipe(map(res => {
     //   return res.data ? res.data : [];
     // }));  }
+  }
+
+  uploadPractice(data: CreatePracticeData): Observable<any> {
+    return this.baseRestService.post('account/practices', data, null, true);
   }
 
 }
