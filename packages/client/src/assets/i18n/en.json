@@ -104,7 +104,8 @@
     }
   },
   "STAR": {
-    "openTheirClasses": "open their classes",
+    "openLibrary": "open library",
+    "more": "more",
     "title": "Welcome to our Library",
     "currentChallenge": "current challenge",
     "challengeFinished": "challenge finished",
