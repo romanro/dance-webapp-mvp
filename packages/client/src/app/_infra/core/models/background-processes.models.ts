@@ -20,7 +20,7 @@ export interface BackgroundProcessCallbackData {
 }
 
 export enum BackgroundProcessCallbackAction {
-    CLOSE = 'close'
+    CANCEL = 'cancel'
 }
 
 @Component({

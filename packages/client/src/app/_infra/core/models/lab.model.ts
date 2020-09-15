@@ -1,5 +1,4 @@
 import { Figure } from './figure.model';
-import { Practice } from './practices.model';
 import { Star } from './star.model';
 import { LabStarVideo, LabUserVideo } from './video.model';
 
@@ -8,7 +7,7 @@ export interface LabItem {
     figure: Figure;
     starVideo: LabStarVideo;
     userVideo?: LabUserVideo;
-    practice?: Practice;
+    practiceIsSaved?: boolean;
 }
 
 export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 6;

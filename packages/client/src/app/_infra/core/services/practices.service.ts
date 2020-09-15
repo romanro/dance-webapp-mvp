@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseRestService } from '@core/services/base-rest.service';
 import { Observable, of } from 'rxjs';
@@ -22,7 +23,12 @@ export class PracticesService {
   }
 
   uploadPractice(data: CreatePracticeData): Observable<any> {
-    return this.baseRestService.post('account/practices', data, null, true);
+    const httpHeadersObj = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Cache-Control', 'no-cache')
+      .set('Pragma', 'no-cache');
+
+    return this.baseRestService.post('account/practices', data, httpHeadersObj, true);
   }
 
 }

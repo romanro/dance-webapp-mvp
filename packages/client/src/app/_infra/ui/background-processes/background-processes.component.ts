@@ -1,11 +1,28 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BackgroundProcess, BackgroundProcessCallbackData } from '@core/models';
+import {
+  BackgroundProcess,
+  BackgroundProcessCallbackAction,
+  BackgroundProcessCallbackData,
+  BackgroundProcessType,
+} from '@core/models';
 import { BackgroundProcessesService } from '@core/services';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-background-processes',
-  templateUrl: './background-processes.component.html'
+  templateUrl: './background-processes.component.html',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in-out', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class BackgroundProcessesComponent implements OnInit, OnDestroy {
 
@@ -27,6 +44,11 @@ export class BackgroundProcessesComponent implements OnInit, OnDestroy {
 
   handleProcessCallback(data: BackgroundProcessCallbackData) {
 
+    switch (data.action) {
+      case BackgroundProcessCallbackAction.CANCEL:
+        this.removeProcess(data.process);
+        break;
+    }
   }
 
 

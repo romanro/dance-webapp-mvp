@@ -21,7 +21,7 @@ export class LabPageComponent implements OnInit, OnDestroy {
   private maxVideoDuration = 0;
   private userStamp: string;
   userVideo: LabUserVideo;
-
+  practiceIsSaved = false;
   labItem: LabItem = null;
   labView: LabViewType = LabViewType.EMPTY;
   subs: Subscription[] = [];
@@ -64,6 +64,7 @@ export class LabPageComponent implements OnInit, OnDestroy {
       this.labView = LabViewType.EMPTY;
     } else {
       this.labView = this.labItem.starVideo && this.labItem.userVideo ? LabViewType.FULL : LabViewType.PREVIEW;
+      this.practiceIsSaved = this.labItem.practiceIsSaved ? true : false;
     }
   }
 
@@ -88,12 +89,14 @@ export class LabPageComponent implements OnInit, OnDestroy {
       this.clearUserVideo();
       this.alertService.error('LAB.ERRORS.userDurationError', this.maxVideoDuration.toString());
     } else {
+      this.practiceIsSaved = false;
       this.updateLabStore();
     }
   }
 
   clearUserVideo() {
     this.userVideo = null;
+    this.practiceIsSaved = false;
     this.updateLabStore();
   }
 
@@ -115,13 +118,21 @@ export class LabPageComponent implements OnInit, OnDestroy {
   }
 
   updateLabStore() {
-    const payload: LabItem = { ...this.labItem, userVideo: this.userVideo };
+    const payload: LabItem = { ...this.labItem, userVideo: this.userVideo, practiceIsSaved: this.practiceIsSaved };
     this.store.dispatch(LabActions.UpdateLabAction({ payload }));
   }
 
   saveToPractices(): void {
-    const data: CreatePracticeData = null;
-    this.backgroundProcessesService.uploadPractice(data, 'uploadPractice');
+    const data: CreatePracticeData = new FormData();
+    data.append('name', `${this.labItem.star.name.firstName} ${this.labItem.star.name.lastName} ${this.labItem.figure.name}`);
+    data.append('associatedVideoId', this.labItem.starVideo._id);
+    data.append('video', this.userVideo.file);
+
+    this.backgroundProcessesService.uploadPractice(data, `upload_practice_${this.userStamp}`);
+
+    this.practiceIsSaved = true;
+
+    this.updateLabStore();
   }
 
   ngOnDestroy(): void {

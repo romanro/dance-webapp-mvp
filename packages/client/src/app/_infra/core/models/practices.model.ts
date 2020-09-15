@@ -15,7 +15,7 @@ export enum PracticeError {
 }
 
 export interface CreatePracticeData extends FormData {
-  name: string;
-  associatedVideoId: string;
-  video: File;
+  name?: string;
+  associatedVideoId?: string;
+  video?: File;
 }

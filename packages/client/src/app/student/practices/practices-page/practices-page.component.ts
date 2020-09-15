@@ -4,7 +4,6 @@ import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 import { Practice, PracticeError } from '@core/models';
 import * as selectors from '@infra/store/selectors/practices.selector';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 
@@ -34,7 +33,6 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private translate: TranslateService,
     private errorService: AlertErrorService
   ) {
     this.currentDate = this.lastDate;
