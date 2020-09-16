@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import { Name, Star, StarError } from '@core/models';
+import { Name, Star, StarError, StarSortingOptions } from '@core/models';
 import { ConfigurationService } from '@core/services/configuration.service';
 import * as selectors from '@infra/store/selectors/stars.selectors';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
   stars: Star[] = null;
   filteredStars: Star[] = [];
+  sorting: StarSortingOptions = StarSortingOptions.NUMBER_OF_FIGURES;
   subs: Subscription[] = [];
   aboutBtnTxt = '';
   aboutVideoURL: string = null;
@@ -49,7 +50,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
         res => {
           if (res) {
             this.stars = [...res];
-            this.filterStars('');
+            this.filterStars(null);
             this.loading = false;
           } else {
             this.store.dispatch(StarsActions.BeginGetStarsAction());
@@ -88,24 +89,31 @@ export class StarsPageComponent implements OnInit, OnDestroy {
           if (starName.indexOf(searchString) !== -1) {
             return star;
           }
-        }).sort((s1, s2) => {
-          const starName1 = this.getStarNameString(s1.name);
-          const starName2 = this.getStarNameString(s2.name);
-          return starName1.indexOf(searchString) - starName2.indexOf(searchString);
-        });
+        }).sort(this.sortStars);
       } else {
-        this.filteredStars = this.stars.sort((s1, s2) => {
-          const starName1 = this.getStarNameString(s1.name);
-          const starName2 = this.getStarNameString(s2.name);
-          let comparison = 0;
-          if (starName1 > starName2) {
-            comparison = 1;
-          } else if (starName1 < starName2) {
-            comparison = -1;
-          }
-          return comparison;
-        });
+        this.filteredStars = this.stars.sort(this.sortStars);;
       }
+
+    }
+
+  }
+
+  sortStars = (star1: Star, star2: Star): number => {
+    switch (this.sorting) {
+      case StarSortingOptions.NUMBER_OF_FIGURES:
+        return - star2.figures.length - star1.figures.length;
+
+      case StarSortingOptions.NAME:
+        const starName1 = this.getStarNameString(star1.name);
+        const starName2 = this.getStarNameString(star2.name);
+        let comparison = 0;
+        if (starName1 > starName2) {
+          comparison = 1;
+        } else if (starName1 < starName2) {
+          comparison = -1;
+        }
+        return comparison;
+
     }
 
 

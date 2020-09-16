@@ -27,6 +27,11 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
 }
 
+button:focus {
+  outline: none;
+}
+
+
 .full-height {
   min-height: 100vh;
 }
