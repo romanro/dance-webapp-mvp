@@ -7,6 +7,7 @@ export interface LabItem {
     figure: Figure;
     starVideo: LabStarVideo;
     userVideo?: LabUserVideo;
+    practiceIsSaved?: boolean;
 }
 
 export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 6;

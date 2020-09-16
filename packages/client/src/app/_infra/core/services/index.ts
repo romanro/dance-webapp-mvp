@@ -10,5 +10,6 @@ export * from './stars.service';
 export * from './alert-error.service';
 export * from './practices.service'
 export * from './figures.service';
-export * from './menu.service'
-export * from './videos.service'
+export * from './menu.service';
+export * from './videos.service';
+export * from './background-processes.service';

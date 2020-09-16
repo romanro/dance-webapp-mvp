@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
-import { VideoPlayerModalComponent } from '@app/_infra/ui';
 import { Name, Star, StarError } from '@core/models';
 import { ConfigurationService } from '@core/services/configuration.service';
 import * as selectors from '@infra/store/selectors/stars.selectors';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -29,7 +27,6 @@ export class StarsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private modalService: NgbModal,
     private configService: ConfigurationService,
     private translate: TranslateService,
     private errorService: AlertErrorService
@@ -129,10 +126,12 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   }
 
   openPromoModal(starName: Name | string, promoUrl: string) {
-    const modalRef = this.modalService.open(VideoPlayerModalComponent, { size: 'xl', centered: true });
-    modalRef.componentInstance.videoURL = promoUrl;
-    modalRef.componentInstance.title = starName;
-    modalRef.componentInstance.autoplay = true;
+    /*     const modalRef = this.modalService.open(VideoPlayerModalComponent, { size: 'xl', centered: true });
+        modalRef.componentInstance.videoURL = promoUrl;
+        modalRef.componentInstance.title = starName;
+        modalRef.componentInstance.autoplay = true; */
   }
+
+
 
 }

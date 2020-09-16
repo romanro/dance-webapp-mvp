@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Star, Practice } from '@core/models';
+import { Practice, Star } from '@core/models';
 import { PracticesService } from '@core/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -11,7 +11,7 @@ import * as PracticsActions from '../actions/practices.actions';
 @Injectable()
 export class PracticesEffects {
     constructor(private action$: Actions, private practicesService: PracticesService) {
-     }
+    }
 
     getPractices$: Observable<Action> = createEffect(() =>
         this.action$.pipe(

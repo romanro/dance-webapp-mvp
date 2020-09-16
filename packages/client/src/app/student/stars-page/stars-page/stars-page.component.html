@@ -27,49 +27,7 @@
     <div class="row d-flex justify-content-center">
         <div *ngFor="let star of filteredStars"
              class="col-12 col-sm-6 col-md-3 col-lg-4">
-            <div class="star-info">
-                <div class="star-info-image">
-                    <div class="embed-responsive embed-responsive-16by9 video-preview-container"
-                         (click)="openPromoModal(star.name, star.promoVideo)">
-                        <div class="embed-responsive-item star-big-image cover-bg"
-                             [style.backgroundImage]="'url('+ star.logo.large +')'">
-                        </div>
-                        <div class="play-btn-container">
-                            <i class="icon-play"></i>
-                        </div>
-                        <div class="hover-message">
-                            {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="star-info-text">
-
-                    <h5 class="star-info-name"
-                        dsappStarName
-                        [name]="star.name"></h5>
-
-                    <p *ngIf="star.about"
-                       class="star-info-desc text-muted">{{star.about}}</p>
-                    <div *ngIf="star.achievements"
-                         class="star-info-desc star-info-achivments text-muted">
-                        <p *ngFor="let achivment of star.achievements">
-                            {{achivment}}</p>
-                    </div>
-
-                    <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
-
-                    <div class="star-info-btns">
-                        <button class="btn btn-success"
-                                [disabled]="star.figures.length === 0"
-                                [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</button>
-                    </div>
-
-                </div>
-
-            </div>
-
+            <dsapp-star-info [star]="star"></dsapp-star-info>
         </div>
 
     </div>

@@ -1,0 +1,12 @@
+<div class="bg-processes-container">
+  <div *ngFor="let process of processes"
+       [ngSwitch]="process.type"
+       class="background-process"
+       [@slideInOut]>
+    <ng-template ngSwitchCase="uploadPractice">
+      <ui-upload-practice-bg-process [process]="process"
+                                     (processCallback)="handleProcessCallback($event)">
+      </ui-upload-practice-bg-process>
+    </ng-template>
+  </div>
+</div>

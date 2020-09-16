@@ -104,7 +104,8 @@
     }
   },
   "STAR": {
-    "openTheirClasses": "open their classes",
+    "openLibrary": "open library",
+    "more": "more",
     "title": "Welcome to our Library",
     "currentChallenge": "current challenge",
     "challengeFinished": "challenge finished",
@@ -165,8 +166,14 @@
     "speed": "speed",
     "linkVideos": "link videos",
     "unlinkVideos": "unlink videos",
+    "saveToMyPractices": "Save to My Practices",
+    "MESSAGES": {
+      "uploadStarted": "Video upload has been started",
+      "uploadCompleted": "Video was successfully uploaded"
+    },
     "ERRORS": {
-      "userDurationError": "Your video is too long. Please, film video less than {{param}} seconds"
+      "userDurationError": "Your video is too long. Please, film video less than {{param}} seconds",
+      "errorUploading": "Error uploading your video. Retry?"
     }
   }
 }
