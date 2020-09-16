@@ -6,6 +6,14 @@
   .star-info-image {
     position: relative;
     @include list-item-image(40%);
+
+    @include media-breakpoint-up(md) {
+
+      padding-top: 56.25%;
+      margin-bottom: 1rem;
+    }
+
+
   }
 
   .star-info-text {
@@ -20,7 +28,7 @@
       line-height: 1.05;
 
       @include media-breakpoint-down(sm) {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -47,10 +55,25 @@
       padding: 0;
       padding-bottom: 0.5rem;
       line-height: 1;
+      overflow: hidden;
+      display: block;
+      position: relative;
+      max-width: 100%;
+
+      li {
+        @include truncate;
+        display: block;
+        max-width: 100%;
+      }
 
       button {
         padding: 0;
+        padding-left: 3px;
+        background: $white;
         line-height: 1;
+        position: absolute;
+        bottom: 6px;
+        right: 0;
       }
 
       @include media-breakpoint-down(sm) {
@@ -84,7 +107,46 @@
     padding: 5px 30px;
   }
 
-  .star-info-text {}
+  .star-info-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .star-info-name {
+      font-weight: 500;
+      margin-top: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .star-info-desc {
+      @include media-breakpoint-down(sm) {
+        font-size: 0.7rem;
+      }
+    }
+
+    .star-info-achivments {
+      display: block;
+      list-style: none;
+      border-left: 1px solid $dark;
+      padding-left: 0;
+
+      li {
+        &::before {
+          display: inline-block;
+          content: '';
+          border-top: 1px solid $dark;
+          width: 8px;
+          margin-bottom: 0.5rem;
+          margin-right: 0.3rem;
+
+          @include media-breakpoint-down(sm) {
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 .star-info-page {}

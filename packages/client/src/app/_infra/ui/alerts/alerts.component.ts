@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Alert, ALERT_TIMEOUT, AlertType } from '@infra/core/models';
 import { AlertService } from '@infra/core/services';
@@ -5,7 +6,18 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-alerts',
-  templateUrl: './alerts.component.html'
+  templateUrl: './alerts.component.html',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateY(300%)' }),
+        animate('300ms ease-in-out', style({ transform: 'translateY(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in-out', style({ transform: 'translateY(300%)' }))
+      ])
+    ])
+  ]
 })
 export class AlertsComponent implements OnInit, OnDestroy {
 

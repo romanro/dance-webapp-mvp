@@ -13,9 +13,9 @@
           <div *ngFor="let figure of level.figures"
                class="figure-preview col-12 col-sm-6 col-md-3 col-lg-4">
             <div class="figure-preview-inner">
-              <div class="preview-img-wrapper">
-                <img class="preview-img"
-                     src="{{figure.logo}}">
+              <div class="preview-img-wrapper cover-bg"
+                   [routerLink]="[figure._id]"
+                   [style.backgroundImage]="'url('+ figure.logo +')'">
               </div>
               <div class=" preview-content-wrapper">
                 <h6>{{figure.type}}</h6>

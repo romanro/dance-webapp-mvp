@@ -24,13 +24,14 @@
     <ul *ngIf="star.achievements"
         class="star-info-achivments text-muted">
       <li *ngFor="let achivment of cuttedAchivments; let i = index">
-        {{achivment}} <button *ngIf="i===1"
-                class="btn"
-                [disabled]="star.figures.length === 0"
-                [routerLink]="[star.slug]">{{'STAR.more' | translate}}
-          <i class="icon-right-open-big"></i>
-        </button>
+        {{achivment}}
       </li>
+
+      <button *ngIf="star.figures.length > 0"
+              class="btn"
+              [routerLink]="[star.slug]">{{'STAR.more' | translate}}
+        <i class="icon-right-open-big"></i>
+      </button>
     </ul>
 
     <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->

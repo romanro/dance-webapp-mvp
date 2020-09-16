@@ -39,3 +39,8 @@ export enum StarError {
     GET = 'STAR.ERRORS.getStarsError',
     GENERAL = 'ERRORS.GeneralBackendError'
 }
+
+export enum StarSortingOptions {
+    NAME = 'name',
+    NUMBER_OF_FIGURES = 'numberOfFigures'
+}
