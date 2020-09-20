@@ -139,17 +139,23 @@ select:-webkit-autofill:focus {
   width: 100%;
 }
 
-.btn.btn-dark{
+.btn.btn-dark {
   border: none;
-  &:not(:disabled).active{
+
+  &:not(:disabled).active {
     background-color: $gray-500;
   }
 }
 
-.dark-link{
+.dark-link {
   color: $dark;
   font-size: $font-size-sm;
 }
+
+.bg-dark {
+  color: $white;
+}
+
 //.tab-btn{
 //  border: red 2px solid;
 //  background-color: red;

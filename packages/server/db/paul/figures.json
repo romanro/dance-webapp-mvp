@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "5f53f50d6ffba730ca8df5fc"
+  },
+  "stars": [
+    {
+      "$oid": "5f53f2a76ffba730ca8df5fb"
+    }
+  ],
+  "videos": [
+    {
+      "$oid": "5f53f5676ffba730ca8df5fd"
+    },
+    {
+      "$oid": "5f53f64c6ffba730ca8df5fe"
+    },
+    {
+      "$oid": "5f53f67e6ffba730ca8df5ff"
+    }
+  ],
+  "type": "rumba",
+  "level": "3",
+  "name": "Opening Out",
+  "logo": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/logo.png",
+  "createdAt": {
+    "$date": "2020-09-05T20:29:01.198Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-05T20:35:10.217Z"
+  },
+  "__v": 0
+}]

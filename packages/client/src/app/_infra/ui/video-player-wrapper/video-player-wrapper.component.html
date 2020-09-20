@@ -1,73 +1,84 @@
 <div class="embed-responsive embed-responsive-16by9 video-wrapper">
-  <vg-player class="embed-responsive-item"
-             (onPlayerReady)="onPlayerReady($event)">
-    <vg-controls>
-      <vg-scrub-bar [vgSlider]="false">
-        <vg-scrub-bar-buffering-time vgFor="mainVideo">
-        </vg-scrub-bar-buffering-time>
-        <vg-scrub-bar-current-time vgFor="mainVideo"
-                                   [vgSlider]="false">
-        </vg-scrub-bar-current-time>
-      </vg-scrub-bar>
-    </vg-controls>
-    <video [vgMedia]="video"
-           [playbackRate]="playbackRate"
-           #video
-           id="mainVideo"
-           preload="auto">
-      <source [src]="src"
-              type="video/mp4">
-    </video>
-  </vg-player>
-  <div *ngIf="!synchronized"
-       class="touch-controls"
-       (tap)="onTap($event)"
-       (panstart)="onPanStart($event)"
-       (pan)="onPan($event)"></div>
-</div>
+
+     <div *ngIf="playerIsReady && !preview"
+          class="top-controls onplayer-controls">
+          <p class="time btn btn-sm">{{time}}</p>
+
+          <ui-player-speed-controls *ngIf="!synchronized"
+                                    [playbackRate]="playbackRate"
+                                    (changePLayBackRate)="changePLayBackRate($event)">
+          </ui-player-speed-controls>
+
+     </div>
 
 
-<div *ngIf="playerIsReady"
-     class="player-controls">
 
-  <div class="controls-row">
-    <p>{{time}}</p>
-  </div>
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="togglePlay()">
-      <span *ngIf="!playerIsPlaying">PLAY</span>
-      <span *ngIf="playerIsPlaying">PAUSE</span>
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="jump('bwd')">
-      << BWD</button>
-         <button
-         class="btn btn-info btn-sm"
-         (click)="jump('fwd')">FWD >>
-    </button>
+     <vg-player class="embed-responsive-item"
+                (onPlayerReady)="onPlayerReady($event)">
 
-    <button class="btn btn-danger btn-sm"
-            (click)="stop()">STOP</button>
-  </div>
+          <vg-overlay-play *ngIf="playerIsReady && preview"
+                           vgFor="mainVideo">
+          </vg-overlay-play>
 
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('plus')">
-      +
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('minus')">
-      -
-    </button>
-    <span>{{playbackRate}}</span>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('def')">
-      Default
-    </button>
-  </div>
+          <vg-controls *ngIf="playerIsReady && preview"
+                       [vgAutohide]="true"
+                       [vgAutohideTime]="2">
+               <vg-play-pause vgFor="mainVideo"></vg-play-pause>
+               <vg-fullscreen vgFor="mainVideo"></vg-fullscreen>
+          </vg-controls>
+
+          <vg-controls *ngIf="playerIsReady && !synchronized && !preview"
+                       [vgAutohide]="true"
+                       [vgAutohideTime]="20">
 
 
+               <ui-player-controls *ngIf="playerIsReady"
+                                   [playing]="playerIsPlaying"
+                                   (toggleVideos)="togglePlay()"
+                                   (jump)="jump($event)"
+                                   (stop)="stop()"></ui-player-controls>
+
+
+               <div *ngIf="playerIsReady"
+                    class="right-side-controls">
+
+                    <a class="btn btn-sm btn-link"
+                       (click)="clearVideo()">{{'LAB.removeVideo' | translate}}</a>
+
+               </div>
+
+
+               <vg-scrub-bar [vgSlider]="false">
+                    <vg-scrub-bar-buffering-time vgFor="mainVideo">
+                    </vg-scrub-bar-buffering-time>
+                    <vg-scrub-bar-current-time vgFor="mainVideo"
+                                               [vgSlider]="false">
+                    </vg-scrub-bar-current-time>
+               </vg-scrub-bar>
+
+
+          </vg-controls>
+          <video [vgMedia]="video"
+                 [playbackRate]="playbackRate"
+                 [poster]="poster"
+                 #video
+                 id="mainVideo"
+                 preload="auto"
+                 playsinline
+                 webkit-playsinline>
+               <source *ngIf="src"
+                       [src]="src"
+                       type="video/mp4">
+          </video>
+     </vg-player>
+
+     <ng-template [ngIf]="!playerIsReady">
+          <ui-preloader-inapp></ui-preloader-inapp>
+     </ng-template>
+
+     <div *ngIf="!synchronized && !preview"
+          class="touch-controls"
+          (tap)="onTap($event)"
+          (panstart)="onPanStart($event)"
+          (pan)="onPan($event)"></div>
 </div>

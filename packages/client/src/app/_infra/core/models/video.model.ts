@@ -1,17 +1,29 @@
+import { SafeUrl } from '@angular/platform-browser';
+
+import { Figure } from './figure.model';
 
 
 export interface Video {
-    _id:string,
-    name: string,
-    associatedObject: any,
-    ownerUser: string,
-    associatedModel: string,
-    ownerRole: number,
-    key: string,
-    type: string,
-    createdAt: string,
-    updatedAt: string,
-    __v: number
+    _id: string;
+    name: string;
+    path: string;
+    view?: View;
+    participatesAmount?: ParticipatesAmount;
+    associatedObject: string;
+    associatedModel: AssociateType;
+    ownerUser?: string;
+    ownerRole: number;
+    type: VideoType;
+    thumbnail?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number
+}
+
+export interface UploadVideoData {
+    name: string;
+    associatedObject: string,
+    video: File
 }
 
 export enum View {
@@ -33,21 +45,37 @@ export enum VideoType {
     // the following states are used for star only
     PROMO = 'promo',
     BASIC_PRINCIPLES = 'basicPrinciples',
-    ADDITIONAL = 'additional',
+    TIPS = 'tips',
+    EXERCISES = 'exercises',
 
     // the following states are shared for star and user
     COMPARABLE = 'comparable'
 }
 
 export class LabStarVideo implements Video {
+    _id: string;
     name: string;
-    key: string;
+    path: string;
     view: View;
     thumbnail: string;
     participatesAmount: ParticipatesAmount;
     associatedObject: string;
-    associatedModel: AssociateType = AssociateType.VIDEO;
+    associatedModel: AssociateType = AssociateType.FIGURE;
     ownerUser: string;
     ownerRole: number;
     type: VideoType = VideoType.COMPARABLE;
 }
+
+export class LabUserVideo {
+    name?: string;
+    path?: string | SafeUrl;
+    file?: File;
+    readonly type: VideoType = VideoType.COMPARABLE;
+
+    constructor(init?: Partial<LabUserVideo>) {
+        Object.assign(this, init);
+    }
+}
+
+
+

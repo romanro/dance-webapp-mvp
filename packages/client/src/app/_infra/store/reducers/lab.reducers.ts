@@ -13,6 +13,10 @@ const reducer = createReducer(
         return { ...state, labItem: payload, error: null };
     }),
 
+    on(LabActions.UpdateLabAction, (state: LabState, { payload }) => {
+        return { ...state, labItem: payload, error: null };
+    }),
+
     on(LabActions.ClearLabAction, state => {
         return { labItem: null, error: null };
     })
