@@ -104,24 +104,6 @@ const check_if_user_name_exists = (email: string) => (
 );
 
 export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
-  const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
-  if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push(PASSWORD_SHORT);
-  if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push(PASSWORD_MISMATCH);
-
-  if (validationErrors.length > 0) {
-    return res.json({
-      success: false,
-      errors: validationErrors
-    });
-  }
-  req.body.email = validator.normalizeEmail(req.body.email, {
-    gmail_remove_dots: false
-  });
-
-
   const user = new User({
     email: req.body.email,
     password: req.body.password,
