@@ -5,6 +5,7 @@ import { buildVideoFromRequest, associateVideoWithStarVideo, disassociateVideoFr
 import PracticeItem, { IPracticeItem } from '../models/PracticeItem';
 import { IVideo } from '../models/Video';
 import { awsDelete } from '../services/aws';
+import HttpException from '../shared/exceptions';
 
 /**
  * GET /
@@ -39,7 +40,8 @@ export const getPracticeItemById = async (practiceItemId: string): Promise<IPrac
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
-                    reject(new Error("Practice item not found"));
+                    reject(new HttpException(404, "Practice item not found"));
+
                 } else {
                     resolve(practiceItem);
                 }
@@ -101,7 +103,7 @@ const deletePracticeItemFromDb = (id: string): Promise<IPracticeItem> => (
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
-                    reject(new Error("Practice item not found"));
+                    reject(new HttpException(404, "Practice item not found"));
                 } else {
                     resolve(practiceItem);
                 }

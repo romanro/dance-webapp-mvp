@@ -1,22 +1,24 @@
 import express, { Request, Response, NextFunction } from "express";
 import {
     getVerifyEmail, getVerifyEmailToken, patchUpdatePassword,
-    patchUpdateProfile, postDeleteAccount, getProfileInfo
+    patchUpdateProfile, getProfileInfo
 } from '../controllers/user';
 import { addPracticeItem, deletePracticeItem, getPracticeItems, getPracticeItem } from "../controllers/practice"
 import asyncHandler from 'express-async-handler';
 import { awsUserUpload } from "../services/aws";
+import { rules_updatePassword, rules_verifyEmailToken } from "../middleware/rules/account";
+import { validate } from "../middleware/validation";
 
 const router = express.Router();
 
 router.get('/verify', asyncHandler(getVerifyEmail));
-router.get('/verify/:token', asyncHandler(getVerifyEmailToken));
+router.get('/verify/:token', rules_verifyEmailToken, validate, asyncHandler(getVerifyEmailToken));
 
 router.get('/profile', asyncHandler(getProfileInfo));
-router.patch('/profile', asyncHandler(patchUpdateProfile));
-router.patch('/password', asyncHandler(patchUpdatePassword));
-router.post('/delete', asyncHandler(postDeleteAccount));
+router.patch('/profile', asyncHandler(patchUpdateProfile)); // TODO: validation is needed
+router.patch('/password', rules_updatePassword, validate, asyncHandler(patchUpdatePassword));
 
+ // TODO: validation is needed:
 router.get('/practices', asyncHandler(getPracticeItems));
 router.get('/practices/:practiceItemId', asyncHandler(getPracticeItem));
 router.post('/practices', awsUserUpload.single('video'), asyncHandler(addPracticeItem));

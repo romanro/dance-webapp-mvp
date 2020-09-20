@@ -1,44 +1,16 @@
 import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
+import { Error } from 'mongoose';
 import { promisify } from 'util';
-import validator from 'validator';
 
 import User, { IUser } from '../models/User';
 import { sendForgotPasswordEmail, sendResetPasswordEmail, sendVerifyEmail } from '../services/email';
+import { Errors } from '../shared/erros';
 import { HttpException } from '../shared/exceptions';
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
 const DEFAULT_BIRTH_DATE = '1990-12-31T00:00:00.000Z';
-
-const NON_EXISTING_USER = {
-  code: 'NON_EXISTING_USER',
-  msg: 'User does not exist'
-};
-
-const INVALID_TOKEN = {
-  code: 'INVALID_TOKEN',
-  msg: 'Invalid token, please retry'
-};
-
-const INVALID_EMAIL = {
-  code: 'INVALID_EMAIL',
-  msg: 'Invalid email'
-};
-
-const PASSWORD_SHORT = {
-  code: 'PASSWORD_SHORT',
-  msg: 'Password must be at least 8 characters long'
-};
-const PASSWORD_MISMATCH = {
-  code: 'PASSWORD_MISMATCH',
-  msg: 'Passwords do not match'
-};
-
-const USER_EXISTS = {
-  code: 'USER_EXISTS',
-  msg: 'This user already exists'
-}
 
 /**
  * POST /login
@@ -46,21 +18,6 @@ const USER_EXISTS = {
  */
 
 export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-  const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push(INVALID_EMAIL);
-  if (validator.isEmpty(req.body.password))
-    validationErrors.push({ code: 'BLANK_PASSWORD' });
-
-  if (validationErrors.length > 0) {
-    return res.json({
-      success: false,
-      errors: validationErrors
-    });
-  }
-  req.body.email = validator.normalizeEmail(req.body.email, {
-    gmail_remove_dots: false
-  });
-
   const user = await User.findByCredentials(req.body.email, req.body.password);
   const tokens = await user.generateAuthToken();
 
@@ -131,26 +88,14 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
  * PATCH /account/profile
  * Update profile information.
  */
-export const patchUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
-  const validationErrors = [];
-  // if (!req.body.email || !validator.isEmail(req.body.email))
-  //   validationErrors.push({ msg: 'Please enter a valid email address.' });
-
-  // if (validationErrors.length > 0) {
-  //   req.flash('errors', validationErrors.join(", "));
-  //   return res.redirect('/account');
-  // }
-
-  // req.body.email = validator.normalizeEmail(req.body.email, {
-  //   gmail_remove_dots: false
-  // });
-
-  const updateOps: any = {}; // TODO: any
+export const patchUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user;
 
   // TODO: email cannot be changed (?)
   // if (user.email !== req.body.email) user.emailVerified = false;
   // user.email = req.body.email || '';
-  updateOps.profile = {
+
+  user.profile = {
     name: req.body.name || '',
     gender: req.body.gender || '',
     language: req.body.language || '',
@@ -160,30 +105,11 @@ export const patchUpdateProfile = (req: Request, res: Response, next: NextFuncti
     about: req.body.about || ''
   };
 
-  // TODO: runValidators doesnt work?
-  User.findOneAndUpdate({ _id: req.user.id }, { $set: updateOps }, { runValidators: true })
-    .exec()
-    .then(user => {
-      if (!user) {
-        return res.json({
-          success: false,
-          errors: [
-            {
-              code: 'NON_EXISTING_USER',
-              msg: 'User does not exist'
-            }
-          ]
-        });
-      }
-      else {
-        return res.json({
-          success: true,
-        });
-      }
-    })
-    .catch(err => {
-      next(err);
-    });
+  await user.save();
+
+  return res.json({
+    success: true,
+  });
 }
 
 
@@ -209,58 +135,14 @@ export const getProfileInfo = async (req: Request, res: Response, next: NextFunc
  * PATCH /account/password
  * Update current password.
  */
-export const patchUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
-  const validationErrors = [];
-  if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push({
-      msg: 'Password must be at least 8 characters long'
-    });
-  if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({ msg: 'Passwords do not match' });
+export const patchUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user;
+  user.password = req.body.password;
 
-  if (validationErrors.length > 0) {
-    req.flash('errors', validationErrors.join(", "));
-    return res.redirect('/account');
-  }
-
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.json({
-        success: false,
-        errors: [
-          {
-            code: 'NON_EXISTING_USER',
-            msg: 'User does not exist'
-          }
-        ]
-      });
-    }
-    user.password = req.body.password;
-    user.save(err => {
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', 'Password has been changed.');
-      res.redirect('/account');
-    });
-  });
-};
-
-/**
- * POST /account/delete
- * Delete user account.
- */
-export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
-  User.deleteOne({ _id: req.user.id }, err => {
-    if (err) {
-      return next(err);
-    }
-    req.logout();
-    req.flash('info', 'Your account has been deleted.');
-    res.redirect('/');
+  await user.save();
+  return res.json({
+    success: true,
+    message: "Password has been changed",
   });
 };
 
@@ -270,31 +152,25 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  * Reset Password page.
  */
 export const getReset = async (req: Request, res: Response, next: NextFunction) => {
-  if (!validator.isHexadecimal(req.params.token)) {
+  const user = await User.findOne({ passwordResetToken: req.params.token })
+    .where('passwordResetExpires')
+    .gt(Date.now())
+    .exec();
+
+  if (!user) {
     return res.json({
       success: false,
-      errors: [INVALID_TOKEN]
+      errors: [{
+        value: req.params.token,
+        msg: Errors.NON_EXISTING_USER,
+        param: "token",
+        location: "params"
+      }]
     });
   }
-
-  try {
-    const user = await User.findOne({ passwordResetToken: req.params.token })
-      .where('passwordResetExpires')
-      .gt(Date.now())
-      .exec();
-
-    if (!user) {
-      return res.json({
-        success: false,
-        errors: [NON_EXISTING_USER]
-      });
-    }
-    return res.json({
-      success: true
-    });
-  } catch (error) {
-    return next(error);
-  }
+  return res.json({
+    success: true
+  });
 };
 
 /**
@@ -302,49 +178,29 @@ export const getReset = async (req: Request, res: Response, next: NextFunction) 
  * Verify email address with an existing token
  */
 export const getVerifyEmailToken = async (req: Request, res: Response, next: NextFunction) => {
-  if (req.user.emailVerified) {
+  const user = req.user;
+
+  if (user.emailVerified) {
     return res.json({
       success: false,
-      errors: [
-        {
-          code: 'ALREADY_VERIFIED',
-          msg: 'The email address was already verified'
-        }
-      ]
+      errors: [{ msg: Errors.ALREADY_VERIFIED }]
     });
   }
 
-  if (req.params.token && !validator.isHexadecimal(req.params.token))
+  if (req.params.token !== user.emailVerificationToken) {
     return res.json({
       success: false,
-      errors: [INVALID_TOKEN]
-    });
-
-  if (req.params.token !== req.user.emailVerificationToken) {
-    return res.json({
-      success: false,
-      errors: [INVALID_TOKEN]
-    });
+      errors: [{ msg: Errors.TOKEN_MISMATCH }]
+    })
   }
 
-  try {
-    const user = await User.findOne({ email: req.user.email });
-    if (!user) {
-      return res.json({
-        success: false,
-        errors: [NON_EXISTING_USER]
-      });
-    }
+  user.emailVerificationToken = '';
+  user.emailVerified = true;
+  await user.save();
 
-    user.emailVerificationToken = '';
-    user.emailVerified = true;
-    await user.save();
-    return res.json({
-      success: true
-    });
-  } catch (error) {
-    return next(error);
-  }
+  return res.json({
+    success: true
+  });
 };
 
 /**
@@ -352,51 +208,20 @@ export const getVerifyEmailToken = async (req: Request, res: Response, next: Nex
  * Verify email address
  */
 export const getVerifyEmail = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    await verifyUserEmail(req.user);
-    return res.json({
-      success: true
-    });
-  } catch (error) {
-    switch (error) {
-      case 'ALREADY_VERIFIED_EMAIL':
-        return res.json({
-          success: false,
-          errors: [
-            {
-              code: 'ALREADY_VERIFIED_EMAIL',
-              msg: 'Account email already verified'
-            }
-          ]
-        });
-      case 'INVALID_EMAIL':
-        return res.json({
-          success: false,
-          errors: [INVALID_EMAIL]
-        });
-      default:
-        return next(error);
-    }
-  }
+  await verifyUserEmail(req.user);
+  return res.json({
+    success: true
+  });
 };
 
 const verifyUserEmail = async (user: IUser) => {
   if (user.emailVerified) {
-    throw new Error('ALREADY_VERIFIED_EMAIL');
+    throw new HttpException(409, Errors.ALREADY_VERIFIED)
   }
-
-  if (!validator.isEmail(user.email)) {
-    throw new Error('INVALID_EMAIL');
-  }
-
   const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
 
-  const dbUser = await User.findOne({ email: user.email });
-  if (!dbUser) {
-    throw new Error('UKNOWN_USER');
-  }
-  dbUser.emailVerificationToken = token;
-  await dbUser.save();
+  user.emailVerificationToken = token;
+  await user.save();
   await sendVerifyEmail(user.email, token);
 };
 
@@ -405,46 +230,34 @@ const verifyUserEmail = async (user: IUser) => {
  * Process the reset password request.
  */
 export const postReset = async (req: Request, res: Response, next: NextFunction) => {
-  const validationErrors = [];
-  if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push(PASSWORD_SHORT);
-  if (req.body.password !== req.body.confirm)
-    validationErrors.push(PASSWORD_MISMATCH);
-  if (!validator.isHexadecimal(req.params.token))
-    validationErrors.push(INVALID_TOKEN);
+  const user = await User.findOne({ passwordResetToken: req.params.token })
+    .where('passwordResetExpires')
+    .gt(Date.now())
+    .exec();
 
-  if (validationErrors.length > 0) {
+  if (!user) {
     return res.json({
       success: false,
-      errors: validationErrors
+      errors: [{
+        value: req.params.token,
+        msg: Errors.NON_EXISTING_USER,
+        param: "token",
+        location: "params"
+      }]
     });
   }
-  try {
-    const user = await User.findOne({ passwordResetToken: req.params.token })
-      .where('passwordResetExpires')
-      .gt(Date.now())
-      .exec();
+  user.password = req.body.password;
+  user.passwordResetToken = "";
+  user.passwordResetExpires = 0;
 
-    if (!user) {
-      return res.json({
-        success: false,
-        errors: [INVALID_TOKEN]
-      });
-    }
-    user.password = req.body.password;
-    user.passwordResetToken = "";
-    user.passwordResetExpires = 0;
-    const dbUser = await user.save();
-    await sendResetPasswordEmail(user.email);
-    const tokens = await user.generateAuthToken();
+  await user.save();
+  await sendResetPasswordEmail(user.email);
+  const tokens = await user.generateAuthToken();
 
-    return res.json({
-      success: true,
-      data: tokens
-    });
-  } catch (error) {
-    return next(error);
-  }
+  return res.json({
+    success: true,
+    data: tokens
+  });
 };
 
 /**
@@ -452,30 +265,14 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
  * Create a random token, then the send user an email with a reset link.
  */
 export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
-  if (!validator.isEmail(req.body.email)) {
-    return res.json({
-      success: false,
-      errors: [INVALID_EMAIL]
-    });
-  }
-
-  req.body.email = validator.normalizeEmail(req.body.email, {
-    gmail_remove_dots: false
-  });
-
   try {
     const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
 
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
+      // TODO: security issue
       return res.json({
-        success: false,
-        errors: [
-          {
-            code: 'NON_EXISTING_USER',
-            msg: 'User does not exist'
-          }
-        ]
+        success: true
       });
     }
 
@@ -483,6 +280,7 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
     user.passwordResetExpires = Date.now() + 3600000; // 1 hour
     await user.save();
     await sendForgotPasswordEmail(user, token);
+
     return res.json({
       success: true
     });

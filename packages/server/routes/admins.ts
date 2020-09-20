@@ -8,6 +8,8 @@ import { listS3Object, addS3Object, deleteS3Object,addStar, removeStar, addVideo
 
 const router = express.Router();
 
+ // TODO: validation is needed:
+
 // S3 videos
 router.post('/videos', awsAdminUpload.single('video'), asyncHandler(addVideo));
 router.delete('/videos/:videoId', asyncHandler(deleteVideo));
