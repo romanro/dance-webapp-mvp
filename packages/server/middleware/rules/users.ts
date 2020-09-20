@@ -27,6 +27,6 @@ export const rules_signup = [
 ]
 
 export const rules_login = [
-    body("user_name", Errors.INVALID_USER_NAME).notEmpty(),
+    body("email", Errors.INVALID_EMAIL).notEmpty(),
     body("password", Errors.INVALID_PASSWORD).notEmpty(),
 ]
