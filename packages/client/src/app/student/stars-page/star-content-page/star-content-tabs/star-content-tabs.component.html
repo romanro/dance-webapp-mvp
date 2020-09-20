@@ -11,7 +11,8 @@
                        let-dance
                        [ngForOf]="content.dances">
             <li ngbNavItem>
-              <a ngbNavLink class="btn btn-dark">{{dance.type}}</a>
+              <a ngbNavLink
+                 class="btn btn-dark">{{dance.type}}</a>
               <ng-template ngbNavContent>
 
                 <dsapp-levels-tabs [levels]="dance.levels"></dsapp-levels-tabs>
@@ -22,9 +23,6 @@
 
         </ul>
 
-        <!--       <div class="col">
-        {{content.dances | json}}
-      </div> -->
       </div>
     </div>
 

@@ -30,9 +30,9 @@
             <div class="star-info">
                 <div class="star-info-image">
                     <div class="embed-responsive embed-responsive-16by9 video-preview-container"
-                         (click)="openPromoModal(star.name, star.promoVideoURL)">
+                         (click)="openPromoModal(star.name, star.promoVideo)">
                         <div class="embed-responsive-item star-big-image cover-bg"
-                             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                             [style.backgroundImage]="'url('+ star.logo.large +')'">
                         </div>
                         <div class="play-btn-container">
                             <i class="icon-play"></i>
@@ -50,13 +50,20 @@
                         dsappStarName
                         [name]="star.name"></h5>
 
-                    <p class="star-info-desc text-muted">{{star.about}}</p>
+                    <p *ngIf="star.about"
+                       class="star-info-desc text-muted">{{star.about}}</p>
+                    <div *ngIf="star.achievements"
+                         class="star-info-desc star-info-achivments text-muted">
+                        <p *ngFor="let achivment of star.achievements">
+                            {{achivment}}</p>
+                    </div>
 
                     <!-- <dsapp-tags-holder [tags]="star.tags"></dsapp-tags-holder> -->
 
                     <div class="star-info-btns">
-                        <a class="btn btn-success"
-                           [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</a>
+                        <button class="btn btn-success"
+                                [disabled]="star.figures.length === 0"
+                                [routerLink]="[star.slug]">{{'STAR.openTheirClasses' | translate}}</button>
                     </div>
 
                 </div>

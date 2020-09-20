@@ -1,7 +1,8 @@
 <ng-template [ngIf]="star && !loading">
     <div class="row d-flex justify-content-center">
         <div class="col-12">
-            <a class="btn-link dark-link" [routerLink]="['../']">
+            <a class="btn-link dark-link"
+               [routerLink]="['../']">
                 <i class="icon-arrow-left"></i>
                 {{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}
             </a>
@@ -10,9 +11,9 @@
             <div class="star-info-vertical">
                 <div class="star-info-image">
                     <div class="embed-responsive embed-responsive-16by9 video-preview-container"
-                         (click)="openPromoModal(star.name, star.promoVideoURL)">
+                         (click)="openPromoModal(star.name, star.promoVideo)">
                         <div class="embed-responsive-item star-big-image cover-bg"
-                             [style.backgroundImage]="'url('+ star.userPics.largePicURL +')'">
+                             [style.backgroundImage]="'url('+ star.logo.large +')'">
                         </div>
                         <div class="play-btn-container">
                             <i class="icon-play"></i>
@@ -29,7 +30,13 @@
                         dsappStarName
                         [name]="star.name"></h5>
 
-                    <p class="star-info-desc text-muted">{{star.about}}</p>
+                    <p *ngIf="star.about"
+                       class="star-info-desc text-muted">{{star.about}}</p>
+                    <ul *ngIf="star.achievements"
+                        class="star-info-desc star-info-achivments text-muted text-left">
+                        <li *ngFor="let achivment of star.achievements">
+                            {{achivment}}</li>
+                    </ul>
                 </div>
 
             </div>

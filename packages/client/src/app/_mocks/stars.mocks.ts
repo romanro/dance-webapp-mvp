@@ -1,6 +1,6 @@
 import { Star, StarBasicInfo } from '@core/models';
 
-export const MOCK_STARS: Array<Star> = [
+export const MOCK_STARS: Array<any> = [
     {
         _id: '1',
         name: {

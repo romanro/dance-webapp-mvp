@@ -1,7 +1,76 @@
 <div class="embed-responsive embed-responsive-16by9 video-wrapper">
+
+  <div *ngIf="playerIsReady && !preview"
+       class="top-controls onplayer-controls">
+    <p class="time btn btn-sm">{{time}}</p>
+
+    <div *ngIf="!synchronized"
+         class="speed-controls">
+
+      <span>{{'LAB.speed' | translate}}:</span>
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('minus')">
+        <i class="icon-minus-1"></i>
+      </button>
+      <span class="btn btn-sm">{{playbackRate}}</span>
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('plus')">
+        <i class="icon-plus-1"></i>
+      </button>
+
+      <button class="btn btn-sm"
+              (click)="changePLayBackRate('def')">
+        <i class="icon-restart"></i>
+      </button>
+
+    </div>
+  </div>
+
+
+
+
+
   <vg-player class="embed-responsive-item"
              (onPlayerReady)="onPlayerReady($event)">
-    <vg-controls>
+
+    <vg-overlay-play *ngIf="preview"
+                     vgFor="mainVideo">
+    </vg-overlay-play>
+
+    <vg-controls *ngIf="!synchronized"
+                 [vgAutohide]="true"
+                 [vgAutohideTime]="preview? 2: 20">
+
+
+      <div class="left-side-controls">
+
+        <vg-play-pause vgFor="mainVideo">
+        </vg-play-pause>
+
+        <ng-template [ngIf]="playerIsReady && !preview">
+          <div role="button"
+               class="icon icon-prew"
+               (click)="jump('bwd')"></div>
+          <div role="button"
+               class="icon icon-next"
+               (click)="jump('fwd')"></div>
+
+          <div role="button"
+               class="icon vg-icon-stop"
+               (click)="stop()"></div>
+        </ng-template>
+
+      </div>
+
+      <div class="right-side-controls">
+
+        <a class="btn btn-sm btn-link"
+           (click)="clearVideo()">{{'LAB.removeVideo' | translate}}</a>
+
+      </div>
+
+
+
       <vg-scrub-bar [vgSlider]="false">
         <vg-scrub-bar-buffering-time vgFor="mainVideo">
         </vg-scrub-bar-buffering-time>
@@ -9,65 +78,26 @@
                                    [vgSlider]="false">
         </vg-scrub-bar-current-time>
       </vg-scrub-bar>
+
+      <vg-fullscreen *ngIf="preview"
+                     vgFor="mainVideo"></vg-fullscreen>
     </vg-controls>
     <video [vgMedia]="video"
            [playbackRate]="playbackRate"
+           [poster]="poster"
            #video
            id="mainVideo"
-           preload="auto">
-      <source [src]="src"
+           preload="auto"
+           playsinline
+           webkit-playsinline>
+      <source *ngIf="src"
+              [src]="src"
               type="video/mp4">
     </video>
   </vg-player>
-  <div *ngIf="!synchronized"
+  <div *ngIf="!synchronized && !preview"
        class="touch-controls"
        (tap)="onTap($event)"
        (panstart)="onPanStart($event)"
        (pan)="onPan($event)"></div>
-</div>
-
-
-<div *ngIf="playerIsReady"
-     class="player-controls">
-
-  <div class="controls-row">
-    <p>{{time}}</p>
-  </div>
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="togglePlay()">
-      <span *ngIf="!playerIsPlaying">PLAY</span>
-      <span *ngIf="playerIsPlaying">PAUSE</span>
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="jump('bwd')">
-      << BWD</button>
-         <button
-         class="btn btn-info btn-sm"
-         (click)="jump('fwd')">FWD >>
-    </button>
-
-    <button class="btn btn-danger btn-sm"
-            (click)="stop()">STOP</button>
-  </div>
-
-  <div *ngIf="!synchronized"
-       class="controls-row">
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('plus')">
-      +
-    </button>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('minus')">
-      -
-    </button>
-    <span>{{playbackRate}}</span>
-    <button class="btn btn-info btn-sm"
-            (click)="changePLayBackRate('def')">
-      Default
-    </button>
-  </div>
-
-
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Figure, LabItem, Star, Video, VideoType } from '@app/_infra/core/models';
+import { Figure, LabItem, LabStarVideo, Star, Video, VideoType } from '@app/_infra/core/models';
 import * as FigureActions from '@app/_infra/store/actions/figures.actions';
 import * as StarsActions from '@app/_infra/store/actions/stars.actions';
 import { VideoPlayerModalComponent } from '@app/_infra/ui';
@@ -89,12 +89,17 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
         case VideoType.COMPARABLE:
           this.comparableVideos.push(video);
           break;
-        case VideoType.ADDITIONAL:
+        case VideoType.TIPS:
+          this.additionalVideos.push(video);
+          // TODO: add additional video functionality
+          break;
+        case VideoType.EXERCISES:
           this.additionalVideos.push(video);
           // TODO: add additional video functionality
           break;
       }
     })
+
   }
 
   learnPrinciples(url: string, name: string): void {
@@ -104,11 +109,11 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.autoplay = true;
   }
 
-  openInLab(video: Video): void {
+  openInLab(starVideo: LabStarVideo): void {
     const labItem: LabItem = {
       star: this.star,
       figure: this.figure,
-      video
+      starVideo
     }
     this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
 

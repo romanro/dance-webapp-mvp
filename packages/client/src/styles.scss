@@ -20,6 +20,7 @@
 @import 'styles/pages/global-inner-pages';
 @import 'styles/pages/login';
 @import 'styles/pages/404';
+@import 'styles/pages/lab';
 
 /* custom elements stylings */
 
@@ -31,6 +32,9 @@
 @import 'styles/elements/player';
 @import 'styles/elements/tags';
 @import 'styles/elements/logo';
+@import 'styles/elements/icon-btns';
+@import 'styles/elements/step-number';
+
 /* custom pages stylings */
 @import 'styles/pages/login';
 @import 'styles/pages/404';

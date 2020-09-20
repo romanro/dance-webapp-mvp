@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthRestResponse, RestResponse } from '@app/_infra/core/models';
+import * as LabActions from '@infra/store/actions//lab.actions';
 import * as UserActions from '@infra/store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'angularx-social-login';
@@ -32,11 +33,11 @@ export class LoginService {
       .post<AuthRestResponse>('login', { email, password })
       .subscribe(
         res => {
-          if (res.tokens) {
-            this.tokenService.storeTokens(res.tokens);
+          if (res.success) {
+            this.tokenService.storeTokens(res.data);
             this.afterLoginRoute();
 
-          } else if (res.message) {
+          } else if (!res.success && res.message) {
             const errorStr = `${res.message}`;
             this.alertService.error(errorStr);
           } else {
@@ -62,6 +63,7 @@ export class LoginService {
 
   logout(showMsg = true) {
     this.store.dispatch(UserActions.ClearUserAction());
+    this.store.dispatch(LabActions.ClearLabAction());
     this.tokenService.deleteStoredTokens();
     if (showMsg) {
       this.alertService.info('LOGIN.LogOutMsg');
@@ -88,9 +90,9 @@ export class LoginService {
       .pipe(
         tap(
           res => {
-            if (res.tokens) {
-              this.tokenService.storeTokens(res.tokens);
-            } else if (res.message) {
+            if (res.success) {
+              this.tokenService.storeTokens(res.data);
+            } else if (!res.success && res.message) {
               const errorStr = `${res.message}`;
               this.alertService.error(errorStr);
             } else {
