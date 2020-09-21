@@ -25,6 +25,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   loading = true;
   errorMsg: StarError | string = null;
   search: FormControl;
+  searchString: string;
 
   constructor(
     private store: Store<any>,
@@ -79,6 +80,8 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { this.subs.forEach(s => s.unsubscribe()); }
 
   filterStars(searchString: string) {
+
+    this.searchString = searchString;
 
     if (this.stars) {
       this.loading = true;

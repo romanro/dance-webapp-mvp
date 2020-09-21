@@ -24,10 +24,21 @@
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center">
+    <div *ngIf="filteredStars.length > 0"
+         class="row d-flex justify-content-center">
         <div *ngFor="let star of filteredStars"
              class="col-12 col-md-6 col-lg-4">
             <dsapp-star-info [star]="star"></dsapp-star-info>
+        </div>
+
+    </div>
+
+    <div *ngIf="filteredStars.length === 0"
+         class="row">
+        <div class="col pt-2">
+            <p class="text-muted">
+                {{'ERRORS.noSerchResults' | translate:{param:searchString} }}
+            </p>
         </div>
 
     </div>
