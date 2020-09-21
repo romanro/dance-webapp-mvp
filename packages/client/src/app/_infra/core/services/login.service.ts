@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthRestResponse, RestResponse } from '@app/_infra/core/models';
-import * as LabActions from '@infra/store/actions//lab.actions';
-import * as UserActions from '@infra/store/actions/user.actions';
+import * as GlobalActions from '@infra/store/actions/global.actions';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
@@ -62,8 +61,7 @@ export class LoginService {
   }
 
   logout(showMsg = true) {
-    this.store.dispatch(UserActions.ClearUserAction());
-    this.store.dispatch(LabActions.ClearLabAction());
+    this.store.dispatch(GlobalActions.Logout());
     this.tokenService.deleteStoredTokens();
     if (showMsg) {
       this.alertService.info('LOGIN.LogOutMsg');
