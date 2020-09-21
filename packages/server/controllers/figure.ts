@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import Figure, { IFigure } from '../models/Figure';
 import Star, { IStar } from '../models/Star';
 import { EnumDanceLevel, EnumDanceType } from '../shared/enums';
+import HttpException from '../shared/exceptions';
 
 const getFigureById = async (figureId: string): Promise<IFigure> => (
     new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ const getFigureById = async (figureId: string): Promise<IFigure> => (
             .exec()
             .then(figure => {
                 if (!figure) {
-                    reject(new Error("Figure not found"));
+                    reject(new HttpException(404, "Figure not found"));
                 } else {
                     resolve(figure);
                 }
@@ -31,8 +32,6 @@ export const getFigure = async (req: Request, res: Response, next: NextFunction)
     });
 }
 
-// TODO: find by name or by ID?
-
 const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level: EnumDanceLevel): Promise<IFigure[]> => (
     new Promise((resolve, reject) => {
         Star.findById(starId)
@@ -40,7 +39,7 @@ const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level
             .exec()
             .then(star => {
                 if (!star) {
-                    reject(new Error("Star not found")); // TODO: http exception 404?
+                    reject(new HttpException(404, "Star not found"));
                 } else {
                     const figures = star.figures as [IFigure];
                     resolve(figures.filter((figure) => (figure.type == type) && (figure.level == level)));
@@ -74,7 +73,7 @@ const getAllStarFigures = async (starId: string): Promise<IStar[]> => (
             .exec()
             .then(star => {
                 if (!star) {
-                    reject(new Error("Star not found")); // TODO: http exception 404?
+                    reject(new HttpException(404, "Star not found"));
                 } else {
                     resolve(star.figures);
                 }

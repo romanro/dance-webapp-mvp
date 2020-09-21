@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from '../config/jwt';
 import User from '../models/User';
+import { Errors } from '../shared/erros';
+import HttpException from '../shared/exceptions';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -12,7 +14,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         const decoded: any = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken);
         const user = await User.findById(decoded._id).exec();
         if (!user) {
-            throw new Error("Auth failed: user not found")
+            throw new HttpException(404, "User not found")
         }
 
         req.user = user;

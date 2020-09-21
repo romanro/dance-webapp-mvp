@@ -7,6 +7,7 @@ import { EnumAssociateModel, EnumRole } from '../shared/enums';
 import { awsDelete, awsListObjects } from '../services/aws';
 import { deleteVideoFromDb, disassociateVideoFromCollection } from './video'
 import Star, { IStar } from '../models/Star';
+import { HttpException } from '../shared/exceptions';
 
 
 /**
@@ -189,7 +190,7 @@ const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> =
             .exec()
             .then(deletedFigure => {
                 if (!deletedFigure) {
-                    reject(new Error("Figure not found"));
+                    reject(new HttpException(404, "Figure not found"));
                 } else {
                     resolve(deletedFigure);
                 }

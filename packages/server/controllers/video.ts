@@ -5,6 +5,7 @@ import Figure from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
 import { EnumAssociateModel, EnumRole, EnumVideoType } from '../shared/enums';
 import { awsDelete } from '../services/aws';
+import HttpException from '../shared/exceptions';
 
 /**
  * GET /:videoId
@@ -17,7 +18,7 @@ export const getVideoById = async (videoId: string): Promise<IVideo> => (
             .exec()
             .then(video => {
                 if (!video) {
-                    reject(new Error("Video not found"));
+                    reject(new HttpException(404, "Video not found"));
                 } else {
                     resolve(video);
                 }
@@ -38,7 +39,7 @@ const getPopulatedVideoById = async (videoId: string, associatedModel: EnumAssoc
             .exec()
             .then(video => {
                 if (!video) {
-                    reject(new Error("Video not found"));
+                    reject(new HttpException(404, "Video not found"));
                 } else {
                     resolve(video);
                 }
@@ -107,7 +108,7 @@ export const deleteVideoFromDb = (id: string): Promise<IVideo> => (
             .exec()
             .then(video => {
                 if (!video) {
-                    reject(new Error("Video not found"));
+                    reject(new HttpException(404, "Video not found"));
                 } else {
                     resolve(video);
                 }

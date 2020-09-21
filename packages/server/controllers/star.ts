@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Star, { IStar } from '../models/Star';
+import { HttpException } from "../shared/exceptions";
 
 /**
  * GET /
@@ -32,7 +33,7 @@ const getStarInfo = async (id: string): Promise<IStar | null> => (
             .exec()
             .then(star => {
                 if (!star) {
-                    reject(new Error("Star not found"));
+                    reject(new HttpException(404, "Star not found"));
                 } else {
                     resolve(star);
                 }
