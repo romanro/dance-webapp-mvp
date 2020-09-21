@@ -19,7 +19,7 @@
             <!--                   type="text">-->
             <h5
                 class="mb-2 practice-title title-input inner-page-title text-center">
-                {{practice.associatedVideo.name}}</h5>
+                {{practice.name}}</h5>
             <div class="inner-page-sub-title">
                 {{practice.createdAt | date:'MMMM y'}}
             </div>
@@ -30,7 +30,7 @@
             <button class="mb-2 hide-btn"
                     (click)="toggleVideo()">{{videoButtonText}}</button>
             <ui-video-player-wrapper [hidden]="hiddenVideo"
-                                     src="{{practice.associatedVideo.path}}">
+                                     src="{{practice.video.path}}">
             </ui-video-player-wrapper>
         </div>
     </div>

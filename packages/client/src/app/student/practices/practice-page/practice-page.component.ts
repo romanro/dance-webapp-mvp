@@ -105,11 +105,10 @@ export class PracticePageComponent implements OnInit, OnDestroy {
   }
 
   saveChanges() {
-    this.practice.associatedVideo.name = this.practiceTitleInput;
+    this.practice.name = this.practiceTitleInput;
     this.disabled = true;
     this.disabledNote = true;
     this.disabledTitle = true;
-    // this.backToPractices();
   }
 
   toggleVideo() {

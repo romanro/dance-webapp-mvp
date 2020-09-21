@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 import { Practice, PracticeError } from '@core/models';
@@ -9,8 +9,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsapp-practices-page',
-  templateUrl: './practices-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './practices-page.component.html'
 })
 
 export class PracticesPageComponent implements OnInit, OnDestroy {
