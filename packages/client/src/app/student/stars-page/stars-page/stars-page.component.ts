@@ -81,19 +81,25 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   filterStars(searchString: string) {
 
     if (this.stars) {
+      this.loading = true;
+
+      let tempFiltered = [];
       if (searchString) {
 
         searchString = searchString.toLocaleLowerCase();
-        this.filteredStars = this.stars.filter(star => {
+        tempFiltered = this.stars.filter(star => {
           const starName = this.getStarNameString(star.name);
           if (starName.indexOf(searchString) !== -1) {
             return star;
           }
-        }).sort(this.sortStars);
+        });
       } else {
-        this.filteredStars = this.stars.sort(this.sortStars);;
+        tempFiltered = [...this.stars];
       }
 
+      this.filteredStars = tempFiltered.sort(this.sortStars);
+
+      this.loading = false;
     }
 
   }
@@ -101,7 +107,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   sortStars = (star1: Star, star2: Star): number => {
     switch (this.sorting) {
       case StarSortingOptions.NUMBER_OF_FIGURES:
-        return - star2.figures.length - star1.figures.length;
+        return star2.figures.length - star1.figures.length;
 
       case StarSortingOptions.NAME:
         const starName1 = this.getStarNameString(star1.name);
