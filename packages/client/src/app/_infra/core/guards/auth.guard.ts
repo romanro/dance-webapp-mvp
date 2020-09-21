@@ -10,11 +10,12 @@ export class AuthGuard implements CanActivate {
     // server takes care of session
     // return true;
     if (this.tokenService.checkStoredAccessToken) {
+
       // logged in so return true
       return true;
     }
 
-    this.alertService.error('ERRORS.SessionIsExpired');
+    // this.alertService.error('ERRORS.SessionIsExpired');
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;

@@ -8,6 +8,7 @@ import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
 import {
   FiguresReducer,
+  GlobalReducer,
   LabReducer,
   PracticesReducer,
   StarsContentReducer,
@@ -56,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       practices: PracticesReducer,
       labItem: LabReducer,
       figures: FiguresReducer
-    }),
+    }, { metaReducers: [GlobalReducer] }),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
     HammerModule,
     SocialLoginModule,
