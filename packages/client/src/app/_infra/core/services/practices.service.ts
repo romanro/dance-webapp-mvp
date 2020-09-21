@@ -16,10 +16,10 @@ export class PracticesService {
   constructor(private baseRestService: BaseRestService) { }
 
   getPractices(): Observable<Practice[]> {
-    return of(this.practices);
-    // return this.baseRestService.get<PracticeItemsRestResponse>('account/practices').pipe(map(res => {
-    //   return res.data ? res.data : [];
-    // }));  }
+    // return of(this.practices);
+    return this.baseRestService.get<PracticeItemsRestResponse>('account/practices').pipe(map(res => {
+      return res.data ? res.data : [];
+    }));
   }
 
   uploadPractice(data: CreatePracticeData): Observable<any> {
