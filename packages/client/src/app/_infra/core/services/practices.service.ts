@@ -2,16 +2,15 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseRestService } from '@core/services/base-rest.service';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { CreatePracticeData, Practice } from '../models';
-import { MOCK_PRACTICES } from './../../../_mocks';
+import { CreatePracticeData, Practice, PracticeItemsRestResponse } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PracticesService {
 
-  practices = MOCK_PRACTICES;
 
   constructor(private baseRestService: BaseRestService) { }
 
