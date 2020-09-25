@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from '../config/jwt';
 import User from '../models/User';
-import { Errors } from '../shared/erros';
 import HttpException from '../shared/exceptions';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
