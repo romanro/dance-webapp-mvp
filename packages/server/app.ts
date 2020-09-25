@@ -1,14 +1,12 @@
 import bodyParser from 'body-parser';
-import chalk from 'chalk';
 import compression from 'compression';
 import cors = require('cors');
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
-import expressStatusMonitor from 'express-status-monitor';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
-import logger from 'morgan';
 import path from 'path';
+import { infoLogger, errorLogger } from './utils/logger';
 
 dotenv.config({ path: '.env.example' });
 
@@ -43,13 +41,10 @@ mongoose
       useFindAndModify: false
     }
   )
-  .then(() => console.log("Connected to MongoDB..."))
+  .then(() => infoLogger.write("Connected to MongoDB..."))
   .catch(err => {
-    console.error(err);
-    console.log(
-      '%s MongoDB connection error. Please make sure MongoDB is running.',
-      chalk.red('✗')
-    );
+    errorLogger.write(err);
+    errorLogger.write('MongoDB connection error. Please make sure MongoDB is running.');
     process.exit();
   });
 
@@ -61,9 +56,16 @@ app.set('port', process.env.PORT || 8080);
 
 app.use(helmet());
 app.use(cors())
-app.use(expressStatusMonitor());
 app.use(compression());
-app.use(logger('dev'));
+app.use(require("morgan")("combined", {
+  // errorLogger tracing for info level too
+  skip: function (req: Request, res: Response) { return res.statusCode < 400 },
+  "stream": errorLogger
+}));
+app.use(require("morgan")("combined", {
+  skip: function (req: Request, res: Response) { return res.statusCode >= 400 },
+  "stream": infoLogger
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -85,19 +87,14 @@ app.use('/admin',
     }
   )
 );
-// app.use(flash()); // TODO: needed?
 
-/* App routes */
+// App routes
 app.use('/api/v1', api);
 
-/**
- * Cath-all admin route to angular admin
- */
+// Cath-all admin route to angular admin
 app.get('/admin/*', (req, res, next) => { return adminController.admin(req, res, next); });
 
-/**
- * Cath-all route to angular app
- */
+// Cath-all route to angular app
 app.get('/*', (req, res, next) => { return homeController.app(req, res, next); });
 
 /**
@@ -105,7 +102,7 @@ app.get('/*', (req, res, next) => { return homeController.app(req, res, next); }
  */
 
 const logErrors = (err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
+  errorLogger.write(err.stack);
   next(err);
 }
 
@@ -134,13 +131,7 @@ app.use(errorHandler);
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  console.log(
-    '%s App is running at http://localhost:%d in %s mode',
-    chalk.green('✓'),
-    app.get('port'),
-    app.get('env')
-  );
-  console.log('  Press CTRL-C to stop\n');
+  infoLogger.write('App is running at http://localhost:' + app.get('port') + ' in ' + app.get('env') + ' mode');
 });
 
 module.exports = app;

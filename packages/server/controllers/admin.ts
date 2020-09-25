@@ -136,7 +136,6 @@ export const addS3Object = async (req: Request, res: Response, next: NextFunctio
 
 export const deleteS3Object = async (req: Request, res: Response, next: NextFunction) => {
     const result = await awsDelete(req.body.key);
-    console.log(result);
 
     res.status(200).json({
         success: true,
