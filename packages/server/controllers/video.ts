@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import mongoose, { Document, Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 
 import Figure from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
 import { EnumAssociateModel, EnumRole, EnumVideoType } from '../shared/enums';
-import { awsDelete } from '../services/aws';
 import HttpException from '../shared/exceptions';
 
 /**

@@ -25,4 +25,4 @@ router.post('/practices', awsUserUpload.single('video'), asyncHandler(addPractic
 router.delete('/practices/:practiceItemId', asyncHandler(deletePracticeItem)); // middleware of check permissions is needed!
 
 
-module.exports = router;
+export default router;

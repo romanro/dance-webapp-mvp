@@ -23,7 +23,7 @@ const getFigureById = async (figureId: string): Promise<IFigure> => (
     })
 );
 
-export const getFigure = async (req: Request, res: Response, next: NextFunction) => {
+export const getFigure = async (req: Request, res: Response) => {
     const figure = await getFigureById(req.params.figureId);
 
     res.status(200).json({
@@ -51,7 +51,7 @@ const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level
     })
 );
 
-export const getFigures = async (req: Request, res: Response, next: NextFunction) => {
+export const getFigures = async (req: Request, res: Response) => {
     // TODO: check if req.params.starId is valid
     // TODO: req.query.danceType and req.query.level
     const typedLevelString = req.query.level as keyof typeof EnumDanceLevel;
@@ -85,7 +85,7 @@ const getAllStarFigures = async (starId: string): Promise<IStar[]> => (
 );
 
 
-export const getAllFigures = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllFigures = async (req: Request, res: Response) => {
     const figures = await getAllStarFigures(req.params.starId);
 
     res.status(200).json({

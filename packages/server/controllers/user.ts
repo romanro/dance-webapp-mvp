@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
-import { Error } from 'mongoose';
 import { promisify } from 'util';
 
 import User, { IUser } from '../models/User';

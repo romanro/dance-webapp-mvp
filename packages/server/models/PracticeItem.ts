@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
-import Video, { IVideo } from "./Video"
+import mongoose, { Document, Model, model } from 'mongoose';
+import { IVideo } from "./Video"
 
 const practiceItemSchema = new mongoose.Schema(
     {

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
+import mongoose, { Document, Model, model } from 'mongoose';
 import { IFigure } from './Figure';
 
 

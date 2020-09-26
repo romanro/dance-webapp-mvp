@@ -8,4 +8,4 @@ const router = express.Router();
 
 router.get('/:videoId', rules_getVideoById, validate, asyncHandler(getVideo));
 
-module.exports = router;
+export default router;

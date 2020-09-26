@@ -1,5 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
-import mongoose, { Document, Model } from 'mongoose';
+import { Request, Response } from 'express';
 
 import Figure, { IFigure } from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
@@ -21,7 +20,7 @@ const buildStarFromRequest = (req: Request): IStar => {
     })
 }
 
-export const addStar = async (req: Request, res: Response, next: NextFunction) => {
+export const addStar = async (req: Request, res: Response) => {
     const star = buildStarFromRequest(req);
     await star.save();
 
@@ -37,7 +36,7 @@ export const addStar = async (req: Request, res: Response, next: NextFunction) =
  * remove star
  */
 
-export const removeStar = async (req: Request, res: Response, next: NextFunction) => {
+export const removeStar = async (req: Request, res: Response) => {
     await Star.deleteOne({ _id: req.params.starId })
 
     res.status(201).json({
@@ -65,7 +64,7 @@ export const associateVideoWithFigure = async (associatedId: string, newVideoId:
     return await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
-export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
+export const addVideo = async (req: Request, res: Response) => {
     // TODO: validation for req.file
 
     const videoUrl = req.file ? (req.file as any).location : req.body.videoUrl;
@@ -89,7 +88,7 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
  * delete video
  */
 
-export const deleteVideo = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteVideo = async (req: Request, res: Response) => {
     const video = await deleteVideoFromDb(req.params.videoId);
     await disassociateVideoFromCollection(video.associatedModel, video.associatedObject, video._id);
 
@@ -107,7 +106,7 @@ export const deleteVideo = async (req: Request, res: Response, next: NextFunctio
  * list s3 objects
  */
 
-export const listS3Object = async (req: Request, res: Response, next: NextFunction) => {
+export const listS3Object = async (req: Request, res: Response) => {
     const objects = await awsListObjects();
 
     res.status(200).json({
@@ -121,7 +120,7 @@ export const listS3Object = async (req: Request, res: Response, next: NextFuncti
  */
 
 
-export const addS3Object = async (req: Request, res: Response, next: NextFunction) => {
+export const addS3Object = (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
         message: 'Upload successfully completed',
@@ -134,7 +133,7 @@ export const addS3Object = async (req: Request, res: Response, next: NextFunctio
  * delete s3 object
  */
 
-export const deleteS3Object = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteS3Object = async (req: Request, res: Response) => {
     const result = await awsDelete(req.body.key);
 
     res.status(200).json({
@@ -163,7 +162,7 @@ const addfigureToStar = async (figure: IFigure, starIds: [string]) => (
     })
 );
 
-export const addFigure = async (req: Request, res: Response, next: NextFunction) => {
+export const addFigure = async (req: Request, res: Response) => {
     // TODO: validation for starIds is needed
 
     const figureToAdd = buildFigureFromRequest(req);
@@ -209,7 +208,7 @@ const removeFigureFromStar = (figure: IFigure) => (
     })
 );
 
-export const deleteFigure = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteFigure = async (req: Request, res: Response) => {
     const deletedFigure = await removeFigureFromFiguresCollection(req.params.figureId);
     await removeFigureFromStar(deletedFigure);
 

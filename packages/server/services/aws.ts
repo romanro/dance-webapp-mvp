@@ -1,7 +1,7 @@
 import aws from 'aws-sdk';
 import multerS3 from 'multer-s3';
 import multer from 'multer';
-import { Request, Response, NextFunction } from "express";
+import { Request } from "express";
 
 const default_bucket_name = "danskill1";
 const s3 = new aws.S3({

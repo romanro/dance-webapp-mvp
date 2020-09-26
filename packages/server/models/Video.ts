@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
+import mongoose, { Document, Model, model } from 'mongoose';
 import {
     EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
     EnumAssociateModel, possibleAssociateModels, EnumRole, possibleRoles, EnumVideoType, possibleVideoTypes

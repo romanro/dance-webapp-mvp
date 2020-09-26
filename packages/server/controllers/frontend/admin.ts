@@ -26,10 +26,12 @@ const angularAdminAssets = (req: Request, res: Response, next: NextFunction) => 
   );
 };
 
-exports.admin = (req: Request, res: Response, next: NextFunction) => {
+const admin = (req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV !== 'production') {
     return angularDev(req, res, next);
   }
 
   return angularAdminAssets(req, res, next);
 };
+
+export default admin;

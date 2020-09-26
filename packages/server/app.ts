@@ -7,16 +7,18 @@ import helmet from 'helmet';
 import mongoose from 'mongoose';
 import path from 'path';
 import { infoLogger, errorLogger } from './utils/logger';
+import morgan from "morgan";
 
-dotenv.config({ path: '.env.example' });
+dotenv.config({ path: '.env' });
 
 /**
  * Module dependencies.
  */
 
-const api = require('./routes/api');
-const homeController = require('./controllers/frontend/home');
-const adminController = require('./controllers/frontend/admin');
+import api from './routes/api';
+import homeController from './controllers/frontend/home';
+import adminController from './controllers/frontend/admin';
+import HttpException from './shared/exceptions';
 
 /**
  * Create Express server.
@@ -57,12 +59,12 @@ app.set('port', process.env.PORT || 8080);
 app.use(helmet());
 app.use(cors())
 app.use(compression());
-app.use(require("morgan")("combined", {
+app.use(morgan("combined", {
   // errorLogger tracing for info level too
   skip: function (req: Request, res: Response) { return res.statusCode < 400 },
   "stream": errorLogger
 }));
-app.use(require("morgan")("combined", {
+app.use(morgan("combined", {
   skip: function (req: Request, res: Response) { return res.statusCode >= 400 },
   "stream": infoLogger
 }));
@@ -92,10 +94,10 @@ app.use('/admin',
 app.use('/api/v1', api);
 
 // Cath-all admin route to angular admin
-app.get('/admin/*', (req, res, next) => { return adminController.admin(req, res, next); });
+app.get('/admin/*', (req, res, next) => { return adminController(req, res, next); });
 
 // Cath-all route to angular app
-app.get('/*', (req, res, next) => { return homeController.app(req, res, next); });
+app.get('/*', (req, res, next) => { return homeController(req, res, next); });
 
 /**
  * Error Handler.
@@ -114,7 +116,7 @@ const clientErrorHandler = (err: Error, req: Request, res: Response, next: NextF
   }
 }
 
-const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
     return next(err);
   }
@@ -131,7 +133,7 @@ app.use(errorHandler);
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  infoLogger.write('App is running at http://localhost:' + app.get('port') + ' in ' + app.get('env') + ' mode');
+  infoLogger.write(`App is running at http://localhost: ${app.get('port')} in ${app.get('env')} mode`);
 });
 
 module.exports = app;

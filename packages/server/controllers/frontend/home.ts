@@ -31,10 +31,13 @@ const angularAssets = (req: Request, res: Response, next: NextFunction) => {
   );
 };
 
-exports.app = (req: Request, res: Response, next: NextFunction) => {
+const app = (req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV !== 'production') {
     return angularDev(req, res, next);
   }
 
   return angularAssets(req, res, next);
 };
+
+
+export default app;

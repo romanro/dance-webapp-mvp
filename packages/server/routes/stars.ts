@@ -9,4 +9,4 @@ const router = express.Router();
 router.get('/:starId', rules_getStarById, validate, asyncHandler(getStar));
 router.get('/', asyncHandler(getStars));
 
-module.exports = router;
+export default router;

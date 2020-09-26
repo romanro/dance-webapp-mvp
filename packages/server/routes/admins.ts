@@ -27,4 +27,4 @@ router.delete('/stars/:starId', asyncHandler(removeStar));
 router.post('/figures', asyncHandler(addFigure));
 router.delete('/figures/:figureId', asyncHandler(deleteFigure));
 
-module.exports = router;
+export default router;
