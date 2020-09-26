@@ -29,23 +29,23 @@ const starSchema = new mongoose.Schema(
 
 interface IStarSchema extends Document {
   name: {
-    firstName: String,
-    lastName: String,
-    nickname?: String,
+    firstName: string,
+    lastName: string,
+    nickname?: string,
   };
-  slug: String;
+  slug: string;
   location?: {
-    country?: String,
-    city?: String
+    country?: string,
+    city?: string
   };
   birthDate?: Date;
   logo: {
-    small: String,
-    large: String
+    small: string,
+    large: string
   };
-  promoVideo: String;
-  about?: String;
-  achievements?: String[];
+  promoVideo: string;
+  about?: string;
+  achievements?: string[];
 }
 
 interface IStarBase extends IStarSchema {

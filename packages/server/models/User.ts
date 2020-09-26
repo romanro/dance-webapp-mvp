@@ -9,8 +9,8 @@ import { NextFunction } from 'express';
 
 
 interface access_dto {
-  refresh_token: String
-  access_token: String
+  refresh_token: string
+  access_token: string
   expired_at: Date
 }
 
@@ -30,12 +30,12 @@ interface IProfile {
   language: EnumLanguage,
   birthDate: BirthDate,
   name: Name,
-  about?: String,
+  about?: string,
   location?: {
-    country?: String,
-    city?: String
+    country?: string,
+    city?: string
   };
-  picture?: String,
+  picture?: string,
 }
 
 const userSchema = new mongoose.Schema(
@@ -82,8 +82,8 @@ userSchema.set('toJSON', {
 });
 
 const getAge = (birthday: Date) => {
-  var ageDifMs = Date.now() - birthday.getTime();
-  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  const ageDifMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDifMs); // miliseconds from epoch
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
@@ -152,8 +152,8 @@ interface IUserSchema extends Document {
   emailVerificationToken: string;
   emailVerified: boolean;
 
-  facebook: String;
-  google: String;
+  facebook: string;
+  google: string;
   tokens: Types.Array<string>;
 
   profile: IProfile;

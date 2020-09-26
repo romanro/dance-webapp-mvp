@@ -37,7 +37,7 @@ const consoleTransport = new transports.Console({
     handleExceptions: true,
 })
 
-var logger = createLogger({
+const logger = createLogger({
     format: format.combine(
         format.simple(),
     ),
