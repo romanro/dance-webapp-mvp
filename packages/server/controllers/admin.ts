@@ -54,7 +54,6 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
     return new Video({
         ...req.body,
         ownerUser: req.user._id,
-        ownerRole: EnumRole.admin,
         associatedModel: EnumAssociateModel.Figure,
         key: videoUrl,
         path: videoKey

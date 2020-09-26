@@ -10,7 +10,6 @@ import { IUser } from './User';
 const videoSchema = new mongoose.Schema(
     {
         ownerUser: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
-        ownerRole: { type: EnumRole, enum: possibleRoles },
 
         associatedObject: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: 'associatedModel' },
         associatedModel: { type: EnumAssociateModel, enum: possibleAssociateModels, required: true },
@@ -27,7 +26,6 @@ const videoSchema = new mongoose.Schema(
 
 interface IVideoSchema extends Document {
     _id: mongoose.Types.ObjectId;
-    ownerRole: EnumRole;
     key: string;
     path: string;
     view?: EnumView;

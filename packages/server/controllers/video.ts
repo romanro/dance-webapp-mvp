@@ -70,7 +70,6 @@ export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: 
         associatedObject: req.body.associatedVideoId,
         ownerUser: req.user._id,
         associatedModel: EnumAssociateModel.Video,
-        ownerRole: EnumRole.user,
         key: videoKey,
         path: videoUrl,
         type: EnumVideoType.comparable
