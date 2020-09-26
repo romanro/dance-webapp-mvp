@@ -11,6 +11,7 @@ const practiceItemSchema = new mongoose.Schema(
 );
 
 interface IPracticeItemSchema extends Document {
+    _id: mongoose.Types.ObjectId;
     name: string;
 }
 

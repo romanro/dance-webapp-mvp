@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Document, Model } from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
 import Figure from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
@@ -11,7 +11,7 @@ import HttpException from '../shared/exceptions';
  * get video
  */
 
-export const getVideoById = async (videoId: string): Promise<IVideo> => (
+export const getVideoById = async (videoId: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .exec()
@@ -28,7 +28,7 @@ export const getVideoById = async (videoId: string): Promise<IVideo> => (
     })
 );
 
-const getPopulatedVideoById = async (videoId: string): Promise<IVideo> => (
+const getPopulatedVideoById = async (videoId: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .populate({
@@ -51,7 +51,8 @@ const getPopulatedVideoById = async (videoId: string): Promise<IVideo> => (
 
 // TODO: this request is needed?
 export const getVideo = async (req: Request, res: Response) => {
-    const video = await getVideoById(req.params.videoId);
+    const videoId = new mongoose.mongo.ObjectId(req.params.videoId);
+    const video = await getVideoById(videoId);
     const poulatedVideo = await getPopulatedVideoById(video._id);
 
     res.status(200).json({
@@ -76,7 +77,9 @@ export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: 
     })
 }
 
-export const associateVideoWithStarVideo = async (associatedVideoId: string, newVideoId: string) => {
+export const associateVideoWithStarVideo = async (associatedVideoId: mongoose.Types.ObjectId,
+    newVideoId: mongoose.Types.ObjectId) => {
+
     return await Video.updateOne({ _id: associatedVideoId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
@@ -86,7 +89,8 @@ export const associateVideoWithStarVideo = async (associatedVideoId: string, new
  * delete video
  */
 
-export const disassociateVideoFromCollection = async (associatedModel: EnumAssociateModel, associatedId: string, deletedVideoId: string) => {
+export const disassociateVideoFromCollection = async (associatedModel: EnumAssociateModel,
+    associatedId: mongoose.Types.ObjectId, deletedVideoId: mongoose.Types.ObjectId) => {
     let model: Model<Document> = Figure;
     switch (associatedModel) {
         case EnumAssociateModel.Figure:
@@ -100,7 +104,7 @@ export const disassociateVideoFromCollection = async (associatedModel: EnumAssoc
     return await model.updateOne({ _id: associatedId }, { $pull: { videos: deletedVideoId } }).exec();
 };
 
-export const deleteVideoFromDb = (id: string): Promise<IVideo> => (
+export const deleteVideoFromDb = (id: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findByIdAndRemove(id)
             .exec()

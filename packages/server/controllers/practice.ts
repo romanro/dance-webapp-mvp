@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-
+import mongoose from "mongoose"
 import User from '../models/User';
 import { buildVideoFromRequest, associateVideoWithStarVideo, disassociateVideoFromCollection, deleteVideoFromDb } from "./video"
 import PracticeItem, { IPracticeItem } from '../models/PracticeItem';
@@ -32,7 +32,26 @@ export const getPracticeItems = async (req: Request, res: Response) => {
  * get practice item
  */
 
-export const getPracticeItemById = async (practiceItemId: string): Promise<IPracticeItem> => (
+export const getPracticeItemByIdWithoutPopualte = async (practiceItemId: mongoose.Types.ObjectId): Promise<IPracticeItem> => (
+    new Promise((resolve, reject) => {
+        PracticeItem.findById(practiceItemId)
+            //.select() // TODO: select is needed
+            .exec()
+            .then(practiceItem => {
+                if (!practiceItem) {
+                    reject(new HttpException(404, "Practice item not found"));
+
+                } else {
+                    resolve(practiceItem);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            });
+    })
+);
+
+export const getPracticeItemById = async (practiceItemId: mongoose.Types.ObjectId): Promise<IPracticeItem> => (
     new Promise((resolve, reject) => {
         PracticeItem.findById(practiceItemId)
             //.select() // TODO: select is needed
@@ -53,7 +72,8 @@ export const getPracticeItemById = async (practiceItemId: string): Promise<IPrac
 );
 
 export const getPracticeItem = async (req: Request, res: Response) => {
-    const practiceItem = await getPracticeItemById(req.params.practiceItemId);
+    const practiceItemId = new mongoose.mongo.ObjectId(req.params.practiceItemId);
+    const practiceItem = await getPracticeItemById(practiceItemId);
 
     res.status(200).json({
         success: true,
@@ -97,7 +117,7 @@ export const addPracticeItem = async (req: Request, res: Response) => {
  * delete practice item
  */
 
-const deletePracticeItemFromDb = (id: string): Promise<IPracticeItem> => (
+const deletePracticeItemFromDb = (id: mongoose.Types.ObjectId): Promise<IPracticeItem> => (
     new Promise((resolve, reject) => {
         PracticeItem.findByIdAndRemove(id)
             .exec()
@@ -115,13 +135,14 @@ const deletePracticeItemFromDb = (id: string): Promise<IPracticeItem> => (
 );
 
 export const deletePracticeItem = async (req: Request, res: Response) => {
-    const practiceItem = await getPracticeItemById(req.params.practiceItemId);
+    const practiceItemId = new mongoose.mongo.ObjectId(req.params.practiceItemId);
+    const practiceItem = await getPracticeItemByIdWithoutPopualte(practiceItemId);
 
-    const video = await deleteVideoFromDb(practiceItem.video._id);
+    const video = await deleteVideoFromDb(practiceItem.video);
     await disassociateVideoFromCollection(video.associatedModel, video.associatedObject, video._id);
     await awsDelete(video.key);
 
-    await deletePracticeItemFromDb(req.params.practiceItemId);
+    await deletePracticeItemFromDb(practiceItemId);
     await User.updateOne({ _id: req.user._id }, { $pull: { practiceItems: practiceItem._id } }).exec();
 
     res.status(200).json({

@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 import { promisify } from 'util';
+import mongoose from "mongoose"
 
 import User, { IUser } from '../models/User';
 import { sendForgotPasswordEmail, sendResetPasswordEmail, sendVerifyEmail } from '../services/email';
@@ -106,7 +107,7 @@ export const patchUpdateProfile = async (req: Request, res: Response) => {
  * Get profile information.
  */
 
-const getMyProfileInfo = async (id: string) => (
+const getMyProfileInfo = async (id: mongoose.Types.ObjectId) => (
   await User.findById(id).select("email profile").exec()
 );
 

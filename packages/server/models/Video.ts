@@ -26,6 +26,7 @@ const videoSchema = new mongoose.Schema(
 );
 
 interface IVideoSchema extends Document {
+    _id: mongoose.Types.ObjectId;
     ownerRole: EnumRole;
     key: string;
     path: string;

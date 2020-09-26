@@ -1,6 +1,5 @@
 import User from "../../models/User";
 import { Errors } from "../../shared/erros";
-
 import { body, param } from 'express-validator';
 
 const isMailAlreadyExists = async (email: string) => {

@@ -103,8 +103,10 @@ app.get('/*', (req, res, next) => { return homeController(req, res, next); });
  * Error Handler.
  */
 
-const logErrors = (err: any, req: Request, res: Response, next: NextFunction) => {
-  errorLogger.write(err.stack);
+const logErrors = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err && err.stack)
+    errorLogger.write(err.stack);
+
   next(err);
 }
 
@@ -133,7 +135,10 @@ app.use(errorHandler);
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  infoLogger.write(`App is running at http://localhost: ${app.get('port')} in ${app.get('env')} mode`);
+  const port = app.get('port') as number;
+  const env = app.get('env') as string;
+
+  infoLogger.write(`App is running at http://localhost:${port} in ${env} mode`);
 });
 
 module.exports = app;

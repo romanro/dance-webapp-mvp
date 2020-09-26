@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 import Figure, { IFigure } from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
@@ -60,7 +61,9 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
     })
 }
 
-export const associateVideoWithFigure = async (associatedId: string, newVideoId: string) => {
+export const associateVideoWithFigure = async (associatedId: mongoose.Types.ObjectId,
+    newVideoId: mongoose.Types.ObjectId) => {
+
     return await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
@@ -89,7 +92,8 @@ export const addVideo = async (req: Request, res: Response) => {
  */
 
 export const deleteVideo = async (req: Request, res: Response) => {
-    const video = await deleteVideoFromDb(req.params.videoId);
+    const videoId = new mongoose.mongo.ObjectId(req.params.videoId);
+    const video = await deleteVideoFromDb(videoId);
     await disassociateVideoFromCollection(video.associatedModel, video.associatedObject, video._id);
 
     await awsDelete(video.key);
@@ -153,9 +157,11 @@ const buildFigureFromRequest = (req: Request): IFigure => {
     })
 }
 
-const addfigureToStar = async (figure: IFigure, starIds: [string]) => {
-    const star_promises = starIds.map(async (starId: string) => (
-        await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure } }).exec()
+const addfigureToStar = async (figure: IFigure, starIds: [mongoose.Types.ObjectId]) => {
+    const star_promises = starIds.map(async (starId) => (
+        // TODO:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure._id } }).exec()
     ))
     await Promise.all(star_promises);
 }
@@ -180,7 +186,7 @@ export const addFigure = async (req: Request, res: Response) => {
  * delete figure
  */
 
-const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> => (
+const removeFigureFromFiguresCollection = (figureId: mongoose.Types.ObjectId): Promise<IFigure> => (
     new Promise((resolve, reject) => {
         Figure.findOneAndDelete({ _id: figureId })
             .exec()
@@ -198,14 +204,15 @@ const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> =
 );
 
 const removeFigureFromStar = async (figure: IFigure) => {
-    const star_promises = figure.stars.map(async (starId: string) => (
+    const star_promises = figure.stars.map(async (starId: mongoose.Types.ObjectId) => (
         await Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
     ))
     await Promise.all(star_promises);
 }
 
 export const deleteFigure = async (req: Request, res: Response) => {
-    const deletedFigure = await removeFigureFromFiguresCollection(req.params.figureId);
+    const figureId = new mongoose.mongo.ObjectId(req.params.figureId);
+    const deletedFigure = await removeFigureFromFiguresCollection(figureId);
     await removeFigureFromStar(deletedFigure);
 
     res.status(200).json({

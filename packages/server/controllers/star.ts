@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose"
 import Star, { IStar } from '../models/Star';
 import { HttpException } from "../shared/exceptions";
 
@@ -26,11 +27,9 @@ export const getStars = async (req: Request, res: Response) => {
  */
 
 
-const getStarInfo = async (id: string): Promise<IStar | null> => (
+export const getStarById = async (id: mongoose.Types.ObjectId): Promise<IStar | null> => (
     new Promise((resolve, reject) => {
         Star.findById(id)
-            .populate("figures", "type -_id")
-            .exec()
             .then(star => {
                 if (!star) {
                     reject(new HttpException(404, "Star not found"));
@@ -45,7 +44,9 @@ const getStarInfo = async (id: string): Promise<IStar | null> => (
 );
 
 export const getStar = async (req: Request, res: Response) => {
-    const star = await getStarInfo(req.params.starId);
+    const starId = new mongoose.mongo.ObjectId(req.params.starId);
+    const star = await getStarById(starId);
+    await star?.populate("figures", "type -_id").execPopulate();
 
     res.status(200).json({
         success: true,

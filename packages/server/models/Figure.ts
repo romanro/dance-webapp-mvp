@@ -19,6 +19,7 @@ const figureSchema = new mongoose.Schema(
 
 
 interface IFigureSchema extends Document {
+  _id: mongoose.Types.ObjectId;
   type: EnumDanceType;
   level: EnumDanceLevel;
   name: string;

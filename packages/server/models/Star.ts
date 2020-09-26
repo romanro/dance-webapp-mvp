@@ -28,6 +28,7 @@ const starSchema = new mongoose.Schema(
 );
 
 interface IStarSchema extends Document {
+  _id: mongoose.Types.ObjectId;
   name: {
     firstName: string,
     lastName: string,
@@ -54,6 +55,10 @@ interface IStarBase extends IStarSchema {
 
 export interface IStar extends IStarBase {
   figures: [IFigure["_id"]];
+}
+
+export interface IStarPopulated extends IStarBase {
+  figures: [IFigure];
 }
 
 export interface IStarModel extends Model<IStar> {

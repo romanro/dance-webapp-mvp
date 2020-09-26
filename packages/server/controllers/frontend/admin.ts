@@ -17,6 +17,7 @@ const angularDev =
       ws: true
     });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const angularAdminAssets = (req: Request, res: Response, next: NextFunction) => {
   res.sendFile(
     path.join(__dirname, '..', '..', '..', '..', 'admin', 'dist', 'admin/index.html'),
