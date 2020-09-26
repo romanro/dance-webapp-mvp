@@ -62,10 +62,10 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
 }
 
 export const associateVideoWithFigure = async (associatedId: mongoose.Types.ObjectId,
-    newVideoId: mongoose.Types.ObjectId) => {
-
-    return await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
-};
+    newVideoId: mongoose.Types.ObjectId) => (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec()
+    );
 
 export const addVideo = async (req: Request, res: Response) => {
     // TODO: validation for req.file
@@ -205,6 +205,7 @@ const removeFigureFromFiguresCollection = (figureId: mongoose.Types.ObjectId): P
 
 const removeFigureFromStar = async (figure: IFigure) => {
     const star_promises = figure.stars.map(async (starId: mongoose.Types.ObjectId) => (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         await Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
     ))
     await Promise.all(star_promises);

@@ -209,6 +209,7 @@ const verifyUserEmail = async (user: IUser) => {
   }
   const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
 
+  // eslint-disable-next-line require-atomic-updates
   user.emailVerificationToken = token;
   await user.save();
   await sendVerifyEmail(user.email, token);

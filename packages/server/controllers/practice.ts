@@ -100,7 +100,7 @@ export const addPracticeItem = async (req: Request, res: Response) => {
     await video.save();
     await associateVideoWithStarVideo(video.associatedObject, video._id);
 
-    const practiceItem = await buildpracticeItemFromRequest(req, video);
+    const practiceItem = buildpracticeItemFromRequest(req, video);
     await practiceItem.save();
     await User.updateOne({ _id: req.user._id }, { $addToSet: { practiceItems: practiceItem._id } }).exec();
 

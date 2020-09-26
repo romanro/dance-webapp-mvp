@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
 import Figure, { IFigure } from '../models/Figure';
-import Star, { IStar, IStarPopulated } from '../models/Star';
 import { EnumDanceLevel, EnumDanceType } from '../shared/enums';
 import HttpException from '../shared/exceptions';
 import { getStarById } from './star';

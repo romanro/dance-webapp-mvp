@@ -79,8 +79,7 @@ export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: 
 
 export const associateVideoWithStarVideo = async (associatedVideoId: mongoose.Types.ObjectId,
     newVideoId: mongoose.Types.ObjectId) => {
-
-    return await Video.updateOne({ _id: associatedVideoId }, { $addToSet: { videos: newVideoId } }).exec();
+    await Video.updateOne({ _id: associatedVideoId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
 
@@ -101,7 +100,7 @@ export const disassociateVideoFromCollection = async (associatedModel: EnumAssoc
             break;
         // TODO: default:
     }
-    return await model.updateOne({ _id: associatedId }, { $pull: { videos: deletedVideoId } }).exec();
+    await model.updateOne({ _id: associatedId }, { $pull: { videos: deletedVideoId } }).exec();
 };
 
 export const deleteVideoFromDb = (id: mongoose.Types.ObjectId): Promise<IVideo> => (

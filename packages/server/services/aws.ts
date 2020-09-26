@@ -15,7 +15,8 @@ export const awsAdminUpload = multer({
         s3: s3,
         bucket: default_bucket_name,
         key: function (req: Request, file, cb) {
-            cb(null, `${req.body.path} / ${file.originalname}`)
+            const path = req.body.path as string;
+            cb(null, `${path} / ${file.originalname}`)
         }
     })
 })

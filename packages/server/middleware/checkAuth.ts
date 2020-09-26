@@ -16,6 +16,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
             throw new HttpException(404, "User not found")
         }
 
+        // eslint-disable-next-line require-atomic-updates
         req.user = user;
         next();
     } catch (error) {
@@ -36,6 +37,7 @@ export const checkRefreshToken = async (req: Request, res: Response, next: NextF
             throw new Error("Auth failed: user not found")
         }
 
+        // eslint-disable-next-line require-atomic-updates
         req.user = user;
         next();
     } catch (error) {
