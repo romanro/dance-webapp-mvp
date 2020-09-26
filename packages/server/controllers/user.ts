@@ -16,7 +16,7 @@ const DEFAULT_BIRTH_DATE = '1990-12-31T00:00:00.000Z';
  * Sign in using email and password.
  */
 
-export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+export const postLogin = async (req: Request, res: Response) => {
   const user = await User.findByCredentials(req.body.email, req.body.password);
   const tokens = await user.generateAuthToken();
 
@@ -33,7 +33,7 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
  * Refresh token.
  */
 
-export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+export const refreshToken = async (req: Request, res: Response) => {
   const tokens = await req.user.generateAuthToken();
 
   return res.status(200).json({
@@ -49,17 +49,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
  * Create a new local account.
  */
 
-const check_if_user_name_exists = (email: string) => (
-  new Promise(async (resolve, reject) => {
-    const doesUserNameExists = await User.exists({ email: email });
-    if (doesUserNameExists)
-      reject(new HttpException(409, "User name already exists"));
-    else
-      resolve();
-  })
-);
-
-export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
+export const postSignup = async (req: Request, res: Response) => {
   const user = new User({
     email: req.body.email,
     password: req.body.password,
@@ -71,7 +61,6 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     }
   });
 
-  await check_if_user_name_exists(req.body.email);
   await user.save();
   await verifyUserEmail(user);
   const tokens = await user.generateAuthToken();
@@ -87,7 +76,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
  * PATCH /account/profile
  * Update profile information.
  */
-export const patchUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
+export const patchUpdateProfile = async (req: Request, res: Response) => {
   const user = req.user;
 
   // TODO: email cannot be changed (?)
@@ -121,7 +110,7 @@ const getMyProfileInfo = async (id: string) => (
   await User.findById(id).select("email profile").exec()
 );
 
-export const getProfileInfo = async (req: Request, res: Response, next: NextFunction) => {
+export const getProfileInfo = async (req: Request, res: Response) => {
   const userInfo = await getMyProfileInfo(req.user.id);
 
   return res.json({
@@ -134,7 +123,7 @@ export const getProfileInfo = async (req: Request, res: Response, next: NextFunc
  * PATCH /account/password
  * Update current password.
  */
-export const patchUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
+export const patchUpdatePassword = async (req: Request, res: Response) => {
   const user = req.user;
   user.password = req.body.password;
 
@@ -150,7 +139,7 @@ export const patchUpdatePassword = async (req: Request, res: Response, next: Nex
  * GET /reset/:token
  * Reset Password page.
  */
-export const getReset = async (req: Request, res: Response, next: NextFunction) => {
+export const getReset = async (req: Request, res: Response) => {
   const user = await User.findOne({ passwordResetToken: req.params.token })
     .where('passwordResetExpires')
     .gt(Date.now())
@@ -176,7 +165,7 @@ export const getReset = async (req: Request, res: Response, next: NextFunction) 
  * GET /account/verify/:token
  * Verify email address with an existing token
  */
-export const getVerifyEmailToken = async (req: Request, res: Response, next: NextFunction) => {
+export const getVerifyEmailToken = async (req: Request, res: Response) => {
   const user = req.user;
 
   if (user.emailVerified) {
@@ -206,7 +195,7 @@ export const getVerifyEmailToken = async (req: Request, res: Response, next: Nex
  * GET /account/verify
  * Verify email address
  */
-export const getVerifyEmail = async (req: Request, res: Response, next: NextFunction) => {
+export const getVerifyEmail = async (req: Request, res: Response) => {
   await verifyUserEmail(req.user);
   return res.json({
     success: true
@@ -228,7 +217,7 @@ const verifyUserEmail = async (user: IUser) => {
  * POST /reset/:token
  * Process the reset password request.
  */
-export const postReset = async (req: Request, res: Response, next: NextFunction) => {
+export const postReset = async (req: Request, res: Response) => {
   const user = await User.findOne({ passwordResetToken: req.params.token })
     .where('passwordResetExpires')
     .gt(Date.now())
@@ -278,7 +267,7 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
     user.passwordResetToken = token;
     user.passwordResetExpires = Date.now() + 3600000; // 1 hour
     await user.save();
-    await sendForgotPasswordEmail(user, token);
+    await sendForgotPasswordEmail(user.email, token);
 
     return res.json({
       success: true

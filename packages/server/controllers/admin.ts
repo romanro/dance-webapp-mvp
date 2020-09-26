@@ -134,7 +134,7 @@ export const addS3Object = (req: Request, res: Response) => {
  */
 
 export const deleteS3Object = async (req: Request, res: Response) => {
-    const result = await awsDelete(req.body.key);
+    await awsDelete(req.body.key);
 
     res.status(200).json({
         success: true,
@@ -153,14 +153,12 @@ const buildFigureFromRequest = (req: Request): IFigure => {
     })
 }
 
-const addfigureToStar = async (figure: IFigure, starIds: [string]) => (
-    new Promise(async (resolve, reject) => {
-        for (const starId of starIds) {
-            await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure } }).exec()
-        }
-        resolve();
-    })
-);
+const addfigureToStar = async (figure: IFigure, starIds: [string]) => {
+    const star_promises = starIds.map(async (starId: string) => (
+        await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure } }).exec()
+    ))
+    await Promise.all(star_promises);
+}
 
 export const addFigure = async (req: Request, res: Response) => {
     // TODO: validation for starIds is needed
@@ -199,14 +197,12 @@ const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> =
     })
 );
 
-const removeFigureFromStar = (figure: IFigure) => (
-    new Promise((resolve, reject) => {
-        for (const starId of figure.stars) {
-            Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
-        }
-        resolve();
-    })
-);
+const removeFigureFromStar = async (figure: IFigure) => {
+    const star_promises = figure.stars.map(async (starId: string) => (
+        await Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
+    ))
+    await Promise.all(star_promises);
+}
 
 export const deleteFigure = async (req: Request, res: Response) => {
     const deletedFigure = await removeFigureFromFiguresCollection(req.params.figureId);

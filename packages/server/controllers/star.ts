@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import Star, { IStar } from '../models/Star';
 import { HttpException } from "../shared/exceptions";
 
@@ -11,7 +11,7 @@ const getAllStars = async (): Promise<IStar[]> => (
     await Star.find().exec()
 );
 
-export const getStars = async (req: Request, res: Response, next: NextFunction) => {
+export const getStars = async (req: Request, res: Response) => {
     const stars = await getAllStars();
 
     res.status(200).json({
@@ -44,7 +44,7 @@ const getStarInfo = async (id: string): Promise<IStar | null> => (
     })
 );
 
-export const getStar = async (req: Request, res: Response, next: NextFunction) => {
+export const getStar = async (req: Request, res: Response) => {
     const star = await getStarInfo(req.params.starId);
 
     res.status(200).json({

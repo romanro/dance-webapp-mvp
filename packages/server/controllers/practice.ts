@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import User from '../models/User';
 import { buildVideoFromRequest, associateVideoWithStarVideo, disassociateVideoFromCollection, deleteVideoFromDb } from "./video"
@@ -12,7 +12,7 @@ import HttpException from '../shared/exceptions';
  * get all practice items
  */
 
-export const getPracticeItems = async (req: Request, res: Response, next: NextFunction) => {
+export const getPracticeItems = async (req: Request, res: Response) => {
     await req.user.populate({
         path: 'practiceItems',
         populate: {
@@ -52,7 +52,7 @@ export const getPracticeItemById = async (practiceItemId: string): Promise<IPrac
     })
 );
 
-export const getPracticeItem = async (req: Request, res: Response, next: NextFunction) => {
+export const getPracticeItem = async (req: Request, res: Response) => {
     const practiceItem = await getPracticeItemById(req.params.practiceItemId);
 
     res.status(200).json({
@@ -66,14 +66,14 @@ export const getPracticeItem = async (req: Request, res: Response, next: NextFun
  * add practice item
  */
 
-const buildpracticeItemFromRequest = async (req: Request, video: IVideo): Promise<IPracticeItem> => {
+const buildpracticeItemFromRequest = (req: Request, video: IVideo): IPracticeItem => {
     return new PracticeItem({
         video: video._id,
         name: req.body.name
     })
 }
 
-export const addPracticeItem = async (req: Request, res: Response, next: NextFunction) => {
+export const addPracticeItem = async (req: Request, res: Response) => {
     const videoUrl = (req.file as any).location;
     const videoKey = (req.file as any).key;
     const video = buildVideoFromRequest(req, videoUrl, videoKey);
@@ -114,7 +114,7 @@ const deletePracticeItemFromDb = (id: string): Promise<IPracticeItem> => (
     })
 );
 
-export const deletePracticeItem = async (req: Request, res: Response, next: NextFunction) => {
+export const deletePracticeItem = async (req: Request, res: Response) => {
     const practiceItem = await getPracticeItemById(req.params.practiceItemId);
 
     const video = await deleteVideoFromDb(practiceItem.video._id);

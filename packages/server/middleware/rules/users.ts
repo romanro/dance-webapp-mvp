@@ -9,6 +9,7 @@ const isMailAlreadyExists = async (email: string) => {
         return Promise.reject(Errors.MAIL_ALREADY_EXISTS);
 }
 
+
 // const isMailNotExists = async (email: string) => {
 //     const doesEailExists = await User.exists({ email: email });
 //     if (doesEailExists)
@@ -34,9 +35,9 @@ export const rules_signup = [
 
 export const rules_login = [
     body('email')
-    .isEmail()
-    .withMessage(Errors.INVALID_EMAIL)
-    .normalizeEmail(),
+        .isEmail()
+        .withMessage(Errors.INVALID_EMAIL)
+        .normalizeEmail(),
     body("password", Errors.INVALID_PASSWORD).notEmpty(),
 ]
 

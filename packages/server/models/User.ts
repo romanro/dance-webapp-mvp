@@ -8,10 +8,14 @@ import User from './User';
 import { NextFunction } from 'express';
 
 
-interface access_dto {
+interface tokenData {
   refresh_token: string
   access_token: string
   expired_at: Date
+}
+
+export interface dataStoredInToken {
+  _id: string;
 }
 
 interface BirthDate {
@@ -113,37 +117,26 @@ userSchema.virtual('profile.birthDate.group').get(function (this: { profile: IPr
 /**
  * Password hash middleware.
  */
-userSchema.pre('save', function save(this: IUser, next: NextFunction) {
-  const user = this;
-  if (!user.isModified('password')) {
-    return next();
-  }
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) {
-      return next(err);
+userSchema.pre('save', async function save(this: IUser, next: NextFunction) {
+  try {
+    if (!this.isModified('password')) {
+      return next();
     }
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
-    });
-  });
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(this.password, salt);
+
+    this.password = hash;
+    return next();
+  } catch (e) {
+    return next(e);
+  }
 });
 
 /**
  * Helper method for validating user's password.
  */
-// TODO: any
-userSchema.methods.comparePassword = function comparePassword(candidatePassword: string, cb: any) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch);
-  });
-};
-
-
 interface IUserSchema extends Document {
+  _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
   role: EnumRole;
@@ -161,13 +154,12 @@ interface IUserSchema extends Document {
 
 interface IUserBase extends IUserSchema {
   comparePassword(candidatePassword: string, cb: any): any; // TODO: any
-  generateAuthToken(): Promise<access_dto>;
+  generateAuthToken(): Promise<tokenData>;
 }
 
-userSchema.methods.generateAuthToken = async function (): Promise<access_dto> {
-  const user = this;
-  const accessToken = jwt.sign({ _id: user._id }, jwtAccessPrivateKey, signOptionsAccessToken);
-  const refreshToken = jwt.sign({ _id: user._id }, jwtRefreshPrivateKey, signOptionsRefreshToken);
+userSchema.methods.generateAuthToken = function (this: IUser): tokenData {
+  const accessToken = jwt.sign({ _id: this._id }, jwtAccessPrivateKey, signOptionsAccessToken);
+  const refreshToken = jwt.sign({ _id: this._id }, jwtRefreshPrivateKey, signOptionsRefreshToken);
 
   return {
     "access_token": accessToken,

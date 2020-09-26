@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { Document, Model } from 'mongoose';
 
 import Figure from '../models/Figure';
@@ -28,7 +28,7 @@ export const getVideoById = async (videoId: string): Promise<IVideo> => (
     })
 );
 
-const getPopulatedVideoById = async (videoId: string, associatedModel: EnumAssociateModel): Promise<IVideo> => (
+const getPopulatedVideoById = async (videoId: string): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .populate({
@@ -50,10 +50,9 @@ const getPopulatedVideoById = async (videoId: string, associatedModel: EnumAssoc
 );
 
 // TODO: this request is needed?
-export const getVideo = async (req: Request, res: Response, next: NextFunction) => {
+export const getVideo = async (req: Request, res: Response) => {
     const video = await getVideoById(req.params.videoId);
-    const associatedModel = video.associatedModel;
-    const poulatedVideo = await getPopulatedVideoById(video._id, associatedModel);
+    const poulatedVideo = await getPopulatedVideoById(video._id);
 
     res.status(200).json({
         success: true,

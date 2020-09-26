@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-const proxy = require('http-proxy-middleware');
-const path = require('path');
+import proxy from 'http-proxy-middleware';
+import path from 'path';
 
 /**
  * GET /
@@ -27,7 +27,7 @@ const angularAdminAssets = (req: Request, res: Response, next: NextFunction) => 
 };
 
 const admin = (req: Request, res: Response, next: NextFunction) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && angularDev) {
     return angularDev(req, res, next);
   }
 

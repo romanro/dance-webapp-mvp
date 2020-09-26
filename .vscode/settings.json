@@ -3,8 +3,15 @@
         "dsapp",
         "ngrx"
     ],
-	"files.exclude": {
-      "**/*.js": {"when": "$(basename).ts"},
-      "**/*.map": {"when": "$(basename).map"}
-	}
+    "files.exclude": {
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/*.map": {
+            "when": "$(basename).map"
+        }
+    },
+    "eslint.workingDirectories": [
+        "packages/server",
+    ]
 }

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from '../config/jwt';
-import User from '../models/User';
+import User, { dataStoredInToken } from '../models/User';
 import HttpException from '../shared/exceptions';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -10,7 +10,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         let token = "";
         if (req.headers.authorization && req.headers.authorization.split(" ")[1])
             token = req.headers.authorization.split(" ")[1];
-        const decoded: any = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken);
+        const decoded = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken) as dataStoredInToken;
         const user = await User.findById(decoded._id).exec();
         if (!user) {
             throw new HttpException(404, "User not found")
@@ -30,8 +30,7 @@ export const checkRefreshToken = async (req: Request, res: Response, next: NextF
             return res.status(401).json({ success: false, message: 'Auth failed' });
         }
 
-        const decoded: any = jwt.verify(token, jwtRefreshPublicKey, verifyOptionsRefreshToken);
-
+        const decoded = jwt.verify(token, jwtRefreshPublicKey, verifyOptionsRefreshToken) as dataStoredInToken;
         const user = await User.findById(decoded._id).exec();
         if (!user) {
             throw new Error("Auth failed: user not found")

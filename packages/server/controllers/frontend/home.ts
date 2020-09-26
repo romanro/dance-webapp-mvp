@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 
-const proxy = require('http-proxy-middleware');
-const path = require('path');
+import proxy from 'http-proxy-middleware';
+import path from 'path';
 
 /**
  * GET /
  * Home page.
  */
-exports.index = (req: Request, res: Response) => {
+export const index = (req: Request, res: Response) => {
   res.render('home', {
     title: 'Home'
   });
@@ -32,7 +32,7 @@ const angularAssets = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const app = (req: Request, res: Response, next: NextFunction) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && angularDev) {
     return angularDev(req, res, next);
   }
 

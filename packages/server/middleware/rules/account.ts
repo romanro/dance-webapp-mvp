@@ -1,4 +1,3 @@
-import User from "../../models/User";
 import { Errors } from "../../shared/erros";
 
 const { body, param } = require('express-validator');

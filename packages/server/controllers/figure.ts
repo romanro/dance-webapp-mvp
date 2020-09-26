@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import Figure, { IFigure } from '../models/Figure';
 import Star, { IStar } from '../models/Star';

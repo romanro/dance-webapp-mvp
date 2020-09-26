@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { EnumRole } from "../shared/enums";
 
 export const checkMinRole = (minRequireRole: EnumRole) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         try {
             const user = req.user;
 
