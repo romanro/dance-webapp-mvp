@@ -94,11 +94,13 @@ export const patchUpdateProfile = async (req: Request, res: Response) => {
     about: req.body.about || ''
   };
 
-  await user.save();
+  const savedUser = await user.save();
 
-  return res.json({
+  res.json({
     success: true,
   });
+
+  return savedUser;
 }
 
 
@@ -128,11 +130,13 @@ export const patchUpdatePassword = async (req: Request, res: Response) => {
   const user = req.user;
   user.password = req.body.password;
 
-  await user.save();
-  return res.json({
+  const savedUser = await user.save();
+  res.json({
     success: true,
     message: "Password has been changed",
   });
+
+  return savedUser;
 };
 
 
@@ -185,11 +189,13 @@ export const getVerifyEmailToken = async (req: Request, res: Response) => {
 
   user.emailVerificationToken = '';
   user.emailVerified = true;
-  await user.save();
+  const savedUser = await user.save();
 
-  return res.json({
+  res.json({
     success: true
   });
+
+  return savedUser;
 };
 
 /**
