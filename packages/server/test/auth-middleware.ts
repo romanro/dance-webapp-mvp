@@ -11,7 +11,7 @@ import { after, before } from 'mocha';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
-import { checkAuth } from '../middleware/checkAuth';
+import { checkAuth, checkRefreshToken } from '../middleware/checkAuth';
 import sinon from 'sinon';
 import User from '../models/User';
 
@@ -48,13 +48,13 @@ describe('Auth middleware', () => {
     // sandbox.stub(jwt, 'verify').returns(data);
   });
 
-  afterEach(function () {
-    sandbox.restore();
-  });
-
   after(async () => {
     await User.deleteMany({})
     await mongoose.disconnect();
+  });
+
+  afterEach(function () {
+    sandbox.restore();
   });
 
   it('should return 401 status and "Not authenticated!" message if header is not present', async () => {
@@ -101,6 +101,48 @@ describe('Auth middleware', () => {
     expect((jwt.verify as any).called).to.be.true;
   });
 
+  it('should return 404 user not found', async () => {
+    const req: any = {
+      get: function () {
+        return 'Bearer abc';
+      }
+    };
+    const res: any = {
+      status: function (code: number) {
+        this.status = code;
+        return this;
+      },
+      json: function (data: any) {
+        this.message = data.message;
+      }
+    };
+
+    const data: any = { _id: new mongoose.mongo.ObjectId('111111111111111111111111') };
+    sandbox.stub(jwt, 'verify').returns(data);
+    await checkAuth(req, res, () => { });
+    expect(res.status).to.be.equal(404);
+  });
+
+  it('should return 401, token is just one word', async () => {
+    const req: any = {
+      get: function () {
+        return 'Bearer';
+      }
+    };
+    const res: any = {
+      status: function (code: number) {
+        this.status = code;
+        return this;
+      },
+      json: function (data: any) {
+        this.message = data.message;
+      }
+    };
+
+    await checkAuth(req, res, () => { });
+    expect(res.status).to.be.equal(401);
+  });
+
   it('should throw 401 error if the token cannot be verified', async () => {
     const req: any = {
       get: function () {
@@ -119,4 +161,29 @@ describe('Auth middleware', () => {
     await checkAuth(req, res, () => { });
     expect(res.status).to.be.equal(401);
   });
+
+  it('should yield a user after decoding the refresh token', async () => {
+    const req: any = {
+      params: {
+        refresh_token: "abc"
+      }
+    };
+    const res: any = {
+      status: function (code: number) {
+        this.status = code;
+        return this;
+      },
+      json: function (data: any) {
+        this.message = data.message;
+      }
+    };
+
+    const data: any = { _id: new mongoose.mongo.ObjectId('5f53e610c57684288918a92d') };
+    sandbox.stub(jwt, 'verify').returns(data);
+    await checkRefreshToken(req, res, () => { });
+    expect(req).to.have.property('user');
+    expect(req.user).to.have.property('email', 'ohad2121@gmail.com');
+    expect((jwt.verify as any).called).to.be.true;
+  });
+
 });

@@ -1,40 +1,34 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret, VerifyOptions } from 'jsonwebtoken';
 
 import { jwtAccessPublicKey, jwtRefreshPublicKey, verifyOptionsAccessToken, verifyOptionsRefreshToken } from '../config/jwt';
 import User, { dataStoredInToken } from '../models/User';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        let token = "";
-        const authHeader = req.get('Authorization');
-        if (!authHeader) {
-            return res.status(401).json({ success: false, message: 'Not authenticated!' });
-        }
-        token = authHeader.split(" ")[1];
-
-        const decoded = jwt.verify(token, jwtAccessPublicKey, verifyOptionsAccessToken) as dataStoredInToken;
-        const user = await User.findById(decoded._id).exec();
-        if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
-        }
-
-        // eslint-disable-next-line require-atomic-updates
-        req.user = user;
-        next();
-    } catch (error) {
+    const authHeader = req.get('Authorization');
+    if (!authHeader || authHeader.split(" ").length == 0) {
         return res.status(401).json({ success: false, message: 'Not authenticated!' });
     }
+
+    const token = authHeader.split(" ")[1];
+    await dataStoredInTokenToUser(req, res, next, jwtAccessPublicKey, verifyOptionsAccessToken, token);
+
+    next();
 };
 
 export const checkRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
+    return await dataStoredInTokenToUser(req, res, next, jwtRefreshPublicKey, verifyOptionsRefreshToken,
+        req.params.refresh_token);
+};
+
+const dataStoredInTokenToUser = async (req: Request, res: Response, next: NextFunction,
+    jwtPublicKey: Secret, jwtVerifyOptions: VerifyOptions, token?: string) => {
     try {
-        const token = req.params ? req.params.refresh_token : null;
         if (!token) {
             return res.status(401).json({ success: false, message: 'Not authenticated!' });
         }
 
-        const decoded = jwt.verify(token, jwtRefreshPublicKey, verifyOptionsRefreshToken) as dataStoredInToken;
+        const decoded = jwt.verify(token, jwtPublicKey, jwtVerifyOptions) as dataStoredInToken;
         const user = await User.findById(decoded._id).exec();
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
@@ -46,4 +40,4 @@ export const checkRefreshToken = async (req: Request, res: Response, next: NextF
     } catch (error) {
         return res.status(401).json({ success: false, message: 'Not authenticated!' });
     }
-};
+}
