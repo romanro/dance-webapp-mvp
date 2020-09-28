@@ -1,7 +1,6 @@
 import express, { Application } from "express";
 import { checkAuth } from '../middleware/checkAuth';
-import { checkMinRole } from "../middleware/checkMinRole";
-import { EnumRole } from "../shared/enums";
+import { checkAdminRights } from "../middleware/checkAdminRights";
 
 import user from './user';
 import account from './account';
@@ -17,6 +16,6 @@ app.use('/account', checkAuth, account);
 app.use('/stars', checkAuth, stars);
 app.use('/figures', checkAuth, figures);
 app.use('/videos', checkAuth, videos);
-app.use('/admins', [checkAuth, checkMinRole(EnumRole.admin)], admins);
+app.use('/admins', [checkAuth, checkAdminRights], admins);
 
 export default app;

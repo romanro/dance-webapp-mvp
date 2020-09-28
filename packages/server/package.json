@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "tsnd --respawn app.ts",
-    "build": "tsc && yarn run copy-files",
+    "build": "rimraf ./build && tsc && yarn run copy-files",
     "start": "node build/app.js",
     "test": "mocha -r ts-node/register --timeout=5000 --exit 'test/**/*.ts'",
     "test-cov": "nyc --all --reporter=html --reporter=text yarn test",

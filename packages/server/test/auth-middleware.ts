@@ -14,6 +14,7 @@ import mongoose from 'mongoose';
 import { checkAuth, checkRefreshToken } from '../middleware/checkAuth';
 import sinon from 'sinon';
 import User from '../models/User';
+import { EnumRole } from '../shared/enums';
 
 const sandbox = sinon.createSandbox();
 const MONGODB_DEV_URI = "mongodb://localhost:27017/test"
@@ -32,10 +33,9 @@ describe('Auth middleware', () => {
         "name": { "firstName": "roy", "lastName": "roy" },
         "language": "en"
       },
-      "role": 99,
+      "role": EnumRole.admin,
       "emailVerified": false,
       "tokens": [],
-      // "practiceItems": [{ "$oid": "5f53f6d16ffba730ca8df601" }],
       "email": "ohad2121@gmail.com",
       "password": "$2b$10$..IxTSeyHB5RvZkTHYFDt.Y/d.f52cH3vkzqkOaii5xkUeC3KJPhC",
       "emailVerificationToken": "5f53b898a8ee00bc3ee2b3ca21ff78a4"
