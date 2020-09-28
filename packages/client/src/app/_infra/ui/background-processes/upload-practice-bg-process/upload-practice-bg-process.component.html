@@ -1,0 +1,33 @@
+<div class="bg-upload-process"
+     [ngClass]="{'error':isError}">
+
+  <div *ngIf="!isError"
+       class="info-container">
+
+
+    <label *ngIf="message">{{message | translate}}</label>
+
+    <div class="progress-circle"
+         [ngClass]="{'over50':progress>50}"
+         [class]="'p'+progress">
+      <span class="process-icon icon-practices"></span>
+      <div class="left-half-clipper">
+        <div class="first50-bar"></div>
+        <div class="value-bar"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div *ngIf="isError"
+       class="error-container">
+    <label>{{'LAB.ERRORS.errorUploading' | translate}}</label>
+    <div class="buttons">
+      <a class="btn btn-outline-light icon-yes"
+         (click)="retry()"></a>
+      <a class="btn btn-outline-light icon-cancel"
+         (click)="cancel()"></a>
+    </div>
+  </div>
+</div>

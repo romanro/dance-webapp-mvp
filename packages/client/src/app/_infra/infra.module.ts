@@ -9,9 +9,11 @@ import { VgControlsModule } from 'ngx-videogular';
 import { VgCoreModule } from 'ngx-videogular';
 import { VgOverlayPlayModule } from 'ngx-videogular';
 
+import { BaseBgProcessComponent } from './core/models';
 import {
   AboutDanskillModalComponent,
   AlertsComponent,
+  BackgroundProcessesComponent,
   HeaderComponent,
   ImageFilePickerComponent,
   InpageErrorComponent,
@@ -19,9 +21,13 @@ import {
   NavigationComponent,
   NotificationsPageComponent,
   PageNotFoundComponent,
+  PlayerControlsComponent,
+  PlayerSpeedControlsComponent,
   PreloaderIconComponent,
   PreloaderInappComponent,
   TagsHolderComponent,
+  ToggleSwitchDirective,
+  UploadPracticeBgProcessComponent,
   VideoFilePickerComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
@@ -42,14 +48,18 @@ import {
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent, BaseBgProcessComponent,
+    ToggleSwitchDirective
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
     NavigationComponent, HeaderComponent, AboutDanskillModalComponent, VideoPlayerModalComponent,
     LogoComponent, PreloaderIconComponent, PreloaderInappComponent,
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
-    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent
+    TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
+    PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent,
+    ToggleSwitchDirective
   ]
 })
 export class InfraModule { }

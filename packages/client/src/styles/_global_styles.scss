@@ -27,6 +27,11 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
 }
 
+button:focus {
+  outline: none;
+}
+
+
 .full-height {
   min-height: 100vh;
 }
@@ -129,14 +134,6 @@ select:-webkit-autofill:focus {
 
 .title-input {
   @extend .danskill-btn;
-}
-
-.save-btn {
-  // @extend .danskill-btn;
-  color: $white;
-  border-radius: 5px;
-  height: 40px;
-  width: 100%;
 }
 
 .btn.btn-dark {

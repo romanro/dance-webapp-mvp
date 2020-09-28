@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { LabPlayerPlaybackOperator } from '@app/_infra/core/models';
 import { VgAPI } from 'ngx-videogular';
-import { BrowserStack } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-video-player-wrapper',
-  templateUrl: './video-player-wrapper.component.html',
-  styles: []
+  templateUrl: './video-player-wrapper.component.html'
 })
 export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
@@ -62,7 +61,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
@@ -73,7 +71,6 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.error.subscribe(
         event => {
-          this.playerIsReady = false;
           this.playerIsPlaying = false;
           this.playerEvent.emit(event);
           this.playerStateChange.emit(this.playerIsPlaying);
@@ -165,7 +162,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     const devVelocity = evt.velocityX / 20;
     const seekRatio = devVelocity;
     const time = this.getCurrentTime();
-    const seekTo = seekRatio + time;
+    const seekTo = -(seekRatio) + time;
     this.seekTo(seekTo);
   }
 
@@ -181,7 +178,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     return this.playerAPI.getDefaultMedia().currentTime;
   }
 
-  changePLayBackRate(operator) {
+  changePLayBackRate(operator: LabPlayerPlaybackOperator) {
     switch (operator) {
       case 'plus':
         const plus = parseFloat((this.playbackRate + 0.1).toFixed(1));

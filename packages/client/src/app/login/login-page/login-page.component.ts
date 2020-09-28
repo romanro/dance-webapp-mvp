@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService, TokenService } from '@core/services';
-import * as UserActions from '@infra/store/actions/user.actions';
+import * as GlobalActions from '@infra/store/actions/global.actions';
 import { Store } from '@ngrx/store';
 
 
@@ -39,7 +39,7 @@ export class LoginPageComponent implements OnInit {
 
 
   login() {
-    this.store.dispatch(UserActions.ClearUserAction());
+    this.store.dispatch(GlobalActions.Logout());
     this.isSubmitted = true;
 
     if (this.loginForm.invalid) {

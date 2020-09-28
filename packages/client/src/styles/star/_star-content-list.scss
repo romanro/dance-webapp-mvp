@@ -2,25 +2,46 @@
   position: relative;
   min-height: 5rem;
 
+  .star-dances-pills-row {
+    .nav-pills {
+      .nav-item {
+        .nav-link {
+          @include media-breakpoint-down(sm) {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+
   .star-dance-content-row {
     .level-tabs {
-      margin: 10px -15px 20px -15px;
+      border-top: $tab-level-border;
+      border-bottom: $tab-level-border;
+      margin: 10px -15px 0 -15px;
 
-      li{
+      li {
         text-align: center;
         width: calc(100% / 3);
-        a{
+
+        a {
           color: $dark;
           border-radius: 0;
-          border: 1px solid $gray-500;
+          border: $tab-level-border;
+          border-top: none;
           font-weight: $font-weight-bold-light;
 
-          &.active{
+          @include media-breakpoint-down(sm) {
+            font-size: 0.75rem;
+          }
+
+          &.active {
             background-color: $gray-200;
             font-weight: $font-weight-bold;
           }
         }
       }
+
       &.one-tab {
         li a {
           border-left: none;
@@ -31,6 +52,7 @@
 
         li {
           float: left;
+
           &:nth-child(1) {
             a {
               border-left: none;
@@ -53,13 +75,10 @@
   .figure-preview {
 
     .figure-preview-inner {
-      flex-direction: row;
-      display: flex;
-      padding: 0.85rem 0;
-      position: relative;
+      @include list-item;
 
       .preview-img-wrapper {
-        flex: 1 1 40%;
+        @include list-item-image(40%);
 
         .preview-img {
           width: 100%;
@@ -68,11 +87,31 @@
       }
 
       .preview-content-wrapper {
-        padding-left: 15px;
-        flex: 1 1 60%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include list-item-text(60%);
+
+        h6 {
+          text-transform: capitalize;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+          }
+
+        }
+
+        p {
+          @include media-breakpoint-down(sm) {
+            font-size: 0.7rem;
+            margin-bottom: 0.3rem;
+          }
+        }
+
+        .btn-sm {
+          @include media-breakpoint-down(sm) {
+            font-size: 0.7rem;
+          }
+        }
+
       }
     }
 
