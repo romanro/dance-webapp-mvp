@@ -12,8 +12,6 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
 
     const token = authHeader.split(" ")[1];
     await dataStoredInTokenToUser(req, res, next, jwtAccessPublicKey, verifyOptionsAccessToken, token);
-
-    next();
 };
 
 export const checkRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
