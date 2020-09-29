@@ -1,11 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 import Figure, { IFigure } from '../models/Figure';
-import Star, { IStar } from '../models/Star';
 import { EnumDanceLevel, EnumDanceType } from '../shared/enums';
 import HttpException from '../shared/exceptions';
+import { getStarById } from './star';
 
-const getFigureById = async (figureId: string): Promise<IFigure> => (
+const getFigureById = async (figureId: mongoose.Types.ObjectId): Promise<IFigure> => (
     new Promise((resolve, reject) => {
         Figure.findById(figureId)
             .populate("videos")
@@ -23,8 +24,9 @@ const getFigureById = async (figureId: string): Promise<IFigure> => (
     })
 );
 
-export const getFigure = async (req: Request, res: Response, next: NextFunction) => {
-    const figure = await getFigureById(req.params.figureId);
+export const getFigure = async (req: Request, res: Response) => {
+    const figureId = new mongoose.mongo.ObjectId(req.params.figureId);
+    const figure = await getFigureById(figureId);
 
     res.status(200).json({
         success: true,
@@ -32,64 +34,32 @@ export const getFigure = async (req: Request, res: Response, next: NextFunction)
     });
 }
 
-const getStarFiguresByTypeAndLevel = (starId: string, type: EnumDanceType, level: EnumDanceLevel): Promise<IFigure[]> => (
-    new Promise((resolve, reject) => {
-        Star.findById(starId)
-            .populate("figures")
-            .exec()
-            .then(star => {
-                if (!star) {
-                    reject(new HttpException(404, "Star not found"));
-                } else {
-                    const figures = star.figures as [IFigure];
-                    resolve(figures.filter((figure) => (figure.type == type) && (figure.level == level)));
-                }
-            })
-            .catch(err => {
-                reject(err);
-            })
-    })
-);
-
-export const getFigures = async (req: Request, res: Response, next: NextFunction) => {
+export const getFigures = async (req: Request, res: Response) => {
     // TODO: check if req.params.starId is valid
     // TODO: req.query.danceType and req.query.level
+    const starId = new mongoose.mongo.ObjectId(req.params.starId);
     const typedLevelString = req.query.level as keyof typeof EnumDanceLevel;
     const typedTypeString = req.query.danceType as keyof typeof EnumDanceType;
 
-    const figures = await getStarFiguresByTypeAndLevel(req.params.starId,
-        EnumDanceType[typedTypeString], EnumDanceLevel[typedLevelString]);
+    const star = await getStarById(starId);
+    await star?.populate("figures").execPopulate();
+    const figures = star?.figures as unknown as IFigure[]; // TODO:
+    const filteredFigures = figures.filter((figure) =>
+        (figure.type == EnumDanceType[typedTypeString]) && (figure.level == EnumDanceLevel[typedLevelString]));
 
     res.status(200).json({
         success: true,
-        data: figures
+        data: filteredFigures
     });
 }
 
-const getAllStarFigures = async (starId: string): Promise<IStar[]> => (
-    new Promise((resolve, reject) => {
-        Star.findById(starId)
-            .populate("figures")
-            .exec()
-            .then(star => {
-                if (!star) {
-                    reject(new HttpException(404, "Star not found"));
-                } else {
-                    resolve(star.figures);
-                }
-            })
-            .catch(err => {
-                reject(err);
-            })
-    })
-);
-
-
-export const getAllFigures = async (req: Request, res: Response, next: NextFunction) => {
-    const figures = await getAllStarFigures(req.params.starId);
+export const getAllFigures = async (req: Request, res: Response) => {
+    const starId = new mongoose.mongo.ObjectId(req.params.starId);
+    const star = await getStarById(starId);
+    await star?.populate("figures").execPopulate();
 
     res.status(200).json({
         success: true,
-        data: figures
+        data: star?.figures
     });
 }

@@ -1,7 +1,5 @@
-import User from "../../models/User";
 import { Errors } from "../../shared/erros";
-
-const { body, param } = require('express-validator');
+import { body, param } from 'express-validator';
 
 
 export const rules_verifyEmailToken = [

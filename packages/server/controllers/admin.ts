@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
-import mongoose, { Document, Model } from 'mongoose';
+import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 import Figure, { IFigure } from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
@@ -21,7 +21,7 @@ const buildStarFromRequest = (req: Request): IStar => {
     })
 }
 
-export const addStar = async (req: Request, res: Response, next: NextFunction) => {
+export const addStar = async (req: Request, res: Response) => {
     const star = buildStarFromRequest(req);
     await star.save();
 
@@ -37,7 +37,7 @@ export const addStar = async (req: Request, res: Response, next: NextFunction) =
  * remove star
  */
 
-export const removeStar = async (req: Request, res: Response, next: NextFunction) => {
+export const removeStar = async (req: Request, res: Response) => {
     await Star.deleteOne({ _id: req.params.starId })
 
     res.status(201).json({
@@ -54,18 +54,19 @@ const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string)
     return new Video({
         ...req.body,
         ownerUser: req.user._id,
-        ownerRole: EnumRole.admin,
         associatedModel: EnumAssociateModel.Figure,
         key: videoUrl,
         path: videoKey
     })
 }
 
-export const associateVideoWithFigure = async (associatedId: string, newVideoId: string) => {
-    return await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec();
-};
+export const associateVideoWithFigure = async (associatedId: mongoose.Types.ObjectId,
+    newVideoId: mongoose.Types.ObjectId) => (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        await Figure.updateOne({ _id: associatedId }, { $addToSet: { videos: newVideoId } }).exec()
+    );
 
-export const addVideo = async (req: Request, res: Response, next: NextFunction) => {
+export const addVideo = async (req: Request, res: Response) => {
     // TODO: validation for req.file
 
     const videoUrl = req.file ? (req.file as any).location : req.body.videoUrl;
@@ -89,8 +90,9 @@ export const addVideo = async (req: Request, res: Response, next: NextFunction) 
  * delete video
  */
 
-export const deleteVideo = async (req: Request, res: Response, next: NextFunction) => {
-    const video = await deleteVideoFromDb(req.params.videoId);
+export const deleteVideo = async (req: Request, res: Response) => {
+    const videoId = new mongoose.mongo.ObjectId(req.params.videoId);
+    const video = await deleteVideoFromDb(videoId);
     await disassociateVideoFromCollection(video.associatedModel, video.associatedObject, video._id);
 
     await awsDelete(video.key);
@@ -107,7 +109,7 @@ export const deleteVideo = async (req: Request, res: Response, next: NextFunctio
  * list s3 objects
  */
 
-export const listS3Object = async (req: Request, res: Response, next: NextFunction) => {
+export const listS3Object = async (req: Request, res: Response) => {
     const objects = await awsListObjects();
 
     res.status(200).json({
@@ -121,7 +123,7 @@ export const listS3Object = async (req: Request, res: Response, next: NextFuncti
  */
 
 
-export const addS3Object = async (req: Request, res: Response, next: NextFunction) => {
+export const addS3Object = (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
         message: 'Upload successfully completed',
@@ -134,9 +136,8 @@ export const addS3Object = async (req: Request, res: Response, next: NextFunctio
  * delete s3 object
  */
 
-export const deleteS3Object = async (req: Request, res: Response, next: NextFunction) => {
-    const result = await awsDelete(req.body.key);
-    console.log(result);
+export const deleteS3Object = async (req: Request, res: Response) => {
+    await awsDelete(req.body.key);
 
     res.status(200).json({
         success: true,
@@ -155,16 +156,16 @@ const buildFigureFromRequest = (req: Request): IFigure => {
     })
 }
 
-const addfigureToStar = async (figure: IFigure, starIds: [string]) => (
-    new Promise(async (resolve, reject) => {
-        for (const starId of starIds) {
-            await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure } }).exec()
-        }
-        resolve();
-    })
-);
+const addfigureToStar = async (figure: IFigure, starIds: [mongoose.Types.ObjectId]) => {
+    const star_promises = starIds.map(async (starId) => (
+        // TODO:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        await Star.updateOne({ _id: starId }, { $addToSet: { figures: figure._id } }).exec()
+    ))
+    await Promise.all(star_promises);
+}
 
-export const addFigure = async (req: Request, res: Response, next: NextFunction) => {
+export const addFigure = async (req: Request, res: Response) => {
     // TODO: validation for starIds is needed
 
     const figureToAdd = buildFigureFromRequest(req);
@@ -184,7 +185,7 @@ export const addFigure = async (req: Request, res: Response, next: NextFunction)
  * delete figure
  */
 
-const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> => (
+const removeFigureFromFiguresCollection = (figureId: mongoose.Types.ObjectId): Promise<IFigure> => (
     new Promise((resolve, reject) => {
         Figure.findOneAndDelete({ _id: figureId })
             .exec()
@@ -201,17 +202,17 @@ const removeFigureFromFiguresCollection = (figureId: string): Promise<IFigure> =
     })
 );
 
-const removeFigureFromStar = (figure: IFigure) => (
-    new Promise((resolve, reject) => {
-        for (const starId of figure.stars) {
-            Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
-        }
-        resolve();
-    })
-);
+const removeFigureFromStar = async (figure: IFigure) => {
+    const star_promises = figure.stars.map(async (starId: mongoose.Types.ObjectId) => (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        await Star.updateOne({ _id: starId }, { $pull: { figures: figure._id } }).exec()
+    ))
+    await Promise.all(star_promises);
+}
 
-export const deleteFigure = async (req: Request, res: Response, next: NextFunction) => {
-    const deletedFigure = await removeFigureFromFiguresCollection(req.params.figureId);
+export const deleteFigure = async (req: Request, res: Response) => {
+    const figureId = new mongoose.mongo.ObjectId(req.params.figureId);
+    const deletedFigure = await removeFigureFromFiguresCollection(figureId);
     await removeFigureFromStar(deletedFigure);
 
     res.status(200).json({

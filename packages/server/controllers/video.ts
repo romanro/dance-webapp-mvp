@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import mongoose, { Document, Model } from 'mongoose';
 
 import Figure from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
 import { EnumAssociateModel, EnumRole, EnumVideoType } from '../shared/enums';
-import { awsDelete } from '../services/aws';
 import HttpException from '../shared/exceptions';
 
 /**
@@ -12,7 +11,7 @@ import HttpException from '../shared/exceptions';
  * get video
  */
 
-export const getVideoById = async (videoId: string): Promise<IVideo> => (
+export const getVideoById = async (videoId: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .exec()
@@ -29,7 +28,7 @@ export const getVideoById = async (videoId: string): Promise<IVideo> => (
     })
 );
 
-const getPopulatedVideoById = async (videoId: string, associatedModel: EnumAssociateModel): Promise<IVideo> => (
+const getPopulatedVideoById = async (videoId: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findById(videoId)
             .populate({
@@ -51,10 +50,10 @@ const getPopulatedVideoById = async (videoId: string, associatedModel: EnumAssoc
 );
 
 // TODO: this request is needed?
-export const getVideo = async (req: Request, res: Response, next: NextFunction) => {
-    const video = await getVideoById(req.params.videoId);
-    const associatedModel = video.associatedModel;
-    const poulatedVideo = await getPopulatedVideoById(video._id, associatedModel);
+export const getVideo = async (req: Request, res: Response) => {
+    const videoId = new mongoose.mongo.ObjectId(req.params.videoId);
+    const video = await getVideoById(videoId);
+    const poulatedVideo = await getPopulatedVideoById(video._id);
 
     res.status(200).json({
         success: true,
@@ -71,15 +70,15 @@ export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: 
         associatedObject: req.body.associatedVideoId,
         ownerUser: req.user._id,
         associatedModel: EnumAssociateModel.Video,
-        ownerRole: EnumRole.user,
         key: videoKey,
         path: videoUrl,
         type: EnumVideoType.comparable
     })
 }
 
-export const associateVideoWithStarVideo = async (associatedVideoId: string, newVideoId: string) => {
-    return await Video.updateOne({ _id: associatedVideoId }, { $addToSet: { videos: newVideoId } }).exec();
+export const associateVideoWithStarVideo = async (associatedVideoId: mongoose.Types.ObjectId,
+    newVideoId: mongoose.Types.ObjectId) => {
+    await Video.updateOne({ _id: associatedVideoId }, { $addToSet: { videos: newVideoId } }).exec();
 };
 
 
@@ -88,7 +87,8 @@ export const associateVideoWithStarVideo = async (associatedVideoId: string, new
  * delete video
  */
 
-export const disassociateVideoFromCollection = async (associatedModel: EnumAssociateModel, associatedId: string, deletedVideoId: string) => {
+export const disassociateVideoFromCollection = async (associatedModel: EnumAssociateModel,
+    associatedId: mongoose.Types.ObjectId, deletedVideoId: mongoose.Types.ObjectId) => {
     let model: Model<Document> = Figure;
     switch (associatedModel) {
         case EnumAssociateModel.Figure:
@@ -99,10 +99,10 @@ export const disassociateVideoFromCollection = async (associatedModel: EnumAssoc
             break;
         // TODO: default:
     }
-    return await model.updateOne({ _id: associatedId }, { $pull: { videos: deletedVideoId } }).exec();
+    await model.updateOne({ _id: associatedId }, { $pull: { videos: deletedVideoId } }).exec();
 };
 
-export const deleteVideoFromDb = (id: string): Promise<IVideo> => (
+export const deleteVideoFromDb = (id: mongoose.Types.ObjectId): Promise<IVideo> => (
     new Promise((resolve, reject) => {
         Video.findByIdAndRemove(id)
             .exec()

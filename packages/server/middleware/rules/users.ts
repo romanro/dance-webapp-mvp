@@ -1,7 +1,6 @@
 import User from "../../models/User";
 import { Errors } from "../../shared/erros";
-
-const { body, param } = require('express-validator');
+import { body, param } from 'express-validator';
 
 const isMailAlreadyExists = async (email: string) => {
     const doesEailExists = await User.exists({ email: email });
@@ -9,11 +8,12 @@ const isMailAlreadyExists = async (email: string) => {
         return Promise.reject(Errors.MAIL_ALREADY_EXISTS);
 }
 
-const isMailNotExists = async (email: string) => {
-    const doesEailExists = await User.exists({ email: email });
-    if (doesEailExists)
-        return Promise.reject(Errors.MAIL_NOT_EXISTS);
-}
+
+// const isMailNotExists = async (email: string) => {
+//     const doesEailExists = await User.exists({ email: email });
+//     if (doesEailExists)
+//         return Promise.reject(Errors.MAIL_NOT_EXISTS);
+// }
 
 export const rules_signup = [
     body('email')
@@ -34,9 +34,9 @@ export const rules_signup = [
 
 export const rules_login = [
     body('email')
-    .isEmail()
-    .withMessage(Errors.INVALID_EMAIL)
-    .normalizeEmail(),
+        .isEmail()
+        .withMessage(Errors.INVALID_EMAIL)
+        .normalizeEmail(),
     body("password", Errors.INVALID_PASSWORD).notEmpty(),
 ]
 

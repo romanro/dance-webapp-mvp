@@ -14,4 +14,4 @@ router.post('/reset/:token', rules_postResetToken, validate, asyncHandler(postRe
 router.post('/forgot', rules_forgot, validate, asyncHandler(postForgot));
 router.post("/refreshToken/:refresh_token", rules_refreshToken, validate, checkRefreshToken, asyncHandler(refreshToken));
 
-module.exports = router;
+export default router;

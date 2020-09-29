@@ -10,4 +10,4 @@ router.get('/star/:starId', rules_getStarFigures, validate, asyncHandler(getFigu
 router.get('/star/all/:starId', rules_getAllStarFigures, validate, asyncHandler(getAllFigures));
 router.get('/:figureId', rules_getFigureById, validate, asyncHandler(getFigure));
 
-module.exports = router;
+export default router;

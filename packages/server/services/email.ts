@@ -1,12 +1,14 @@
-const sgMail = require('@sendgrid/mail');
+import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+// TODO: should be moved to .env
 const FROM = 'hello@danskill.com';
 
-// TODO: any
-export const sendVerifyEmail = async (to: any, token: string) => {
+
+// TODO: mail templates should be added
+export const sendVerifyEmail = async (toMail: string, token: string) => {
   const mailOptions = {
-    to,
+    to: toMail,
     from: FROM,
     subject: 'Please verify your email address',
     text: `Thank you for registering.\n\n
@@ -19,10 +21,9 @@ export const sendVerifyEmail = async (to: any, token: string) => {
   return sgMail.send(mailOptions);
 };
 
-// TODO: any
-export const sendForgotPasswordEmail = async (to: any, token: string) => {
+export const sendForgotPasswordEmail = async (toMail: string, token: string) => {
   const mailOptions = {
-    to,
+    to: toMail,
     from: FROM,
     subject: 'Reset your password',
     text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
@@ -33,14 +34,13 @@ export const sendForgotPasswordEmail = async (to: any, token: string) => {
   return sgMail.send(mailOptions);
 };
 
-// TODO: any
-export const sendResetPasswordEmail = async (to :any) => {
+export const sendResetPasswordEmail = async (toMail: string) => {
   const mailOptions = {
-    to,
+    to: toMail,
     from: FROM,
     subject: 'Your password has been changed',
     text: `Thank you for registering.\n\n
-    Hello,\n\nThis is a confirmation that the password for your account ${to} has just been changed.\n
+    Hello,\n\nThis is a confirmation that the password for your account ${toMail} has just been changed.\n
     \n\n
     Thank you!`
   };

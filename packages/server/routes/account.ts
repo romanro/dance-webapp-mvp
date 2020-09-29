@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import {
     getVerifyEmail, getVerifyEmailToken, patchUpdatePassword,
     patchUpdateProfile, getProfileInfo
@@ -18,11 +18,11 @@ router.get('/profile', asyncHandler(getProfileInfo));
 router.patch('/profile', asyncHandler(patchUpdateProfile)); // TODO: validation is needed
 router.patch('/password', rules_updatePassword, validate, asyncHandler(patchUpdatePassword));
 
- // TODO: validation is needed:
+// TODO: validation is needed:
 router.get('/practices', asyncHandler(getPracticeItems));
 router.get('/practices/:practiceItemId', asyncHandler(getPracticeItem));
 router.post('/practices', awsUserUpload.single('video'), asyncHandler(addPracticeItem));
 router.delete('/practices/:practiceItemId', asyncHandler(deletePracticeItem)); // middleware of check permissions is needed!
 
 
-module.exports = router;
+export default router;

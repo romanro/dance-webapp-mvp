@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, model, Types } from 'mongoose';
+import mongoose, { Document, Model, model } from 'mongoose';
 import { EnumDanceLevel, possibleDanceLevels, EnumDanceType, possibleDanceTypes } from "../shared/enums"
 import { IStar } from './Star';
 import { IVideo } from './Video';
@@ -19,6 +19,7 @@ const figureSchema = new mongoose.Schema(
 
 
 interface IFigureSchema extends Document {
+  _id: mongoose.Types.ObjectId;
   type: EnumDanceType;
   level: EnumDanceLevel;
   name: string;
