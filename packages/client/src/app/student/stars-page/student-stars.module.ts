@@ -10,6 +10,7 @@ import {
   StarContentPageComponent,
   StarContentTabsComponent,
   StarFigurePageComponent,
+  StarInfoComponent,
   StarsPageComponent,
 } from '.';
 import { StudentStarRoutingModule } from './student-strars-routing.module';
@@ -20,7 +21,7 @@ import { StudentStarRoutingModule } from './student-strars-routing.module';
     CommonModule, ReactiveFormsModule, TranslateModule.forChild(), NgbModule, StudentStarRoutingModule, InfraModule
   ],
   declarations: [
-    StarsPageComponent, StarContentPageComponent, StarContentTabsComponent, LevelsTabsComponent, StarFigurePageComponent
+    StarsPageComponent, StarInfoComponent, StarContentPageComponent, StarContentTabsComponent, LevelsTabsComponent, StarFigurePageComponent
   ]
 })
 export class StudentStarsModule { }

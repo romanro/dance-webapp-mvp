@@ -1,12 +1,14 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginModule } from '@app/login/login.module';
 import { StudentModule } from '@app/student/student.module';
 import { InfraModule } from '@infra/infra.module';
 import {
   FiguresReducer,
+  GlobalReducer,
   LabReducer,
   PracticesReducer,
   StarsContentReducer,
@@ -40,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -54,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       practices: PracticesReducer,
       labItem: LabReducer,
       figures: FiguresReducer
-    }),
+    }, { metaReducers: [GlobalReducer] }),
     EffectsModule.forRoot([UserEffects, StarsEffects, StarsContentEffects, PracticesEffects, FiguresEffects]),
     HammerModule,
     SocialLoginModule,

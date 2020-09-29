@@ -7,6 +7,7 @@ export interface LabItem {
     figure: Figure;
     starVideo: LabStarVideo;
     userVideo?: LabUserVideo;
+    practiceIsSaved?: boolean;
 }
 
 export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 6;
@@ -21,3 +22,6 @@ export enum LabPlayerType {
     MASTER = 'master',
     STUDENT = 'student'
 }
+
+export type LabPlayerPlaybackOperator = 'plus' | 'minus' | 'def';
+export type LabPlayerJumpDirection = 'bwd' | 'fwd';

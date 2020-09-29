@@ -1,6 +1,7 @@
 <div class="alerts-container">
   <div *ngFor="let alert of alerts"
-       class="{{cssClass(alert)}} alert-dismissable">
+       class="{{cssClass(alert)}} alert-dismissable"
+       [@slideInOut]>
     {{alert.message | translate:{param:alert.param} }}
     <a class="close"
        (click)="removeAlert(alert)">&times;</a>

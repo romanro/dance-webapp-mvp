@@ -29,10 +29,14 @@ export class BaseRestService {
     return this.http.get<T>(`${this.REST_URL}/${endpoint}`, options);
   }
 
-  post<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders): Observable<T> {
+  post<T>(endpoint: string, body: any, httpHeadersObj?: HttpHeaders, reportProgress = false): Observable<T> {
     this.getRestUrl();
     const headersObj: HttpHeaders = httpHeadersObj ? httpHeadersObj : this.HTTP_HEADERS;
-    const options = { headers: headersObj, method: 'POST' };
+    let options = { headers: headersObj, method: 'POST', reportProgress };
+    if (reportProgress) {
+      options = { ...options, ... { observe: 'events' } };
+    }
+
     return this.http.post<T>(`${this.REST_URL}/${endpoint}`, body, options);
   }
 

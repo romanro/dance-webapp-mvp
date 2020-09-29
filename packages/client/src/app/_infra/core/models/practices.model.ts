@@ -1,14 +1,22 @@
+import { Video } from '@models/video.model';
 
 export class Practice {
-    id: number;
-    date: Date;
-    title: string;
-    subTitle: string;
-    userVideo: string;
-    notes: Array<string>;
+  _id: string;
+  name: string;
+  video: Video;
+  createdAt: string;
+  updatedAt: string;
+  _v: number
+
 }
 
 export enum PracticeError {
   GET = 'STAR.ERRORS.getPracticesError',
   GENERAL = 'ERRORS.GeneralBackendError'
+}
+
+export interface CreatePracticeData extends FormData {
+  name?: string;
+  associatedVideoId?: string;
+  video?: File;
 }

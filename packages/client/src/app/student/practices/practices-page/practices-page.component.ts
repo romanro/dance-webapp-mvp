@@ -1,22 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 import { Practice, PracticeError } from '@core/models';
 import * as selectors from '@infra/store/selectors/practices.selector';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 
 @Component({
   selector: 'dsapp-practices-page',
-  templateUrl: './practices-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './practices-page.component.html'
 })
 
 export class PracticesPageComponent implements OnInit, OnDestroy {
 
-  loading = false;
+  loading = true;
   errorMsg: PracticeError | string = null;
   startDate: Date = new Date('1/1/2020');
   lastDate: Date = new Date();
@@ -34,7 +32,6 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private translate: TranslateService,
     private errorService: AlertErrorService
   ) {
     this.currentDate = this.lastDate;
@@ -44,7 +41,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.setMonthsLength();
+    // this.setMonthsLength();
 
     this.maxMonthLength = this.monthLength;
 
@@ -111,6 +108,7 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
   }
 
   compareDates(firstDate, secondDate) {
+    firstDate = new Date(firstDate);
     if (firstDate.getMonth() === secondDate.getMonth() && firstDate.getFullYear() === secondDate.getFullYear())
       return true;
     else
