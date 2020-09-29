@@ -12,8 +12,7 @@
              formControlName="email"
              id="inputEmail"
              class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }"
-             placeholder="{{'LOGIN.EmailAddress' | translate}}">
+             [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }">
 
       <div *ngIf="formControls['email'].touched && formControls['email'].errors"
            class="invalid-feedback">
@@ -37,8 +36,7 @@
                formControlName="firstName"
                id="inputFirstName"
                class="form-control"
-               [ngClass]="{ 'is-invalid': registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors }"
-               placeholder="{{'USER.firstName' | translate}}">
+               [ngClass]="{ 'is-invalid': registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors }">
 
         <div *ngIf="registerForm.get('name.firstName').touched && registerForm.get('name.firstName').errors"
              class="invalid-feedback">
@@ -59,8 +57,7 @@
                formControlName="lastName"
                id="inputLastName"
                class="form-control"
-               [ngClass]="{ 'is-invalid': registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors }"
-               placeholder="{{'USER.lastName' | translate}}">
+               [ngClass]="{ 'is-invalid': registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors }">
 
         <div *ngIf=" registerForm.get('name.lastName').touched &&  registerForm.get('name.lastName').errors"
              class="invalid-feedback">
@@ -82,8 +79,7 @@
              formControlName="password"
              id="inputPassword"
              class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }"
-             placeholder="{{'LOGIN.Password' | translate}}">
+             [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }">
 
       <div *ngIf="formControls['password'].touched && formControls['password'].errors"
            class="invalid-feedback">
@@ -122,8 +118,7 @@
              formControlName="confirmPassword"
              id="inputConfirmPassword"
              class="form-control"
-             [ngClass]="{ 'is-invalid': formControls['confirmPassword'].touched && formControls['confirmPassword'].errors }"
-             placeholder="{{'LOGIN.confirmPassword' | translate}}">
+             [ngClass]="{ 'is-invalid': formControls['confirmPassword'].touched && formControls['confirmPassword'].errors }">
 
       <div *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].errors"
            class="invalid-feedback">

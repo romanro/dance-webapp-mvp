@@ -54,11 +54,9 @@ button:focus {
 .danskill-form-group {
   position: relative;
 
-  input {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold-light;
-
+  .form-control {
     &.is-invalid {
+      background: none;
       margin-bottom: 25px;
     }
   }
@@ -66,17 +64,26 @@ button:focus {
   label {
     position: absolute;
     top: calc(50% - 5px);
-    right: 25px;
-    color: $dark;
+    right: 20px;
+    color: $gray-600;
     font-size: $label-font;
     font-weight: $font-weight-bold-light;
+  }
+
+  .password-btn {
+    position: absolute;
+    width: 35px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    color: $gray-500;
+    font-size: 1.2rem;
+    padding-top: 0.55rem;
   }
 
   .invalid-feedback {
     position: absolute;
     bottom: -20px;
-    //position: fixed;
-    //margin-bottom: 10px;
   }
 }
 
@@ -84,6 +91,7 @@ button:focus {
   height: 60px;
   width: 100%;
   opacity: 1;
+  border-radius: 0;
 
   .arrow {
     width: 15px;

@@ -812,6 +812,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "c5fd349cbd3d23e4ade333789c29c729",
+      "css": "eye",
+      "code": 59465,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "7fd683b2c518ceb9e5fa6757f2276faa",
+      "css": "eye-off",
+      "code": 59466,
+      "src": "fontawesome"
+    },
+    {
       "uid": "59ff502f8b5bdee87780e1aff509e2a2",
       "css": "rarrow-right",
       "code": 59435,

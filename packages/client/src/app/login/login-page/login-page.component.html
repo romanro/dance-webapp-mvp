@@ -6,13 +6,13 @@
 
 
         <div class="form-group danskill-form-group">
-            <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
+            <label *ngIf="formControls['email'].value.length < 6"
+                   for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
             <input type="email"
                    formControlName="email"
                    id="inputEmail"
                    class="form-control"
-                   [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }"
-                   placeholder="{{'LOGIN.EmailAddress' | translate}}">
+                   [ngClass]="{ 'is-invalid': formControls['email'].touched && formControls['email'].errors }">
 
             <div *ngIf="formControls['email'].touched && formControls['email'].errors"
                  class="invalid-feedback">
@@ -27,13 +27,17 @@
         </div>
 
         <div class="form-group danskill-form-group">
-            <label for="inputPassword">{{'LOGIN.Password' | translate}}</label>
-            <input type="password"
+            <label *ngIf="formControls['password'].value.length < 2"
+                   for="inputPassword">{{'LOGIN.Password' | translate}}</label>
+            <a *ngIf="formControls['password'].value.length >= 2"
+               class="password-btn"
+               [ngClass]="{'icon-eye-off':showPassword, 'icon-eye':!showPassword}"
+               (click)="toggleShowPassword()"></a>
+            <input [type]="showPassword ? 'text': 'password'"
                    formControlName="password"
                    id="inputPassword"
                    class="form-control"
-                   [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }"
-                   placeholder="{{'LOGIN.Password' | translate}}">
+                   [ngClass]="{ 'is-invalid': formControls['password'].touched && formControls['password'].errors }">
             <div *ngIf="formControls['password'].touched && formControls['password'].errors"
                  class="invalid-feedback">
                 <span *ngIf="formControls['password'].errors.required">

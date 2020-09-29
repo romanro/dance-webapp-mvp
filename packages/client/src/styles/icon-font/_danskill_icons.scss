@@ -57,7 +57,6 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-
 .icon-warning:before {
   content: '\e800';
 }
@@ -423,6 +422,16 @@
 }
 
 /* '' */
+.icon-eye:before {
+  content: '\e849';
+}
+
+/* '' */
+.icon-eye-off:before {
+  content: '\e84a';
+}
+
+/* '' */
 .icon-circle-empty:before {
   content: '\f10c';
 }

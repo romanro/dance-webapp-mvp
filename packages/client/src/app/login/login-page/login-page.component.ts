@@ -14,6 +14,7 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
   isSubmitted = false;
+  showPassword = false;
 
   get formControls() { return this.loginForm.controls; }
 
@@ -53,6 +54,10 @@ export class LoginPageComponent implements OnInit {
 
   loginFacebook() {
     this.loginService.loginFacebook();
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
   }
 
 }
