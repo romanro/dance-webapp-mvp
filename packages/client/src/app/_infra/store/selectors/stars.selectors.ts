@@ -6,12 +6,8 @@ import { StarsState } from '../state';
 export const selectStars = (state: StarsState) => state.stars;
 
 export const selectAllStars = () => createSelector(
-    selectStars, (allStars) => {
-        if (!t(allStars, 'stars').isNullOrUndefined) {
-            return t(allStars, 'stars').safeObject;
-        } else {
-            return null;
-        }
+    selectStars, allStars => {
+        return !t(allStars, 'stars').isNullOrUndefined ? t(allStars, 'stars').safeObject : null
     }
 )
 
@@ -27,10 +23,6 @@ export const selectStarBySlug = (slug: string) => createSelector(
 
 export const selectStarsError = () => createSelector(
     selectStars, (result) => {
-        if (result) {
-            return t(result, 'error').safeObject;
-        } else {
-            return null;
-        }
+        return result ? t(result, 'error').safeObject : null
     }
 );

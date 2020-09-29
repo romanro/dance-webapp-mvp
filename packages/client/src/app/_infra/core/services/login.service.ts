@@ -28,6 +28,7 @@ export class LoginService {
   ) { }
 
   login({ email, password }) {
+    this.store.dispatch(GlobalActions.Logout());
     this.baseRestService
       .post<AuthRestResponse>('login', { email, password })
       .subscribe(
