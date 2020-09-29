@@ -12,8 +12,6 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
 
     const token = authHeader.split(" ")[1];
     await dataStoredInTokenToUser(req, res, next, jwtAccessPublicKey, verifyOptionsAccessToken, token);
-
-    next();
 };
 
 export const checkRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
@@ -30,6 +28,7 @@ const dataStoredInTokenToUser = async (req: Request, res: Response, next: NextFu
 
         const decoded = jwt.verify(token, jwtPublicKey, jwtVerifyOptions) as dataStoredInToken;
         const user = await User.findById(decoded._id).exec();
+        console.log(user);
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
