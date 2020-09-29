@@ -15,7 +15,6 @@ const reducer = createReducer(
     }),
 
     on(StarsActions.ErrorStarsAction, (state: StarsState, error: Error) => {
-        console.error(error);
         return { ...state, error };
     })
 );

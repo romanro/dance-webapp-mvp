@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { AuthGuard } from '@app/_infra/core/guards/auth.guard';
 
 import { StudentEditProfilePageComponent, StudentProfilePageComponent } from '.';
 
 const routes: Routes = [
-  { path: '', component: StudentProfilePageComponent },
-  { path: 'edit', component: StudentEditProfilePageComponent },
+  { path: '', component: StudentProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'edit', component: StudentEditProfilePageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

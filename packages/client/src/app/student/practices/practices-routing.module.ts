@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@app/_infra/core/guards/auth.guard';
 
-import { PracticesPageComponent, PracticePageComponent } from '.';
+import { PracticePageComponent, PracticesPageComponent } from '.';
 
 
 const routes: Routes = [
-    { path: '', component: PracticesPageComponent },
-    { path: ':practiceId', component: PracticePageComponent }
+    { path: '', component: PracticesPageComponent, canActivate: [AuthGuard] },
+    { path: ':practiceId', component: PracticePageComponent, canActivate: [AuthGuard] }
 ];
 
 
