@@ -95,10 +95,12 @@ describe('Auth middleware', () => {
 
     const data: any = { _id: new mongoose.mongo.ObjectId('5f53e610c57684288918a92d') };
     sandbox.stub(jwt, 'verify').returns(data);
-    await checkAuth(req, res, () => { });
+    let nextCallsCounter = 0;
+    await checkAuth(req, res, () => { nextCallsCounter++; });
     expect(req).to.have.property('user');
     expect(req.user).to.have.property('email', 'ohad2121@gmail.com');
     expect((jwt.verify as any).called).to.be.true;
+    expect(nextCallsCounter).to.be.equal(1);
   });
 
   it('should return 404 user not found', async () => {
