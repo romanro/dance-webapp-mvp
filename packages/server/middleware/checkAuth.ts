@@ -28,7 +28,6 @@ const dataStoredInTokenToUser = async (req: Request, res: Response, next: NextFu
 
         const decoded = jwt.verify(token, jwtPublicKey, jwtVerifyOptions) as dataStoredInToken;
         const user = await User.findById(decoded._id).exec();
-        console.log(user);
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
