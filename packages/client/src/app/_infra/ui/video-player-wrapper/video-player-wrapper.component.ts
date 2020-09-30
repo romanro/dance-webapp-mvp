@@ -57,6 +57,14 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+    this.subs.push(
+      this.playerAPI.getDefaultMedia().subscriptions.canPlay.subscribe(
+        event => {
+          this.playerIsReady = true;
+          this.playerEvent.emit(event);
+        }
+      )
+    );
 
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(

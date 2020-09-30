@@ -6,7 +6,8 @@
     <!-- email -->
     <div class="form-group danskill-form-group">
 
-      <label for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
+      <label *ngIf="formControls['email'].value.length < 6"
+             for="inputEmail">{{'LOGIN.EmailAddress' | translate}}</label>
 
       <input type="email"
              formControlName="email"
@@ -30,7 +31,8 @@
       <!-- first name -->
       <div class="form-group danskill-form-group">
 
-        <label for="inputFirstName">{{'USER.firstName' | translate}}</label>
+        <label *ngIf="registerForm.get('name.firstName').value.length < 4"
+               for="inputFirstName">{{'USER.firstName' | translate}}</label>
 
         <input type="text"
                formControlName="firstName"
@@ -51,7 +53,8 @@
       <!-- last name -->
       <div class="form-group danskill-form-group">
 
-        <label for="inputLastName">{{'USER.lastName' | translate}}</label>
+        <label *ngIf="registerForm.get('name.lastName').value.length < 4"
+               for="inputLastName">{{'USER.lastName' | translate}}</label>
 
         <input type="text"
                formControlName="lastName"
@@ -73,7 +76,8 @@
     <!-- password -->
     <div class="form-group danskill-form-group">
 
-      <label for="inputPassword">{{'LOGIN.Password' | translate}}</label>
+      <label *ngIf="registerForm.get('password').value.length < 6"
+             for="inputPassword">{{'LOGIN.Password' | translate}}</label>
 
       <input type="password"
              formControlName="password"
@@ -110,7 +114,8 @@
     <!-- confirm password -->
     <div class="form-group danskill-form-group">
 
-      <label for="inputConfirmPassword">
+      <label *ngIf="registerForm.get('confirmPassword').value.length < 6"
+             for="inputConfirmPassword">
         {{'LOGIN.confirmPassword' | translate}}
       </label>
 

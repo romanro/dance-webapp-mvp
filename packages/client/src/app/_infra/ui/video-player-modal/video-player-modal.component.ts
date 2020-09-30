@@ -30,7 +30,7 @@ export class VideoPlayerModalComponent implements OnInit, OnDestroy {
     this.playerAPI = api;
 
     this.subs.push(
-      this.playerAPI.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
+      this.playerAPI.getDefaultMedia().subscriptions.canPlay.subscribe(
         event => {
           if (this.autoplay) {
             this.playerAPI.play();
