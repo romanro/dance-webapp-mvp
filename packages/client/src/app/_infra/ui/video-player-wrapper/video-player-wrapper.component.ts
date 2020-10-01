@@ -57,6 +57,14 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+    this.subs.push(
+      this.playerAPI.getDefaultMedia().subscriptions.canPlay.subscribe(
+        event => {
+          this.playerIsReady = true;
+          this.playerEvent.emit(event);
+        }
+      )
+    );
 
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.abort.subscribe(
@@ -162,7 +170,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     const devVelocity = evt.velocityX / 20;
     const seekRatio = devVelocity;
     const time = this.getCurrentTime();
-    const seekTo = -(seekRatio) + time;
+    const seekTo = seekRatio + time;
     this.seekTo(seekTo);
   }
 

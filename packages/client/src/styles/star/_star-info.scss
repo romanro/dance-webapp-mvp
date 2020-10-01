@@ -91,8 +91,6 @@
       .btn {
         @include media-breakpoint-down(sm) {
           width: 100%;
-          font-size: 0.79rem;
-          padding: 0.25rem 0.5rem;
           display: inline-block;
           min-width: 75%;
         }
@@ -114,7 +112,7 @@
     align-items: center;
 
     .star-info-name {
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 0.7rem;
       margin-bottom: 0.7rem;
     }
