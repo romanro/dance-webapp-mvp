@@ -1,12 +1,36 @@
 .figure-star-info {
   .star-short-info {
+    padding-bottom: 0.4rem;
+
     img {
-      max-width: 85px;
+      width: 85px;
+      height: 85px;
+      background: $gray-400;
+
+      @include media-breakpoint-down(sm) {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .star-info-name {
+      font-weight: 600;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 1rem;
+      }
     }
   }
 }
-.figure-cover-name{
-  padding: 5px 30px;
+
+.figure-info {
+  .figure-name {
+    font-weight: 600;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 0.8rem;
+    }
+  }
 }
 
 .basic-principles-videos-wrapper {
@@ -16,12 +40,12 @@
       @include list-item;
 
       .basic-principal-image {
-        @include list-item-image(40%);
+        @include list-item-image(50%);
 
       }
 
       .basic-principal-content {
-        @include list-item-text(60%);
+        @include list-item-text(50%);
       }
 
     }
@@ -33,12 +57,18 @@
     @include list-item;
 
     .comparable-video-image {
-      @include list-item-image(40%);
+      @include list-item-image(50%);
 
     }
 
     .comparable-video-text {
-      @include list-item-text(60%);
+      @include list-item-text(50%);
+
+      .badges {
+        .badge {
+          margin-right: 0.2rem;
+        }
+      }
 
     }
   }

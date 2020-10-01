@@ -31,6 +31,7 @@ import {
   VideoFilePickerComponent,
   VideoPlayerModalComponent,
   VideoPlayerWrapperComponent,
+  VideoPreviewComponent,
 } from './ui';
 
 
@@ -50,7 +51,7 @@ import {
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
     PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent, BaseBgProcessComponent,
-    ToggleSwitchDirective
+    ToggleSwitchDirective, VideoPreviewComponent
   ],
   exports: [
     AlertsComponent, PageNotFoundComponent, NotificationsPageComponent,
@@ -59,7 +60,7 @@ import {
     VideoPlayerWrapperComponent, StarNameDirective, NgbDateStructTodateDirective, InpageErrorComponent,
     TagsHolderComponent, ImageFilePickerComponent, VideoFilePickerComponent, PlayerSpeedControlsComponent,
     PlayerControlsComponent, BackgroundProcessesComponent, UploadPracticeBgProcessComponent,
-    ToggleSwitchDirective
+    ToggleSwitchDirective, VideoPreviewComponent
   ]
 })
 export class InfraModule { }

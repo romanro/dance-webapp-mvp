@@ -1,5 +1,5 @@
 <ng-template [ngIf]="star">
-  <div class="row figure-star-info">
+  <div class="row back-btn-row">
     <div class="col-12">
       <a class="btn-link dark-link"
          [routerLink]="['../']">
@@ -7,17 +7,17 @@
         {{'STAR.FIGURES.backToStarLibrary' | translate}}
       </a>
     </div>
+  </div>
+  <div class="row figure-star-info">
     <div
-         class="col d-flex flex-column justify-content-center align-items-center">
-      <div class="star-short-info text-center">
-        <img [src]="star.logo.small"
-             class="rounded-circle display-block">
+         class="col d-flex flex-column justify-content-center align-items-center star-short-info">
 
-        <h5 class="star-info-name text-center"
-            dsappStarName
-            [name]="star.name"></h5>
+      <img [src]="star.logo.small"
+           class="rounded-circle display-block">
 
-      </div>
+      <h5 class="star-info-name"
+          dsappStarName
+          [name]="star.name"></h5>
     </div>
   </div>
 </ng-template>
@@ -25,16 +25,14 @@
 
 <ng-template [ngIf]="figure">
 
-  <div class="row">
+  <div class="row figure-info">
     <div class="col">
-      <div class="figure-cover-name">
-        <div class="embed-responsive embed-responsive-16by9">
-          <div class="embed-responsive-item  cover-bg"
-               [style.backgroundImage]="'url('+ figure.logo +')'">
-          </div>
+      <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive-item cover-bg"
+             [style.backgroundImage]="'url('+ figure.logo +')'">
         </div>
-        <p class="text-center pt-2">{{figure.name}}</p>
       </div>
+      <h5 class="figure-name text-center pt-2">{{figure.name}}</h5>
     </div>
   </div>
 
@@ -52,24 +50,19 @@
                  class="embed-responsive embed-responsive-16by9 video-preview-container">
               <div class="embed-responsive-item star-big-image cover-bg"
                    [style.backgroundImage]="'url('+ video.thumbnail +')'"
-                   (click)="learnPrinciples(video.key, video.name)">
+                   (click)="learnPrinciples(video.path, video.name)">
               </div>
-              <div class="play-btn-container">
-                <i class="icon-play"></i>
-              </div>
-              <div class="hover-message">
-                {{'STAR.STAR_INFO_PAGE.WatchPromo' | translate}}
-              </div>
+
             </div>
 
           </div>
           <div class="basic-principal-content">
-            <div class="text">
-              <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
-              <p>{{video.name}}</p>
-              <button class="btn btn-sm btn-dark"
-                      (click)="learnPrinciples(video.key, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
-            </div>
+
+            <p>{{'STAR.FIGURES.basicPrinciples' | translate}}:</p>
+            <p *ngIf="video.name">{{video.name}}</p>
+            <button class="btn btn-sm btn-dark"
+                    (click)="learnPrinciples(video.path, video.name)">{{'STAR.FIGURES.learnPrinciples' | translate}}</button>
+
           </div>
         </div>
       </div>
@@ -85,19 +78,19 @@
            *ngFor="let video of comparableVideos">
         <div class="comparable-video-inner">
           <div class="comparable-video-image">
-            <div class="embed-responsive embed-responsive-16by9">
-              <div class="embed-responsive-item star-big-image cover-bg"
-                   [style.backgroundImage]="'url('+ video.thumbnail +')'">
-              </div>
-            </div>
+            <ui-video-preview [path]="video.path"
+                              [poster]="video.thumbnail"></ui-video-preview>
           </div>
           <div class="comparable-video-text">
             <p>{{figure.name}}</p>
-            <p>{{video.name}}</p>
-            <div class="mb-1">
-              <span class="badge badge-pill badge-secondary">{{video.view}}
+            <p *ngIf="video.name">{{video.name}}</p>
+            <div *ngIf="video.view || video.participatesAmount"
+                 class="badges">
+              <span *ngIf="video.view"
+                    class="badge badge-pill badge-secondary">{{video.view}}
                 {{'STAR.FIGURES.view' | translate}}</span>
-              <span class="badge badge-pill badge-secondary">
+              <span *ngIf="video.participatesAmount"
+                    class="badge badge-pill badge-secondary">
                 {{video.participatesAmount}}
               </span>
             </div>

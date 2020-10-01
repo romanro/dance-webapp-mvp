@@ -157,7 +157,7 @@ export class LabVideoToolComponent implements OnInit {
   onPan(evt) {
     const devVelocity = evt.velocityX / 20;
     const time = this.masterPLayer.playerAPI.getDefaultMedia().currentTime;
-    const seekTo = -(devVelocity) + time;
+    const seekTo = devVelocity + time;
     this.masterPLayer.seekTo(seekTo);
     this.syncStudentPlayer();
 

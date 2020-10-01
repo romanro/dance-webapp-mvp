@@ -78,16 +78,13 @@
       @include list-item;
 
       .preview-img-wrapper {
-        @include list-item-image(40%);
+        @include list-item-image(50%);
 
-        .preview-img {
-          width: 100%;
-          height: 80px;
-        }
+
       }
 
       .preview-content-wrapper {
-        @include list-item-text(60%);
+        @include list-item-text(50%);
 
         h6 {
           text-transform: capitalize;
@@ -106,11 +103,7 @@
           }
         }
 
-        .btn-sm {
-          @include media-breakpoint-down(sm) {
-            font-size: 0.7rem;
-          }
-        }
+
 
       }
     }

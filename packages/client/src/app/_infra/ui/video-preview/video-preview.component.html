@@ -1,0 +1,18 @@
+<div class="embed-responsive embed-responsive-16by9 video-preview">
+  <vg-player class="embed-responsive-item"
+             (onPlayerReady)="onPlayerReady($event)">
+
+    <video [vgMedia]="video"
+           [poster]="poster"
+           [playbackRate]="0.5"
+           #video
+           id="previewVideo"
+           preload="auto"
+           playsinline
+           webkit-playsinline>
+      <source *ngIf="path"
+              [src]="path"
+              type="video/mp4">
+    </video>
+  </vg-player>
+</div>

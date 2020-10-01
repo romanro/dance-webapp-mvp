@@ -155,10 +155,19 @@ button:focus {
 .dark-link {
   color: $dark;
   font-size: $font-size-sm;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 0.7rem;
+  }
 }
 
 .bg-dark {
   color: $white;
+}
+
+.back-btn-row {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 //.tab-btn{

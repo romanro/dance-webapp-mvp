@@ -1,5 +1,5 @@
 <ng-template [ngIf]="star && !loading">
-    <div class="row d-flex justify-content-center">
+    <div class="row back-btn-row">
         <div class="col-12">
             <a class="btn-link dark-link"
                [routerLink]="['../']">
@@ -7,6 +7,9 @@
                 {{'STAR.STAR_INFO_PAGE.backToStarsList' | translate}}
             </a>
         </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+
         <div class="col">
             <div class="star-info-vertical">
                 <div class="star-info-image">
