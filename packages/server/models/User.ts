@@ -19,11 +19,11 @@ export interface dataStoredInToken {
 }
 
 interface BirthDate {
-  date?: Date;
+  date: Date;
   group?: EnumAgeGroup;
 }
 
-interface Name {
+export interface Name {
   firstName: string;
   lastName: string;
   nickname?: string;
@@ -35,27 +35,27 @@ interface IProfile {
   birthDate: BirthDate,
   name: Name,
   about?: string,
-  location?: {
-    country?: string,
-    city?: string
-  };
-  picture?: string,
+  // location?: {
+  //   country?: string,
+  //   city?: string
+  // };
+  // picture?: string,
 }
 
 const userSchema = new mongoose.Schema(
   {
-    email: { type: String, unique: true },
-    password: { type: String, required: true },
+    email: { type: String, unique: true, select: false },
+    password: { type: String, required: true, select: false },
     role: { type: EnumRole, enum: possibleRoles, default: EnumRole.user },
-    passwordResetToken: String,
-    passwordResetExpires: Number,
-    emailVerificationToken: String,
+    passwordResetToken: { type: String },
+    passwordResetExpires: { type: Number },
+    emailVerificationToken: { type: String },
     emailVerified: { type: Boolean, default: false },
 
     // TODO: this properties are needed?
-    facebook: String,
-    google: String,
-    tokens: [{ type: String }],
+    // facebook: String,
+    // google: String,
+    // tokens: [{ type: String }],
 
     practiceItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticeItem' }],
 
@@ -71,11 +71,11 @@ const userSchema = new mongoose.Schema(
         nickname: { type: String },
       },
       about: { type: String },
-      location: {
-        country: { type: String },
-        city: { type: String }
-      },
-      picture: { type: String },
+      // location: {
+      //   country: { type: String },
+      //   city: { type: String }
+      // },
+      // picture: { type: String },
     }
   },
   { timestamps: true }
@@ -153,7 +153,6 @@ interface IUserSchema extends Document {
 }
 
 interface IUserBase extends IUserSchema {
-  comparePassword(candidatePassword: string, cb: any): any; // TODO: any
   generateAuthToken(): Promise<tokenData>;
 }
 
@@ -173,8 +172,9 @@ export interface IUser extends IUserBase {
 }
 
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 userSchema.statics.findByCredentials = async (email: string, password: string): Promise<IUser> => {
-  const user = await User.findOne({ email: email })
+  const user = await User.findOne({ email: email }).select("+password").exec()
   if (!user) {
     throw new Error("Invalid login credentials");
   }

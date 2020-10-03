@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, model } from 'mongoose';
 import {
     EnumView, possibleViews, EnumParticipatesAmount, possibleParticipatesAmounts,
-    EnumAssociateModel, possibleAssociateModels, EnumRole, possibleRoles, EnumVideoType, possibleVideoTypes
+    EnumAssociateModel, possibleAssociateModels, EnumVideoType, possibleVideoTypes
 } from "../shared/enums"
 import { IFigure } from './Figure';
 import { IUser } from './User';

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import Figure, { IFigure } from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
-import { EnumAssociateModel, EnumRole } from '../shared/enums';
+import { EnumAssociateModel } from '../shared/enums';
 import { awsDelete, awsListObjects } from '../services/aws';
 import { deleteVideoFromDb, disassociateVideoFromCollection } from './video'
 import Star, { IStar } from '../models/Star';

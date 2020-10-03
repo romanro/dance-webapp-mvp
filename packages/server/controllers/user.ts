@@ -2,22 +2,30 @@ import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 import { promisify } from 'util';
 import mongoose from "mongoose"
+import { ParamsDictionary } from "express-serve-static-core"
 
 import User, { IUser } from '../models/User';
 import { sendForgotPasswordEmail, sendResetPasswordEmail, sendVerifyEmail } from '../services/email';
 import { Errors } from '../shared/erros';
 import { HttpException } from '../shared/exceptions';
+import { EnumGender, EnumLanguage } from '../shared/enums';
+import { Name } from '../models/User'
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
-const DEFAULT_BIRTH_DATE = '1990-12-31T00:00:00.000Z';
+const DEFAULT_BIRTH_DATE = new Date('1990-12-31T00:00:00.000Z');
 
 /**
  * POST /login
  * Sign in using email and password.
  */
 
-export const postLogin = async (req: Request, res: Response) => {
+interface loginRequestBody {
+  email: string,
+  password: string;
+}
+
+export const postLogin = async (req: Request<ParamsDictionary, loginRequestBody, loginRequestBody>, res: Response) => {
   const user = await User.findByCredentials(req.body.email, req.body.password);
   const tokens = await user.generateAuthToken();
 
@@ -50,7 +58,14 @@ export const refreshToken = async (req: Request, res: Response) => {
  * Create a new local account.
  */
 
-export const postSignup = async (req: Request, res: Response) => {
+interface signupRequestBody {
+  email: string,
+  password: string;
+  name: Name;
+  birthDate?: Date;
+}
+
+export const postSignup = async (req: Request<ParamsDictionary, signupRequestBody, signupRequestBody>, res: Response) => {
   const user = new User({
     email: req.body.email,
     password: req.body.password,
@@ -77,7 +92,18 @@ export const postSignup = async (req: Request, res: Response) => {
  * PATCH /account/profile
  * Update profile information.
  */
-export const patchUpdateProfile = async (req: Request, res: Response) => {
+
+interface updateProfileRequestBody {
+  name: Name;
+  birthDate: Date;
+  location: string; // TODO: needed?
+  language: EnumLanguage;
+  gender: EnumGender;
+  about: string;
+}
+
+
+export const patchUpdateProfile = async (req: Request<ParamsDictionary, updateProfileRequestBody, updateProfileRequestBody>, res: Response) => {
   const user = req.user;
 
   // TODO: email cannot be changed (?)
@@ -88,9 +114,11 @@ export const patchUpdateProfile = async (req: Request, res: Response) => {
     name: req.body.name || '',
     gender: req.body.gender || '',
     language: req.body.language || '',
-    location: req.body.location || '',
-    picture: req.body.picture || '',
-    birthDate: { date: req.body.birthDate.date || DEFAULT_BIRTH_DATE }, // TODO: '' or something else?
+    // location: req.body.location || '',
+    // picture: req.body.picture || '',
+    birthDate: {
+      date: req.body.birthDate || DEFAULT_BIRTH_DATE  // TODO: '' or something else?
+    },
     about: req.body.about || ''
   };
 
@@ -126,7 +154,12 @@ export const getProfileInfo = async (req: Request, res: Response) => {
  * PATCH /account/password
  * Update current password.
  */
-export const patchUpdatePassword = async (req: Request, res: Response) => {
+
+interface updatePasswordRequestBody {
+  password: string;
+}
+
+export const patchUpdatePassword = async (req: Request<ParamsDictionary, updatePasswordRequestBody, updatePasswordRequestBody>, res: Response) => {
   const user = req.user;
   user.password = req.body.password;
 
@@ -214,7 +247,6 @@ const verifyUserEmail = async (user: IUser) => {
     throw new HttpException(409, Errors.ALREADY_VERIFIED)
   }
   const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
-
   // eslint-disable-next-line require-atomic-updates
   user.emailVerificationToken = token;
   await user.save();
@@ -225,7 +257,12 @@ const verifyUserEmail = async (user: IUser) => {
  * POST /reset/:token
  * Process the reset password request.
  */
-export const postReset = async (req: Request, res: Response) => {
+
+interface postResetRequestBody {
+  password: string;
+}
+
+export const postReset = async (req: Request<ParamsDictionary, postResetRequestBody, postResetRequestBody>, res: Response) => {
   const user = await User.findOne({ passwordResetToken: req.params.token })
     .where('passwordResetExpires')
     .gt(Date.now())
@@ -260,11 +297,15 @@ export const postReset = async (req: Request, res: Response) => {
  * POST /forgot
  * Create a random token, then the send user an email with a reset link.
  */
-export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
+
+interface postForgotRequestBody {
+  email: string,
+}
+
+export const postForgot = async (req: Request<ParamsDictionary, postForgotRequestBody, postForgotRequestBody>, res: Response, next: NextFunction) => {
   try {
     const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
-
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).exec();
     if (!user) {
       // TODO: security issue
       return res.json({
