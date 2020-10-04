@@ -51,7 +51,17 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
     );
 
     if (this.deviceInfo.os === 'iOS') {
-      setTimeout(() => { this.playerAPI.play(); }, 100)
+      setTimeout(() => {
+
+        const element: HTMLElement = document.getElementById('play-btn') as HTMLElement;
+        element.click();
+      }, 100)
+    }
+  }
+
+  autoplayVideo() {
+    if (this.deviceInfo.os === 'iOS') {
+      this.playerAPI.play();
     }
   }
 
