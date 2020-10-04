@@ -50,7 +50,7 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
       )
     );
 
-    if (this.deviceInfo.os = 'iOS') {
+    if (this.deviceInfo.os === 'iOS') {
       setTimeout(() => { this.playerAPI.play(); }, 100)
     }
   }
