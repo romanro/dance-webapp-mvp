@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { VgAPI } from 'ngx-videogular';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'ui-video-preview',
@@ -14,11 +16,14 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
 
   playerAPI: VgAPI;
 
+  deviceInfo: DeviceInfo;
+
   subs: Subscription[] = [];
 
-  constructor() { }
+  constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
+    this.deviceInfo = this.deviceService.getDeviceInfo();
   }
 
   onPlayerReady(api) {
@@ -44,6 +49,10 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    if (this.deviceInfo.os = 'iOS') {
+      setTimeout(() => { this.playerAPI.play(); }, 100)
+    }
   }
 
   ngOnDestroy() {
