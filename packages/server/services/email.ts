@@ -1,49 +1,72 @@
-import sgMail from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import nodemailer from 'nodemailer';
+import EmailTemplate, { EmailConfig } from 'email-templates';
 
-// TODO: should be moved to .env
-const FROM = 'hello@danskill.com';
+interface Locals {
+  token?: string,
+  baseUrl?: string
+}
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS
+  }
+});
 
-// TODO: mail templates should be added
+// TODO: trace log messages are needed here?
+
+const emailConfig: EmailConfig = {
+  message: {
+    from: process.env.NODEMAILER_USER
+  },
+  send: true,
+  preview: false,
+  transport: transporter,
+}
+
+const email = new EmailTemplate<Locals>(emailConfig);
+
 export const sendVerifyEmail = async (toMail: string, token: string) => {
-  const mailOptions = {
-    to: toMail,
-    from: FROM,
-    subject: 'Please verify your email address',
-    text: `Thank you for registering.\n\n
-      This verify your email address please click on the following link, or paste this into your browser:\n\n
-      ${process.env.BASE_URL}/account/verify/${token}\n\n
-      \n\n
-      Thank you!`
+  const locals: Locals = {
+    token: token,
+    baseUrl: process.env.BASE_URL
   };
 
-  return sgMail.send(mailOptions);
-};
+  await email.send({
+    template: 'VerifyEmail',
+    message: {
+      to: toMail,
+    },
+    locals: locals
+  })
+}
 
 export const sendForgotPasswordEmail = async (toMail: string, token: string) => {
-  const mailOptions = {
-    to: toMail,
-    from: FROM,
-    subject: 'Reset your password',
-    text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-      Please click on the following link, or paste this into your browser to complete the process:\n\n
-      ${process.env.BASE_URL}/reset/${token}\n\n
-      If you did not request this, please ignore this email and your password will remain unchanged.\n`
+  const locals: Locals = {
+    token: token,
+    baseUrl: process.env.BASE_URL
   };
-  return sgMail.send(mailOptions);
-};
+
+  await email.send({
+    template: 'ForgotPassword',
+    message: {
+      to: toMail,
+    },
+    locals: locals
+  })
+}
 
 export const sendResetPasswordEmail = async (toMail: string) => {
-  const mailOptions = {
-    to: toMail,
-    from: FROM,
-    subject: 'Your password has been changed',
-    text: `Thank you for registering.\n\n
-    Hello,\n\nThis is a confirmation that the password for your account ${toMail} has just been changed.\n
-    \n\n
-    Thank you!`
+  const locals: Locals = {
+    baseUrl: process.env.BASE_URL
   };
 
-  return sgMail.send(mailOptions);
-};
+  await email.send({
+    template: 'ResetPassword',
+    message: {
+      to: toMail,
+    },
+    locals: locals
+  })
+}

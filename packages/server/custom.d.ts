@@ -18,7 +18,8 @@ declare global {
       MAILGUN_USER: string;
       MAILGUN_PASSWORD: string;
 
-      SENDGRID_API_KEY: string;
+      NODEMAILER_USER: string;
+      NODEMAILER_PASS: string;
 
       FACEBOOK_ID: string;
       FACEBOOK_SECRET: string;

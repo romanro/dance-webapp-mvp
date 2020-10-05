@@ -264,6 +264,7 @@ interface postResetRequestBody {
 
 export const postReset = async (req: Request<ParamsDictionary, postResetRequestBody, postResetRequestBody>, res: Response) => {
   const user = await User.findOne({ passwordResetToken: req.params.token })
+    .select("+email")
     .where('passwordResetExpires')
     .gt(Date.now())
     .exec();
@@ -305,7 +306,7 @@ interface postForgotRequestBody {
 export const postForgot = async (req: Request<ParamsDictionary, postForgotRequestBody, postForgotRequestBody>, res: Response, next: NextFunction) => {
   try {
     const token = await randomBytesAsync(16).then(buf => buf.toString('hex'));
-    const user = await User.findOne({ email: req.body.email }).exec();
+    const user = await User.findOne({ email: req.body.email }).select("+email").exec();
     if (!user) {
       // TODO: security issue
       return res.json({
