@@ -44,7 +44,7 @@ interface IProfile {
 
 const userSchema = new mongoose.Schema(
   {
-    email: { type: String, unique: true, select: false },
+    email: { type: String, unique: true },
     password: { type: String, required: true, select: false },
     role: { type: EnumRole, enum: possibleRoles, default: EnumRole.user },
     passwordResetToken: { type: String },
