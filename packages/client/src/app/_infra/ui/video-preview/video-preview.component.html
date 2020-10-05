@@ -8,6 +8,9 @@
            #video
            id="previewVideo"
            preload="auto"
+           autoplay
+           loop
+           muted
            playsinline
            webkit-playsinline>
       <source *ngIf="path"
@@ -18,4 +21,4 @@
 </div>
 
 <a id="play-btn"
-   (click)="autoplayVideo()">play</a>
+   (click)="autoplayVideo()">PLay</a>
