@@ -47,6 +47,8 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
     this.playerAPI.volume = 0;
 
 
+
+
     this.subs.push(this.playerAPI.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
       /// getting original video duration
       if (this.isIos) {
@@ -135,6 +137,11 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    if (this.isIos) {
+      this.play();
+      setTimeout(() => { this.stop(); }, 1000)
+    }
 
   }
 
