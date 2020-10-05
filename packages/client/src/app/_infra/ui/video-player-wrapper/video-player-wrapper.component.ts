@@ -35,10 +35,7 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.playerIsReady = false;
     const deviceInfo = this.deviceService.getDeviceInfo();
-    this.isIos = deviceInfo.os.toLocaleLowerCase() === '"ios';
-    if (this.isIos) {
-      this.playerIsReady = true;
-    }
+    this.isIos = deviceInfo.os.toLocaleLowerCase() === 'ios';
 
   }
 
@@ -138,6 +135,11 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    if (this.isIos) {
+      this.playerIsReady = true;
+    }
+
 
 
   }

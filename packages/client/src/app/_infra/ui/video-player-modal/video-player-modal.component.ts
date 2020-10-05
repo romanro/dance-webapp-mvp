@@ -28,7 +28,7 @@ export class VideoPlayerModalComponent implements OnInit, OnDestroy {
     this.isString = (typeof this.title === 'string');
     const deviceInfo = this.deviceService.getDeviceInfo();
 
-    this.isMuted = deviceInfo.os.toLocaleLowerCase() === '"ios';
+    this.isMuted = deviceInfo.os.toLocaleLowerCase() === 'ios';
   }
 
   onPlayerReady(api) {
