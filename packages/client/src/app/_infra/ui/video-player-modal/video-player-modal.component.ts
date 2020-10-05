@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Name } from '@core/models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { VgAPI } from 'ngx-videogular';
@@ -30,7 +29,6 @@ export class VideoPlayerModalComponent implements OnInit, OnDestroy {
     const deviceInfo = this.deviceService.getDeviceInfo();
 
     this.isMuted = deviceInfo.os.toLocaleLowerCase() === '"ios';
-
   }
 
   onPlayerReady(api) {
