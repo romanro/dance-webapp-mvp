@@ -3,7 +3,7 @@ import mongoose, { Document, Model } from 'mongoose';
 
 import Figure from '../models/Figure';
 import Video, { IVideo } from '../models/Video';
-import { EnumAssociateModel, EnumRole, EnumVideoType } from '../shared/enums';
+import { EnumAssociateModel, EnumVideoType } from '../shared/enums';
 import HttpException from '../shared/exceptions';
 
 /**
