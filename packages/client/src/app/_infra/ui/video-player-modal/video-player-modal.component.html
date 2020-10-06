@@ -27,13 +27,15 @@
           <vg-scrub-bar-current-time vgFor="modalVideo">
           </vg-scrub-bar-current-time>
         </vg-scrub-bar>
-        <!--         <vg-volume vgFor="modalVideo"></vg-volume> -->
+        <vg-mute vgFor="modalVideo"></vg-mute>
         <vg-fullscreen></vg-fullscreen>
       </vg-controls>
       <video [vgMedia]="video"
              #video
              id="modalVideo"
              preload="auto"
+             [autoplay]="autoplay"
+             [muted]="isMuted"
              playsinline
              webkit-playsinline>
         <source [src]="videoURL"

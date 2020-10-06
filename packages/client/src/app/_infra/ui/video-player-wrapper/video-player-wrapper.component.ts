@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LabPlayerPlaybackOperator } from '@app/_infra/core/models';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { VgAPI } from 'ngx-videogular';
 import { Subscription } from 'rxjs';
 
@@ -25,13 +26,17 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
 
   time = '0';
   playbackRate = 1;
-
+  isIos: boolean;
   subs: Subscription[] = [];
 
-  constructor() { }
+
+  constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
     this.playerIsReady = false;
+    const deviceInfo = this.deviceService.getDeviceInfo();
+    this.isIos = deviceInfo.os.toLocaleLowerCase() === 'ios';
+
   }
 
   ngOnDestroy() {
@@ -41,6 +46,8 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
   onPlayerReady(api) {
     this.playerAPI = api;
     this.playerAPI.volume = 0;
+
+
 
 
     this.subs.push(this.playerAPI.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
@@ -128,6 +135,12 @@ export class VideoPlayerWrapperComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    if (this.isIos) {
+      this.playerIsReady = true;
+    }
+
+
 
   }
 

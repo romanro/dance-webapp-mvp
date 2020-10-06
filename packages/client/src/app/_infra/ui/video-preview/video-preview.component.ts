@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@a
 import { VgAPI } from 'ngx-videogular';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'ui-video-preview',
   templateUrl: './video-preview.component.html',
@@ -23,7 +24,7 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
 
   onPlayerReady(api) {
     this.playerAPI = api;
-
+    this.playerAPI.volume = 0;
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.canPlay.subscribe(
         event => {
@@ -31,9 +32,6 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
         }
       )
     );
-
-    this.playerAPI.volume = 0;
-
     this.subs.push(
       this.playerAPI.getDefaultMedia().subscriptions.ended.subscribe(
         event => {
@@ -44,6 +42,7 @@ export class VideoPreviewComponent implements OnInit, OnDestroy {
         }
       )
     );
+
   }
 
   ngOnDestroy() {

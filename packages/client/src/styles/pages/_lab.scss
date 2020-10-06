@@ -10,22 +10,7 @@
         flex-direction: column;
 
         .lab-tool-player-wrapper {
-            border: $lab-player-border;
             width: 100%;
-        }
-
-        &.linked {
-            .lab-tool-player-wrapper {
-                border-color: $success;
-            }
-        }
-
-        .star-player-wrapper {
-            border-bottom: none;
-        }
-
-        .student-player-wrapper {
-            border-top: none;
         }
 
         .linked-controls {

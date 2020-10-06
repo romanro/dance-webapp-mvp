@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Name } from '@core/models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { VgAPI } from 'ngx-videogular';
 import { Subscription } from 'rxjs';
 
@@ -18,12 +18,17 @@ export class VideoPlayerModalComponent implements OnInit, OnDestroy {
   isString = true;
   playerAPI: VgAPI;
 
+  isMuted = false;
+
   subs: Subscription[] = [];
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal, private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
     this.isString = (typeof this.title === 'string');
+    const deviceInfo = this.deviceService.getDeviceInfo();
+
+    this.isMuted = deviceInfo.os.toLocaleLowerCase() === 'ios';
   }
 
   onPlayerReady(api) {

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { AlertService } from '@app/_infra/core/services';
 import * as UserActions from '@app/_infra/store/actions/user.actions';
 import { CreatePracticeData } from '@core/models';
@@ -30,7 +29,6 @@ export class LabPageComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private sanitizer: DomSanitizer,
     private alertService: AlertService,
-    private router: Router,
     private backgroundProcessesService: BackgroundProcessesService
   ) { }
 
@@ -108,7 +106,6 @@ export class LabPageComponent implements OnInit, OnDestroy {
     switch (type) {
       case LabPlayerType.MASTER:
         this.clearLabItem();
-        this.router.navigate(['/student', 'star']);
         break;
       case LabPlayerType.STUDENT:
         this.clearUserVideo();
