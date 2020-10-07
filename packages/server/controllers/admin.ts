@@ -15,6 +15,7 @@ import { HttpException } from '../shared/exceptions';
  * add star
  */
 
+// TODO: slug should be converted from (firstName + lastName) with slugify (toLowerCase is needed?)
 const buildStarFromRequest = (req: Request): IStar => {
     return new Star({
         ...req.body

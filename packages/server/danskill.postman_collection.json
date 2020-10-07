@@ -9,6 +9,112 @@
 			"name": "Users",
 			"item": [
 				{
+					"name": "/signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7170e5e2-587e-455a-a899-75787ef36107",
+								"exec": [
+									"pm.test(\"Sign up\", function () {",
+									"    if (responseCode.code === 201)",
+									"    {",
+									"        const tokens = pm.response.json().data;",
+									"        pm.environment.set(\"access_token\", tokens.access_token);",
+									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
+									"    }",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"roy\",\n\t\t\"lastName\": \"roy\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/signup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b696d07-b35e-4a9c-bdfb-c592988998f6",
+								"exec": [
+									"pm.test(\"login\", function () {",
+									"    if (responseCode.code === 200)",
+									"    {",
+									"        const tokens = pm.response.json().data;",
+									"        pm.environment.set(\"access_token\", tokens.access_token);",
+									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
+									"    }",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/forgot",
 					"event": [
 						{
@@ -55,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"non-existing@user.com\"\n}",
+							"raw": "{\n\t\"email\": \"non-existing\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,112 +324,6 @@
 					]
 				},
 				{
-					"name": "/signup",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7170e5e2-587e-455a-a899-75787ef36107",
-								"exec": [
-									"pm.test(\"Sign up\", function () {",
-									"    if (responseCode.code === 201)",
-									"    {",
-									"        const tokens = pm.response.json().data;",
-									"        pm.environment.set(\"access_token\", tokens.access_token);",
-									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
-									"    }",
-									"    pm.response.to.have.status(201);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\",\n\t\"birthDate\": \"1992-12-31\",\n\t\"name\": {\n\t\t\"firstName\": \"roy\",\n\t\t\"lastName\": \"roy\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/signup",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7b696d07-b35e-4a9c-bdfb-c592988998f6",
-								"exec": [
-									"pm.test(\"login\", function () {",
-									"    if (responseCode.code === 200)",
-									"    {",
-									"        const tokens = pm.response.json().data;",
-									"        pm.environment.set(\"access_token\", tokens.access_token);",
-									"        pm.environment.set(\"refresh_token\", tokens.refresh_token);",
-									"    }",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ohad2121@gmail.com\",\n\t\"password\": \"somePassword\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/login",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "/refreshToken",
 					"event": [
 						{
@@ -383,20 +383,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/reset/:token",
+							"raw": "{{baseURL}}/reset/{{reset_token}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"reset",
-								":token"
-							],
-							"variable": [
-								{
-									"key": "token",
-									"value": "someresettoken",
-									"type": "string"
-								}
+								"{{reset_token}}"
 							]
 						},
 						"description": "Confirm reset token - if success is returned, password reset form can be presented"
@@ -417,7 +410,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"password\": \"somePassword\",\n\t\"confirm\": \"somePassword\"\n}",
+							"raw": "{\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -425,21 +418,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/reset/:token",
+							"raw": "{{baseURL}}/reset/{{reset_token}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"reset",
-								":token"
-							],
-							"variable": [
-								{
-									"id": "7ef74d46-fb9f-4ab2-a4bd-75c4951723b9",
-									"key": "token",
-									"value": "someresettoken",
-									"type": "string"
-								}
+								"{{reset_token}}"
 							]
 						},
 						"description": "commit reset token - change password for a user based on reset password form"
@@ -452,13 +437,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/account/verify",
+							"raw": "{{baseURL}}/account/verify/",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"account",
-								"verify"
+								"verify",
+								""
 							]
 						},
 						"description": "send verification email for new user - user is extracted from jwt token of the request"
@@ -575,6 +561,54 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "edit password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "40b8ff07-26b8-427b-84af-d9a960ddd62f",
+								"exec": [
+									"pm.test(\"Edit password\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"somePassword\",\n\t\"confirmPassword\": \"somePassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"password"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -641,7 +675,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"promoVideo\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4\",\r\n  \"name\": {\r\n    \"firstName\": \"Paul\",\r\n    \"lastName\": \"Moldovan\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Romania\"\r\n  },\r\n  \"logo\": {\r\n  \t\"small\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg\",\r\n    \"large\": \"https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/logo.jpg\"\r\n  },\r\n   \"about\": \"\",\r\n   \"achievements\": [\"3rd place World cup\", \"3rd place European cup\", \"2x Semi final World champoinship\", \"2x Semi final European championship\", \"2x GOC semi final\", \"5x Latvian champions\"],\r\n   \"slug\": \"Paul-Moldovan\"\r\n}",
+									"raw": "{\r\n  \"promoVideo\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4\",\r\n  \"name\": {\r\n    \"firstName\": \"Olessia\",\r\n    \"lastName\": \"Getsko\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Ukraine\"\r\n  },\r\n  \"logo\": {\r\n  \t\"small\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/Olessia+Getsko/Getsko_400x225.jpg\",\r\n    \"large\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/Olessia+Getsko/Getsko_400x225.jpg\"\r\n  },\r\n   \"about\": \"\",\r\n   \"achievements\": [\r\n\"2 times world champions 10 dance\",\r\n\"World and European cup champions\",\r\n\"Semi-Finalists Blackpool,Uk and International\",\r\n\"Semi-Finalists World championship\",\r\n\"Ukrainian champions\"\r\n       ],\r\n   \"slug\": \"Olessia-Getsko\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1435,7 +1469,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/figures/star/{{starId}}?danceType=tango&level=beginner",
+							"raw": "{{baseURL}}/figures/star/{{starId}}?danceType=rumba&level=advanced",
 							"host": [
 								"{{baseURL}}"
 							],
@@ -1447,11 +1481,57 @@
 							"query": [
 								{
 									"key": "danceType",
-									"value": "tango"
+									"value": "rumba"
 								},
 								{
 									"key": "level",
-									"value": "beginner"
+									"value": "advanced"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get figures by type and level Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/figures/star/{{starId}}?danceType=rumba&level=advanced",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"figures",
+								"star",
+								"{{starId}}"
+							],
+							"query": [
+								{
+									"key": "danceType",
+									"value": "rumba"
+								},
+								{
+									"key": "level",
+									"value": "advanced"
 								}
 							]
 						}
@@ -1502,13 +1582,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/videos/{{videoId}}",
+							"raw": "{{baseURL}}/videos/{{videoId}}2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"videos",
-								"{{videoId}}"
+								"{{videoId}}2"
 							]
 						}
 					},
