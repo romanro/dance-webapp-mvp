@@ -38,8 +38,11 @@ export class StarsContentEffects {
                                 const levelFigures = figures.filter(figure => figure.type === type && figure.level === level);
                                 return { level, figures: levelFigures }
                             })
+                            levels.sort((a, b) => Number(a.level) - Number(b.level));
                             return { type, levels };
                         });
+
+
 
                         const starContent: StarContent = { starId: action.payload, dances };
                         return StarsContentActions.SuccessGetStarsContentAction({ payload: starContent });

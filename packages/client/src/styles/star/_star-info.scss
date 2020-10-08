@@ -130,6 +130,8 @@
       padding-left: 0;
 
       li {
+        padding-left: 0.9rem;
+
         &::before {
           display: inline-block;
           content: '';
@@ -137,6 +139,7 @@
           width: 8px;
           margin-bottom: 0.5rem;
           margin-right: 0.3rem;
+          margin-left: -0.9rem;
 
           @include media-breakpoint-down(sm) {
             margin-bottom: 0.25rem;
