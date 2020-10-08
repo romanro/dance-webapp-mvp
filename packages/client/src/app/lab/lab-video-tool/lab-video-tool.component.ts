@@ -30,6 +30,8 @@ export class LabVideoToolComponent implements OnInit {
   playing = false;
   playbackRate = 1;
 
+  fullscreen = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -43,6 +45,10 @@ export class LabVideoToolComponent implements OnInit {
       this.seekToSyncTime();
       [this.masterPLayer, this.studentPLayer].map(p => p.play());
     }
+  }
+
+  toggleFullScreen(): void {
+    this.fullscreen = !this.fullscreen;
   }
 
   masterPlayerDuration(duration: number) {

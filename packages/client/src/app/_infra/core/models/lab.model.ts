@@ -10,7 +10,7 @@ export interface LabItem {
     practiceIsSaved?: boolean;
 }
 
-export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 6;
+export const LAB_USER_VIDEO_DURATION_DIFF_LIMIT = 30;
 
 export enum LabViewType {
     FULL = 'full',

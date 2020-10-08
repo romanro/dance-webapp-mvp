@@ -1,4 +1,16 @@
 <div class="lab-page">
+
+    <div *ngIf="labItem"
+         class="row back-btn-row">
+        <div class="col-12">
+            <a class="btn-link dark-link"
+               [routerLink]="['/','student','star',labItem.star.slug, labItem.figure._id]">
+                <i class="icon-arrow-left"></i>
+                {{'STAR.FIGURES.backToFigurePage' | translate}}
+            </a>
+        </div>
+    </div>
+
     <div class="row page-title-row">
         <div class="col text-center">
             <h2 class="inner-page-title"><span

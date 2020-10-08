@@ -27,7 +27,12 @@
 
   <div class="row figure-info">
     <div class="col">
-      <div class="embed-responsive embed-responsive-16by9">
+
+      <ui-video-preview *ngIf="promoVideo"
+                        [path]="promoVideo.path"
+                        [poster]="promoVideo.thumbnail"></ui-video-preview>
+      <div *ngIf="!promoVideo"
+           class="embed-responsive embed-responsive-16by9">
         <div class="embed-responsive-item cover-bg"
              [style.backgroundImage]="'url('+ figure.logo +')'">
         </div>
@@ -78,8 +83,13 @@
            *ngFor="let video of comparableVideos">
         <div class="comparable-video-inner">
           <div class="comparable-video-image">
-            <ui-video-preview [path]="video.path"
-                              [poster]="video.thumbnail"></ui-video-preview>
+            <div
+                 class="embed-responsive embed-responsive-16by9 video-preview-container">
+              <div class="embed-responsive-item star-big-image cover-bg"
+                   [style.backgroundImage]="'url('+ video.thumbnail +')'">
+              </div>
+
+            </div>
           </div>
           <div class="comparable-video-text">
             <p>{{figure.name}}</p>
