@@ -1,12 +1,23 @@
 <div class="lab-tool-wrapper video-wrapper"
-     [ngClass]="{'linked':synchronized}">
+     [ngClass]="{'linked':synchronized, 'fullscreen':fullscreen}">
 
-  <div class="controls-row"
-       (click)="toggleSync()">
-    <div uiToggleSwitch
-         [state]="synchronized"
-         [disabled]="!studentVideo"></div>
-    <label>{{synchronized ? ('LAB.unlinkVideos' | translate):('LAB.linkVideos' | translate)}}</label>
+  <div class="controls-row">
+    <div class="left-side">
+      <div role="button"
+           class="icon"
+           [ngClass]="{'vg-icon-fullscreen':!fullscreen, 'vg-icon-fullscreen_exit':fullscreen}"
+           (click)="toggleFullScreen()"></div>
+
+    </div>
+    <div class="right-side"
+         (click)="toggleSync()">
+      <div role="button"
+           uiToggleSwitch
+           [state]="synchronized"
+           [disabled]="!studentVideo"></div>
+      <label>{{synchronized ? ('LAB.unlinkVideos' | translate):('LAB.linkVideos' | translate)}}</label>
+    </div>
+
   </div>
 
   <div *ngIf="masterVideo"

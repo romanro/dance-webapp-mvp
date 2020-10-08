@@ -9,6 +9,34 @@
         display: flex;
         flex-direction: column;
 
+        &.fullscreen {
+            background-color: $black;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: +2000;
+            overflow-y: auto;
+
+            .controls-row {
+                .left-side {
+                    .icon {
+                        color: $white;
+                    }
+                }
+
+                .right-side {
+                    color: $white;
+
+                    .toggle-switch {
+                        background: none;
+                        color: $white;
+                    }
+                }
+            }
+        }
+
         .lab-tool-player-wrapper {
             width: 100%;
         }
@@ -54,18 +82,39 @@
 
         .controls-row {
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             width: 100%;
             background-color: transparent;
 
             z-index: +2;
 
-            label {
-                display: inline-block;
-                margin-bottom: 0.2rem;
-                line-height: 1;
+            .left-side {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .icon {
+                    height: 26px;
+                    width: auto;
+                    color: $body-color;
+                }
             }
+
+            .right-side {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+
+                label {
+                    display: inline-block;
+                    margin-bottom: 0.2rem;
+                    line-height: 1;
+                }
+            }
+
+
 
             &.linked {
                 color: $white;
