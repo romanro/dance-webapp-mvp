@@ -29,6 +29,7 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
   basicPrinciplesVideos: Array<Video> = [];
   comparableVideos: Array<Video> = [];
   additionalVideos: Array<Video> = [];
+  promoVideo: Video = null;
 
   subs: Subscription[] = [];
 
@@ -96,6 +97,9 @@ export class StarFigurePageComponent implements OnInit, OnDestroy {
         case VideoType.EXERCISES:
           this.additionalVideos.push(video);
           // TODO: add additional video functionality
+          break;
+        case VideoType.PROMO:
+          this.promoVideo = { ...video }
           break;
       }
     })
