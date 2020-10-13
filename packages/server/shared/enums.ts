@@ -1,9 +1,18 @@
+// TODO: values should be with spaces?
 export enum EnumDanceType {
-    waltz = "waltz",
-    tango = "tango",
-    quickstep = "quickstep",
-    foxtrot = "foxtrot",
-    rumba = 'rumba'
+  //Latin
+  cha_cha_cha = "cha cha cha",
+  samba = "samba",
+  rumba = 'rumba',
+  pasodoble = "pasodoble",
+  jive = "jive",
+
+  // Standard
+  waltz = "waltz",
+  tango = "tango",
+  viennese_waltz = "viennese waltz",
+  foxtrot = "foxtrot",
+  quickstep = "quickstep",
 }
 export const possibleDanceTypes = Object.values(EnumDanceType);
 
@@ -15,20 +24,20 @@ export enum EnumDanceLevel {
 export const possibleDanceLevels = Object.values(EnumDanceLevel);
 
 export enum EnumGender {
-    MALE = 'male',
-    FEMALE = 'female'
-  }
+  MALE = 'male',
+  FEMALE = 'female'
+}
 export const possibleGenders = Object.values(EnumGender);
-  
-  export enum EnumAgeGroup {
-    CHILD = 'child',
-    YOUNG = 'young',
-    ADULT = 'adult'
-  }
 
-  export enum EnumLanguage {
-    english = 'en'
-  }
+export enum EnumAgeGroup {
+  CHILD = 'child',
+  YOUNG = 'young',
+  ADULT = 'adult'
+}
+
+export enum EnumLanguage {
+  english = 'en'
+}
 export const possibleLanguages = Object.values(EnumLanguage);
 
 
