@@ -1671,6 +1671,58 @@
 					"response": []
 				},
 				{
+					"name": "edit practice item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ee050f55-56f6-4af4-b80a-f711bf26c5c9",
+								"exec": [
+									"pm.test(\"Add practice item\", function () {\r",
+									"    if (responseCode.code === 201) {\r",
+									"        const video = pm.response.json().data;\r",
+									"        pm.environment.set(\"videoId\", video._id);\r",
+									"    }\r",
+									"\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"fake it till you make it #222\"\n}",
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/account/practices/{{practiceId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"account",
+								"practices",
+								"{{practiceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get all practice items",
 					"event": [
 						{
