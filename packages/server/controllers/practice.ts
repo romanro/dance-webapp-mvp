@@ -151,3 +151,21 @@ export const deletePracticeItem = async (req: Request, res: Response) => {
     });
 }
 
+
+/**
+ * PATCH /
+ * edit practice item
+ */
+
+
+export const editPracticeItem = async (req: Request, res: Response) => {
+    const practiceItemId = new mongoose.mongo.ObjectId(req.params.practiceItemId);
+    const practiceItem = await getPracticeItemById(practiceItemId);
+    practiceItem.name = req.body.name;
+    await practiceItem.save();
+
+    res.status(200).json({
+        success: true,
+        message: 'Practice item edited',
+    });
+}
