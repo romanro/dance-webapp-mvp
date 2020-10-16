@@ -3,7 +3,7 @@ import {
     getVerifyEmail, getVerifyEmailToken, patchUpdatePassword,
     patchUpdateProfile, getProfileInfo
 } from '../controllers/user';
-import { addPracticeItem, deletePracticeItem, getPracticeItems, getPracticeItem } from "../controllers/practice"
+import { addPracticeItem, deletePracticeItem, getPracticeItems, getPracticeItem, editPracticeItem } from "../controllers/practice"
 import asyncHandler from 'express-async-handler';
 import { awsUserUpload } from "../services/aws";
 import { rules_updatePassword, rules_verifyEmailToken } from "../middleware/rules/account";
@@ -22,6 +22,7 @@ router.patch('/password', rules_updatePassword, validate, asyncHandler(patchUpda
 router.get('/practices', asyncHandler(getPracticeItems));
 router.get('/practices/:practiceItemId', asyncHandler(getPracticeItem));
 router.post('/practices', awsUserUpload.single('video'), asyncHandler(addPracticeItem));
+router.patch('/practices/:practiceItemId', asyncHandler(editPracticeItem));
 router.delete('/practices/:practiceItemId', asyncHandler(deletePracticeItem)); // middleware of check permissions is needed!
 
 
