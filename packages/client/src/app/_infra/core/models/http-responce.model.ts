@@ -36,3 +36,7 @@ export interface SingleFigureRestResponse extends RestResponse {
 export interface PracticeItemsRestResponse extends RestResponse {
     data?: Array<Practice>;
 }
+
+export interface UpdatePracticeItemsRestResponse extends RestResponse {
+    data?: Practice;
+}
