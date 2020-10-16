@@ -53,7 +53,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
               if (practice) {
                 this.practice = { ...practice };
                 this.loading = false;
-                this.practiceTitleInput = practice.title;
+                this.practiceTitleInput = practice.name;
               } else {
                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
               }
