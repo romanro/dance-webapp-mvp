@@ -167,5 +167,6 @@ export const editPracticeItem = async (req: Request, res: Response) => {
     res.status(200).json({
         success: true,
         message: 'Practice item edited',
+        data: practiceItem
     });
 }
