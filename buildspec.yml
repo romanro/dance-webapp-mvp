@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - yarn
-      - yarn dev
   build:
     commands:
       - npm test
