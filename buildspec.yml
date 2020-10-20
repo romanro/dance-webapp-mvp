@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yarn
+      - yarn dev
+  build:
+    commands:
+      - npm test
+artifacts:
+  files:
+    - '**/*'
