@@ -9,7 +9,7 @@ phases:
         commands:
             - echo `pwd`
             - echo TEST started on `date`
-            - yarn --cwd packages/server/ test
+            - yarn --cwd ./packages/server/ test
             - echo BUILD started on `date`
             - yarn run build
             - echo BUILD completed on `date`
