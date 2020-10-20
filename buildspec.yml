@@ -14,7 +14,3 @@ phases:
 artifacts:
     files:
         - '**/*'
-
-cache:
-    paths:
-        - '/node_modules/*/**'
