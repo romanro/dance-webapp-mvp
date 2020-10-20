@@ -10,7 +10,9 @@ phases:
             - echo `pwd`
             
             - echo TEST started on `date`
-            - cd packages/server && yarn test
+            - cd packages/server
+            - yarn test
+            - cd ../..
             - echo TEST completed on `date`
             
             - echo BUILD started on `date`
