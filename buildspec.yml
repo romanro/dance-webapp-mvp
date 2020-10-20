@@ -8,11 +8,15 @@ phases:
     build:
         commands:
             - echo `pwd`
+            
             - echo TEST started on `date`
-            - yarn --cwd ./packages/server/ test
+            - cd packages/server && yarn test
+            - echo TEST completed on `date`
+            
             - echo BUILD started on `date`
             - yarn run build
             - echo BUILD completed on `date`
+            
 artifacts:
     files:
         - '**/*'
