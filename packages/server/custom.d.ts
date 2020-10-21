@@ -12,6 +12,8 @@ declare global {
       BASE_URL: string;
       MONGODB_PRODUCTION_URI: string;
       MONGODB_DEVELOPMENT_URI: string;
+      MONGODB_PRODUCTION_TEST_URI: string;
+      MONGODB_DEVELOPMENT_TEST_URI: string;
 
       SESSION_SECRET: string;
 

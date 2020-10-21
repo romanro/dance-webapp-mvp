@@ -33,16 +33,15 @@ const app = express();
 const MONGO_URI = (process.env.NODE_ENV === 'development') ?
   process.env.MONGODB_DEVELOPMENT_URI : process.env.MONGODB_PRODUCTION_URI;
 
-mongoose
-  .connect(MONGO_URI,
-    {
-      autoIndex: false, // TODO:
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
-    }
-  )
+mongoose.connect(MONGO_URI,
+  {
+    autoIndex: false, // TODO:
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
+)
   .then(() => infoLogger.write("Connected to MongoDB..."))
   .catch(err => {
     errorLogger.write(err);
