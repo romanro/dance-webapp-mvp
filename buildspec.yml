@@ -7,8 +7,7 @@ phases:
             - echo INSTALL completed on `date`
     install:
         commands:
-            - curl --silent --location https://rpm.nodesource.com/setup_12.x
-            - yum install yarn
+            - npm install --global yarn
     build:
         commands:
             - echo `pwd`
