@@ -149,7 +149,8 @@
       "hideNotes": "Hide Notes",
       "showNotes": "Show Notes",
       "editNote": "Edit Note",
-      "saveChanges": "Save changes"
+      "saveChanges": "Save changes",
+      "noPracticesMonth": "No Practices on this month"
     },
     "ERRORS": {
       "getPracticesError": "There was an error fetching practices information. Try again later.",

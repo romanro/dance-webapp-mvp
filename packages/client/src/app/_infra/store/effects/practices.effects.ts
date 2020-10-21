@@ -28,4 +28,19 @@ export class PracticesEffects {
             )
         )
     );
+    updatePracticeItem$: Observable<Action> = createEffect(() =>
+        this.action$.pipe(
+            ofType(PracticsActions.BeginUpdatePracticeItemAction),
+            mergeMap(action =>
+                this.practicesService.updatePractice(action.payload).pipe(
+                    map((data: Practice) => {
+                        return PracticsActions.SuccessUpdatePracticeItemAction({ payload: data });
+                    }),
+                    catchError((error: Error) => {
+                        return of(PracticsActions.ErrorPracticesAction(error));
+                    })
+                )
+            )
+        )
+    );
 }

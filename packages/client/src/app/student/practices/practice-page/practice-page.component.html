@@ -8,18 +8,15 @@
     </div>
 </div>
 <ng-template [ngIf]="true && !loading && !errorMsg">
-    <div class="row page-title-row mb-4 text-center">
+    <div class="row page-title-row mb-4 text-center edit-practice-name-wrapper">
+        <div class="col-12 edit-practice-name">
+            <button class="edit-btn" (click)=editTitle()></button>
+            <input class="title-input inner-page-title text-center"
+                   type="text"
+                   [(ngModel)]="practiceTitleInput"
+                   [disabled]="disabledTitle">
+        </div>
         <div class="col-12">
-            <!--            <button class="edit-btn"-->
-            <!--                    (click)=editTitle()></button>-->
-            <!--            [(ngModel)]="practiceTitleInput"-->
-            <!--            [disabled]=disabledTitle-->
-            <!--            <input class="mb-2 title-input inner-page-title text-center"-->
-            <!--                   value="{{practice.associatedVideo.name}}"-->
-            <!--                   type="text">-->
-            <h5
-                class="mb-2 practice-title title-input inner-page-title text-center">
-                {{practice.name}}</h5>
             <div class="inner-page-sub-title">
                 {{practice.createdAt | date:'MMMM y'}}
             </div>

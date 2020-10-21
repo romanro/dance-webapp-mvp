@@ -35,8 +35,7 @@
     <ul class="list-group">
         <div class="row practices-list">
             <ng-container *ngFor="let practice of practices ">
-                <div class="col-12 col-lg-4 mb-3 "
-                     *ngIf="compareDates(practice.createdAt, currentDate) && !isHidden(practice.name)">
+                <div class="col-12 col-lg-4 mb-3 " *ngIf="compareDates(practice.createdAt, currentDate) && !isHidden(practice.name); else noPractice">
                     <li class="list-group-item d-flex bg-light ">
                         <div class="col-4 practice-date text-muted ">
                             <p>{{practice.createdAt | date:'shortDate'}}</p>
@@ -52,11 +51,17 @@
                         </div>
                     </li>
                 </div>
+                <ng-template #noPractice>
+                    <div class="col-12 text-center p-2">
+                        <h5>{{'PRACTICES.PRACTICE.noPracticesMonth' | translate}}</h5>
+                    </div>
+                </ng-template>
             </ng-container>
         </div>
 
     </ul>
 </ng-template>
+
 
 
 <ng-template [ngIf]="loading">

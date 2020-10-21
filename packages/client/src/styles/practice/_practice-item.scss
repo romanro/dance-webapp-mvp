@@ -1,0 +1,19 @@
+.edit-practice-name-wrapper {
+  .edit-practice-name {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+
+    .edit-btn {
+      padding-right: 5px;
+    }
+
+    .title-input {
+      margin: 0;
+      width: 100%;
+
+    }
+  }
+}
