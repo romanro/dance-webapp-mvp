@@ -8,44 +8,19 @@
   "associatedObject": {
     "$oid": "5f53f50d6ffba730ca8df5fc"
   },
-  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/logo.png",
+  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/logo.jpg",
   "ownerUser": {
     "$oid": "5f53e610c57684288918a92d"
   },
   "ownerRole": 99,
   "associatedModel": "Figure",
-  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
-  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "path": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
   "createdAt": {
     "$date": "2020-09-05T20:30:31.967Z"
   },
   "updatedAt": {
     "$date": "2020-09-05T20:30:31.967Z"
-  },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f53f64c6ffba730ca8df5fe"
-  },
-  "view": "front",
-  "type": "promo",
-  "participatesAmount": "couple",
-  "associatedObject": {
-    "$oid": "5f53f50d6ffba730ca8df5fc"
-  },
-  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
-  "ownerUser": {
-    "$oid": "5f53e610c57684288918a92d"
-  },
-  "ownerRole": 99,
-  "associatedModel": "Figure",
-  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
-  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
-  "createdAt": {
-    "$date": "2020-09-05T20:34:20.570Z"
-  },
-  "updatedAt": {
-    "$date": "2020-09-05T20:34:20.570Z"
   },
   "__v": 0
 },{
@@ -58,19 +33,19 @@
   "associatedObject": {
     "$oid": "5f53f50d6ffba730ca8df5fc"
   },
-  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
+  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/logo.jpg",
   "ownerUser": {
     "$oid": "5f53e610c57684288918a92d"
   },
   "ownerRole": 99,
   "associatedModel": "Figure",
-  "path": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
-  "key": "stars/paul_moldovan/Rumba/Level 3/Opening Out/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
+  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "path": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
   "createdAt": {
     "$date": "2020-09-05T20:35:10.216Z"
   },
   "updatedAt": {
-    "$date": "2020-09-05T20:36:33.717Z"
+    "$date": "2020-10-14T12:30:52.388Z"
   },
   "__v": 0
 },{
@@ -85,14 +60,585 @@
   },
   "associatedModel": "Video",
   "ownerRole": 1,
-  "path": "https://danskill1.s3.amazonaws.com/users/2020-09-05T20-36-16.597Z_Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4",
-  "key": "users/2020-09-05T20-36-16.597Z_Roy (user) - fake it till you make it.mp4",
+  "key": "https://danskill1.s3.amazonaws.com/users/2020-09-05T20-36-16.597Z_Roy%20%28user%29%20-%20fake%20it%20till%20you%20make%20it.mp4",
+  "path": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
   "type": "comparable",
   "createdAt": {
     "$date": "2020-09-05T20:36:33.708Z"
   },
   "updatedAt": {
     "$date": "2020-09-05T20:36:33.708Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6110cc3acd6d006670f9c1"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T19-06-25.838Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T19-06-25.838Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T19:06:52.041Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T19:06:52.041Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6124dc93371c006695eda1"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-32-01.565Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-32-01.565Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:32:28.882Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:32:28.882Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6125db93371c006695eda3"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-36-12.294Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-36-12.294Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:36:43.730Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:36:43.730Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61265993371c006695eda5"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-38-26.462Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-38-26.462Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:38:49.909Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:38:49.909Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61271093371c006695eda7"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-41-12.873Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-41-12.873Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:41:52.612Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:41:52.612Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61280b93371c006695eda9"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-45-33.266Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-45-33.266Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:46:03.220Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:46:03.220Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61286593371c006695edab"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-47-12.729Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-47-12.729Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:47:33.238Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:47:33.238Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6128ce93371c006695edad"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T20-48-55.114Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T20-48-55.114Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T20:49:18.850Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T20:49:18.850Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f612d2141c4eb00665c0150"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T21-07-13.057Z_oahadvideo00001.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T21-07-13.057Z_oahadvideo00001.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T21:07:45.281Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T21:07:45.281Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6133aa41c4eb00665c0152"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-15T21-35-35.797Z_VID_20200916_003458.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-15T21-35-35.797Z_VID_20200916_003458.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-15T21:35:38.679Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-15T21:35:38.679Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f615da4d544a0006666e830"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-16T00-33-45.504Z_trim.AAA596DB-96BF-4385-B5A2-AE907D7A1DC2.MOV",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-16T00-33-45.504Z_trim.AAA596DB-96BF-4385-B5A2-AE907D7A1DC2.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-16T00:34:44.251Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-16T00:34:44.251Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f615e7bd544a0006666e832"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-16T00-37-03.222Z_trim.2D7501A6-8FFA-4CD6-9BE4-00AF8B2297F5.MOV",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-16T00-37-03.222Z_trim.2D7501A6-8FFA-4CD6-9BE4-00AF8B2297F5.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-16T00:38:19.737Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-16T00:38:19.737Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61b947c9e41d0066b8c3b9"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-16T07-05-26.120Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-16T07-05-26.120Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-16T07:05:43.435Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-16T07:05:43.435Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f61c9a1bdfbe10066dead02"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-16T08-15-12.194Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-16T08-15-12.194Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-16T08:15:29.921Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-16T08:15:29.921Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6660941f63b50066c1adc6"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-19T19-48-33.968Z_62223767349__D7C28E4E-E612-4A84-B333-9AFF7E8AE8C6.MOV",
+  "path": "https://danskill1.s3.amazonaws.com/users/2020-09-19T19-48-33.968Z_62223767349__D7C28E4E-E612-4A84-B333-9AFF7E8AE8C6.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-19T19:48:36.765Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-19T19:48:36.765Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f67803c671cc80066943964"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-20T16-15-37.452Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-20T16-15-37.452Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-20T16:15:56.065Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-20T16:15:56.065Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f68a66f12bada006604adc5"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-21T13-10-42.681Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-21T13-10-42.681Z_RUMBA_L3_OPENING_OUT_MY_LAB_USER.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-21T13:11:11.171Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-21T13:11:11.171Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f69ca532b5435006604880f"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-22T09-55-25.526Z_trim.AFF93F1B-5B9A-496F-A67D-44A1190A81DB.MOV",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-22T09-55-25.526Z_trim.AFF93F1B-5B9A-496F-A67D-44A1190A81DB.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-22T09:56:35.594Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-22T09:56:35.594Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6af2865eaeb400663c1681"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-23T07-00-20.491Z_62253721663__4DB7BD41-E985-496F-B4C1-F003218DA053.MOV",
+  "path": "https://danskill1.s3.amazonaws.com/users/2020-09-23T07-00-20.491Z_62253721663__4DB7BD41-E985-496F-B4C1-F003218DA053.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-23T07:00:22.342Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-23T07:00:22.342Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6ce125d6c74300662691db"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-24T18-10-41.726Z_VID_20200924_205412.mp4",
+  "path": "https://danskill1.s3.amazonaws.com/users/2020-09-24T18-10-41.726Z_VID_20200924_205412.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-24T18:10:45.193Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-24T18:10:45.193Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f6ce1f6d6c74300662691dd"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "ownerRole": 1,
+  "key": "users/2020-09-24T18-14-11.678Z_VID_20200924_205412.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-09-24T18-14-11.678Z_VID_20200924_205412.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-09-24T18:14:14.835Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-24T18:14:14.835Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f53f64c6ffba730ca8df5fe"
+  },
+  "view": "front",
+  "type": "promo",
+  "participatesAmount": "couple",
+  "associatedObject": {
+    "$oid": "5f53f50d6ffba730ca8df5fc"
+  },
+  "thumbnail": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/logo.png",
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "ownerRole": 99,
+  "associatedModel": "Figure",
+  "key": "https://danskill1.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level+3/Opening+Out/RUMBA_L3_OPENING_OUT_BASIC_PRINCIPLE_PAUL.mp4",
+  "path": "https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/Rumba/Level%2B3/Opening%2BOut/RUMBA_L3_OPENING_OUT_MY_LAB_PAUL.mp4",
+  "createdAt": {
+    "$date": "2020-09-05T20:34:20.570Z"
+  },
+  "updatedAt": {
+    "$date": "2020-09-05T20:34:20.570Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f82e827d8a27f006641f1e4"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "key": "users/2020-10-11T11-10-05.181Z_trim.3E75985A-EE63-4E05-AA38-F31A6398DAB5.MOV",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-10-11T11-10-05.181Z_trim.3E75985A-EE63-4E05-AA38-F31A6398DAB5.MOV",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-10-11T11:10:31.969Z"
+  },
+  "updatedAt": {
+    "$date": "2020-10-11T11:10:31.969Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f8610079b4137006692755b"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f571bb47d555c006639a443"
+  },
+  "associatedModel": "Video",
+  "key": "users/2020-10-13T20-37-23.227Z_VID_20201013_233641.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-10-13T20-37-23.227Z_VID_20201013_233641.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-10-13T20:37:27.695Z"
+  },
+  "updatedAt": {
+    "$date": "2020-10-13T20:37:27.695Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f86ef7919cbe200662ecb1a"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "key": "users/2020-10-14T12-30-47.915Z_name.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-10-14T12-30-47.915Z_name.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-10-14T12:30:49.863Z"
+  },
+  "updatedAt": {
+    "$date": "2020-10-14T12:30:49.863Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f86ef7c19cbe200662ecb1c"
+  },
+  "associatedObject": {
+    "$oid": "5f53f67e6ffba730ca8df5ff"
+  },
+  "ownerUser": {
+    "$oid": "5f53e610c57684288918a92d"
+  },
+  "associatedModel": "Video",
+  "key": "users/2020-10-14T12-30-49.321Z_name.mp4",
+  "path": "https://danskill1.s3.eu-west-1.amazonaws.com/users/2020-10-14T12-30-49.321Z_name.mp4",
+  "type": "comparable",
+  "createdAt": {
+    "$date": "2020-10-14T12:30:52.311Z"
+  },
+  "updatedAt": {
+    "$date": "2020-10-14T12:30:52.311Z"
   },
   "__v": 0
 }]
