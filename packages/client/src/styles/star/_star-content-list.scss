@@ -3,6 +3,56 @@
   min-height: 5rem;
 
   .star-dances-pills-row {
+
+    .owl-carousel {
+      position: relative;
+
+      .owl-nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        margin: auto;
+
+        .disabled {
+          display: none;
+        }
+
+        [class*=owl-] {
+          position: absolute;
+          background: transparent;
+          border: none;
+          color: $gray-800;
+          margin: 0;
+          padding: 5px 0;
+        }
+
+        .owl-prev {
+          left: 0;
+          margin-left: -17px;
+        }
+
+        .owl-next {
+          right: 0;
+          margin-right: -17px;
+        }
+
+      }
+
+      .owl-item {
+        .btn {
+          display: block;
+          width: 100%;
+          color: $white;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+
     .nav-pills {
       .nav-item {
         .nav-link {

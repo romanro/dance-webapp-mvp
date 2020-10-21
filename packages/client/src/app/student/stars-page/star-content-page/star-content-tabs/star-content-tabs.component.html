@@ -4,31 +4,25 @@
   <ng-template [ngIf]="content && !loading">
     <div class="row star-dances-pills-row">
       <div class="col">
-        <ul ngbNav
-            #dancesPills="ngbNav"
-            class="nav-pills justify-content-around p-1">
-          <ng-template ngFor
-                       let-dance
-                       [ngForOf]="content.dances">
-            <li ngbNavItem>
-              <a ngbNavLink
-                 class="btn btn-dark">{{dance.type}}</a>
-              <ng-template ngbNavContent>
-
-                <dsapp-levels-tabs [levels]="dance.levels"></dsapp-levels-tabs>
-
-              </ng-template>
-            </li>
-          </ng-template>
-
-        </ul>
+        <owl-carousel-o [options]="customOptions">
+          <ng-container *ngFor="let dance of content.dances">
+            <ng-template carouselSlide
+                         [id]="dance.type">
+              <a class="btn"
+                 [ngClass]="selectDance&&selectDance.type==dance.type ?  'btn-secondary': 'btn-dark'"
+                 (click)="onDanceSelection(dance)">{{dance.type}}</a>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
 
       </div>
     </div>
 
-    <div class="row star-dance-content-row">
-      <div class="col"
-           [ngbNavOutlet]="dancesPills"></div>
+    <div *ngIf="selectDance"
+         class="row star-dance-content-row">
+      <div class="col">
+        <dsapp-levels-tabs [levels]="selectDance.levels"></dsapp-levels-tabs>
+      </div>
     </div>
   </ng-template>
 
