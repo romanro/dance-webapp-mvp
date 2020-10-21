@@ -8,7 +8,7 @@ phases:
     install:
         commands:
             - curl --silent --location https://rpm.nodesource.com/setup_12.x
-            - sudo yum install yarn
+            - yum install yarn
     build:
         commands:
             - echo `pwd`
