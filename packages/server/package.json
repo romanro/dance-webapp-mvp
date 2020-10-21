@@ -4,14 +4,11 @@
   "scripts": {
     "dev": "tsnd --respawn app.ts",
     "build": "rimraf ./build && tsc && yarn run copy-files",
-    "start": "node build/app.js",
-    
+    "start": "NODE_ENV=production node build/app.js",
     "test": "NODE_ENV=production mocha -r ts-node/register --timeout=5000 --exit 'test/**/*.ts'",
     "test-cov": "NODE_ENV=production nyc --all --reporter=html --reporter=text yarn test",
-    
     "test-dev": "NODE_ENV=development mocha -r ts-node/register --timeout=5000 --exit 'test/**/*.ts'",
     "test-cov-dev": "NODE_ENV=development nyc --all --reporter=html --reporter=text yarn test",
-    
     "lint": "eslint \"**/*.ts\"",
     "lint-fix": "eslint --fix \"**/*.ts\"",
     "copy-files": "copyfiles config/**/*.key build"
