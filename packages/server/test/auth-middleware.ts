@@ -16,8 +16,12 @@ import sinon from 'sinon';
 import User from '../models/User';
 import { EnumRole } from '../shared/enums';
 
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
+
 const sandbox = sinon.createSandbox();
-const MONGODB_DEV_URI = "mongodb://localhost:27017/test"
+const MONGODB_DEV_URI = (process.env.NODE_ENV === 'development') ?
+  process.env.MONGODB_DEVELOPMENT_TEST_URI : process.env.MONGODB_PRODUCTION_TEST_URI;
 
 describe('Auth middleware', () => {
 
