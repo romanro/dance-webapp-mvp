@@ -12,11 +12,11 @@ phases:
         commands:
             - echo `pwd`
             
-            #- echo TEST started on `date`
-            #- cd packages/server
-            #- yarn test
-            #- cd ../..
-            #- echo TEST completed on `date`
+            - echo TEST started on `date`
+            - cd packages/server
+            - yarn test
+            - cd ../..
+            - echo TEST completed on `date`
             
             - echo BUILD started on `date`
             - yarn run build
