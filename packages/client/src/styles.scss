@@ -6,6 +6,10 @@
 @import 'styles/bootstrap-variables';
 @import '~bootstrap/scss/bootstrap.scss';
 
+/* OWL Carousel imports */
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
 /*Custom variables*/
 @import 'styles/variables';
 

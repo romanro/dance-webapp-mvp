@@ -1,11 +1,12 @@
 <ul ngbNav
     #levelTabs="ngbNav"
+    [(activeId)]="active"
     class="nav-tabs level-tabs list-inline {{levels.length === 1 ? 'one-tab' : 'more-then-one'}}">
   <ng-template ngFor
                let-level
                [ngForOf]="levels">
 
-    <li ngbNavItem>
+    <li [ngbNavItem]="level.level">
       <a ngbNavLink>{{'STAR.STAR_INFO_PAGE.level' | translate}}
         {{level.level}}</a>
       <ng-template ngbNavContent>
