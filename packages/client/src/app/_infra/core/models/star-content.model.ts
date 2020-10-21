@@ -6,10 +6,19 @@ export interface StarContent {
 }
 
 export enum DanceType {
+    //Latin
+    CHA_CHA_CHA = 'cha cha cha',
+    SAMBA = 'samba',
+    RUMBA = 'rumba',
+    PASODOBLE = 'pasodoble',
+    JIVE = 'jive',
+
+    // Standard
     WALTZ = 'waltz',
     TANGO = 'tango',
+    VIENNESE_WALTZ = 'viennese waltz',
+    FOXTROT = 'foxtrot',
     QUICKSTEP = 'quickstep',
-    FOXTROT = 'foxtrot'
 }
 
 export interface StarContentDance {
