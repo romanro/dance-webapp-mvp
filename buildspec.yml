@@ -1,24 +1,26 @@
 version: 0.2
 
 phases:
+    install:
+        commands:
+            - echo npm install yarn -g started on `date`
+            - npm install yarn -g
+            - echo npm install yarn -g started on `date`
     pre_build:
         commands:
             - echo `pwd`
-            - echo INSTALL started on `date`
+            - echo yarn INSTALL started on `date`
             - yarn install
-            - echo INSTALL completed on `date`
-    install:
-        commands:
-            - npm install yarn -g
+            - echo yarn INSTALL completed on `date`
     build:
         commands:
             - echo `pwd`
             
-            - echo TEST started on `date`
+            - echo yarn TEST started on `date`
             - cd packages/server
             - yarn test
             - cd ../..
-            - echo TEST completed on `date`
+            - echo yarn TEST completed on `date`
             
             - echo BUILD started on `date`
             - yarn run build
