@@ -675,7 +675,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"promoVideo\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4\",\r\n  \"name\": {\r\n    \"firstName\": \"Olessia\",\r\n    \"lastName\": \"Getsko\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Ukraine\"\r\n  },\r\n  \"logo\": {\r\n  \t\"small\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/Olessia+Getsko/Getsko_400x225.jpg\",\r\n    \"large\": \"https://danskill-streaming-video-optimized.s3-eu-west-1.amazonaws.com/stars/Olessia+Getsko/Getsko_400x225.jpg\"\r\n  },\r\n   \"about\": \"\",\r\n   \"achievements\": [\r\n\"2 times world champions 10 dance\",\r\n\"World and European cup champions\",\r\n\"Semi-Finalists Blackpool,Uk and International\",\r\n\"Semi-Finalists World championship\",\r\n\"Ukrainian champions\"\r\n       ],\r\n   \"slug\": \"Olessia-Getsko\"\r\n}",
+									"raw": "{\r\n  \"promoVideo\": \"https://d7nb4rcaibu03.cloudfront.net/stars/paul_moldovan/PROMO_OF_PAUL_MOLDOVAN.mp4\",\r\n  \"name\": {\r\n    \"firstName\": \"Olessia\",\r\n    \"lastName\": \"Getsko\"\r\n  },\r\n  \"location\": {\r\n    \"city\": \"Ukraine\"\r\n  },\r\n  \"logo\": {\r\n  \t\"small\": \"https://d7nb4rcaibu03.cloudfront.net/stars/Olessia+Getsko/Getsko_400x225.jpg\",\r\n    \"large\": \"https://d7nb4rcaibu03.cloudfront.net/stars/Olessia+Getsko/Getsko_400x225.jpg\"\r\n  },\r\n   \"about\": \"\",\r\n   \"achievements\": [\r\n\"2 times world champions 10 dance\",\r\n\"World and European cup champions\",\r\n\"Semi-Finalists Blackpool,Uk and International\",\r\n\"Semi-Finalists World championship\",\r\n\"Ukrainian champions\"\r\n       ],\r\n   \"slug\": \"Olessia-Getsko\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -943,7 +943,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"key\": \"stars/Paul Moldovan/logo.jpg\"\n}",
+									"raw": "{\n    \"key\": \"stars/Paul Moldovan/logo.png\"\n}",
 									"options": {
 										"formdata": {}
 									}
@@ -1006,7 +1006,7 @@
 											"key": "object",
 											"description": "Must be the last parameter!!!!!",
 											"type": "file",
-											"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/photos/logo.jpg"
+											"src": "/home/ohad/Downloads/Paul Moldovan-20200814T133944Z-001/Paul Moldovan/photos/logo.png"
 										}
 									],
 									"options": {
