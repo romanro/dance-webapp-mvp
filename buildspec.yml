@@ -7,7 +7,7 @@ phases:
             - echo INSTALL completed on `date`
     install:
         commands:
-            - sudo npm install yarn -g
+            - npm install yarn -g
     build:
         commands:
             - echo `pwd`
