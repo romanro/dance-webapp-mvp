@@ -7,8 +7,7 @@ phases:
             - echo INSTALL completed on `date`
     install:
         commands:
-            - curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
-            - sudo yum -y install yarn
+            - sudo npm install yarn -g
     build:
         commands:
             - echo `pwd`
