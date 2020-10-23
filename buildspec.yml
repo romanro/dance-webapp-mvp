@@ -6,12 +6,14 @@ phases:
             - echo npm install yarn -g started on `date`
             - npm install yarn -g
             - echo npm install yarn -g started on `date`
+            
     pre_build:
         commands:
             - echo `pwd`
             - echo yarn INSTALL started on `date`
             - yarn install
             - echo yarn INSTALL completed on `date`
+            
     build:
         commands:
             - echo `pwd`
