@@ -55,7 +55,17 @@ export const getPracticeItemById = async (practiceItemId: mongoose.Types.ObjectI
     new Promise((resolve, reject) => {
         PracticeItem.findById(practiceItemId)
             //.select() // TODO: select is needed
-            .populate("video")
+            .populate({
+                path: 'video',
+                populate: {
+                    model: 'Video',
+                    path: 'associatedObject',
+                    populate: {
+                        model: 'Figure',
+                        path: 'associatedObject',
+                    }
+                }
+            })
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
