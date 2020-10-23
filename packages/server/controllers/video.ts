@@ -65,13 +65,12 @@ export const getVideo = async (req: Request, res: Response) => {
  * upload video
  */
 
-export const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string): IVideo => {
+export const buildVideoFromRequest = (req: Request, videoKey: string): IVideo => {
     return new Video({
         associatedObject: req.body.associatedVideoId,
         ownerUser: req.user._id,
         associatedModel: EnumAssociateModel.Video,
         key: videoKey,
-        path: videoUrl,
         type: EnumVideoType.comparable
     })
 }
