@@ -51,13 +51,12 @@ export const removeStar = async (req: Request, res: Response) => {
  * add video
  */
 
-const buildVideoFromRequest = (req: Request, videoUrl: string, videoKey: string): IVideo => {
+const buildVideoFromRequest = (req: Request, videoKey: string): IVideo => {
     return new Video({
         ...req.body,
         ownerUser: req.user._id,
         associatedModel: EnumAssociateModel.Figure,
-        key: videoUrl,
-        path: videoKey
+        key: videoKey,
     })
 }
 
@@ -70,9 +69,8 @@ export const associateVideoWithFigure = async (associatedId: mongoose.Types.Obje
 export const addVideo = async (req: Request, res: Response) => {
     // TODO: validation for req.file
 
-    const videoUrl = req.file ? (req.file as any).location : req.body.videoUrl;
     const videoKey = req.file ? (req.file as any).key : req.body.videoKey;
-    const video = buildVideoFromRequest(req, videoUrl, videoKey);
+    const video = buildVideoFromRequest(req, videoKey);
 
     await video.save();
     await associateVideoWithFigure(video.associatedObject, video._id);

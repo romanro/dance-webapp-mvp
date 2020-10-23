@@ -104,9 +104,8 @@ const buildpracticeItemFromRequest = (req: Request, video: IVideo): IPracticeIte
 }
 
 export const addPracticeItem = async (req: Request, res: Response) => {
-    const videoUrl = (req.file as any).location;
     const videoKey = (req.file as any).key;
-    const video = buildVideoFromRequest(req, videoUrl, videoKey);
+    const video = buildVideoFromRequest(req, videoKey);
     await video.save();
     await associateVideoWithStarVideo(video.associatedObject, video._id);
 
