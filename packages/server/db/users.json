@@ -19,7 +19,7 @@
   "tokens": [],
   "practiceItems": [
     {
-      "$oid": "5f53f6d16ffba730ca8df601"
+      "$oid": "5f92bbefb548833e2ac36ac1"
     }
   ],
   "email": "ohad2121@gmail.com",
@@ -28,7 +28,7 @@
     "$date": "2020-09-05T19:25:04.945Z"
   },
   "updatedAt": {
-    "$date": "2020-09-05T20:36:33.744Z"
+    "$date": "2020-10-23T11:18:07.526Z"
   },
   "__v": 0,
   "emailVerificationToken": "5f53b898a8ee00bc3ee2b3ca21ff78a4"

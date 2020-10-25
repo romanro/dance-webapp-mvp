@@ -1,7 +1,8 @@
 <div class="lab-tool-wrapper video-wrapper"
      [ngClass]="{'linked':synchronized, 'fullscreen':fullscreen}">
 
-  <div class="controls-row">
+  <div *ngIf="masterVideo && studentVideo"
+       class="controls-row">
     <div class="left-side">
       <div role="button"
            class="icon"

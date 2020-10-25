@@ -17,7 +17,14 @@ export const getPracticeItems = async (req: Request, res: Response) => {
         path: 'practiceItems',
         populate: {
             path: 'video',
-            //select: '' // TODO: select is needed
+            populate: {
+                model: 'Video',
+                path: 'associatedObject',
+                populate: {
+                    model: 'Figure',
+                    path: 'associatedObject',
+                }
+            }
         }
     }).execPopulate();
 
@@ -55,7 +62,17 @@ export const getPracticeItemById = async (practiceItemId: mongoose.Types.ObjectI
     new Promise((resolve, reject) => {
         PracticeItem.findById(practiceItemId)
             //.select() // TODO: select is needed
-            .populate("video")
+            .populate({
+                path: 'video',
+                populate: {
+                    model: 'Video',
+                    path: 'associatedObject',
+                    populate: {
+                        model: 'Figure',
+                        path: 'associatedObject',
+                    }
+                }
+            })
             .exec()
             .then(practiceItem => {
                 if (!practiceItem) {
@@ -94,9 +111,8 @@ const buildpracticeItemFromRequest = (req: Request, video: IVideo): IPracticeIte
 }
 
 export const addPracticeItem = async (req: Request, res: Response) => {
-    const videoUrl = (req.file as any).location;
     const videoKey = (req.file as any).key;
-    const video = buildVideoFromRequest(req, videoUrl, videoKey);
+    const video = buildVideoFromRequest(req, videoKey);
     await video.save();
     await associateVideoWithStarVideo(video.associatedObject, video._id);
 
@@ -161,7 +177,10 @@ export const deletePracticeItem = async (req: Request, res: Response) => {
 export const editPracticeItem = async (req: Request, res: Response) => {
     const practiceItemId = new mongoose.mongo.ObjectId(req.params.practiceItemId);
     const practiceItem = await getPracticeItemById(practiceItemId);
+    // TODO: fix this warnings
     practiceItem.name = req.body.name;
+    practiceItem.notes = req.body.notes ?? "";
+
     await practiceItem.save();
 
     res.status(200).json({

@@ -16,13 +16,20 @@ const videoSchema = new mongoose.Schema(
         thumbnail: { type: String },
 
         key: { type: String, required: true },
-        path: { type: String, required: true },
         type: { type: EnumVideoType, enum: possibleVideoTypes, required: true },
         view: { type: EnumView, enum: possibleViews },
         participatesAmount: { type: EnumParticipatesAmount, enum: possibleParticipatesAmounts },
     },
     { timestamps: true }
 );
+
+videoSchema.set('toJSON', {
+    virtuals: true
+});
+
+videoSchema.virtual('path').get(function (this: { key: string }) {
+    return process.env.AWS_BUCKET_PATH + this.key;
+});
 
 interface IVideoSchema extends Document {
     _id: mongoose.Types.ObjectId;

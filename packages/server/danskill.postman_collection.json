@@ -1582,13 +1582,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/videos/{{videoId}}2",
+							"raw": "{{baseURL}}/videos/{{videoId}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"videos",
-								"{{videoId}}2"
+								"{{videoId}}"
 							]
 						}
 					},
@@ -1610,8 +1610,9 @@
 								"exec": [
 									"pm.test(\"Add practice item\", function () {\r",
 									"    if (responseCode.code === 201) {\r",
-									"        const video = pm.response.json().data;\r",
-									"        pm.environment.set(\"videoId\", video._id);\r",
+									"        const practice = pm.response.json().data;\r",
+									"        pm.environment.set(\"practiceId\", practice._id);\r",
+									"        pm.environment.set(\"videoId\", practice.video);\r",
 									"    }\r",
 									"\r",
 									"    pm.response.to.have.status(201);\r",
@@ -1678,13 +1679,8 @@
 							"script": {
 								"id": "ee050f55-56f6-4af4-b80a-f711bf26c5c9",
 								"exec": [
-									"pm.test(\"Add practice item\", function () {\r",
-									"    if (responseCode.code === 201) {\r",
-									"        const video = pm.response.json().data;\r",
-									"        pm.environment.set(\"videoId\", video._id);\r",
-									"    }\r",
-									"\r",
-									"    pm.response.to.have.status(201);\r",
+									"pm.test(\"Edit practice item\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1703,7 +1699,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"fake it till you make it #222\"\n}",
+							"raw": "{\n\t\"name\": \"fake it till you make it #11\",\n    \"notes\": \"Note #1\"\n}",
 							"options": {
 								"formdata": {}
 							}
