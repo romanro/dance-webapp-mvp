@@ -26,6 +26,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     disabledNote = true;
     disabledTitle = true;
     practiceTitleInput = '';
+    practiceNotes='';
     hiddenVideo = false;
     hiddenNotes = false;
     noteButtonText = '';
@@ -69,6 +70,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                                 console.log("this.practice", this.practice)
                                 this.loading = false;
                                 this.practiceTitleInput = practice.name;
+                                this.practiceNotes = practice.notes;
                                 if (isUpdate) {
                                     window.location.reload();
 
@@ -144,10 +146,9 @@ export class PracticePageComponent implements OnInit, OnDestroy {
 
     saveChanges() {
         this.practice.name = this.practiceTitleInput;
+        this.practice.notes = this.practiceNotes;
+        console.log("this.practice", this.practice)
         this.store.dispatch(PracticesAction.BeginUpdatePracticeItemAction({payload: this.practice}));
-        // this.disabled = true;
-        // this.disabledNote = true;
-        // this.disabledTitle = true;
         this.getPractice(true);
 
 
