@@ -170,8 +170,10 @@ export const deletePracticeItem = async (req: Request, res: Response) => {
 export const editPracticeItem = async (req: Request, res: Response) => {
     const practiceItemId = new mongoose.mongo.ObjectId(req.params.practiceItemId);
     const practiceItem = await getPracticeItemById(practiceItemId);
-    // TODO: fix this warning
+    // TODO: fix this warnings
     practiceItem.name = req.body.name;
+    practiceItem.notes = req.body.notes ?? "";
+
     await practiceItem.save();
 
     res.status(200).json({

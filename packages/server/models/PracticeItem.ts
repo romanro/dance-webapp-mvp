@@ -3,9 +3,9 @@ import { IVideo } from "./Video"
 
 const practiceItemSchema = new mongoose.Schema(
     {
-        // TODO: notes should be added here  
         video: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Video' },
         name: { type: String, required: true },
+        notes: { type: String, default: "" },
     },
     { timestamps: true }
 );
@@ -13,6 +13,7 @@ const practiceItemSchema = new mongoose.Schema(
 interface IPracticeItemSchema extends Document {
     _id: mongoose.Types.ObjectId;
     name: string;
+    notes?: string;
 }
 
 interface IPracticeItemBase extends IPracticeItemSchema {
