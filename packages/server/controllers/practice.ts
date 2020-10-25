@@ -17,7 +17,14 @@ export const getPracticeItems = async (req: Request, res: Response) => {
         path: 'practiceItems',
         populate: {
             path: 'video',
-            //select: '' // TODO: select is needed
+            populate: {
+                model: 'Video',
+                path: 'associatedObject',
+                populate: {
+                    model: 'Figure',
+                    path: 'associatedObject',
+                }
+            }
         }
     }).execPopulate();
 
