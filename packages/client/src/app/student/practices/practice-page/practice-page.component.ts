@@ -67,7 +67,6 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                         practice => {
                             if (practice) {
                                 this.practice = {...practice};
-                                console.log("this.practice", this.practice)
                                 this.loading = false;
                                 this.practiceTitleInput = practice.name;
                                 this.practiceNotes = practice.notes;
@@ -106,8 +105,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     }
 
     openInLab(userVideo: LabUserVideo): void {
-        console.log(2222)
-        console.log(userVideo)
+
 
         // const labItem: LabItem = {
         //     star: this.star,
