@@ -70,6 +70,7 @@ export class LabUserVideo {
     name?: string;
     path?: string | SafeUrl;
     file?: File;
+    associatedObject: Figure
     readonly type: VideoType = VideoType.COMPARABLE;
 
     constructor(init?: Partial<LabUserVideo>) {

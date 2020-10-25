@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Practice, PracticeError} from '@app/_infra/core/models';
+import {LabItem, LabStarVideo, Practice, PracticeError, LabUserVideo, Star, Figure} from '@app/_infra/core/models';
 import {AlertErrorService} from '@app/_infra/core/services';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
@@ -9,6 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import * as UserActions from "@store/actions/user.actions";
 import * as PracticesAction from "@store/actions/practices.actions";
+import * as LabActions from "@store/actions/lab.actions";
 
 @Component({
     selector: 'dsapp-practice-page',
@@ -102,6 +103,31 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         });
     }
 
+    openInLab(userVideo: LabUserVideo): void {
+        console.log(2222)
+        console.log(userVideo)
+
+        // const labItem: LabItem = {
+        //     star: this.star,
+        //     figure: userVideo.associatedObject.associatedObject,
+        //     starVideo: userVideo.associatedObject,
+        //     userVideo? : userVideo
+        // }
+            
+
+        // this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+        //
+        // this.router.navigate(['/', 'student', 'lab']);
+
+
+        // star: Star;
+        // figure: Figure;
+        // starVideo: LabStarVideo;
+        // userVideo?: LabUserVideo;
+        // practiceIsSaved?: boolean;
+    }
+
+
     backToPractices() {
         this.router.navigate(['student/practices']);
     }
@@ -144,7 +170,9 @@ export class PracticePageComponent implements OnInit, OnDestroy {
             this.noteButtonText = this.translateButtons('PRACTICES.PRACTICE.hideNotes');
     }
 
-    translateButtons(translateTerm): string {
+    translateButtons(translateTerm)
+        :
+        string {
         let buttonText = '';
         this.translate.get(translateTerm).subscribe((res: string) => {
             buttonText = res;
