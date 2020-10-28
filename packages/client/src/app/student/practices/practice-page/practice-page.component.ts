@@ -4,12 +4,15 @@ import {LabItem, LabStarVideo, Practice, PracticeError, LabUserVideo, Star, Figu
 import {AlertErrorService} from '@app/_infra/core/services';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
+import * as starsSelectors from '@app/_infra/store/selectors/stars.selectors';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import * as UserActions from "@store/actions/user.actions";
 import * as PracticesAction from "@store/actions/practices.actions";
 import * as LabActions from "@store/actions/lab.actions";
+import * as StarsActions from "@store/actions/stars.actions";
+import * as StarContentActions from "@store/actions/stars-content.actions";
 
 @Component({
     selector: 'dsapp-practice-page',
@@ -26,13 +29,15 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     disabledNote = true;
     disabledTitle = true;
     practiceTitleInput = '';
-    practiceNotes='';
+    practiceNotes = '';
     hiddenVideo = false;
     hiddenNotes = false;
     noteButtonText = '';
     videoButtonText = '';
     storeSelectSub: Subscription = null;
     subs: Subscription[] = [];
+    starsSubs: Subscription[] = [];
+
     errorMsg: PracticeError | string = null;
 
     constructor(
@@ -105,26 +110,34 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     }
 
     openInLab(userVideo: LabUserVideo): void {
+        // const starId = userVideo.associatedObject.associatedObject.stars.toString();
+        const starId = '5f7ca0440a9ca1223e12ab38';
+        let currentStar;
+        this.starsSubs.push(
+            this.store.select(starsSelectors.selectStarById(starId)).subscribe(
+                star => {
+                    if (star) {
+                        currentStar = {...star};
+                        this.loading = false;
+                        const labItem: LabItem = {
+                            star: currentStar,
+                            figure: userVideo.associatedObject.associatedObject,
+                            starVideo: userVideo.associatedObject,
+                            userVideo? : userVideo
+                        }
+                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        this.router.navigate(['/', 'student', 'lab']);
+
+                    } else {
+                        this.store.dispatch(StarsActions.BeginGetStarsAction());
+                    }
+                })
+        )
 
 
-        // const labItem: LabItem = {
-        //     star: this.star,
-        //     figure: userVideo.associatedObject.associatedObject,
-        //     starVideo: userVideo.associatedObject,
-        //     userVideo? : userVideo
-        // }
-            
-
-        // this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
-        //
-        // this.router.navigate(['/', 'student', 'lab']);
 
 
-        // star: Star;
-        // figure: Figure;
-        // starVideo: LabStarVideo;
-        // userVideo?: LabUserVideo;
-        // practiceIsSaved?: boolean;
+
     }
 
 
@@ -145,7 +158,6 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     saveChanges() {
         this.practice.name = this.practiceTitleInput;
         this.practice.notes = this.practiceNotes;
-        console.log("this.practice", this.practice)
         this.store.dispatch(PracticesAction.BeginUpdatePracticeItemAction({payload: this.practice}));
         this.getPractice(true);
 

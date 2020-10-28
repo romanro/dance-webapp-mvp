@@ -12,6 +12,7 @@ export class StarsService {
   constructor(private baseRestService: BaseRestService) { }
 
   getStars(): Observable<Star[]> {
+    console.log(222222)
     return this.baseRestService.get<StarsRestResponse>('stars').pipe(map(res => {
       return res.data ? res.data : [];
     }));
