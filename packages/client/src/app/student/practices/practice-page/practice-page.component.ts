@@ -110,8 +110,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     }
 
     openInLab(userVideo: LabUserVideo): void {
-        // const starId = userVideo.associatedObject.associatedObject.stars.toString();
-        const starId = '5f7ca0440a9ca1223e12ab38';
+        const starId = userVideo.associatedObject.associatedObject.stars.toString();
         let currentStar;
         this.starsSubs.push(
             this.store.select(starsSelectors.selectStarById(starId)).subscribe(
