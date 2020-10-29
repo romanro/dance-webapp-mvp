@@ -31,6 +31,8 @@
             </ui-video-player-wrapper>
         </div>
     </div>
+    <button class="btn btn-sm mb-2 btn-success"
+            (click)="openInLab(practice.video)">{{'STAR.FIGURES.openInMyLab' | translate}}</button>
     <div class="row mb-4 justify-content-between">
         <div class="col-4">
             <button class="hide-btn"
@@ -46,7 +48,9 @@
              [hidden]="hiddenNotes">
             <textarea [disabled]="disabledNote"
                       class="form-control"
-                      rows="4"></textarea>
+                      rows="4"
+                      [(ngModel)]="practiceNotes"
+            ></textarea>
         </div>
     </div>
     <div class="row text-center">

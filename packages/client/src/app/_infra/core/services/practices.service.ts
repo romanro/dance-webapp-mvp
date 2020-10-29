@@ -30,7 +30,7 @@ export class PracticesService {
     }
 
     updatePractice(practice: Practice): Observable<Practice> {
-        return this.baseRestService.patch<UpdatePracticeItemsRestResponse>(`account/practices/${practice._id}`, {name: practice.name}).pipe(
+        return this.baseRestService.patch<UpdatePracticeItemsRestResponse>(`account/practices/${practice._id}`, {name: practice.name, notes: practice.notes}).pipe(
             map(
                 res => {
                     if (res.success) {

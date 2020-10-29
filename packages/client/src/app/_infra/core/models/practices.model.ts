@@ -6,7 +6,8 @@ export class Practice {
   video: Video;
   createdAt: string;
   updatedAt: string;
-  _v: number
+  _v: number;
+  notes: string;
 
 }
 
