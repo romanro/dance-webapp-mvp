@@ -130,6 +130,10 @@ export class LabPageComponent implements OnInit, OnDestroy {
     this.practiceIsSaved = true;
 
     this.updateLabStore();
+
+    setTimeout(()=>{
+      this.practiceIsSaved = false;
+    }, 3000)
   }
 
   ngOnDestroy(): void {
