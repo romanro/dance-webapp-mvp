@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LabItem, LabStarVideo, Practice, PracticeError, LabUserVideo, Star, Figure} from '@app/_infra/core/models';
+import {LabItem, Practice, PracticeError, LabUserVideo} from '@app/_infra/core/models';
 import {AlertErrorService} from '@app/_infra/core/services';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
@@ -8,11 +8,8 @@ import * as starsSelectors from '@app/_infra/store/selectors/stars.selectors';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
-import * as UserActions from "@store/actions/user.actions";
-import * as PracticesAction from "@store/actions/practices.actions";
-import * as LabActions from "@store/actions/lab.actions";
-import * as StarsActions from "@store/actions/stars.actions";
-import * as StarContentActions from "@store/actions/stars-content.actions";
+import * as PracticesAction from '@store/actions/practices.actions';
+import * as StarsActions from '@store/actions/stars.actions';
 
 @Component({
     selector: 'dsapp-practice-page',
