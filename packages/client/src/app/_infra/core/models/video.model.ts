@@ -1,7 +1,6 @@
 import { SafeUrl } from '@angular/platform-browser';
 
 import { Figure } from './figure.model';
-import { Star } from './star.model';
 
 
 export interface Video {
@@ -71,7 +70,6 @@ export class LabUserVideo {
     name?: string;
     path?: string | SafeUrl;
     file?: File;
-    associatedObject: AssociatedObject
     readonly type: VideoType = VideoType.COMPARABLE;
 
     constructor(init?: Partial<LabUserVideo>) {
@@ -80,11 +78,4 @@ export class LabUserVideo {
 }
 
 
-export class AssociatedObject {
-    associatedObject?: Figure
-
-    constructor(init?: Partial<LabUserVideo>) {
-        Object.assign(this, init);
-    }
-}
 

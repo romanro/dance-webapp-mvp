@@ -126,13 +126,10 @@ export class LabPageComponent implements OnInit, OnDestroy {
     data.append('video', this.userVideo.file);
 
     this.backgroundProcessesService.uploadPractice(data, `upload_practice_${this.userStamp}`);
+
     this.practiceIsSaved = true;
 
     this.updateLabStore();
-
-    setTimeout(() =>{
-      this.practiceIsSaved = false;
-    }, 4000)
   }
 
   ngOnDestroy(): void {

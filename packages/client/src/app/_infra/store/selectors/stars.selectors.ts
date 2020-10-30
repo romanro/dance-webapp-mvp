@@ -21,16 +21,6 @@ export const selectStarBySlug = (slug: string) => createSelector(
     }
 )
 
-export const selectStarById = (starId: string) => createSelector(
-    selectStars, (allStars) => {
-        if (!t(allStars, 'stars').isNullOrUndefined) {
-            return t(allStars, 'stars').safeArray.find(star => star._id === starId);
-        } else {
-            return null;
-        }
-    }
-)
-
 export const selectStarsError = () => createSelector(
     selectStars, (result) => {
         return result ? t(result, 'error').safeObject : null
