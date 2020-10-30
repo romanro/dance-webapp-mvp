@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LabItem, Practice, PracticeError, LabUserVideo} from '@app/_infra/core/models';
+import {LabItem, LabStarVideo, Practice, PracticeError, LabUserVideo, Star, Figure} from '@app/_infra/core/models';
 import {AlertErrorService} from '@app/_infra/core/services';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
@@ -9,6 +9,7 @@ import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import * as PracticesAction from '@store/actions/practices.actions';
+import * as LabActions from '@store/actions/lab.actions';
 import * as StarsActions from '@store/actions/stars.actions';
 
 @Component({
@@ -121,8 +122,8 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                             starVideo: userVideo.associatedObject,
                             userVideo,
                         }
-                        // this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
-                        // this.router.navigate(['/', 'student', 'lab']);
+                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        this.router.navigate(['/', 'student', 'lab']);
 
                     } else {
                         this.store.dispatch(StarsActions.BeginGetStarsAction());
