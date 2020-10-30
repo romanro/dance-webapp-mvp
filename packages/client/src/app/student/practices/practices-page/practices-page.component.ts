@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewChecked } from '@angular/core';
 import { AlertErrorService } from '@app/_infra/core/services';
 import * as PracticesActions from '@app/_infra/store/actions/practices.actions';
 import { Practice, PracticeError } from '@core/models';
 import * as selectors from '@infra/store/selectors/practices.selector';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './practices-page.component.html'
 })
 
-export class PracticesPageComponent implements OnInit, OnDestroy {
+export class PracticesPageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loading = true;
   errorMsg: PracticeError | string = null;
@@ -29,16 +30,20 @@ export class PracticesPageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   searchTerm = '';
   selectedValue = '';
-  isPracticesOnThisMonth = true;
+  isPracticesOnThisMonth;
 
   constructor(
       private store: Store<any>,
-      private errorService: AlertErrorService
+      private errorService: AlertErrorService,
+      private cdRef:ChangeDetectorRef
   ) {
     this.currentDate = this.lastDate;
   }
 
-
+  ngAfterViewChecked()
+  {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit() {
 

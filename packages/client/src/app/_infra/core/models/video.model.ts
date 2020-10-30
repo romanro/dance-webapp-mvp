@@ -69,10 +69,8 @@ export class LabStarVideo implements Video {
 export class LabUserVideo {
     associatedModel: string;
     associatedObject: any;
-    createdAt: string;
-    id: string;
-    key: string;
-    ownerUser: string;
+    createdAt?: string;
+    ownerUser?: string;
     path?: string | SafeUrl;
     name?: string;
     updatedAt?: string;
