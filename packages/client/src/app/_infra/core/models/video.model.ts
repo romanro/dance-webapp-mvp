@@ -67,8 +67,17 @@ export class LabStarVideo implements Video {
 }
 
 export class LabUserVideo {
-    name?: string;
+    associatedModel: string;
+    associatedObject: any;
+    createdAt: string;
+    id: string;
+    key: string;
+    ownerUser: string;
     path?: string | SafeUrl;
+    name?: string;
+    updatedAt?: string;
+    _v?: string;
+    _id?: string;
     file?: File;
     readonly type: VideoType = VideoType.COMPARABLE;
 

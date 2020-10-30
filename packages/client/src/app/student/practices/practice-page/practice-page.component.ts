@@ -113,7 +113,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         const starId = userVideo.associatedObject.associatedObject.stars.toString();
         let currentStar;
         this.starsSubs.push(
-            this.store.select(starsSelectors.selectStarById(starId)).subscribe(
+            this.store.select(starsSelectors.selectStarById('5f7ca0440a9ca1223e12ab38')).subscribe(
                 star => {
                     if (star) {
                         currentStar = {...star};
@@ -122,10 +122,10 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                             star: currentStar,
                             figure: userVideo.associatedObject.associatedObject,
                             starVideo: userVideo.associatedObject,
-                            userVideo? : userVideo
+                            userVideo,
                         }
-                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
-                        this.router.navigate(['/', 'student', 'lab']);
+                        // this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        // this.router.navigate(['/', 'student', 'lab']);
 
                     } else {
                         this.store.dispatch(StarsActions.BeginGetStarsAction());
