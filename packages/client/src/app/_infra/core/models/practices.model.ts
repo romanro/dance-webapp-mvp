@@ -7,6 +7,7 @@ export class Practice {
   createdAt: string;
   updatedAt: string;
   _v: number
+  notes: string
 
 }
 

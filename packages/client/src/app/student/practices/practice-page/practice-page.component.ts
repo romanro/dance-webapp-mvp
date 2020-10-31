@@ -1,14 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Practice, PracticeError} from '@app/_infra/core/models';
+import {LabItem, LabStarVideo, Practice, PracticeError, LabUserVideo, Star, Figure} from '@app/_infra/core/models';
 import {AlertErrorService} from '@app/_infra/core/services';
 import * as PracticeAction from '@app/_infra/store/actions/practices.actions';
 import * as selectors from '@app/_infra/store/selectors/practices.selector';
+import * as starsSelectors from '@app/_infra/store/selectors/stars.selectors';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
-import * as UserActions from "@store/actions/user.actions";
-import * as PracticesAction from "@store/actions/practices.actions";
+import * as PracticesAction from '@store/actions/practices.actions';
+import * as LabActions from '@store/actions/lab.actions';
+import * as StarsActions from '@store/actions/stars.actions';
 
 @Component({
     selector: 'dsapp-practice-page',
@@ -25,12 +27,15 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     disabledNote = true;
     disabledTitle = true;
     practiceTitleInput = '';
+    practiceNotes = '';
     hiddenVideo = false;
     hiddenNotes = false;
     noteButtonText = '';
     videoButtonText = '';
     storeSelectSub: Subscription = null;
     subs: Subscription[] = [];
+    starsSubs: Subscription[] = [];
+
     errorMsg: PracticeError | string = null;
 
     constructor(
@@ -65,8 +70,10 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                         practice => {
                             if (practice) {
                                 this.practice = {...practice};
+                                console.log("this.practice", this.practice)
                                 this.loading = false;
                                 this.practiceTitleInput = practice.name;
+                                this.practiceNotes = practice.notes;
                                 if (isUpdate) {
                                     window.location.reload();
 
@@ -101,6 +108,37 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         });
     }
 
+    openInLab(userVideo: LabUserVideo): void {
+        const starId = userVideo.associatedObject.associatedObject.stars.toString();
+        let currentStar;
+        this.starsSubs.push(
+            this.store.select(starsSelectors.selectStarById('5f7ca0440a9ca1223e12ab38')).subscribe(
+                star => {
+                    if (star) {
+                        currentStar = {...star};
+                        this.loading = false;
+                        const labItem: LabItem = {
+                            star: currentStar,
+                            figure: userVideo.associatedObject.associatedObject,
+                            starVideo: userVideo.associatedObject,
+                            userVideo,
+                        }
+                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        this.router.navigate(['/', 'student', 'lab']);
+
+                    } else {
+                        this.store.dispatch(StarsActions.BeginGetStarsAction());
+                    }
+                })
+        )
+
+
+
+
+
+    }
+
+
     backToPractices() {
         this.router.navigate(['student/practices']);
     }
@@ -117,10 +155,8 @@ export class PracticePageComponent implements OnInit, OnDestroy {
 
     saveChanges() {
         this.practice.name = this.practiceTitleInput;
+        this.practice.notes = this.practiceNotes;
         this.store.dispatch(PracticesAction.BeginUpdatePracticeItemAction({payload: this.practice}));
-        // this.disabled = true;
-        // this.disabledNote = true;
-        // this.disabledTitle = true;
         this.getPractice(true);
 
 
@@ -143,7 +179,9 @@ export class PracticePageComponent implements OnInit, OnDestroy {
             this.noteButtonText = this.translateButtons('PRACTICES.PRACTICE.hideNotes');
     }
 
-    translateButtons(translateTerm): string {
+    translateButtons(translateTerm)
+        :
+        string {
         let buttonText = '';
         this.translate.get(translateTerm).subscribe((res: string) => {
             buttonText = res;
