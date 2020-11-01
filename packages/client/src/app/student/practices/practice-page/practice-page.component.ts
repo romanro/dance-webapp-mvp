@@ -50,7 +50,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
         this.translateContent()
-        this.getPractice(false);
+        this.getPractice(false, null);
 
     }
 
@@ -61,7 +61,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         this.subs.forEach(s => s.unsubscribe());
     }
 
-    getPractice(isUpdate) {
+    getPractice(isUpdate, practiceNotes) {
         this.subs.push(
             this.route.paramMap.subscribe(params => {
                 this.practiceId = params.get('practiceId');
@@ -76,6 +76,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                                 if (isUpdate) {
                                     this.disabled = true;
                                     this.disabledNote = true;
+                                    this.practiceNotes = practiceNotes;
                                 }
                             } else {
                                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
@@ -153,7 +154,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         this.practice.name = this.practiceTitleInput;
         this.practice.notes = this.practiceNotes;
         this.store.dispatch(PracticesAction.BeginUpdatePracticeItemAction({payload: this.practice}));
-        this.getPractice(true);
+        this.getPractice(true, this.practice.notes);
 
 
     }
