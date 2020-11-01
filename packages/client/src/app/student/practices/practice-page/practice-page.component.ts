@@ -112,7 +112,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         const starId = userVideo.associatedObject.associatedObject.stars.toString();
         let currentStar;
         this.starsSubs.push(
-            this.store.select(starsSelectors.selectStarById('5f7ca0440a9ca1223e12ab38')).subscribe(
+            this.store.select(starsSelectors.selectStarById(starId)).subscribe(
                 star => {
                     if (star) {
                         currentStar = {...star};

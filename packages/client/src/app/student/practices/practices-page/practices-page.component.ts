@@ -59,7 +59,6 @@ export class PracticesPageComponent implements OnInit, OnDestroy, AfterViewCheck
             res => {
               if (res) {
                 this.practices = [...res];
-                console.log("this.practices", this.practices)
                 this.loading = false;
               } else {
                 this.store.dispatch(PracticesActions.BeginGetPracticesAction());
