@@ -50,7 +50,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
         this.translateContent()
-        this.getPractice(false);
+        this.getPractice(false, null);
 
     }
 
@@ -61,7 +61,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         this.subs.forEach(s => s.unsubscribe());
     }
 
-    getPractice(isUpdate) {
+    getPractice(isUpdate, practiceNotes) {
         this.subs.push(
             this.route.paramMap.subscribe(params => {
                 this.practiceId = params.get('practiceId');
@@ -70,13 +70,13 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                         practice => {
                             if (practice) {
                                 this.practice = {...practice};
-                                console.log("this.practice", this.practice)
                                 this.loading = false;
                                 this.practiceTitleInput = practice.name;
                                 this.practiceNotes = practice.notes;
                                 if (isUpdate) {
-                                    window.location.reload();
-
+                                    this.disabled = true;
+                                    this.disabledNote = true;
+                                    this.practiceNotes = practiceNotes;
                                 }
                             } else {
                                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
@@ -123,7 +123,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                             starVideo: userVideo.associatedObject,
                             userVideo,
                         }
-                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        this.store.dispatch(LabActions.SetLabAction({payload: labItem}));
                         this.router.navigate(['/', 'student', 'lab']);
 
                     } else {
@@ -131,9 +131,6 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                     }
                 })
         )
-
-
-
 
 
     }
@@ -157,7 +154,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
         this.practice.name = this.practiceTitleInput;
         this.practice.notes = this.practiceNotes;
         this.store.dispatch(PracticesAction.BeginUpdatePracticeItemAction({payload: this.practice}));
-        this.getPractice(true);
+        this.getPractice(true, this.practice.notes);
 
 
     }
