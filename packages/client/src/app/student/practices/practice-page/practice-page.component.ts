@@ -70,13 +70,12 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                         practice => {
                             if (practice) {
                                 this.practice = {...practice};
-                                console.log("this.practice", this.practice)
                                 this.loading = false;
                                 this.practiceTitleInput = practice.name;
                                 this.practiceNotes = practice.notes;
                                 if (isUpdate) {
-                                    window.location.reload();
-
+                                    this.disabled = true;
+                                    this.disabledNote = true;
                                 }
                             } else {
                                 this.store.dispatch(PracticeAction.BeginGetPracticesAction());
@@ -123,7 +122,7 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                             starVideo: userVideo.associatedObject,
                             userVideo,
                         }
-                        this.store.dispatch(LabActions.SetLabAction({ payload: labItem }));
+                        this.store.dispatch(LabActions.SetLabAction({payload: labItem}));
                         this.router.navigate(['/', 'student', 'lab']);
 
                     } else {
@@ -131,9 +130,6 @@ export class PracticePageComponent implements OnInit, OnDestroy {
                     }
                 })
         )
-
-
-
 
 
     }
