@@ -23,6 +23,12 @@ const reducer = createReducer(
     on(PracticesActions.SuccessGetPracticesAction, (state: PracticesState, {payload}) => {
         return {...state, practices: payload, error: null};
     }),
+    on(PracticesActions.SuccessUpdatePracticeItemAction, (state: PracticesState, {payload}) => {
+        console.log("payload", payload)
+        const x = {...state, practices: state.practices.map(practiceItem => practiceItem._id === payload._id ? practiceItem = payload : practiceItem ), error: null};
+        console.log("x", x)
+        return {...state, practices: state.practices.map(practiceItem => practiceItem._id === payload._id ? practiceItem = payload : practiceItem ), error: null};
+    }),
 );
 
 
