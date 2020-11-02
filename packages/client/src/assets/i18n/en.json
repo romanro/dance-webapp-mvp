@@ -137,8 +137,8 @@
     }
   },
   "ABOUT": {
-    "title": "About DanSkill Application",
-    "AppVersion": "Application version:"
+    "title": "About DanSkill",
+    "content": "Danskill is an online learning platform that brings to you all the necessary tools needed to study and practice the world's best athletes' coordination skills, using state of the art technology."
   },
   "PRACTICES": {
     "title": "Practices",
