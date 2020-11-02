@@ -27,7 +27,7 @@
                              [src]="masterVideo.path"
                              [poster]="masterVideo.thumbnail"
                              [synchronized]="synchronized"
-                             [preview]="!studentVideo"
+                             [preview]="false"
                              (durationEvent)="masterPlayerDuration($event)"
                              (playerEvent)="masterPLayerEvent($event)"
                              (playerStateChange)="masterPLayerStateChange($event)"
