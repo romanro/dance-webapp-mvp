@@ -8,7 +8,7 @@ export enum PracticesActionType {
     SuccessGetPracticesAction = '[practices] - Success Get practices',
     updatePracticeItemAction = '[practices] - Update practice item',
     BeginUpdatePracticeItemAction = '[practices] - Begin update practice item',
-    SuccessUpdatePracticeItemAction = '[practices] - Success update practice item',
+    SuccessUpdatePracticeItemAction = '[practice] - Success update practice item',
     ErrorPracticesAction = '[practices] - Error'
 }
 
