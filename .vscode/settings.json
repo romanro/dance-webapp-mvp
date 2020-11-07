@@ -13,5 +13,7 @@
     },
     "eslint.workingDirectories": [
         "packages/server",
-    ]
+    ],
+    "html.format.wrapAttributes": "force-aligned",
+    "html.format.wrapLineLength": 0
 }
