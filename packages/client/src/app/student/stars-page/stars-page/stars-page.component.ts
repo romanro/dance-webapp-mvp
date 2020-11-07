@@ -89,7 +89,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
       let tempFiltered = [];
       if (searchString) {
 
-        searchString = searchString.toLocaleLowerCase();
+        searchString = searchString.toLocaleLowerCase().trim();
         tempFiltered = this.stars.filter(star => {
           const starName = this.getStarNameString(star.name);
           if (starName.indexOf(searchString) !== -1) {
@@ -129,7 +129,7 @@ export class StarsPageComponent implements OnInit, OnDestroy {
   }
 
   getStarNameString(name: Name): string {
-    return `${name.lastName}${name.firstName}${name.nickname ? name.nickname : ''}`.toLocaleLowerCase();
+    return `${name.firstName} ${name.lastName} ${name.nickname ? name.nickname : ''}`.toLocaleLowerCase();
   }
 
   tryAgain() {

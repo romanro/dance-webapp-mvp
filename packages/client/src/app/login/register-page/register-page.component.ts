@@ -32,7 +32,7 @@ export class RegisterPageComponent implements OnInit {
           Validators.compose([Validators.required, Validators.email])
         ],
         password: ['', Validators.compose(PASSWORD_VALIDATORS)],
-        confirmPassword: [null, Validators.compose([Validators.required])],
+        confirmPassword: ['', Validators.compose([Validators.required])],
         name: this.formBuilder.group({
           firstName: ['', [Validators.required]],
           lastName: ['', [Validators.required]]
